@@ -21,10 +21,10 @@ dist/
 
 # Maven
 target/
-dist/
 
 # JetBrains IDE
 .idea/
+venv/
 
 # Unit test reports
 TEST*.xml
@@ -48,3 +48,9 @@ Thumbs.db
 *.mov
 *.wmv
 
+# Logs Library
+/latest_logs
+/archived_logs
+/Reports
+dashboard.html
+Dockerfile
