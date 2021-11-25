@@ -4,11 +4,11 @@ cp ={
     "browserstack.key": "VD3gsZgUhKyYYmvgiz7b",
 
     # Set URL of the application under test
-    "app": "bs://f1986c751dc46fb87dba4d7513a56727edb34271",
+    "app": None,
 
     # Specify device and os_version for testing
-    "device": "iPhone 11",
-    "os_version": "14",
+    "device": "Samsung",
+    "os_version": "11.0",
 
     # Set other BrowserStack capabilities
     "project": "Siminvest APP QA",
