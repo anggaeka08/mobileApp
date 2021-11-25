@@ -1,4 +1,4 @@
-{
+cp = {
   "appPackage": "com.simas.siminvest",
   "appActivity": "com.simas.siminvest.MainActivity",
   "platformName": "Android",
