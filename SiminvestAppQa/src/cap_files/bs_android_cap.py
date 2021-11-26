@@ -1,19 +1,19 @@
 cp ={
     # Set your access credentials
-    "browserstack.user": "manish_dxNy3J",
-    "browserstack.key": "VD3gsZgUhKyYYmvgiz7b",
+    "browserstack.user": "pawan_N1RjdY",
+    "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
 
     # Set URL of the application under test
-    "app": None,
+    "app": "bs://e81f19614efe3e8a96d992785332b2c0cbdc3ac7",
 
     # Specify device and os_version for testing
-    "device": "Samsung",
-    "os_version": "11.0",
+    "device": "Samsung Galaxy S20 Plus",
+    "os_version": "10.0",
 
     # Set other BrowserStack capabilities
     "project": "Siminvest APP QA",
-    "build": "iOS 1.40.12",
-    "name": "UI_Test",
+    "build": "Android 1.42.8",
+    "name": "UI_Test Android",
 
     # Set Specific capabilities regarding test
     'autoAcceptAlerts': 'true'
