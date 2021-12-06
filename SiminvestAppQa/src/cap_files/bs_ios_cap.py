@@ -4,7 +4,7 @@ cp ={
     "browserstack.key": "VD3gsZgUhKyYYmvgiz7b",
 
     # Set URL of the application under test
-    "app": "bs://f1986c751dc46fb87dba4d7513a56727edb34271",
+    "app": "bs://b023c4897180b12605103a9fe7a01c183223268c",
 
     # Specify device and os_version for testing
     "device": "iPhone 11",
