@@ -4,7 +4,7 @@ cp ={
     "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
 
     # Set URL of the application under test
-    "app": "bs://e81f19614efe3e8a96d992785332b2c0cbdc3ac7",
+    "app": "bs://5792c0b97230a561368630091ef0ed11652f2625",
 
     # Specify device and os_version for testing
     "device": "Samsung Galaxy S20 Plus",
