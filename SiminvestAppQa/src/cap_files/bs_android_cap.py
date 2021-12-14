@@ -4,7 +4,7 @@ cp ={
     "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
 
     # Set URL of the application under test
-    "app": "bs://5792c0b97230a561368630091ef0ed11652f2625",
+    "app": "bs://0492ee3deab9606642b6149168ebdeac38d9af04",
 
     # Specify device and os_version for testing
     "device": "Samsung Galaxy S20 Plus",
@@ -16,5 +16,6 @@ cp ={
     "name": "UI_Test Android",
 
     # Set Specific capabilities regarding test
-    'autoAcceptAlerts': 'true'
+    'autoAcceptAlerts': 'true',
+    "browserstack.local": "true"
 }
