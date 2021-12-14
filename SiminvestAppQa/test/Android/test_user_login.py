@@ -10,7 +10,7 @@ HomePage = HomePage()
 @pytest.mark.Android
 def test_login_with_valid_mobile_no():
     LoginPage.click_mulai_sekarang()
-    LoginPage.type_mobile_no("8441234587")
+    LoginPage.type_mobile_no("8441245878")
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp("1234")
     LoginPage.set_pin("123456")

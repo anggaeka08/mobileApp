@@ -39,7 +39,8 @@ class LoginPage(BaseCase):
         self.set_text(otp_enter, otp)
 
     def set_pin(self,pin):
-        os.system(f"start /wait cmd /c adb shell input text {pin}")
+        #os.system(f"start /wait cmd /c adb shell input text {pin}")
+        self.execute_script('mobile: shell', {'command': 'input text', 'args': pin})
 
     def verify_risk_profile_page(self):
         #self.assert_element_present(risk_profile)
