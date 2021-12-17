@@ -11,7 +11,7 @@ HomePage = HomePage()
 @pytest.mark.Android
 def test_login_with_valid_mobile_no():
     LoginPage.click_mulai_sekarang()
-    LoginPage.type_mobile_no("8441245882")
+    LoginPage.type_mobile_no("8441245890")
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp("1234")
     LoginPage.set_pin("123456")
@@ -23,6 +23,7 @@ def test_login_with_valid_mobile_no():
 @pytest.mark.SMMA_002
 @pytest.mark.Android
 def test_login_with_invalid_no_less_then_10():
+    LoginPage.launch_app_again()
     LoginPage.click_mulai_sekarang()
     LoginPage.type_mobile_no("808343")
     LoginPage.verify_selanjutnya()
@@ -31,6 +32,7 @@ def test_login_with_invalid_no_less_then_10():
 @pytest.mark.SMMA_003
 @pytest.mark.Android
 def test_login_with_valid_reg_mobile_no():
+    LoginPage.launch_app_again()
     LoginPage.click_mulai_sekarang()
     LoginPage.type_mobile_no("8445557108")
     LoginPage.click_selanjutnya()
@@ -42,6 +44,7 @@ def test_login_with_valid_reg_mobile_no():
 @pytest.mark.SMMA_009
 @pytest.mark.Android
 def test_did_not_receive_the_otp():
+    LoginPage.launch_app_again()
     LoginPage.click_mulai_sekarang()
     LoginPage.type_mobile_no("8445557108")
     LoginPage.click_selanjutnya()
@@ -51,7 +54,8 @@ def test_did_not_receive_the_otp():
 #Test case for re-enter phone no by back after otp page
 @pytest.mark.SMMA_010
 @pytest.mark.Android
-def test_did_not_receive_the_otp():
+def test_re_enter_phone_no_after_otp():
+    LoginPage.launch_app_again()
     LoginPage.click_mulai_sekarang()
     LoginPage.type_mobile_no("8445557108")
     LoginPage.click_selanjutnya()
