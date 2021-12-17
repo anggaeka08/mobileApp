@@ -11,7 +11,7 @@ HomePage = HomePage()
 @pytest.mark.Android
 def test_login_with_valid_mobile_no():
     LoginPage.click_mulai_sekarang()
-    LoginPage.type_mobile_no("8441245878")
+    LoginPage.type_mobile_no("8441245882")
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp("1234")
     LoginPage.set_pin("123456")
@@ -47,3 +47,16 @@ def test_did_not_receive_the_otp():
     LoginPage.click_selanjutnya()
     time.sleep(35)
     LoginPage.click_Kirim_Ulang()
+
+#Test case for re-enter phone no by back after otp page
+@pytest.mark.SMMA_010
+@pytest.mark.Android
+def test_did_not_receive_the_otp():
+    LoginPage.click_mulai_sekarang()
+    LoginPage.type_mobile_no("8445557108")
+    LoginPage.click_selanjutnya()
+    LoginPage.verify_otp_page_with_phone_no("8445557108")
+    LoginPage.click_back_button_otp_page()
+    LoginPage.type_mobile_no("8445557190")
+    LoginPage.click_selanjutnya()
+    LoginPage.verify_otp_page_with_phone_no("8445557190")
