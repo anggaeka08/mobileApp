@@ -30,6 +30,10 @@ otp_page_locator = "/hierarchy/android.widget.FrameLayout/android.widget.LinearL
 
 
 class LoginPage(BaseCase):
+
+    def launch_app_again(self):
+        self.launch()
+
     def click_mulai_sekarang(self):
         time.sleep(10)
         self.click(mulai_sekarang)
@@ -65,7 +69,7 @@ class LoginPage(BaseCase):
         Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
         self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
         self.sleep(2)
-        self.tearDown()
+        #self.tearDown()
 
     def enter_pin(self):
         self.sleep(2)
@@ -82,7 +86,7 @@ class LoginPage(BaseCase):
         self.click(selanjutnya)
         phone_no_page_text = self.get_attribute(phone_no_page_locator, "text")
         self.assert_equal(phone_no_page_text, phone_no_page_text)
-        self.tearDown()
+        #self.tearDown()
 
     def click_Kirim_Ulang(self):
         self.click(Kirim_Ulang_click)
