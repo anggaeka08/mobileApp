@@ -27,7 +27,12 @@ Kirim_Ulang_click = "/hierarchy/android.widget.FrameLayout/android.widget.Linear
 Kirim_Ulang_unclick = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[4]"
 otp_page_back = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView"
 otp_page_locator = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[2]"
-
+wrong_pin_msg = "Nomor telepon atau PIN salah"
+wrong_pin_msg_locator = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]"
+reset_pin_btn = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[1]/android.widget.TextView"
+pin_page_locator = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView"
+pin_page_text_dir ="Enter the SimInvest PIN"
+pin_reset_confirm = "Success"
 
 class LoginPage(BaseCase):
 
@@ -81,6 +86,16 @@ class LoginPage(BaseCase):
         self.click(click_6)
         self.sleep(2)
 
+    def enter_wrong_pin(self):
+        self.sleep(2)
+        self.click(click_1)
+        self.click(click_3)
+        self.click(click_2)
+        self.click(click_5)
+        self.click(click_4)
+        self.click(click_6)
+        self.sleep(2)
+
     def verify_selanjutnya(self):
         self.sleep(2)
         self.click(selanjutnya)
@@ -99,3 +114,18 @@ class LoginPage(BaseCase):
     def verify_otp_page_with_phone_no(self, phone_no):
         otp_page_text = self.get_attribute(otp_page_locator, "text")
         self.assert_equal(otp_page_text, f"Kami mengirimkan kode melalui SMS ke nomor  +62{phone_no}")
+
+    def wrong_pin_message(self):
+        wrong_pin_text = self.get_attribute(wrong_pin_msg_locator, "text")
+        self.assert_equal(wrong_pin_msg, wrong_pin_text)
+
+    def click_on_reset_pin(self):
+        self.click(reset_pin_btn)
+
+    def verify_redicrect_to_pin_page(self):
+        pin_page_text = self.get_attribute(pin_page_locator, "text")
+        self.assert_equal(pin_page_text_dir , pin_page_text)
+
+    def confirm_pin_reset(self):
+        pin_page_text = self.get_attribute(pin_page_locator, "text")
+        self.assert_equal(pin_reset_confirm , pin_page_text)
