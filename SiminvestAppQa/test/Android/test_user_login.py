@@ -65,10 +65,10 @@ def test_re_enter_phone_no_after_otp():
     LoginPage.click_selanjutnya()
     LoginPage.verify_otp_page_with_phone_no("8445557190")
 
-#Test case for check_login_with_reset_code_functionality
+#Test case for check_login_with_reset_code_functionality after pin error
 @pytest.mark.SMMA_013
 @pytest.mark.Android
-def test_check_login_with_reset_code_functionality():
+def test_check_login_with_reset_code_functionality_after_pin_error():
     LoginPage.launch_app_again()
     LoginPage.click_mulai_sekarang()
     LoginPage.type_mobile_no("8445557108")
@@ -98,3 +98,23 @@ def test_check_valid_input_security_code_flow():
     LoginPage.enter_otp("1234")
     LoginPage.enter_pin()
     LoginPage.verify_home_page_reg_user()
+
+#Test cases for check reset pin without failed login
+@pytest.mark.SMMA_019
+@pytest.mark.Android
+def test_check_reset_pin_funtionality_witout_failed_login():
+    #LoginPage.launch_app_again()
+    LoginPage.click_mulai_sekarang()
+    LoginPage.type_mobile_no("8445557108")
+    LoginPage.click_selanjutnya()
+    LoginPage.enter_otp("1234")
+    LoginPage.click_on_reset_pin()
+    LoginPage.enter_otp("1234")
+    time.sleep(2)
+    LoginPage.set_pin("123456")
+    time.sleep(3)
+    LoginPage.set_pin("123456")
+    time.sleep(2)
+    LoginPage.confirm_pin_reset()
+    time.sleep(10)
+    LoginPage.verify_redicrect_to_pin_page()
