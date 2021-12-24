@@ -115,7 +115,7 @@ class LoginPage(BaseCase):
         otp_page_text = self.get_attribute(otp_page_locator, "text")
         self.assert_equal(otp_page_text, f"Kami mengirimkan kode melalui SMS ke nomor  +62{phone_no}")
 
-    def wrong_pin_message(self):
+    def verify_wrong_pin_message(self):
         wrong_pin_text = self.get_attribute(wrong_pin_msg_locator, "text")
         self.assert_equal(wrong_pin_msg, wrong_pin_text)
 
