@@ -11,12 +11,13 @@ HomePage = HomePage()
 @pytest.mark.Android
 def test_login_with_valid_mobile_no():
     LoginPage.click_mulai_sekarang()
-    LoginPage.type_mobile_no("8441245890")
+    LoginPage.type_mobile_no("8441245891")
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp("1234")
     LoginPage.set_pin("123456")
     LoginPage.verify_risk_profile_page()
     LoginPage.click_agresif_profile()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page()
 
 #Test case for login with reg Number
@@ -38,6 +39,7 @@ def test_login_with_valid_reg_mobile_no():
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp("1234")
     LoginPage.enter_pin()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page_reg_user()
 
 #Test case for received again otp
@@ -97,6 +99,7 @@ def test_check_valid_input_security_code_flow():
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp("1234")
     LoginPage.enter_pin()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page_reg_user()
 
 #Test cases for check reset pin without failed login
@@ -123,7 +126,7 @@ def test_check_reset_pin_funtionality_without_failed_login():
 @pytest.mark.SMMA_020
 @pytest.mark.Android
 def test_check_invalid_input_security_code_flow():
-    #LoginPage.launch_app_again()
+    LoginPage.launch_app_again()
     LoginPage.click_mulai_sekarang()
     LoginPage.type_mobile_no("8445557108")
     LoginPage.click_selanjutnya()
@@ -143,10 +146,12 @@ def test_security_code_check_after_timeout_session():
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp("1234")
     LoginPage.enter_pin()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page_reg_user()
     LoginPage.app_in_background(300)
     time.sleep(2)
     LoginPage.enter_pin()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page_reg_user()
 
 
