@@ -133,3 +133,23 @@ def test_check_invalid_input_security_code_flow():
     LoginPage.verify_wrong_pin_message()
 
 
+#Test case for  Check the security code screen after session timeout
+@pytest.mark.SMMA_021
+@pytest.mark.Android
+def test_security_code_check_after_timeout_session():
+    LoginPage.launch_app_again()
+    LoginPage.click_mulai_sekarang()
+    LoginPage.type_mobile_no("8445557108")
+    LoginPage.click_selanjutnya()
+    LoginPage.enter_otp("1234")
+    LoginPage.enter_pin()
+    LoginPage.verify_home_page_reg_user()
+    LoginPage.app_in_background(300)
+    time.sleep(2)
+    LoginPage.enter_pin()
+    LoginPage.verify_home_page_reg_user()
+
+
+
+
+
