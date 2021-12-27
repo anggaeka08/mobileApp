@@ -129,3 +129,6 @@ class LoginPage(BaseCase):
     def confirm_pin_reset(self):
         pin_page_text = self.get_attribute(pin_page_locator, "text")
         self.assert_equal(pin_reset_confirm , pin_page_text)
+
+    def app_in_background(self, time):
+        self.app_background(time)
