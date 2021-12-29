@@ -154,7 +154,16 @@ def test_security_code_check_after_timeout_session():
     LoginPage.close_home_page_banner()
     LoginPage.verify_home_page_reg_user()
 
-
-
+#Test Case for logout user from security page
+@pytest.mark.SMMA_022
+@pytest.mark.Android
+def test_logout_feature_from_security_code_page():
+   # LoginPage.launch_app_again()
+    LoginPage.click_mulai_sekarang()
+    LoginPage.type_mobile_no("8445557108")
+    LoginPage.click_selanjutnya()
+    LoginPage.enter_otp("1234")
+    LoginPage.click_on_enterPin_logout_button()
+    LoginPage.verify_starting_page()
 
 
