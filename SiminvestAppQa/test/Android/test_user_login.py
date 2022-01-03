@@ -1,6 +1,7 @@
 import pytest
 from SiminvestAppQa.src.pages.Android_pages.login_page import LoginPage
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
+from SiminvestAppQa.src.utilities.genericUtilities import generate_random_integer
 import time
 
 LoginPage = LoginPage()
@@ -8,10 +9,10 @@ HomePage = HomePage()
 
 #Test cases for login with valid new number
 @pytest.mark.SMMA_001
-@pytest.mark.Android123
+@pytest.mark.Android
 def test_login_with_valid_mobile_no():
     LoginPage.click_mulai_sekarang()
-    LoginPage.type_mobile_no("8441245896")
+    LoginPage.type_mobile_no(generate_random_integer(length=7, prefix='844'))
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp("1234")
     LoginPage.set_pin("123456")
@@ -166,4 +167,22 @@ def test_logout_feature_from_security_code_page():
     LoginPage.click_on_enterPin_logout_button()
     LoginPage.verify_starting_page()
 
+#Test case for fingerprint enable and disable
+@pytest.mark.SMMA_015
+@pytest.mark.Android
+def test_enable_and_disable_finger_print():
+    LoginPage.launch_app_again()
+    LoginPage.click_mulai_sekarang()
+    LoginPage.type_mobile_no(generate_random_integer(length=7, prefix='844'))
+    LoginPage.click_selanjutnya()
+    LoginPage.enter_otp("1234")
+    LoginPage.set_pin(123456)
+    LoginPage.verify_risk_profile_page()
+    LoginPage.click_agresif_profile()
+    #LoginPage.close_home_page_banner()
+    LoginPage.verify_home_page()
+    LoginPage.click_on_profile_btn()
+    LoginPage.enable_finger_print()
+    time.sleep(3)
+    LoginPage.disable_finger_print()
 

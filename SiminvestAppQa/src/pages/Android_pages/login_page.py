@@ -38,7 +38,7 @@ logout_button_on_pin = "/hierarchy/android.widget.FrameLayout/android.widget.Lin
 finger_print_on_off = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView"
 finger_print_activate = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]"
 finger_print_remove = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]"
-
+profile_btn = '//android.widget.Button[@content-desc="Profile, tab, 5 of 5"]/android.view.ViewGroup'
 
 class LoginPage(BaseCase):
 
@@ -162,10 +162,13 @@ class LoginPage(BaseCase):
 
     def disable_finger_print(self):
         touch_btn_text_on = self.get_attribute(finger_print_on_off, "text")
-        self.assert_equal(touch_btn_text_on, "OFF")
+        self.assert_equal(touch_btn_text_on, "ON")
         self.click(finger_print_on_off)
         self.sleep(2)
         self.click(finger_print_remove)
         self.sleep(2)
         touch_btn_text_off = self.get_attribute(finger_print_on_off, "text")
-        self.assert_equal(touch_btn_text_off, "ON")
+        self.assert_equal(touch_btn_text_off, "OFF")
+
+    def click_on_profile_btn(self):
+        self.click(profile_btn)
