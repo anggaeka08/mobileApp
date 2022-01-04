@@ -89,7 +89,7 @@ def test_check_login_with_reset_code_functionality_after_pin_error():
     time.sleep(2)
     LoginPage.confirm_pin_reset()
     time.sleep(10)
-    LoginPage.verify_redicrect_to_pin_page()
+    LoginPage.verify_redirect_to_pin_page()
 
 #Test case for check security flow
 @pytest.mark.SMMA_018
@@ -122,7 +122,7 @@ def test_check_reset_pin_funtionality_without_failed_login():
     time.sleep(2)
     LoginPage.confirm_pin_reset()
     time.sleep(10)
-    LoginPage.verify_redicrect_to_pin_page()
+    LoginPage.verify_redirect_to_pin_page()
 
 #Test cases for check invalid input security code flow
 @pytest.mark.SMMA_020
