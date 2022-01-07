@@ -54,7 +54,10 @@ class LoginPage(BaseCase):
     def verify_mobile_no_page(self):
         mobile_no_page_text = self.get_attribute(mobile_no_page, "text")
         self.assert_equal(mobile_no_page_text, "Bagaimana kami menghubungi Kamu?")
-        pass
+
+    def verify_count_of_mobile_no(self, phone_number):
+        entered_no = self.get_attribute(text_input, "text")
+        self.assert_equal(entered_no, phone_number[:12])
 
     def type_mobile_no(self, mobile_no):
         self.update_text(text_input, mobile_no)
@@ -124,6 +127,12 @@ class LoginPage(BaseCase):
         self.click(Kirim_Ulang_click)
         text_before_otp = self.get_attribute(Kirim_Ulang_unclick, "text")
         self.assert_equal(text_before_otp, "Kirim Ulang (29)")
+
+    def verify_otp_timmer(self):
+        text_otp_timmer_before_backgd = self.get_attribute(Kirim_Ulang_unclick, "text")
+        self.app_background(10)
+        text_otp_timmer_after_backgd = self.get_attribute(Kirim_Ulang_unclick, "text")
+        self.assert_not_equal(text_otp_timmer_before_backgd, text_otp_timmer_after_backgd)
 
     def click_back_button_otp_page(self):
         self.click(otp_page_back)
