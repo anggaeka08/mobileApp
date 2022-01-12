@@ -60,3 +60,18 @@ class homePage_test(LoginPage, HomePage):
         self.verify_rdn_balance_page()
         self.click_on_riwayat_btn()
         self.verify_riwayat_page()
+
+    # Validate the screen is properly visible and user is able to swipe up and swipe down the page.
+    @pytest.mark.H_SMMA_005
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_swipe_up_and_down_on_homepage(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.scroll_up_to_down()
+        self.scroll_down_to_up()
