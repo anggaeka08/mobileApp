@@ -20,7 +20,7 @@ class homePage_test(LoginPage, HomePage):
         self.enter_pin()
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
-        self.click_global_search_btn('ACES')
+        self.click_global_search_btn_and_saerch_stock('ACES')
         self.sleep(3)
         self.click_on_stock_code()
         self.verify_sdp_page()
@@ -89,4 +89,20 @@ class homePage_test(LoginPage, HomePage):
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
         self.verify_spelling_on_homepage()
+
+    #Validate user is redirected to the global search page and the keypad is open with caps alphabet when user click on global search bar button "Cari"
+    @pytest.mark.H_SMMA_007
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_keyboard_is_open_after_click_on_global_search(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.click_global_search_btn()
+        self.verify_keyboard_on_off()
+
 
