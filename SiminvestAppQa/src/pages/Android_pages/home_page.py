@@ -55,9 +55,13 @@ profile = '//android.widget.Button[@content-desc="Profile, tab, 5 of 5"]/android
 
 class HomePage(BaseCase):
 
-    def click_global_search_btn(self, stock_code):
+    def click_global_search_btn_and_saerch_stock(self, stock_code):
         self.click(Cari_btn_before_click)
         self.update_text(cari_btn_after_click, stock_code)
+
+    def click_global_search_btn(self):
+        self.click(Cari_btn_before_click)
+        self.sleep(3)
 
     def click_on_stock_code(self):
         self.double_tap(stock_code_btn)
@@ -179,3 +183,7 @@ class HomePage(BaseCase):
         self.assert_equal(Transaction_text, "Transaction")
         Profile_text = self.get_attribute(profile, "text")
         self.assert_equal(Profile_text, "Profile")
+
+    def verify_keyboard_on_off(self):
+        keyboard_status = self.check_keyboard_shown()
+        assert keyboard_status == True, f"Keyboard is not available"
