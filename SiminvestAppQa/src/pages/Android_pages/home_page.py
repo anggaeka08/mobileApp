@@ -55,6 +55,11 @@ profile = '//android.widget.Button[@content-desc="Profile, tab, 5 of 5"]/android
 Dafter_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]'
 Masuk_locator ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.TextView[1]'
 Masuk_page_data = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.TextView[2]'
+top_up_page_header = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.TextView[1]'
+top_up_page_down = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.TextView[2]'
+Simobi_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.TextView'
+Bank_lainnya = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[3]/android.widget.TextView'
+
 
 class HomePage(BaseCase):
 
@@ -199,3 +204,19 @@ class HomePage(BaseCase):
         self.assert_equal(Masuk_locator_text, "Masuk")
         Masuk_page_data_text = self.get_attribute(Masuk_page_data, "text")
         self.assert_equal(Masuk_page_data_text, "Masukkan username, password dan pin transaksi simas equity Kamu")
+
+    def click_on_top_up_btn(self):
+        self.click(topup_btn)
+        self.sleep(2)
+
+    def verify_topup_page(self):
+        top_up_page_header_text = self.get_attribute(top_up_page_header, "text")
+        self.assert_equal(top_up_page_header_text, "Topup")
+        top_up_page_down_text = self.get_attribute(top_up_page_down, "text")
+        self.assert_equal(top_up_page_down_text, "Silahkan melakukan tranfer dana ke nomor RDN dibawah ini")
+        Simobi_btn_text = self.get_attribute(Simobi_btn, "text")
+        self.assert_equal(Simobi_btn_text, "Simobi +")
+        Bank_lainnya_text = self.get_attribute(Bank_lainnya, "text")
+        self.assert_equal(Bank_lainnya_text, "Bank lainnya")
+
+
