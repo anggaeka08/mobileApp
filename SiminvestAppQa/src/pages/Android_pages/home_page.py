@@ -52,6 +52,9 @@ Reseach ='//android.widget.Button[@content-desc="Research, tab, 2 of 5"]/android
 Portfolio = '//android.widget.Button[@content-desc="Portfolio, tab, 3 of 5"]/android.widget.TextView'
 Transaction ='//android.widget.Button[@content-desc="Transaction, tab, 4 of 5"]/android.widget.TextView'
 profile = '//android.widget.Button[@content-desc="Profile, tab, 5 of 5"]/android.widget.TextView'
+Dafter_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]'
+Masuk_locator ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.TextView[1]'
+Masuk_page_data = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.TextView[2]'
 
 class HomePage(BaseCase):
 
@@ -187,3 +190,12 @@ class HomePage(BaseCase):
     def verify_keyboard_on_off(self):
         keyboard_status = self.check_keyboard_shown()
         assert keyboard_status == True, f"Keyboard is not available"
+
+    def click_on_Daftar_masuk(self):
+        self.click(Dafter_btn)
+
+    def verify_registration_page(self):
+        Masuk_locator_text = self.get_attribute(Masuk_locator, "text")
+        self.assert_equal(Masuk_locator_text, "Masuk")
+        Masuk_page_data_text = self.get_attribute(Masuk_page_data, "text")
+        self.assert_equal(Masuk_page_data_text, "Masukkan username, password dan pin transaksi simas equity Kamu")

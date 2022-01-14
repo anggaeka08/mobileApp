@@ -105,4 +105,22 @@ class homePage_test(LoginPage, HomePage):
         self.click_global_search_btn()
         self.verify_keyboard_on_off()
 
+    # Validate user is redirected to the registration page when new user click on the "register" or "login" "Daftar masuk" button.
+    @pytest.mark.H_SMMA_008
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_redirection_for_new_user_to_the_register_page(self):
+        number = generate_random_integer(length=7, prefix='844')
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.set_pin(user_data['setup_pin_value'])
+        #self.verify_risk_profile_page()
+        #self.click_agresif_profile()
+        self.close_home_page_banner()
+        self.verify_home_page()
+        self.click_on_Daftar_masuk()
+        self.verify_registration_page()
+
 
