@@ -126,7 +126,7 @@ class homePage_test(LoginPage, HomePage):
     #Validate user User is redirected to "RDN balance" page when KYC verified user click on Saldo RDN button.
     @pytest.mark.H_SMMA_009
     @pytest.mark.Homepage
-    @pytest.mark.Android_1
+    @pytest.mark.Android
     def test_verify_rdn_page_redirect_after_click_saldo_rdn(self):
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['reg_no'])
@@ -142,7 +142,7 @@ class homePage_test(LoginPage, HomePage):
     #Validate user is redirected to the "Top Up" instruction page when user click on the Top Up button for KYC verified user.
     @pytest.mark.H_SMMA_010
     @pytest.mark.Homepage
-    @pytest.mark.Android_1
+    @pytest.mark.Android
     def test_verify_topup_page_from_rdn_page(self):
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['reg_no'])
@@ -156,3 +156,18 @@ class homePage_test(LoginPage, HomePage):
         self.verify_rdn_balance_page()
         self.click_on_top_up_btn()
         self.verify_topup_page()
+
+    #Validate the refresh icon will appear at the top when user swipe down force fully and the page should refreshed.
+    @pytest.mark.H_SMMA_011
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_refresh_homepage(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.scroll_up_to_down()
+        self.verify_home_page_reg_user()
