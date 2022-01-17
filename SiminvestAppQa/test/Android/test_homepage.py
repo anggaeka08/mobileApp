@@ -171,3 +171,18 @@ class homePage_test(LoginPage, HomePage):
         self.verify_home_page_reg_user()
         self.scroll_up_to_down()
         self.verify_home_page_reg_user()
+
+   # Validate user is redirected to indeks page when user click on indeks button.
+    @pytest.mark.H_SMMA_012
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_indeks_page_redirection(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.click_on_indeks_btn()
+        self.verify_indeks_page()
