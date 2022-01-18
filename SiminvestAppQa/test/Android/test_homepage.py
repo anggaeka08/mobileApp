@@ -216,3 +216,19 @@ class homePage_test(LoginPage, HomePage):
         self.verify_home_page_reg_user()
         self.click_on_event_btn()
         self.verify_event_page()
+
+    #Validate user is redirected to eIPO page when user click on eIPO button.
+    @pytest.mark.H_SMMA_015
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_eIPO_page_redirection(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.click_on_eipo_btn()
+        self.verify_eipo_page()
+        self.verify_eipo_entry()
