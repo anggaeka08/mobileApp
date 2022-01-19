@@ -232,3 +232,17 @@ class homePage_test(LoginPage, HomePage):
         self.click_on_eipo_btn()
         self.verify_eipo_page()
         self.verify_eipo_entry()
+
+    #Validate user is able to see the Index value "IHSG" on the center of home screen.
+    @pytest.mark.H_SMMA_019
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_homepage_stock_details(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.verify_homepage_stock()
