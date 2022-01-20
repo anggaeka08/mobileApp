@@ -293,3 +293,18 @@ class homePage_test(LoginPage, HomePage):
         self.verify_half_card_page()
         self.go_back()
         self.verify_home_page_reg_user()
+
+    #Validate user is redirected to mover page to add the stock when user click on the see more button available on extreme right side of top frequency category button.
+    @pytest.mark.H_SMMA_024
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_half_card_open_after_click_on_down_arrow(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.click_on_see_more_btn()
+        self.verify_mover_page()
