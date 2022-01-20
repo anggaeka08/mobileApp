@@ -246,3 +246,18 @@ class homePage_test(LoginPage, HomePage):
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
         self.verify_homepage_stock()
+
+    #Validate user is able to see the list of stock based on "Top Frequency" by default on quick stock status result section at square form.
+    @pytest.mark.H_SMMA_021
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_homepage_Top_frequency_details(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.verify_top_frequency_presention()
+        self.verify_stock_presence_in_top_frequency()
