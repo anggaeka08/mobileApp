@@ -86,11 +86,11 @@ class LoginPage(BaseCase):
         self.click(agresif)
 
     def verify_home_page(self):
-        self.sleep(5)
+        self.sleep(2)
         Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
         self.assert_equal(Home_page_locator_text, Home_page_text)
     def verify_home_page_reg_user(self):
-        self.sleep(5)
+        self.sleep(2)
         Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
         self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
         self.sleep(2)
