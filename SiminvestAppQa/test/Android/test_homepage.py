@@ -308,3 +308,39 @@ class homePage_test(LoginPage, HomePage):
         self.verify_home_page_reg_user()
         self.click_on_see_more_btn()
         self.verify_mover_page()
+
+    #Validate user is redirected to watchlist half card page when user is clicks on the watchlist name or ( Default ) button.
+    @pytest.mark.H_SMMA_025
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_watchlist_half_card(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.scroll_down_to_up()
+        self.click_on_default_btn()
+        self.verify_watchlist_card()
+        self.verify_watchlist_details()
+
+    #validate user is able to close the half card by swipe down and back button when user open the watchlist half card page.
+    @pytest.mark.H_SMMA_026
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_watchlist_half_card_close_by_back_btn(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.scroll_down_to_up()
+        self.click_on_default_btn()
+        self.verify_watchlist_card()
+        self.verify_watchlist_details()
+        self.go_back()
+        self.verify_home_page_reg_user()
