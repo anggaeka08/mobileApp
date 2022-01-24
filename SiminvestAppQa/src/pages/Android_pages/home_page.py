@@ -443,3 +443,27 @@ class HomePage(BaseCase):
 
     def click_top_up_from_homepage(self):
         self.click(Top_up)
+
+    def click_stock_1_from_top_frequency_list(self):
+        self.click(top_frequency_stock_1)
+
+    def verify_sdp_page_from_top_freqency_list(self):
+        stock_name_present = self.is_element_visible(stock_name)
+        assert stock_name_present == True, f"stock_name Should be present"
+        stock_buy_bttton_text = self.get_attribute(stock_buy_bttton, "text")
+        self.assert_equal(stock_buy_bttton_text, "Beli")
+        # self.is_element_visible(sdp_orderbook)
+        sdp_orderbook_text = self.get_attribute(sdp_orderbook, "text")
+        self.assert_equal(sdp_orderbook_text, "Order Book")
+        # self.is_element_visible(sdp_news)
+        sdp_news_text = self.get_attribute(sdp_news, "text")
+        self.assert_equal(sdp_news_text, "News")
+        # self.is_element_visible(sdp_keystate)
+        sdp_keystate_text = self.get_attribute(sdp_keystate, "text")
+        self.assert_equal(sdp_keystate_text, "Keystats")
+        # self.is_element_visible(sdp_profile)
+        sdp_profile_text = self.get_attribute(sdp_profile, "text")
+        self.assert_equal(sdp_profile_text, "Profile")
+        # self.is_element_visible(sdp_bid)
+        sdp_bit_text = self.get_attribute(sdp_bit, "text")
+        self.assert_equal(sdp_bit_text, "Bid")
