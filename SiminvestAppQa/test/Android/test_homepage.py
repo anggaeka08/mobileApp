@@ -344,3 +344,31 @@ class homePage_test(LoginPage, HomePage):
         self.verify_watchlist_details()
         self.go_back()
         self.verify_home_page_reg_user()
+
+    # Validate user is able to see the portfolio value with green color at center of the screen when user has completed the signup or KYC verified.
+    @pytest.mark.H_SMMA_028
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_location_of_portfolio(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.verify_portfolio_on_homepage()
+
+    # Validate user is able to see the buying power value at center of the screen when user has completed the signup or KYC verified.
+    @pytest.mark.H_SMMA_029
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_location_of_buying_power(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.verify_portfolio_on_homepage()
