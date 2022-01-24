@@ -1,4 +1,5 @@
 from appiumbase import BaseCase
+import logging as logger
 
 # sdp page Locators
 Cari_btn_before_click ='//android.view.ViewGroup[@content-desc="Browser_Stack"]/android.view.ViewGroup/android.widget.EditText'
@@ -115,6 +116,8 @@ watchlist_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLay
 watchlist_right_btn='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
 watchlist_edit_btn ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView'
 watchlist_delete_btn='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.ImageView'
+portfolioe_saham ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView[1]'
+portfolio_rp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView[2]'
 
 
 class HomePage(BaseCase):
@@ -426,3 +429,14 @@ class HomePage(BaseCase):
         assert watchlist_edit_btn_present == True, f"watchlist_edit_btn Should be present"
         watchlist_delete_btn_present = self.is_element_visible(watchlist_delete_btn)
         assert watchlist_delete_btn_present == True, f"watchlist_delete_btn Should be present"
+
+    def verify_portfolio_on_homepage(self):
+        portfolio_location =  self.get_location_of_element(Portfolio_Saham)
+        logger.info(portfolio_location)
+        assert portfolio_location == (52, 686), f"Element is not present at given location (52,686)"
+        today_location = self.get_location_of_element(today)
+        assert today_location == (52, 841), f"Element is not present at given location (52,841)"
+
+    def verify_buying_power_location(self):
+        buying_power = self.get_location_of_element(Buying_Power)
+        assert buying_power == (52, 891), f"Element is not present at given location (52,891)"
