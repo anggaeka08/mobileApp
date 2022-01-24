@@ -440,3 +440,6 @@ class HomePage(BaseCase):
     def verify_buying_power_location(self):
         buying_power = self.get_location_of_element(Buying_Power)
         assert buying_power == (52, 891), f"Element is not present at given location (52,891)"
+
+    def click_top_up_from_homepage(self):
+        self.click(Top_up)

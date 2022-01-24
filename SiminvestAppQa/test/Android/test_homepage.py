@@ -372,3 +372,18 @@ class homePage_test(LoginPage, HomePage):
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
         self.verify_portfolio_on_homepage()
+
+    #Validate user is redirected to Top up page when user click on Topup button.
+    @pytest.mark.H_SMMA_030
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_top_up_page_redirection_from_homepage(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.click_top_up_from_homepage()
+        self.verify_topup_page()
