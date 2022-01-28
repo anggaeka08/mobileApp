@@ -73,8 +73,8 @@ class homePage_test(LoginPage, HomePage):
         self.enter_pin()
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
-        self.scroll_up_to_down()
-        self.scroll_down_to_up()
+        self.scroll_up()
+        self.scroll_down()
 
     # Verify the main button is grammatically correct Example.
     @pytest.mark.H_SMMA_006
@@ -169,7 +169,7 @@ class homePage_test(LoginPage, HomePage):
         self.enter_pin()
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
-        self.scroll_up_to_down()
+        self.scroll_down()
         self.verify_home_page_reg_user()
 
    # Validate user is redirected to indeks page when user click on indeks button.
@@ -338,7 +338,7 @@ class homePage_test(LoginPage, HomePage):
         self.enter_pin()
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
-        self.scroll_down_to_up()
+        self.scroll_up()
         self.click_on_default_btn()
         self.verify_watchlist_card()
         self.verify_watchlist_details()
@@ -451,3 +451,18 @@ class homePage_test(LoginPage, HomePage):
         self.verify_home_page_reg_user()
         self.click_on_research_btn()
         self.verify_research_page()
+
+    # Validate user is redirected to the stock signal page of the stock signal when user click on the research button.
+    @pytest.mark.H_SMMA_035
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_stock_signal_presence_on_research_page(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.click_on_research_btn()
+        self.verify_stock_singl_on_research_page()
