@@ -93,7 +93,6 @@ class LoginPage(BaseCase):
         self.sleep(2)
         Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
         self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
-        self.sleep(2)
         #self.tearDown()
 
     def enter_pin(self):
@@ -195,3 +194,8 @@ class LoginPage(BaseCase):
 
     def click_on_saldo_rdn(self):
         self.click(Home_page_reg_user_locator)
+
+    def verify_home_page_reg_user_after_back_from_watchlist(self):
+        self.sleep(2)
+        Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
+        self.assert_equal(Home_page_locator_text, "Portfolio saham")
