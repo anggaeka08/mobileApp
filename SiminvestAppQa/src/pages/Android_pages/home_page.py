@@ -50,7 +50,7 @@ eipo = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/androi
 full_name_IHSG ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup[7]/android.widget.TextView[3]'
 Top_Frequency = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup[9]/android.widget.TextView'
 Home = '//android.widget.Button[@content-desc="Home, tab, 1 of 5"]/android.widget.TextView'
-Reseach ='//android.widget.Button[@content-desc="Research, tab, 2 of 5"]/android.widget.TextView'
+Research ='//android.widget.Button[@content-desc="Research, tab, 2 of 5"]/android.widget.TextView'
 Portfolio = '//android.widget.Button[@content-desc="Portfolio, tab, 3 of 5"]/android.widget.TextView'
 Transaction ='//android.widget.Button[@content-desc="Transaction, tab, 4 of 5"]/android.widget.TextView'
 profile = '//android.widget.Button[@content-desc="Profile, tab, 5 of 5"]/android.widget.TextView'
@@ -119,7 +119,11 @@ watchlist_delete_btn='/hierarchy/android.widget.FrameLayout/android.widget.Linea
 portfolioe_saham ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView[1]'
 portfolio_rp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView[2]'
 default_watchlist_entry_1='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[14]/android.view.ViewGroup/android.view.ViewGroup'
-
+research_header ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView'
+last_report = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
+news = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView'
+media = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
+Research_btn = '//android.widget.Button[@content-desc="Research, tab, 2 of 5"]/android.view.ViewGroup/android.widget.ImageView'
 class HomePage(BaseCase):
 
     def click_global_search_btn_and_saerch_stock(self, stock_code):
@@ -242,7 +246,7 @@ class HomePage(BaseCase):
         self.assert_equal(top_frequency_text, "Top frequency")
         home_text = self.get_attribute(Home, "text")
         self.assert_equal(home_text, "Home")
-        research_text = self.get_attribute(Reseach, "text")
+        research_text = self.get_attribute(Research, "text")
         self.assert_equal(research_text, "Research")
         portfolio_text = self.get_attribute(Portfolio, "text")
         self.assert_equal(portfolio_text, "Portfolio")
@@ -473,4 +477,15 @@ class HomePage(BaseCase):
         self.sleep(3)
 
     def click_on_research_btn(self):
-        self.click(Reseach)
+        self.click(Research_btn)
+        self.sleep(4)
+
+    def verify_research_page(self):
+        research_header_text = self.get_attribute(research_header, "text")
+        self.assert_equal(research_header_text, "Research")
+        last_report_present = self.is_element_visible(last_report)
+        assert last_report_present == True, f"last_report Should be present"
+        news_present = self.is_element_visible(news)
+        assert news_present == True, f"news Should be present"
+        media_present = self.is_element_visible(media)
+        assert media_present == True, f"media Should be present"
