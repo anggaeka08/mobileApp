@@ -203,13 +203,13 @@ class HomePage(BaseCase):
         riwayat_entry_3_present = self.is_element_visible(riwayat_entry_3)
         assert riwayat_entry_3_present == True, f"riwayat_entry_3 Should be present"
 
-    def scroll_up_to_down(self):
-        self.swipe_between_element(Cari_btn_before_click, default_watchlist_btn)
-        self.sleep(3)
+    def scroll_up(self):
+        self.scroll_screen(start_x=500, start_y=1820, end_x=523, end_y=809, duration=300)
+        self.sleep(2)
 
-    def scroll_down_to_up(self):
-        self.swipe_to_element(default_watchlist_btn,start_x=470, start_y=861, end_x=567, end_y=198, duration=5)
-        self.sleep(3)
+    def scroll_down(self):
+        self.scroll_screen(start_x=513, start_y=513, end_x=503, end_y=1754, duration=300)
+        self.sleep(2)
 
     def verify_spelling_on_homepage(self):
         Saham_text = self.get_attribute(Saham, "text")
@@ -431,7 +431,7 @@ class HomePage(BaseCase):
         assert watchlist_delete_btn_present == True, f"watchlist_delete_btn Should be present"
 
     def verify_portfolio_on_homepage(self):
-        portfolio_location =  self.get_location_of_element(Portfolio_Saham)
+        portfolio_location = self.get_location_of_element(Portfolio_Saham)
         logger.info(portfolio_location)
         assert portfolio_location == (52, 686), f"Element is not present at given location (52,686)"
         today_location = self.get_location_of_element(today)
@@ -470,3 +470,7 @@ class HomePage(BaseCase):
 
     def click_on_default_watchlist_entry_1(self):
         self.click(default_watchlist_entry_1)
+        self.sleep(3)
+
+    def click_on_research_btn(self):
+        self.click(Reseach)

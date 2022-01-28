@@ -415,6 +415,24 @@ class homePage_test(LoginPage, HomePage):
         self.enter_pin()
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
-        self.scroll_down_to_up()
+        self.scroll_up()
         self.click_on_default_watchlist_entry_1()
         self.verify_sdp_page_from_top_freqency_list()
+
+    #Validate user redirected on home page when user click on back button of app and of phone when user is on SDP page.
+    @pytest.mark.H_SMMA_033
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_back_btn_from_sdp_page_of_watchlist(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.scroll_up()
+        self.click_on_default_watchlist_entry_1()
+        self.verify_sdp_page_from_top_freqency_list()
+        self.go_back()
+        self.verify_home_page_reg_user_after_back_from_watchlist()
