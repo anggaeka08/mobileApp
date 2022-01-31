@@ -496,3 +496,5 @@ class homePage_test(LoginPage, HomePage):
         self.enter_pin()
         self.close_home_page_banner()
         self.verify_home_page()
+        self.click_on_portfolio_btn()
+        self.verify_portfolio_for_non_kyc_user()

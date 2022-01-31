@@ -518,7 +518,9 @@ class HomePage(BaseCase):
         self.click(portfolio_btn)
 
     def verify_portfolio_for_non_kyc_user(self):
-        investasi_sekrang_presence = self.is_element_visible(investasi_sekrang)
-        assert investasi_sekrang_presence == True, f"Investasi is available on portfolio page"
+        #investasi_sekrang_presence = self.is_element_visible(investasi_sekrang)
+        #assert investasi_sekrang_presence == True, f"Investasi is available on portfolio page"
+        investasi_sekrang_text = self.get_attribute(investasi_sekrang, "text")
+        self.assert_equal(investasi_sekrang_text, "INVESTASI SEKARANG")
         kamu_belum_text = self.get_attribute(kamu_belum, "text")
         self.assert_equal(kamu_belum_text, "Kamu belum memiliki investasi")
