@@ -465,4 +465,21 @@ class homePage_test(LoginPage, HomePage):
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
         self.click_on_research_btn()
-        self.verify_stock_singl_on_research_page()
+        self.verify_stock_signal_on_research_page()
+
+    #Validate user is gets out from the app when user clicks on the back button when user is on the research page.
+    @pytest.mark.H_SMMA_036
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_back_button_on_research_page(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.click_on_research_btn()
+        #self.verify_stock_signal_on_research_page()
+        self.go_back()
+        self.check_phone_home_screen()
