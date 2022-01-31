@@ -483,3 +483,18 @@ class homePage_test(LoginPage, HomePage):
         #self.verify_stock_signal_on_research_page()
         self.go_back()
         self.check_phone_home_screen()
+
+    #* Validate user is redirected to the invest now page when user click on the portfolio page when is non KYC user.
+    @pytest.mark.H_SMMA_037
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_portfolio_page_for_non_kyc_user(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['unkyc_reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page()
+        self.click_on_portfolio_btn()
+        self.verify_portfolio_for_non_kyc_user()
