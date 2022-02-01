@@ -498,3 +498,33 @@ class homePage_test(LoginPage, HomePage):
         self.verify_home_page()
         self.click_on_portfolio_btn()
         self.verify_portfolio_for_non_kyc_user()
+
+    #Validate user is able to see the portfolio page when user click on the portfolio button when user is kYC verified user.
+    @pytest.mark.H_SMMA_038
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_portfolio_page_for_kyc_user(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.click_on_portfolio_btn()
+        self.verify_portfolio_for_kyc_user()
+
+    #Validate user is redirected to transaction page when user click on the transaction button.
+    @pytest.mark.H_SMMA_039
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_transaction_page_kyc_user(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.click_on_transaction_btn()
+        self.verify_transaction_page()
