@@ -528,3 +528,32 @@ class homePage_test(LoginPage, HomePage):
         self.verify_home_page_reg_user()
         self.click_on_transaction_btn()
         self.verify_transaction_page()
+
+    #Validate user is redirected to profile page when user click on the profile page button.
+    @pytest.mark.H_SMMA_040
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_profile_page_kyc_user(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.click_on_profile_btn()
+        self.verify_profile_page()
+
+    #Validate user should see his name as Hi, Test on the top left corner if he has completed the signup or KYC verified.
+    @pytest.mark.H_SMMA_041
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    def test_verify_username_on_homepage_page_user(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        self.verify_username_on_homepage()
