@@ -160,7 +160,7 @@ class LoginPage(BaseCase):
 
     def close_home_page_banner(self):
         self.click(banner_close)
-        self.sleep(3)
+        self.sleep(2)
 
     def click_on_enterPin_logout_button(self):
         self.click(logout_button_on_pin)
@@ -191,6 +191,7 @@ class LoginPage(BaseCase):
 
     def click_on_profile_btn(self):
         self.click(profile_btn)
+        self.sleep(2)
 
     def click_on_saldo_rdn(self):
         self.click(Home_page_reg_user_locator)
