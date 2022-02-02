@@ -53,7 +53,7 @@ def test_verify_redirect_to_security_code_page_by_using_valid_no():
 @pytest.mark.login
 def test_verify_redirect_to_setup_pin_by_using_valid_no():
     number = generate_random_integer(length=7, prefix='844')
-    #LoginPage.launch_app_again()
+    LoginPage.launch_app_again()
     LoginPage.click_mulai_sekarang()
     LoginPage.type_mobile_no(number)
     LoginPage.click_selanjutnya()
@@ -72,7 +72,7 @@ def test_verify_redirect_to_home_page_after_enter_pin():
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp(user_data['valid_otp'])
     LoginPage.enter_pin()
-    #LoginPage.close_home_page_banner()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page_reg_user()
 
 # Verify that user should be redirecting to the welcome page after tap on logout link under profile section
@@ -88,6 +88,7 @@ def test_verify_redirect_to_welcome_page_after_logout_click():
     LoginPage.click_on_enterPin_logout_button()
     LoginPage.verify_starting_page()
 
+'''
 #Validate the first time login user should be redirected to type of risk profile selection page when user enter 6 digit pin
 @pytest.mark.SMMA_010
 @pytest.mark.Android
@@ -100,6 +101,7 @@ def test_verify_redirect_to_risk_profile_page_after_enter_pin_for_new_no():
     LoginPage.enter_otp(user_data['valid_otp'])
     LoginPage.set_pin(user_data['setup_pin_value'])
     LoginPage.verify_risk_profile_page()
+'''
 
 # Validate user should redirected to home page when user login with same account 2nd time and in future.
 @pytest.mark.SMMA_011
@@ -113,8 +115,9 @@ def test_verify_redirect_to_home_when_login_with_same_no_second_time():
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp(user_data['valid_otp'])
     LoginPage.set_pin(user_data['setup_pin_value'])
-    LoginPage.verify_risk_profile_page()
-    LoginPage.click_agresif_profile()
+    #LoginPage.verify_risk_profile_page()
+    #LoginPage.click_agresif_profile()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page()
     #launch again and use same no
     LoginPage.launch_app_again()
@@ -123,6 +126,7 @@ def test_verify_redirect_to_home_when_login_with_same_no_second_time():
     LoginPage.click_selanjutnya()
     LoginPage.enter_otp(user_data['valid_otp'])
     LoginPage.enter_pin()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page()
 
 # Validate login in with invalid mobile number
@@ -179,6 +183,7 @@ def test_validate_reset_pin_functinality():
     time.sleep(10)
     LoginPage.verify_redirect_to_pin_page()
     LoginPage.enter_pin()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page_reg_user()
 
 # Validate user is able to logout from the enter pin page.
@@ -220,6 +225,7 @@ def test_validate_login_after_resend_otp():
     LoginPage.click_Kirim_Ulang()
     LoginPage.enter_otp(user_data['valid_otp'])
     LoginPage.enter_pin()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page_reg_user()
 
 # validate the timeout of OTP page is running even after user switch the application while timeout is running.
@@ -254,4 +260,5 @@ def test_validate_reset_functionality_working_fine_on_login_page():
     time.sleep(10)
     LoginPage.verify_redirect_to_pin_page()
     LoginPage.enter_pin()
+    LoginPage.close_home_page_banner()
     LoginPage.verify_home_page_reg_user()
