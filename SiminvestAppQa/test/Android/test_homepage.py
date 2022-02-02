@@ -321,7 +321,7 @@ class homePage_test(LoginPage, HomePage):
         self.enter_pin()
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
-        self.scroll_down_to_up()
+        self.scroll_down()
         self.click_on_default_btn()
         self.verify_watchlist_card()
         self.verify_watchlist_details()
