@@ -48,7 +48,7 @@ class LoginPage(BaseCase):
         self.launch()
 
     def click_mulai_sekarang(self):
-        time.sleep(10)
+        time.sleep(3)
         self.click(mulai_sekarang)
 
     def verify_mobile_no_page(self):
