@@ -552,6 +552,10 @@ class HomePage(BaseCase):
         reksadhana_tab_text = self.get_attribute(reksadhana_tab, "text")
         self.assert_equal(reksadhana_tab_text, "Reksadana")
 
+    def click_on_portfolio_entry_2(self):
+        self.click(portfolio_entry_2)
+        self.sleep(2)
+
     def click_on_transaction_btn(self):
         self.click(transition_btn)
         self.sleep(1)
