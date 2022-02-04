@@ -2,6 +2,7 @@ from appiumbase import BaseCase
 from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.login_page import LoginPage
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
+from datetime import date
 import logging as logger
 
 #buy process locators
@@ -130,6 +131,9 @@ class BuyProcess(LoginPage,HomePage):
         self.click(confirm_btn)
         self.sleep(2)
 
+    def get_current_date(self):
+        today = date.today()
+        logger.info(today)
 
 
 

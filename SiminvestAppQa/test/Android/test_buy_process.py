@@ -61,5 +61,10 @@ class BuyProcess_test(BuyProcess):
         self.click_on_ok_btn()
         self.verify_transaction_page()
 
-
+    #Validate user is able top select date from GTC calender.
+    @pytest.mark.BP_SMMA_307
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_top_select_date(self):
+        self.get_current_date()
 
