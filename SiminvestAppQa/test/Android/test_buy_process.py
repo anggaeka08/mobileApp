@@ -109,3 +109,17 @@ class BuyProcess_test(BuyProcess):
         self.verify_lot_count("2")
         self.click_on_lot_decrease_btn()
         self.verify_lot_count("1")
+
+    # Validate the back button is working fine at the time of purchase process.
+    @pytest.mark.BP_SMMA_312
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_back_btn_on_buy_page(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.go_back()
+        self.verify_sdp_page()
+        self.go_back()
+        self.verify_search_bar()
