@@ -123,3 +123,19 @@ class BuyProcess_test(BuyProcess):
         self.verify_sdp_page()
         self.go_back()
         self.verify_search_bar()
+
+    #Validate  user should receive and error prompt of exchange not operating if user is trying to buy stock outside exchange operating hours.
+    @pytest.mark.BP_SMMA_315
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_error_message_after_exachange_hour(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.click_on_buy_btn_on_buy_page()
+        self.click_on_confirm_btn()
+        self.verify_error_message_after_exchange_market()
+        self.click_on_ok_btn()
+
+
