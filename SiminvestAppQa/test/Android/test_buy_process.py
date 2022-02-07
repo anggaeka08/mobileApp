@@ -10,7 +10,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.Android
     def test_validate_buy_btn_on_sdp_page(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
-        self.check_for_buy_without_sell_btn()
+        self.check_for_buy_with_sell_btn()
 
     #Validate that there is two button buy/sell if stock is already purchased for KYC user.
     @pytest.mark.BP_SMMA_302
@@ -27,7 +27,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.Android
     def test_validate_redirect_to_refferal_page_by_click_on_buy_for_non_kyc(self):
         self.open_sdp_page_with_non_kyc_user(user_data['unkyc_reg_no'], 'ACES')
-        self.check_for_buy_without_sell_btn()
+        self.check_for_buy_with_sell_btn()
         self.click_on_buy_btn_without_sell_btn()
         self.verify_refferal_page()
 
@@ -37,7 +37,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.Android
     def test_validate_cancel_btn_on_buy_page(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
-        self.check_for_buy_without_sell_btn()
+        self.check_for_buy_with_sell_btn()
         self.click_on_buy_btn_without_sell_btn()
         self.verify_buy_page()
         self.click_on_buy_btn_on_buy_page()
@@ -50,7 +50,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.Android
     def test_validate_gtc_buy_option(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
-        self.check_for_buy_without_sell_btn()
+        self.check_for_buy_with_sell_btn()
         self.click_on_buy_btn_without_sell_btn()
         self.verify_buy_page()
         self.tap_on_gtc_option()
@@ -67,7 +67,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.Android
     def test_validate_top_select_date(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
-        self.check_for_buy_without_sell_btn()
+        self.check_for_buy_with_sell_btn()
         self.click_on_buy_btn_without_sell_btn()
         self.verify_buy_page()
         self.tap_on_gtc_option()
@@ -82,7 +82,15 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.Android
     def test_validate_default_value_of_lot(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
-        self.check_for_buy_without_sell_btn()
+        self.check_for_buy_with_sell_btn()
         self.click_on_buy_btn_without_sell_btn()
         self.verify_buy_page()
         self.verify_initial_lot_count()
+
+    # Validate that user can see the Beli button on stock detail page
+    @pytest.mark.BP_SMMA_310
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_Beli_btn_on_sdp_page(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_with_sell_btn()
