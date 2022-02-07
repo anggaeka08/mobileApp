@@ -26,6 +26,9 @@ ok_btn_on_calender = '/hierarchy/android.widget.FrameLayout/android.widget.Frame
 confirm_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
 ok_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
 lot_count = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.EditText'
+lot_increase_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
+lot_decrease_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.ImageView'
+
 
 class BuyProcess(LoginPage,HomePage):
 
@@ -69,21 +72,22 @@ class BuyProcess(LoginPage,HomePage):
         sell_btn_present = self.is_element_visible(sell_btn)
         assert sell_btn_present == True, f"sell Btn Should be present"
 
-    def check_for_buy_with_sell_btn(self):
+    def check_for_buy_btn(self):
         buy_btn_with_sell_present = self.is_element_visible(buy_btn_with_sell)
-        assert buy_btn_with_sell_present == True, f"buy Btn Should be present"
+        if buy_btn_with_sell_present == True:
+            assert buy_btn_with_sell_present == True, f"buy Btn Should be present"
+        else :
+            buy_btn_without_sell_present = self.is_element_visible(buy_btn_without_sell)
+            assert buy_btn_without_sell_present == True, f"buy Btn Should be present"
 
-    def check_for_buy_without_sell_btn(self):
-        buy_btn_without_sell_present = self.is_element_visible(buy_btn_without_sell)
-        assert buy_btn_without_sell_present == True, f"buy Btn Should be present"
-
-    def click_on_buy_with_sell_btn(self):
-        self.click(buy_btn_with_sell)
-        self.sleep(2)
-
-    def click_on_buy_btn_without_sell_btn(self):
-        self.click(buy_btn_without_sell)
-        self.sleep(2)
+    def click_on_buy_btn(self):
+        buy_with_sell = self.is_element_visible(buy_btn_with_sell)
+        if buy_with_sell == True :
+            self.click(buy_btn_with_sell)
+            self.sleep(2)
+        else :
+            self.click(buy_btn_without_sell)
+            self.sleep(2)
 
     def verify_refferal_page(self):
         refferal_page_heading_text = self.get_attribute(refferal_page_heading, "text")
@@ -139,9 +143,17 @@ class BuyProcess(LoginPage,HomePage):
         date_option_text = self.get_attribute(date_option, "text")
         self.assert_equal(date_option_text, "28 Feb 2022")
 
-    def verify_initial_lot_count(self):
+    def verify_lot_count(self, count):
         lot_count_text = self.get_attribute(lot_count, "text")
-        self.assert_equal(lot_count_text, "1")
+        self.assert_equal(lot_count_text, count)
+
+    def click_on_lot_increase_no(self):
+        self.click(lot_increase_btn)
+        self.sleep(1)
+
+    def click_on_lot_decrease_btn(self):
+        self.click(lot_decrease_btn)
+        self.sleep(1)
 
 
 
