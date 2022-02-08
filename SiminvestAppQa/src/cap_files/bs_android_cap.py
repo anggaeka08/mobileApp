@@ -4,18 +4,18 @@ cp ={
     "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
 
     # Set URL of the application under test
-    "app": "bs://0492ee3deab9606642b6149168ebdeac38d9af04",
+    "app": "bs://f56fdf7e14c81401ac2087857947a7125a1f4d7f",
 
     # Specify device and os_version for testing
-    "device": "Samsung Galaxy S20 Plus",
-    "os_version": "10.0",
+    "device": "Xiaomi Redmi Note 7",
+    "os_version": "9.0",
 
     # Set other BrowserStack capabilities
     "project": "Siminvest APP QA",
-    "build": "Android 1.42.8",
+    "build": "Android 1.45.15",
     "name": "UI_Test Android",
 
     # Set Specific capabilities regarding test
     'autoAcceptAlerts': 'true',
-    "browserstack.local": "true"
+    #"browserstack.local": "true"
 }
