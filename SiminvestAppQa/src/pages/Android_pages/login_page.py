@@ -41,6 +41,7 @@ finger_print_on_off = "/hierarchy/android.widget.FrameLayout/android.widget.Line
 finger_print_activate = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]"
 finger_print_remove = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]"
 profile_btn = '//android.widget.Button[@content-desc="Profile, tab, 5 of 5"]/android.view.ViewGroup'
+set_up_pin = '//android.widget.EditText[@content-desc="Browser_Stack"]'
 
 class LoginPage(BaseCase):
 
@@ -70,7 +71,8 @@ class LoginPage(BaseCase):
 
     def set_pin(self,pin):
         #os.system(f"start /wait cmd /c adb shell input text {pin}")
-        self.execute_script('mobile: shell', {'command': 'input text', 'args': pin})
+        #self.execute_script('mobile: shell', {'command': 'input text', 'args': pin})
+        self.set_text(set_up_pin, pin)
 
     def verify_setup_pin_page(self):
         setup_page_text = self.get_attribute(set_pin, "text")
