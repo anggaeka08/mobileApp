@@ -188,7 +188,7 @@ class HomePage(BaseCase):
         self.assert_equal(sdp_keystate_text, "Keystats")
         #self.is_element_visible(sdp_profile)
         sdp_profile_text = self.get_attribute(sdp_profile, "text")
-        self.assert_equal(sdp_profile_text, "Profile")
+        self.assert_equal(sdp_profile_text, "Financials")
         #self.is_element_visible(sdp_bid)
         sdp_bit_text = self.get_attribute(sdp_bit, "text")
         self.assert_equal(sdp_bit_text, "Bid")
