@@ -3,6 +3,6 @@ cp = {
   "appActivity": "com.simas.siminvest.MainActivity",
   "platformName": "Android",
   "platformVersion": "10",
-  "deviceName": "Redmi Note 7S",
-  "udid": "124ae99d"
+  "deviceName": "Pixel3XL",
+  "udid": "emulator-5554"
 }

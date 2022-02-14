@@ -1,20 +1,21 @@
 cp ={
     # Set your access credentials
-    "browserstack.user": "manish_dxNy3J",
-    "browserstack.key": "VD3gsZgUhKyYYmvgiz7b",
+    "browserstack.user": "pawan_N1RjdY",
+    "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
 
     # Set URL of the application under test
-    "app": None,
+    "app": "bs://f56fdf7e14c81401ac2087857947a7125a1f4d7f",
 
     # Specify device and os_version for testing
-    "device": "Samsung",
-    "os_version": "11.0",
+    "device": "Xiaomi Redmi Note 7",
+    "os_version": "9.0",
 
     # Set other BrowserStack capabilities
     "project": "Siminvest APP QA",
-    "build": "iOS 1.40.12",
-    "name": "UI_Test",
+    "build": "Android 1.45.15",
+    "name": "UI_Test Android",
 
     # Set Specific capabilities regarding test
-    'autoAcceptAlerts': 'true'
+    'autoAcceptAlerts': 'true',
+    #"browserstack.local": "true"
 }
