@@ -32,7 +32,7 @@ cari_btn_after_click ='/hierarchy/android.widget.FrameLayout/android.widget.Line
 market_close_message_lct = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[1]'
 market_close_message = 'Bursa Tidak Beroperasi'
 
-class BuyProcess(LoginPage,HomePage):
+class BuyProcess(HomePage):
 
     def open_sdp_page_with_kyc_user(self, number, stock_code):
         self.click_mulai_sekarang()
