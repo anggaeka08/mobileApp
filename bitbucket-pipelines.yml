@@ -14,4 +14,4 @@ pipelines:
           script:
             - apt-get update -y
             - apt-get install python3.10 -y
-            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+            - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
