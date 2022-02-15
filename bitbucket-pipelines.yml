@@ -12,5 +12,5 @@ pipelines:
           caches:
             - pip
           script:
-            - apt install python3.9
+            - apt install python3.10 -y
             - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
