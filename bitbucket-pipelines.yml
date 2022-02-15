@@ -3,7 +3,7 @@
 #  This template allows you to validate your python code.
 #  The workflow allows running tests and code linting on the default branch.
 
-image: qualifylabs/python-appium-docker
+image: appium/appium
 
 pipelines:
   default:
@@ -12,4 +12,5 @@ pipelines:
           caches:
             - pip
           script:
+            - apt-get install python3.9
             - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
