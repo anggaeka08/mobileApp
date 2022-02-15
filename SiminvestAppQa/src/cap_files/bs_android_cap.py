@@ -13,7 +13,7 @@ cp ={
     # Set other BrowserStack capabilities
     "project": "Siminvest APP QA",
     "build": "Android 1.45.15",
-    "name": "UI_Test Android",
+    "name": "UI_Test Android V1.2",
 
     # Set Specific capabilities regarding test
     'autoAcceptAlerts': 'true',

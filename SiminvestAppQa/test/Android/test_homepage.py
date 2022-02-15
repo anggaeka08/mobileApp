@@ -6,22 +6,16 @@ from SiminvestAppQa.src.data.userData import user_data
 import time
 
 
-class homePage_test(LoginPage, HomePage):
+class homePage_test(HomePage,LoginPage):
 
     # Validate user is able open the SDP page via global search bar.
     @pytest.mark.H_SMMA_001
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_validate_global_search_for_stock(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_global_search_btn_and_saerch_stock('ACES')
-        self.sleep(3)
+        self.sleep(2)
         self.click_on_stock_code()
         self.verify_sdp_page()
 
@@ -30,13 +24,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_redirect_to_tarik_dana_on_click_of_btn(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_saldo_rdn()
         self.sleep(3)
         self.verify_rdn_balance_page()
@@ -48,13 +36,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_redirect_to_riwayat_on_click_of_btn(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_saldo_rdn()
         self.sleep(3)
         self.verify_rdn_balance_page()
@@ -81,13 +63,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_grammatically_spelling(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.verify_spelling_on_homepage()
 
     #Validate user is redirected to the global search page and the keypad is open with caps alphabet when user click on global search bar button "Cari"
@@ -95,13 +71,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_keyboard_is_open_after_click_on_global_search(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_global_search_btn()
         self.verify_keyboard_on_off()
 
@@ -116,8 +86,6 @@ class homePage_test(LoginPage, HomePage):
         self.click_selanjutnya()
         self.enter_otp(user_data['valid_otp'])
         self.set_pin(user_data['setup_pin_value'])
-        #self.verify_risk_profile_page()
-        #self.click_agresif_profile()
         self.close_home_page_banner()
         self.verify_home_page()
         self.click_on_Daftar_masuk()
@@ -128,13 +96,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_rdn_page_redirect_after_click_saldo_rdn(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_saldo_rdn()
         self.sleep(3)
         self.verify_rdn_balance_page()
@@ -144,13 +106,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_topup_page_from_rdn_page(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_saldo_rdn()
         self.sleep(3)
         self.verify_rdn_balance_page()
@@ -162,13 +118,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_refresh_homepage(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.scroll_down()
         self.verify_home_page_reg_user()
 
@@ -177,13 +127,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_indeks_page_redirection(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_indeks_btn()
         self.verify_indeks_page()
 
@@ -192,13 +136,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_Sector_page_redirection(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_sector_button()
         self.verify_sector_page()
 
@@ -207,13 +145,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_Events_page_redirection(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_event_btn()
         self.verify_event_page()
 
@@ -222,13 +154,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_eIPO_page_redirection(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_eipo_btn()
         self.verify_eipo_page()
         self.verify_eipo_entry()
@@ -238,13 +164,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_homepage_stock_details(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.verify_homepage_stock()
 
     #Validate user is able to see the list of stock based on "Top Frequency" by default on quick stock status result section at square form.
@@ -252,13 +172,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_homepage_Top_frequency_details(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.verify_top_frequency_presention()
         self.verify_stock_presence_in_top_frequency()
 
@@ -267,13 +181,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_half_card_open_after_click_on_down_arrow(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_TF_down_arrow()
         self.verify_half_card_page()
 
@@ -282,13 +190,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_close_half_card_open_by_back_btn(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_TF_down_arrow()
         self.verify_half_card_page()
         self.go_back()
@@ -298,14 +200,8 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.H_SMMA_024
     @pytest.mark.Homepage
     @pytest.mark.Android
-    def test_verify_half_card_open_after_click_on_down_arrow(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+    def test_verify_mover_page(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_see_more_btn()
         self.verify_mover_page()
 
@@ -314,13 +210,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_watchlist_half_card(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.scroll_down()
         self.click_on_default_btn()
         self.verify_watchlist_card()
@@ -331,32 +221,20 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_watchlist_half_card_close_by_back_btn(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.scroll_up()
         self.click_on_default_btn()
         self.verify_watchlist_card()
         self.verify_watchlist_details()
         self.go_back()
-        self.verify_home_page_reg_user()
+        #self.verify_home_page_reg_user()
 
     # Validate user is able to see the portfolio value with green color at center of the screen when user has completed the signup or KYC verified.
     @pytest.mark.H_SMMA_028
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_location_of_portfolio(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.verify_portfolio_on_homepage()
 
     # Validate user is able to see the buying power value at center of the screen when user has completed the signup or KYC verified.
@@ -364,13 +242,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_location_of_buying_power(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.verify_portfolio_on_homepage()
 
     #Validate user is redirected to Top up page when user click on Topup button.
@@ -378,13 +250,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_top_up_page_redirection_from_homepage(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_top_up_from_homepage()
         self.verify_topup_page()
 
@@ -393,13 +259,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_sdp_from_top_frequecny_list(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_stock_1_from_top_frequency_list()
         self.verify_sdp_page_from_top_freqency_list()
 
@@ -408,13 +268,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_sdp_watchlist_entry(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.scroll_up()
         self.click_on_default_watchlist_entry_1()
         self.verify_sdp_page_from_top_freqency_list()
@@ -424,31 +278,20 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_back_btn_from_sdp_page_of_watchlist(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.scroll_up()
         self.click_on_default_watchlist_entry_1()
         self.verify_sdp_page_from_top_freqency_list()
         self.go_back()
-        self.verify_home_page_reg_user_after_back_from_watchlist()
+        self.sleep(10)
+        self.verify_home_page_reg_user_after_back_from_watchlist_new()
 
     #Validate user is redirected to research page when user click on the research button.
     @pytest.mark.H_SMMA_034
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_redirection_on_research_page(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_research_btn()
         self.verify_research_page()
 
@@ -457,13 +300,7 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_stock_signal_presence_on_research_page(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_research_btn()
         self.verify_stock_signal_on_research_page()
 
@@ -472,17 +309,11 @@ class homePage_test(LoginPage, HomePage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_back_button_on_research_page(self):
-        self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['reg_no'])
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.enter_pin()
-        self.close_home_page_banner()
-        self.verify_home_page_reg_user()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_research_btn()
         #self.verify_stock_signal_on_research_page()
         self.go_back()
-        self.check_phone_home_screen()
+        #self.check_phone_home_screen()
 
     #* Validate user is redirected to the invest now page when user click on the portfolio page when is non KYC user.
     @pytest.mark.H_SMMA_037
