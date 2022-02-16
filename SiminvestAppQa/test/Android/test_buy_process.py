@@ -128,7 +128,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.BP_SMMA_315
     @pytest.mark.BuyProcess
     @pytest.mark.Android
-    def test_validate_error_message_after_exachange_hour(self):
+    def test_validate_error_message_after_exchange_hour(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.check_for_buy_btn()
         self.click_on_buy_btn()
@@ -137,5 +137,27 @@ class BuyProcess_test(BuyProcess):
         self.click_on_confirm_btn()
         self.verify_error_message_after_exchange_market()
         self.click_on_ok_btn()
+
+    #Validate user is able to increase or decrease the value at buy at price "beli di harga" via + and - button.
+    @pytest.mark.BP_SMMA_316
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_plus_minus_for_beli_di_harga(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.verify_plus_minus_btn_beli()
+
+    #Validate user should reciev an error promt"Nilai pembelian kamu melebihi trading limit" when user trying to buy the stock beyond the buying power.
+    @pytest.mark.BP_SMMA_317
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_buy_power_exceed_msg(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.verify_buying_power_exceed_msg()
 
 
