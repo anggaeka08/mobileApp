@@ -160,4 +160,26 @@ class BuyProcess_test(BuyProcess):
         self.verify_buy_page()
         self.verify_buying_power_exceed_msg()
 
+    #Validate the buy button gets disable when user trying to purchase stock beyond the buying power.
+    @pytest.mark.BP_SMMA_318
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_after_buy_power_exceed_buy_btn_disable(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.verify_buying_power_exceed_msg()
+        self.click_on_buy_btn_on_buy_page()
+        self.verify_buy_page()
 
+    #Validate the total beli amount should equal to multiple of beli di harga and jumlah lot.
+    @pytest.mark.BP_SMMA_319
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_beli_ammount_is_multiple_of_harga_lot(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.verify_total_beli_amount()
