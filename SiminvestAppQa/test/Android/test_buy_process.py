@@ -183,3 +183,36 @@ class BuyProcess_test(BuyProcess):
         self.click_on_buy_btn()
         self.verify_buy_page()
         self.verify_total_beli_amount()
+
+    # Validate user redirected back to SDP page when user click on back button when user is on order page after completed the buying process.
+    @pytest.mark.BP_SMMA_320
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_after_redirection_from_transaction_page(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.click_on_buy_btn_on_buy_page()
+        self.click_on_confirm_btn()
+        self.click_on_ok_btn()
+        self.verify_transaction_page()
+        self.go_back()
+        self.verify_sdp_page()
+
+    #Validate user is able to see sending status on transaction page when user purchase the stock successfully.
+    @pytest.mark.BP_SMMA_321
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_status_on_transaction_page(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.click_on_buy_btn_on_buy_page()
+        self.click_on_confirm_btn()
+        self.click_on_ok_btn()
+        self.verify_transaction_page()
+        self.verify_status_on_transaction_page()
+
+
