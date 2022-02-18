@@ -215,4 +215,29 @@ class BuyProcess_test(BuyProcess):
         self.verify_transaction_page()
         self.verify_status_on_transaction_page()
 
+# Validate user is able to cancel the GTC option after date selection.
+    @pytest.mark.BP_SMMA_322
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_cancel_gtc_option_after_selection(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.tap_on_gtc_option()
+        self.click_on_date()
+        self.select_date()
+        self.tap_on_gtc_option()
+
+    # Validate the stock value detail should equal to order confirmation detail page.
+    @pytest.mark.BP_SMMA_323
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_lot_hagra_jumla_value_on_ocp_page(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.verify_lot_harga_jumlah_value()
+
 
