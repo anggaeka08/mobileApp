@@ -240,4 +240,40 @@ class BuyProcess_test(BuyProcess):
         self.verify_buy_page()
         self.verify_lot_harga_jumlah_value()
 
+    #Validate user able to see good till date on order confirmation page when user trying to buy the stock via GTC.
+    @pytest.mark.BP_SMMA_324
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_date_for_gtc_ocp_page(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.tap_on_gtc_option()
+        self.verify_gtc_date_on_ocp()
+
+    #Validate the buying power should same on all SDP page and also compare to home page detail.
+    @pytest.mark.BP_SMMA_325
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_buying_power_on_sdp_and_buy_page(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        self.verify_home_page_reg_user()
+        power_on_home_page = self.buy_power_on_homepage()
+        self.click_global_search_btn_and_saerch_stock('ACES')
+        self.sleep(3)
+        self.click_on_stock_code()
+        self.verify_sdp_page()
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        power_on_buy_page = self.buy_power_on_buy_page()
+        self.assert_equal(power_on_home_page, power_on_buy_page)
+
+
 
