@@ -301,5 +301,18 @@ class BuyProcess_test(BuyProcess):
         self.verify_buy_page()
         self.verify_bit_amount_with_beli_di_harga()
 
+    #The user can still place an order after market hours. But it will be Sending state until market opens again.
+    @pytest.mark.BP_SMMA_330
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_status_sending_of_buy_order(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.click_on_buy_btn_on_buy_page()
+        self.click_on_confirm_btn()
+        self.click_on_ok_btn()
+        self.verify_transaction_page()
 
 
