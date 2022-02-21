@@ -275,5 +275,31 @@ class BuyProcess_test(BuyProcess):
         power_on_buy_page = self.buy_power_on_buy_page()
         self.assert_equal(power_on_home_page, power_on_buy_page)
 
+    #Validate user is able to increase the value of lot and buy the stock.
+    @pytest.mark.BP_SMMA_328
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_buy_process_after_increase_lot_no(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.click_on_lot_increase_no()
+        self.click_on_buy_btn_on_buy_page()
+        self.click_on_confirm_btn()
+        self.click_on_ok_btn()
+        self.verify_transaction_page()
+
+    #Validate the bid and ask price is replicated on beli di harga option when user clicks on any visible prices in bid and ask.
+    @pytest.mark.BP_SMMA_329
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_beli_di_harga_equal_to_bit_amount(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.verify_bit_amount_with_beli_di_harga()
+
 
 
