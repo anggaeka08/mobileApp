@@ -1,6 +1,7 @@
 from appiumbase import BaseCase
 from SiminvestAppQa.src.pages.Android_pages.login_page import LoginPage
 import logging as logger
+import allure
 
 # sdp page Locators
 Cari_btn_before_click ='//android.view.ViewGroup[@content-desc="Browser_Stack"]/android.view.ViewGroup/android.widget.EditText'
@@ -154,18 +155,22 @@ username_on_homepage = '/hierarchy/android.widget.FrameLayout/android.widget.Lin
 
 class HomePage(LoginPage):
 
+    @allure.step("click global search btn and search stock")
     def click_global_search_btn_and_saerch_stock(self, stock_code):
         self.click(Cari_btn_before_click)
         self.update_text(cari_btn_after_click, stock_code)
 
+    @allure.step("click global search btn")
     def click_global_search_btn(self):
         self.click(Cari_btn_before_click)
         self.sleep(3)
 
+    @allure.step("click on stock code")
     def click_on_stock_code(self):
         self.double_tap(stock_code_btn)
         self.sleep(5)
 
+    @allure.step("verify stock page")
     def verify_sdp_page(self):
         stock_name_text = self.get_attribute(stock_name, "text")
         self.assert_equal(stock_name_text, "Ace Hardware Indonesia Tbk.")
@@ -194,6 +199,7 @@ class HomePage(LoginPage):
         sdp_bit_text = self.get_attribute(sdp_bit, "text")
         self.assert_equal(sdp_bit_text, "Bid")
 
+    @allure.step("verify rdn balance page")
     def verify_rdn_balance_page(self):
         rdn_balance_page_header_text = self.get_attribute(rdn_balance_page_header, "text")
         self.assert_equal(rdn_balance_page_header_text, "RDN Balance")
@@ -210,10 +216,12 @@ class HomePage(LoginPage):
         informasi_rekening_present = self.is_element_visible(informasi_rekening)
         assert informasi_rekening_present == True, f"informasi_rekening Should be present"
 
+    @allure.step("click on tarik dana btn")
     def click_on_tarik_dana_btn(self):
         self.click(trik_dana_btn)
         self.sleep(2)
 
+    @allure.step("verify tarik dana btn")
     def verify_tarik_dana_page(self):
         tarik_dana_header_text = self.get_attribute(tarik_dana_header, "text")
         self.assert_equal(tarik_dana_header_text, "Tarik Dana")
@@ -226,10 +234,12 @@ class HomePage(LoginPage):
         tarik_dana_btn_present = self.is_element_visible(tarik_dana_btn)
         assert tarik_dana_btn_present == True, f"tarik_dana_btn Should be present"
 
+    @allure.step("click on riwayat btn")
     def click_on_riwayat_btn(self):
         self.click(riwayat_btn)
         self.sleep(2)
 
+    @allure.step("verify riwayat page")
     def verify_riwayat_page(self):
         riwayat_page_header_text = self.get_attribute(riwayat_page_header, "text")
         self.assert_equal(riwayat_page_header_text, "Riwayat")
@@ -240,14 +250,17 @@ class HomePage(LoginPage):
         riwayat_entry_3_present = self.is_element_visible(riwayat_entry_3)
         assert riwayat_entry_3_present == True, f"riwayat_entry_3 Should be present"
 
+    @allure.step("scroll up")
     def scroll_up(self):
         self.scroll_screen(start_x=500, start_y=1820, end_x=523, end_y=809, duration=5000)
         self.sleep(2)
 
+    @allure.step("scroll down")
     def scroll_down(self):
         self.scroll_screen(start_x=513, start_y=513, end_x=503, end_y=1754, duration=10000)
         self.sleep(2)
 
+    @allure.step("verify spelling on homepage")
     def verify_spelling_on_homepage(self):
         Saham_text = self.get_attribute(Saham, "text")
         self.assert_equal(Saham_text, "Saham")
@@ -288,23 +301,28 @@ class HomePage(LoginPage):
         Profile_text = self.get_attribute(profile, "text")
         self.assert_equal(Profile_text, "Profile")
 
+    @allure.step("verify keyboard on off")
     def verify_keyboard_on_off(self):
         keyboard_status = self.check_keyboard_shown()
         assert keyboard_status == True, f"Keyboard is not available"
 
+    @allure.step("click on daftar masuk")
     def click_on_Daftar_masuk(self):
         self.click(Dafter_btn)
 
+    @allure.step("verify registration page")
     def verify_registration_page(self):
         Masuk_locator_text = self.get_attribute(Masuk_locator, "text")
         self.assert_equal(Masuk_locator_text, "Masuk")
         Masuk_page_data_text = self.get_attribute(Masuk_page_data, "text")
         self.assert_equal(Masuk_page_data_text, "Masukkan username, password dan pin transaksi simas equity Kamu")
 
+    @allure.step("click on top up btn")
     def click_on_top_up_btn(self):
         self.click(topup_btn)
         self.sleep(2)
 
+    @allure.step("verify top up page")
     def verify_topup_page(self):
         top_up_page_header_text = self.get_attribute(top_up_page_header, "text")
         self.assert_equal(top_up_page_header_text, "Topup")
@@ -315,9 +333,11 @@ class HomePage(LoginPage):
         Bank_lainnya_text = self.get_attribute(Bank_lainnya, "text")
         self.assert_equal(Bank_lainnya_text, "Bank lainnya")
 
+    @allure.step("click on indeks btn")
     def click_on_indeks_btn(self):
         self.click(Indeks)
 
+    @allure.step("verify indeks page")
     def verify_indeks_page(self):
         indeks_page_header_text = self.get_attribute(indeks_page_header, "text")
         self.assert_equal(indeks_page_header_text, "Indeks")
@@ -328,9 +348,11 @@ class HomePage(LoginPage):
         indeks_page_entry_3_present = self.is_element_visible(indeks_page_entry_3)
         assert indeks_page_entry_3_present == True, f"Indeks_3 Should be present"
 
+    @allure.step("click on sector btn")
     def click_on_sector_button(self):
         self.click(Sektor)
 
+    @allure.step("verify sector page")
     def verify_sector_page(self):
         sector_page_header_text = self.get_attribute(sector_page_header, "text")
         self.assert_equal(sector_page_header_text, "Sectors")
@@ -359,18 +381,22 @@ class HomePage(LoginPage):
         transportasi_present = self.is_element_visible(transportasi)
         assert transportasi_present == True, f"transportasi Should be present"
 
+    @allure.step("verify event btn")
     def click_on_event_btn(self):
         self.click(Events)
 
+    @allure.step("verify event page")
     def verify_event_page(self):
         events_page_header_text = self.get_attribute(events_page_header, "text")
         self.assert_equal(events_page_header_text, "Events")
         events_page_data_text = self.get_attribute(events_page_data, "text")
         self.assert_equal(events_page_data_text, "Tidak ada agenda hari ini")
 
+    @allure.step("click on eipo btn")
     def click_on_eipo_btn(self):
         self.click(eipo_btn)
 
+    @allure.step("verify eipo page")
     def verify_eipo_page(self):
         eipo_page_header_text = self.get_attribute(eipo_page_header, "text")
         self.assert_equal(eipo_page_header_text, "eIPO")
@@ -381,6 +407,7 @@ class HomePage(LoginPage):
         eipo_entry_2_present = self.is_element_visible(eipo_entry_2)
         assert eipo_entry_2_present == True, f"eipo_entry_2 Should be present"
 
+    @allure.step("verify eipo entry")
     def verify_eipo_entry(self):
         eipo_code_in_entry_1_present = self.is_element_visible(eipo_code_in_entry_1)
         assert eipo_code_in_entry_1_present == True, f"eipo code in entry 1 Should be present"
@@ -395,6 +422,7 @@ class HomePage(LoginPage):
         ipo_type_for_entry_1_present = self.is_element_visible(ipo_type_for_entry_1)
         assert ipo_type_for_entry_1_present == True, f"ipo type for entry 1 Should be present"
 
+    @allure.step("verify home pahe stock")
     def verify_homepage_stock(self):
         IHSG_stock_element_present = self.is_element_visible(IHSG_stock_element)
         assert IHSG_stock_element_present == True, f"IHSG_stock_element should be present"
@@ -407,12 +435,14 @@ class HomePage(LoginPage):
         homepag_stock_name_text = self.get_attribute(homepag_stock_name, "text")
         self.assert_equal(homepag_stock_name_text, 'Indeks Harga Saham Gabungan')
 
+    @allure.step("verify top frequency presentation")
     def verify_top_frequency_presention(self):
         Top_Frequency_present = self.is_element_visible(Top_Frequency)
         assert Top_Frequency_present == True, f"top_frequency_stock_element Should be present"
         Top_Frequency_text = self.get_attribute(Top_Frequency, "text")
         self.assert_equal(Top_Frequency_text, 'Top frequency')
 
+    @allure.step("verify stock presence in top frequency")
     def verify_stock_presence_in_top_frequency(self):
         top_frequency_stock_element_present = self.is_element_visible(top_frequency_stock_element)
         assert top_frequency_stock_element_present == True, f"top_frequency_stock_element Should be present"
@@ -421,21 +451,26 @@ class HomePage(LoginPage):
         top_frequency_stock_2_present = self.is_element_visible(top_frequency_stock_2)
         assert top_frequency_stock_2_present == True, f"top_frequency_stock_2 Should be present"
 
+    @allure.step("click on TF down arrow")
     def click_on_TF_down_arrow(self):
         self.click(top_frequency_down_arrow)
 
+    @allure.step("verify half card page")
     def verify_half_card_page(self):
         top_frequency_page_header_text = self.get_attribute(top_frequency_page_header, "text")
         self.assert_equal(top_frequency_page_header_text, 'Urutkan')
         half_card_entry_text = self.get_attribute(half_card_entry, "text")
         self.assert_equal(half_card_entry_text, 'Top frequency')
 
+    @allure.step("click on back btn")
     def go_back(self):
         self.back()
 
+    @allure.step("click on see more btn")
     def click_on_see_more_btn(self):
         self.click(see_more_btn)
 
+    @allure.step("verify mover page")
     def verify_mover_page(self):
         mover_page_header_text = self.get_attribute(mover_page_header, "text")
         self.assert_equal(mover_page_header_text, 'Mover')
@@ -446,9 +481,11 @@ class HomePage(LoginPage):
         mover_page_entry_2_present = self.is_element_visible(mover_page_entry_2)
         assert mover_page_entry_2_present == True, f"mover page entry 2 Should be present"
 
+    @allure.step("click on default btn")
     def click_on_default_btn(self):
         self.click(default_btn)
 
+    @allure.step("verify watchlist card")
     def verify_watchlist_card(self):
         watchlist_header_text = self.get_attribute(watchlist_header, "text")
         self.assert_equal(watchlist_header_text, 'Watchlist')
@@ -457,6 +494,7 @@ class HomePage(LoginPage):
         watchlist_entry_present = self.is_element_visible(watchlist_entry)
         assert watchlist_entry_present == True, f"watchlist_entry Should be present"
 
+    @allure.step("verify watchlist details")
     def verify_watchlist_details(self):
         watchlist_name_text = self.get_attribute(watchlist_name, "text")
         self.assert_equal(watchlist_name_text, 'Default')
@@ -467,6 +505,7 @@ class HomePage(LoginPage):
         watchlist_delete_btn_present = self.is_element_visible(watchlist_delete_btn)
         assert watchlist_delete_btn_present == True, f"watchlist_delete_btn Should be present"
 
+    @allure.step("verify portfolio on homepage")
     def verify_portfolio_on_homepage(self):
         portfolio_location = self.get_location_of_element(Portfolio_Saham)
         logger.info(portfolio_location)
@@ -474,16 +513,20 @@ class HomePage(LoginPage):
         today_location = self.get_location_of_element(today)
         assert today_location == (52, 841), f"Element is not present at given location (52,841)"
 
+    @allure.step("verify buying power location")
     def verify_buying_power_location(self):
         buying_power = self.get_location_of_element(Buying_Power)
         assert buying_power == (52, 891), f"Element is not present at given location (52,891)"
 
+    @allure.step("click top up from homeopage")
     def click_top_up_from_homepage(self):
         self.click(Top_up)
 
+    @allure.step("click stock 1 from top frequency list")
     def click_stock_1_from_top_frequency_list(self):
         self.click(top_frequency_stock_1)
 
+    @allure.step("verify sdp page from top frequency list")
     def verify_sdp_page_from_top_freqency_list(self):
         stock_name_present = self.is_element_visible(stock_name)
         assert stock_name_present == True, f"stock_name Should be present"
@@ -505,14 +548,17 @@ class HomePage(LoginPage):
         sdp_bit_text = self.get_attribute(sdp_bit, "text")
         self.assert_equal(sdp_bit_text, "Bid")
 
+    @allure.step("click on default watchlist entry 1")
     def click_on_default_watchlist_entry_1(self):
         self.click(default_watchlist_entry_1)
         self.sleep(3)
 
+    @allure.step("click on research btn")
     def click_on_research_btn(self):
         self.click(Research_btn)
         self.sleep(4)
 
+    @allure.step("verify research page")
     def verify_research_page(self):
         research_header_text = self.get_attribute(research_header, "text")
         self.assert_equal(research_header_text, "Research")
@@ -523,6 +569,7 @@ class HomePage(LoginPage):
         media_present = self.is_element_visible(media)
         assert media_present == True, f"media Should be present"
 
+    @allure.step("verify stock signal on research page")
     def verify_stock_signal_on_research_page(self):
         stock_signal_present = self.is_element_visible(stock_signal)
         assert stock_signal_present == True, f"stock_signal Should be present"
@@ -533,14 +580,17 @@ class HomePage(LoginPage):
         stock_signal_down_present = self.is_element_visible(stock_signal_down)
         assert stock_signal_down_present == True, f"stock_signal_down Should be present"
 
+    @allure.step("check phone home screen")
     def check_phone_home_screen(self):
        element_visible = self.is_element_visible(phone_home_screen)
        assert element_visible == True, f"You are not on Home"
 
+    @allure.step("click on portfolio btn")
     def click_on_portfolio_btn(self):
         self.click(portfolio_btn)
         self.sleep(1)
 
+    @allure.step("verify portfolio for non kyc user")
     def verify_portfolio_for_non_kyc_user(self):
         #investasi_sekrang_presence = self.is_element_visible(investasi_sekrang)
         #assert investasi_sekrang_presence == True, f"Investasi is available on portfolio page"
@@ -549,6 +599,7 @@ class HomePage(LoginPage):
         kamu_belum_text = self.get_attribute(kamu_belum, "text")
         self.assert_equal(kamu_belum_text, "Kamu belum memiliki investasi")
 
+    @allure.step("verify portfolio for kyc user")
     def verify_portfolio_for_kyc_user(self):
         portofolio_saham_presence = self.is_element_visible(portofolio_saham)
         assert portofolio_saham_presence == True, f"Saham tab available"
@@ -559,14 +610,17 @@ class HomePage(LoginPage):
         reksadhana_tab_text = self.get_attribute(reksadhana_tab, "text")
         self.assert_equal(reksadhana_tab_text, "Reksadana")
 
+    @allure.step("click on portfolio entry 2")
     def click_on_portfolio_entry_2(self):
         self.click(portfolio_entry_2)
         self.sleep(2)
 
+    @allure.step("click on transaction btn")
     def click_on_transaction_btn(self):
         self.click(transition_btn)
         self.sleep(1)
 
+    @allure.step("verify transaction page")
     def verify_transaction_page(self):
         saham_trans_text = self.get_attribute(saham_trans, "text")
         self.assert_equal(saham_trans_text, "Saham")
@@ -587,16 +641,19 @@ class HomePage(LoginPage):
         trans_entry_1_presence = self.is_element_visible(trans_entry_1)
         assert trans_entry_1_presence == True, f"trans_entry_1  available on transaction page"
 
+    @allure.step("verify profile page")
     def verify_profile_page(self):
         entry_for_account_presence = self.is_element_visible(entry_for_account)
         assert entry_for_account_presence == True, f"entry_for_account  available on profile page"
         account_text_text = self.get_attribute(account_text, "text")
         self.assert_equal(account_text_text, "Account")
 
+    @allure.step("verify username on homepage")
     def verify_username_on_homepage(self):
         username_on_homepage_text = self.get_attribute(username_on_homepage, "text")
         self.assert_equal(username_on_homepage_text, "Hi, test")
 
+    @allure.step("login and verify homepage for rg user")
     def login_and_verify_homepage_for_reg_user(self, phone_number):
         self.click_mulai_sekarang()
         self.type_mobile_no(phone_number)
@@ -606,6 +663,7 @@ class HomePage(LoginPage):
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
 
+    @allure.step("verify home page reg user after back from watchlist new")
     def verify_home_page_reg_user_after_back_from_watchlist_new(self):
         default_btn_presence = self.is_element_visible(default_btn)
         assert default_btn_presence == True, f"default_btn available on Home page"
