@@ -275,6 +275,54 @@ class BuyProcess_test(BuyProcess):
         power_on_buy_page = self.buy_power_on_buy_page()
         self.assert_equal(power_on_home_page, power_on_buy_page)
 
+     # Validate user should receive the prompt with the msg "Check one Open Buy/Sell Order with same price" when user trying to purchase same stock with same price.
+    @pytest.mark.BP_SMMA_326
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_msg_when_buy_stock_on_same_price_again(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.click_on_buy_btn_on_buy_page()
+        self.click_on_confirm_btn()
+        self.click_on_ok_btn()
+        self.verify_transaction_page()
+        status = self.status_on_trans_page()
+        self.assert_equal(status, "SENDING")
+        self.go_back()
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.click_on_buy_btn_on_buy_page()
+        message = self.message_after_buy_again_on_same_price()
+        self.assert_equal(message, "Check one Open Buy/Sell Order with same price")
+
+    #  Post when user click on "OK" button he should redirected back to buy page.
+    @pytest.mark.BP_SMMA_327
+    @pytest.mark.BuyProcess
+    @pytest.mark.Android
+    def test_validate_redirection_to_buy_page_when_buy_stock_on_same_price_again(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.click_on_buy_btn_on_buy_page()
+        self.click_on_confirm_btn()
+        self.click_on_ok_btn()
+        self.verify_transaction_page()
+        status = self.status_on_trans_page()
+        self.assert_equal(status, "SENDING")
+        self.go_back()
+        self.check_for_buy_btn()
+        self.click_on_buy_btn()
+        self.verify_buy_page()
+        self.click_on_buy_btn_on_buy_page()
+        message = self.message_after_buy_again_on_same_price()
+        self.assert_equal(message, "Check one Open Buy/Sell Order with same price")
+        self.click_on_ok_btn()
+        self.verify_buy_page()
+
     #Validate user is able to increase the value of lot and buy the stock.
     @pytest.mark.BP_SMMA_328
     @pytest.mark.BuyProcess
@@ -314,5 +362,11 @@ class BuyProcess_test(BuyProcess):
         self.click_on_confirm_btn()
         self.click_on_ok_btn()
         self.verify_transaction_page()
+        status = self.status_on_trans_page()
+        self.assert_equal(status, "SENDING")
+
+
+
+
 
 

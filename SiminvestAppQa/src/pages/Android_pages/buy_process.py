@@ -210,6 +210,9 @@ class BuyProcess(HomePage):
         status_text = self.get_attribute(status_on_trasction_page, "text")
         self.assert_equal(status_text, "SENDING")
 
+    def status_on_trans_page(self):
+        return self.get_attribute(status_on_trasction_page, "text")
+
     def verify_lot_harga_jumlah_value(self):
         hagra_value_on_buy_pg = self.get_attribute(price_space, "text")
         lot_value = self.get_attribute(lot_count, "text")
@@ -238,6 +241,9 @@ class BuyProcess(HomePage):
         beli_da_hagra = self.get_attribute(price_space, "text")
         bid_amount_text = self.get_attribute(bid_amount, "text")
         self.assert_equal(self.add_thousand_seprator(int(beli_da_hagra)), bid_amount_text)
+
+    def message_after_buy_again_on_same_price(self):
+        pass
 
 
 
