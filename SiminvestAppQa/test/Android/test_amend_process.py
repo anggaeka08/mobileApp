@@ -24,3 +24,36 @@ class Amend_test(AmendProcess,BuyProcess):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.open_status_page_of_buy_order()
         self.verify_order_status_page()
+
+    #Validate user is able to amend the stock price and submit it successfully at the time of buy.
+    @pytest.mark.AMD_SMMA_004
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_amend_process_success_after_submit(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        self.verify_amend_purchase_page()
+        self.click_on_lot_increase_no()
+        self.click_on_price_increase()
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        self.click_on_ok_btn()
+        self.verify_transaction_page()
+
+    #Validate user should not able to update the order outside exchange hours.
+    @pytest.mark.AMD_SMMA_005
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_pop_for_amend_outside_exchange_hours(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        self.verify_amend_purchase_page()
+        self.click_on_lot_increase_no()
+        self.click_on_price_increase()
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        self.verify_error_message_after_exchange_market()
