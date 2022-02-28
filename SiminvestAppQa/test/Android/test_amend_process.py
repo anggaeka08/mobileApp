@@ -108,3 +108,35 @@ class Amend_test(AmendProcess):
         self.verify_amend_purchase_page()
         self.click_on_price_increase()
         self.verify_amend_purchase_page()
+
+    # Validate user should receive an error prompt "cannot increase the QTY" when user trying to increase the lot of purchased stock.
+    @pytest.mark.AMD_SMMA_012
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_error_while_increase_lot_value(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        self.verify_amend_purchase_page()
+        self.click_on_lot_increase_no()
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        self.verify_auto_rejection_pop_message()
+
+  #Validate user should redirected to amend page when user click on OK button on error prompt page.
+    @pytest.mark.AMD_SMMA_013
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_redirection_after_error_while_increase_lot_value(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        self.verify_amend_purchase_page()
+        self.click_on_lot_increase_no()
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        self.verify_auto_rejection_pop_message()
+        self.click_on_ok_btn_on_auto_rejection()
+        self.verify_amend_purchase_page()
