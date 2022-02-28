@@ -78,3 +78,33 @@ class Amend_test(AmendProcess):
         self.open_status_page_of_buy_order()
         self.verify_order_status_page()
         self.verify_lot_harga_on_two_pages()
+
+    #Validate if user decrease price or decrease lot - no need to validate buying power at the time of amend.
+    @pytest.mark.AMD_SMMA_010
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_decrease_lot_and_harga(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        self.verify_amend_purchase_page()
+        self.click_on_lot_decrease_btn()
+        self.verify_amend_purchase_page()
+        self.click_on_price_decrease()
+        self.verify_amend_purchase_page()
+
+    #Validate if user increase price or increase lot - validate with buying power at the time of amend
+    @pytest.mark.AMD_SMMA_011
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_increase_lot_and_harga(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        self.verify_amend_purchase_page()
+        self.click_on_lot_increase_no()
+        self.verify_amend_purchase_page()
+        self.click_on_price_increase()
+        self.verify_amend_purchase_page()
