@@ -140,3 +140,25 @@ class Amend_test(AmendProcess):
         self.verify_auto_rejection_pop_message()
         self.click_on_ok_btn_on_auto_rejection()
         self.verify_amend_purchase_page()
+
+    #Validate user should get out of the app from the app when user click on back button on on transection page.
+    @pytest.mark.AMD_SMMA_014
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_redirection_after_back_from_trans_page(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.go_back()
+        self.check_phone_home_screen()
+
+    #Validate user is redirected to order section page when user click on back button when user is on cancel and amend section page.
+    @pytest.mark.AMD_SMMA_015
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_redirection_after_back_from_cancel_and_amend_page(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.sleep(3)
+        self.verify_order_status_page()
+        self.go_back()
+        self.sleep(2)
+        self.verify_transaction_page()

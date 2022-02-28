@@ -582,8 +582,8 @@ class HomePage(LoginPage):
 
     @allure.step("check phone home screen")
     def check_phone_home_screen(self):
-       element_visible = self.is_element_visible(phone_home_screen)
-       assert element_visible == True, f"You are not on Home"
+       element_visible = self.is_element_visible(rdn_balance)
+       assert element_visible == False, f"You are not on Home"
 
     @allure.step("click on portfolio btn")
     def click_on_portfolio_btn(self):
