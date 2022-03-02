@@ -21,7 +21,7 @@ lot_on_status_page = '/hierarchy/android.widget.FrameLayout/android.widget.Linea
 harga_on_status_page = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[10]'
 Auto_rejection_popup = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
 Auto_rejection_ok = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
-
+price_on_trans_for_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[6]'
 class AmendProcess(BuyProcess):
 
     @allure.step('Open transaction page with register user ')
@@ -100,3 +100,14 @@ class AmendProcess(BuyProcess):
     @allure.step("click on ok btn on auto rejection")
     def click_on_ok_btn_on_auto_rejection(self):
         self.click(Auto_rejection_ok)
+
+    @allure.step("Verify transaction presence of amend on transaction page")
+    def verify_transaction_presence_after_amend_success(self):
+        self.click_on_price_increase()
+        increased_price = self.get_attribute(price_space, "text")
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        self.click_on_ok_btn()
+        self.verify_transaction_page()
+        transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
+        self.assert_equal(self.add_thousand_seprator(int(increased_price)), transaction_page_price)
