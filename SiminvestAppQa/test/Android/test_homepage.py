@@ -313,7 +313,7 @@ class homePage_test(HomePage,LoginPage):
         self.click_on_research_btn()
         #self.verify_stock_signal_on_research_page()
         self.go_back()
-        #self.check_phone_home_screen()
+        self.check_phone_home_screen()
 
     #* Validate user is redirected to the invest now page when user click on the portfolio page when is non KYC user.
     @pytest.mark.H_SMMA_037
