@@ -62,8 +62,8 @@ class AmendProcess(BuyProcess):
     def click_on_amend_btn(self):
         self.click(amend_btn)
 
-    @allure.step("click on cancel btn")
-    def click_on_cancel_btn(self):
+    @allure.step("click on cancel btn on status page")
+    def click_on_cancel_btn_on_status_page(self):
         self.click(cancel_btn)
 
     @allure.step("Click to increase price")

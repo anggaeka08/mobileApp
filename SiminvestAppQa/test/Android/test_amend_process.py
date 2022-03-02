@@ -177,3 +177,21 @@ class Amend_test(AmendProcess):
         self.go_back()
         self.sleep(1)
         self.verify_order_status_page()
+
+    #Validate user is redirected to amend page when click on cancel button buton on amend confirmation page.
+    @pytest.mark.AMD_SMMA_017
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_redirection_after_back_from_amend_confirmation_page(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        self.verify_amend_purchase_page()
+        self.click_amend_btn_amend_page()
+        self.go_back()
+        self.verify_amend_purchase_page()
+        self.click_amend_btn_amend_page()
+        self.click_on_cancel_btn()
+        self.verify_amend_purchase_page()
+
