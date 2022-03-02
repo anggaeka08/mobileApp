@@ -195,3 +195,30 @@ class Amend_test(AmendProcess):
         self.click_on_cancel_btn()
         self.verify_amend_purchase_page()
 
+    #Validate user is redirected to transection order section page and the value of ordered stock is changed when user click on confirm button.
+    @pytest.mark.AMD_SMMA_018
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_verify_amend_transaction_on_trans_page(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        self.verify_amend_purchase_page()
+        self.verify_transaction_presence_after_amend_success()
+
+    # Validate user should not allow to amend the stock when user is outside exchange hours and receive error promot.
+    @pytest.mark.AMD_SMMA_019
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_pop_for_amend_outside_exchange_hour(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        self.verify_amend_purchase_page()
+        self.click_on_lot_increase_no()
+        self.click_on_price_increase()
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        self.verify_error_message_after_exchange_market()
