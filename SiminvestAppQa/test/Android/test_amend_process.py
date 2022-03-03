@@ -222,3 +222,30 @@ class Amend_test(AmendProcess):
         self.click_amend_btn_amend_page()
         self.click_on_confirm_btn()
         self.verify_error_message_after_exchange_market()
+
+    #Validate user should redirected amend page when user click on x and ok button when user is on outside exchange hour error popup page.
+    @pytest.mark.AMD_SMMA_020
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_redirect_to_amend_page_after_pop_of_market_close(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        self.verify_amend_purchase_page()
+        self.click_on_price_increase()
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        self.verify_error_message_after_exchange_market()
+        self.click_on_ok_btn()
+        self.verify_amend_purchase_page()
+
+    # Validate detail of stock is mentioned in order transection page like lot price and value is same compare to cancel page.
+    @pytest.mark.AMD_SMMA_021
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_values_between_trans_page_cancel_page(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.verify_lot_price_value_on_trans_page_and_amend_or_cancel_page()
+
+
