@@ -22,6 +22,8 @@ harga_on_status_page = '/hierarchy/android.widget.FrameLayout/android.widget.Lin
 Auto_rejection_popup = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
 Auto_rejection_ok = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
 price_on_trans_for_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[6]'
+lot_on_trans_for_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[5]'
+
 class AmendProcess(BuyProcess):
 
     @allure.step('Open transaction page with register user ')
@@ -111,3 +113,13 @@ class AmendProcess(BuyProcess):
         self.verify_transaction_page()
         transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
         self.assert_equal(self.add_thousand_seprator(int(increased_price)), transaction_page_price)
+
+    @allure.step("Verify lot and price value on transaction page and amend/cancel page")
+    def verify_lot_price_value_on_trans_page_and_amend_or_cancel_page(self):
+        transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
+        transaction_page_lot = self.get_attribute(lot_on_trans_for_entry_1, "text")
+        self.open_status_page_of_buy_order()
+        harga_value = self.get_attribute(harga_on_status_page, "text")
+        lot_value = self.get_attribute(lot_on_status_page, "text")
+        self.assert_equal(transaction_page_price, harga_value[3:])
+        self.assert_equal(transaction_page_lot, lot_value)
