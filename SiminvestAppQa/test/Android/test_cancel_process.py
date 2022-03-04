@@ -40,3 +40,14 @@ class Cancel_test(CancelProcess, BuyProcess_test):
         self.open_status_page_of_buy_order()
         self.verify_grammatical_error_on_order_status_page()
 
+    #Validate user is redirected to cancel and amend page when user click on tidak button on cancel confirmation page.
+    @pytest.mark.CAN_SMMA_011
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_redirection_after_click_on_cancel(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_order_status_page()
+        self.click_on_cancel_btn_on_status_page()
+        self.click_on_click_cancel_btn_at_confirmation_pop_up()
+        self.verify_order_status_page()

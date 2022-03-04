@@ -5,6 +5,7 @@ import allure
 import logging as logger
 
 cancel_confirmation ='//*[@text="Ya"]'
+Cancel_btn_Confirmation_pop = '//*[@text="Tidak"]'
 trans_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup'
 status_on_trasction_page = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
 order_id = '//*[@text="Order ID"]'
@@ -40,3 +41,6 @@ class CancelProcess(AmendProcess):
         self.assert_equal(self.get_attribute(jumlah, "text"), 'Jumlah Selesai')
         self.assert_equal(self.get_attribute(Biaya, "text"), 'Biaya')
 
+    @allure.step("Click on cancel btn at confirmation pop up")
+    def click_on_click_cancel_btn_at_confirmation_pop_up(self):
+        self.click(Cancel_btn_Confirmation_pop)
