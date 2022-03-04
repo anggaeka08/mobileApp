@@ -31,3 +31,12 @@ class Cancel_test(CancelProcess, BuyProcess_test):
         self.click_on_ok_btn()
         self.verify_order_status_page()
 
+    #Validate all the words are grammatically correct at the time of cancel process.
+    @pytest.mark.CAN_SMMA_004
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_grammatically_correct_at_the_time_of_cancel_process(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.verify_grammatical_error_on_order_status_page()
+
