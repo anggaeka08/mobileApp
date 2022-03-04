@@ -23,7 +23,10 @@ Auto_rejection_popup = '/hierarchy/android.widget.FrameLayout/android.widget.Lin
 Auto_rejection_ok = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
 price_on_trans_for_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[6]'
 lot_on_trans_for_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[5]'
-
+hubungi_customer_care = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
+chrome_xpath = '//android.view.View[@content-desc="Halaman beranda Pusat Bantuan Sinarmas Sekuritas"]/android.widget.Image'
+click_browser=  '//*[@text="Browser"]'
+click_accept = '//*[@text="AGREE & CONTINUE"]'
 class AmendProcess(BuyProcess):
 
     @allure.step('Open transaction page with register user ')
@@ -123,3 +126,14 @@ class AmendProcess(BuyProcess):
         lot_value = self.get_attribute(lot_on_status_page, "text")
         self.assert_equal(transaction_page_price, harga_value[3:])
         self.assert_equal(transaction_page_lot, lot_value)
+
+    @allure.step("Click on Customer care support link")
+    def click_on_customer_support_link(self):
+        self.click(hubungi_customer_care)
+        self.click(click_browser)
+        self.click(click_accept)
+        self.sleep(20)
+
+    @allure.step("Verify redirection after click on customer support")
+    def verify_redirection_after_click_on_customer_support(self):
+        self.assert_equal(self.is_element_visible(chrome_xpath), True)

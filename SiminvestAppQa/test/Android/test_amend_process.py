@@ -248,4 +248,12 @@ class Amend_test(AmendProcess):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.verify_lot_price_value_on_trans_page_and_amend_or_cancel_page()
 
+    #Validate user is redirected to external browser when user click on Hubungi coustomer care button.
+    @pytest.mark.AMD_SMMA_022
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    def test_validate_redirection_to_external_browser_after_click(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.open_status_page_of_buy_order()
+        self.click_on_customer_support_link()
 
