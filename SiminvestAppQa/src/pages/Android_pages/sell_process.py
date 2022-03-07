@@ -4,6 +4,7 @@ import allure
 
 jaul_btn = '//*[@text="Jual"]'
 Setuju_btn = '//*[@text="Setuju"]'
+Batal_btn = '//*[@text="Batal"]'
 bs_on_trans = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[4]'
 
 
@@ -25,9 +26,13 @@ class SellProcess(HomePage):
     def click_on_jual_btn(self):
         self.click(jaul_btn)
 
-    @allure.step("click on setuju page")
+    @allure.step("click on setuju btn")
     def click_on_setuju(self):
         self.click(Setuju_btn)
+
+    @allure.step("click on batal btn")
+    def click_on_batal(self):
+        self.click(Batal_btn)
 
     @allure.step("Verify transaction for sell")
     def verify_transaction_page_for_sell(self):
