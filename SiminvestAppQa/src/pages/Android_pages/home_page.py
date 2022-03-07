@@ -172,8 +172,9 @@ class HomePage(LoginPage):
 
     @allure.step("verify stock page")
     def verify_sdp_page(self):
-        stock_name_text = self.get_attribute(stock_name, "text")
-        self.assert_equal(stock_name_text, "Ace Hardware Indonesia Tbk.")
+        self.assert_equal(self.is_element_visible(stock_name), True)
+        #stock_name_text = self.get_attribute(stock_name, "text")
+        #self.assert_equal(stock_name_text, "Ace Hardware Indonesia Tbk.")
         #self.is_element_visible(chart_element)
         #self.is_element_visible(stock_buy_bttton)
         beli_with_sell = self.is_element_visible(buy_btn_with_sell)
