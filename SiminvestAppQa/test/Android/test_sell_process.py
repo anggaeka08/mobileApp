@@ -55,3 +55,15 @@ class Sell_test(SellProcess, BuyProcess):
         self.verify_transaction_page()
         self.go_to_gtc_tab_on_trans_page()
         self.verify_transaction_page_for_sell_on_gtc_page()
+
+    # Validate the default value for sell stock lot size is 1.
+    @pytest.mark.Sell_SMMA_505
+    @pytest.mark.Sell
+    @pytest.mark.Android
+    def test_validate_initial_value_of_lot_is_1(self):
+        self.open_and_verify_portfolio(user_data['reg_no'])
+        self.click_on_portfolio_entry_2()
+        self.verify_sdp_page()
+        self.click_on_jual_btn()
+        self.verify_buy_page()
+        self.check_initial_value_of_lot()
