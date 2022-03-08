@@ -82,3 +82,20 @@ class Sell_test(SellProcess, BuyProcess):
         self.click_on_portfolio_entry_2()
         self.click_on_jual_btn()
         self.verify_lot_harga_jumlah_value()
+
+
+    #Validate user should receive and error prompt of exchange not operating if user is trying to sell the stock outside exchange operating hours.
+    @pytest.mark.Sell_SMMA_509
+    @pytest.mark.Sell
+    @pytest.mark.Android
+    def test_validate_pop_for_sell_after_exchange_hours(self):
+        self.open_and_verify_portfolio(user_data['reg_no'])
+        self.click_on_portfolio_entry_2()
+        self.verify_sdp_page()
+        self.click_on_jual_btn()
+        self.verify_buy_page()
+        self.click_on_jual_btn()
+        self.click_on_setuju()
+        self.verify_error_message_after_exchange_market()
+        self.click_on_ok_btn()
+

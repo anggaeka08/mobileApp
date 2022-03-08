@@ -4,7 +4,7 @@ cp ={
     "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
 
     # Set URL of the application under test
-    "app": "bs://f56fdf7e14c81401ac2087857947a7125a1f4d7f",
+    "app": "bs://fdfd4d58659ef3a69e27eb5999a0d6d887a4d425",
 
     # Specify device and os_version for testing
     "device": "Xiaomi Redmi Note 7",
