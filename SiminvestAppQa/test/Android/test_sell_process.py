@@ -99,3 +99,18 @@ class Sell_test(SellProcess, BuyProcess):
         self.verify_error_message_after_exchange_market()
         self.click_on_ok_btn()
 
+    #alidate user is able to increase or decrease the value of sell at price "beli di harga" via + and - button.
+    @pytest.mark.Sell_SMMA_510
+    @pytest.mark.Sell
+    @pytest.mark.Android
+    def test_validate_plus_minus_for_lot_and_harga_on_sell_page(self):
+        self.open_and_verify_portfolio(user_data['reg_no'])
+        self.click_on_portfolio_entry_2()
+        self.verify_sdp_page()
+        self.click_on_jual_btn()
+        self.verify_lot_count("1")
+        self.click_on_lot_increase_no()
+        self.verify_lot_count("2")
+        self.click_on_lot_decrease_btn()
+        self.verify_lot_count("1")
+        self.verify_plus_minus_btn_beli()
