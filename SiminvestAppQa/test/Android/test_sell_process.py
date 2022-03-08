@@ -70,3 +70,15 @@ class Sell_test(SellProcess, BuyProcess):
         self.check_initial_value_of_lot("1")
         self.click_on_lot_increase_no()
         self.check_initial_value_of_lot("2")
+
+    #Validate on sell confirmation page the detail of stock is same with the sell page detail
+    #Validate the thousand separator is added on all the required places during sell process.
+    #not validating profit and loss values
+    @pytest.mark.Sell_SMMA_507
+    @pytest.mark.Sell
+    @pytest.mark.Android
+    def test_all_value_between_sell_page_and_sell_confirmation_page(self):
+        self.open_and_verify_portfolio(user_data['reg_no'])
+        self.click_on_portfolio_entry_2()
+        self.click_on_jual_btn()
+        self.verify_lot_harga_jumlah_value()
