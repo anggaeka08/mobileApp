@@ -57,13 +57,28 @@ class Sell_test(SellProcess, BuyProcess):
         self.verify_transaction_page_for_sell_on_gtc_page()
 
     # Validate the default value for sell stock lot size is 1.
+    #alidate the - button is disable when there is one stock selected in the lot.
     @pytest.mark.Sell_SMMA_505
     @pytest.mark.Sell
     @pytest.mark.Android
-    def test_validate_initial_value_of_lot_is_1(self):
+    def test_validate_initial_value_of_lot_is_1_and_minus_btn_disable(self):
         self.open_and_verify_portfolio(user_data['reg_no'])
         self.click_on_portfolio_entry_2()
         self.verify_sdp_page()
         self.click_on_jual_btn()
         self.verify_buy_page()
-        self.check_initial_value_of_lot()
+        self.check_initial_value_of_lot("1")
+        self.click_on_lot_increase_no()
+        self.check_initial_value_of_lot("2")
+
+    #Validate on sell confirmation page the detail of stock is same with the sell page detail
+    #Validate the thousand separator is added on all the required places during sell process.
+    #not validating profit and loss values
+    @pytest.mark.Sell_SMMA_507
+    @pytest.mark.Sell
+    @pytest.mark.Android
+    def test_all_value_between_sell_page_and_sell_confirmation_page(self):
+        self.open_and_verify_portfolio(user_data['reg_no'])
+        self.click_on_portfolio_entry_2()
+        self.click_on_jual_btn()
+        self.verify_lot_harga_jumlah_value()
