@@ -62,3 +62,7 @@ class SellProcess(HomePage):
         self.set_text(lot_count, enter_new_value)
         self.assert_equal(self.get_attribute(lot_count, "text"), available_lot_value)
 
+    @allure.step("verify error message for sell stock exceed limit")
+    def verify_error_message_for_sell_stock_exceed_limit(self):
+        pass
+
