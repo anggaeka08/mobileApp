@@ -114,3 +114,24 @@ class Sell_test(SellProcess, BuyProcess):
         self.click_on_lot_decrease_btn()
         self.verify_lot_count("1")
         self.verify_plus_minus_btn_beli()
+
+    #Validate the lot size can not be written more then the lot purchaesd and the value changed automaticaaly to correct value if he force to type more value.
+    @pytest.mark.Sell_SMMA_512
+    @pytest.mark.Sell
+    @pytest.mark.Android
+    def test_validate_lot_value_stay_in_limit_according_to_available_lot(self):
+        self.open_and_verify_portfolio(user_data['reg_no'])
+        self.click_on_portfolio_entry_2()
+        self.click_on_jual_btn()
+        self.verify_lot_value_change_default()
+
+
+    #Validate the error should prompt at top when user trying to sell the stock above the available limit.
+    @pytest.mark.Sell_SMMA_516
+    @pytest.mark.Sell
+    @pytest.mark.Android
+    def test_validate_error_message_for_sell_stock_above_available_limit(self):
+        self.open_and_verify_portfolio(user_data['reg_no'])
+        self.click_on_portfolio_entry_2()
+        self.click_on_jual_btn()
+        self.verify_error_message_for_sell_stock_exceed_limit()
