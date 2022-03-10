@@ -1,10 +1,9 @@
 import pytest
 from SiminvestAppQa.src.pages.Android_pages.sell_process import SellProcess
-from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
 from SiminvestAppQa.src.data.userData import user_data
 
 
-class Sell_test(SellProcess, BuyProcess):
+class Sell_test(SellProcess):
 
     # Validate user is able to sell stock.
     @pytest.mark.Sell_SMMA_502
@@ -135,3 +134,13 @@ class Sell_test(SellProcess, BuyProcess):
         self.click_on_portfolio_entry_2()
         self.click_on_jual_btn()
         self.verify_error_message_for_sell_stock_exceed_limit()
+
+   # Validate the bid and ask price is replicated on jual di harga option when user clicks on any visible prices in bid and ask.
+    @pytest.mark.Sell_SMMA_517
+    @pytest.mark.Sell
+    @pytest.mark.Android
+    def test_validate_values_of_harga_according_to_click_on_bit_and_ask(self):
+        self.open_and_verify_portfolio(user_data['reg_no'])
+        self.click_on_portfolio_entry_2()
+        self.click_on_jual_btn()
+        self.verify_value_change_in_harga_accord_to_click()
