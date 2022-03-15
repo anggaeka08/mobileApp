@@ -4,7 +4,7 @@ cp ={
     "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
 
     # Set URL of the application under test
-    "app": "bs://fdfd4d58659ef3a69e27eb5999a0d6d887a4d425",
+    "app": "bs://3c6959f2eeb765e00ad7a683fd6da1ce2bd1990f",
 
     # Specify device and os_version for testing
     "device": "Xiaomi Redmi Note 7",
@@ -12,8 +12,8 @@ cp ={
 
     # Set other BrowserStack capabilities
     "project": "Siminvest APP QA",
-    "build": "Android 1.45.15_",
-    "name": "UI_Test Android V1.3",
+    "build": "Android 1.49.6",
+    "name": "UI_Test Android",
 
     # Set Specific capabilities regarding test
     'autoAcceptAlerts': 'true',
