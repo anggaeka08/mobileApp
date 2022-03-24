@@ -2,6 +2,7 @@ import pytest
 from SiminvestAppQa.src.pages.Android_pages.amend_page import AmendProcess
 from SiminvestAppQa.src.data.userData import user_data
 
+@pytest.mark.usefixtures("unittest_setUpClass_fixture_Amend_test")
 class Amend_test(AmendProcess):
 
     #Validate user is able to increase and decrease the value of beli di harga and jumlah lot inside amend page of purchased stock.

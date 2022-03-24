@@ -5,7 +5,7 @@ from SiminvestAppQa.src.utilities.genericUtilities import generate_random_intege
 from SiminvestAppQa.src.data.userData import user_data
 import time
 
-
+@pytest.mark.usefixtures("unittest_setUpClass_fixture_homePage_test")
 class homePage_test(HomePage,LoginPage):
 
     # Validate user is able open the SDP page via global search bar.

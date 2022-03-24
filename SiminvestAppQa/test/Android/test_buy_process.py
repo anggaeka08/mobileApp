@@ -2,6 +2,7 @@ import pytest
 from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
 from SiminvestAppQa.src.data.userData import user_data
 
+@pytest.mark.usefixtures("unittest_setUpClass_fixture_BuyProcess_test")
 class BuyProcess_test(BuyProcess):
 
     #Validate that user can see buy button on stock detail page

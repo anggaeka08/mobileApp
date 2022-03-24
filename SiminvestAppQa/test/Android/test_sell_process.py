@@ -2,7 +2,7 @@ import pytest
 from SiminvestAppQa.src.pages.Android_pages.sell_process import SellProcess
 from SiminvestAppQa.src.data.userData import user_data
 
-
+@pytest.mark.usefixtures("unittest_setUpClass_fixture_Sell_test")
 class Sell_test(SellProcess):
 
     # Validate user is able to sell stock.
