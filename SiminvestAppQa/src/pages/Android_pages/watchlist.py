@@ -10,6 +10,9 @@ watchlist_name_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearL
 edit_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.ImageView'
 name_edit = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.EditText'
 simpan = '//*[@text="Simpan"]'
+Hapus = '//*[@text="HAPUS"]'
+delete_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.ImageView'
+Batal = '//*[@text="BATAL"]'
 
 class Watchlist(HomePage):
 
@@ -33,8 +36,8 @@ class Watchlist(HomePage):
 
     @allure.step("Enter watchlist name")
     def enter_watchlist_name(self, name):
-        self.set_text(watchlist_name_edit, name)
-        self.tap_by_coordinates(x=931, y=2114)
+        self.update_text(watchlist_name_edit, name)
+        self.tap_by_coordinates(x=1060, y=2100)
 
     @allure.step("Validate watchlist Entry")
     def validate_watchlist_entry(self, name):
@@ -52,6 +55,25 @@ class Watchlist(HomePage):
     @allure.step("Click on Simpan")
     def click_on_simpan(self):
         self.click(simpan)
+
+    @allure.step("Click on Hapus")
+    def click_on_Hapus(self):
+        self.click(Hapus)
+
+    @allure.step("Click on Batal")
+    def click_on_Batal(self):
+        self.click(Batal)
+
+
+    @allure.step("Delete the created watchlist")
+    def Cancel_delete_and_delete_watchlist(self):
+        self.click(delete_btn)
+        self.click_on_Batal()
+        self.assert_equal(self.is_element_visible(watchlist_entry_2), True)
+        self.click(delete_btn)
+        self.click_on_Hapus()
+        self.assert_equal(self.is_element_visible(watchlist_entry_2), False)
+
 
 
 
