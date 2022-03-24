@@ -2,6 +2,7 @@ import pytest
 from SiminvestAppQa.src.pages.Android_pages.cancel_process import CancelProcess
 from SiminvestAppQa.src.data.userData import user_data
 
+@pytest.mark.usefixtures("unittest_setUpClass_fixture_Cancel_test")
 class Cancel_test(CancelProcess):
 
     #Validate user should redirected to order page when user click on OK button on cancel confirmation page.

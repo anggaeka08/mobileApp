@@ -2,6 +2,7 @@ import pytest
 from SiminvestAppQa.src.pages.Android_pages.watchlist import Watchlist
 from SiminvestAppQa.src.data.userData import user_data
 
+@pytest.mark.usefixtures("unittest_setUpClass_fixture_Watchlist_test")
 class Watchlist_test(Watchlist):
 
     #Validate user will able to create watchlist.

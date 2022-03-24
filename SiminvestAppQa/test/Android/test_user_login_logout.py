@@ -4,6 +4,7 @@ from SiminvestAppQa.src.utilities.genericUtilities import generate_random_intege
 from SiminvestAppQa.src.data.userData import user_data
 import time
 
+@pytest.mark.usefixtures("unittest_setUpClass_fixture_Login_test")
 class Login_test(LoginPage):
 
     # Verify that user should be redirecting to the welcome page after open the application.
