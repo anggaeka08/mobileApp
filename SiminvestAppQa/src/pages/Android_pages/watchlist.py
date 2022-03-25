@@ -13,6 +13,9 @@ simpan = '//*[@text="Simpan"]'
 Hapus = '//*[@text="HAPUS"]'
 delete_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.ImageView'
 Batal = '//*[@text="BATAL"]'
+pop_msg = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+pop_ok_btn = '//*[@text="OK"]'
+cross_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.ImageView'
 
 class Watchlist(HomePage):
 
@@ -64,6 +67,10 @@ class Watchlist(HomePage):
     def click_on_Batal(self):
         self.click(Batal)
 
+    @allure.step("Click on delete")
+    def click_on_delete(self):
+        self.click(delete_btn)
+
 
     @allure.step("Delete the created watchlist")
     def Cancel_delete_and_delete_watchlist(self):
@@ -74,6 +81,14 @@ class Watchlist(HomePage):
         self.click_on_Hapus()
         self.assert_equal(self.is_element_visible(watchlist_entry_2), False)
 
+    @allure.step("Validate pop msg")
+    def validate_pop_message(self):
+        self.assert_equal(self.is_element_visible(pop_msg), True)
+        self.click(pop_ok_btn)
+
+    @allure.step("Click on cross btn")
+    def click_on_cross_btn(self):
+        self.click(cross_btn)
 
 
 
