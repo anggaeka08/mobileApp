@@ -38,6 +38,22 @@ class Watchlist_test(Watchlist):
             self.click_on_Hapus()
             self.sleep(1)
 
+    # Validate If there is no stock inside watchlist, please show empty stock with button tamnah saham.
+    @pytest.mark.Wat_SMMA_007
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_msg_when_watchlist_empty(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.click_on_defaults_btn()
+        self.click_on_plus_btn()
+        self.enter_watchlist_name('test')
+        self.validate_watchlist_entry('test')
+        self.click_on_watchlist_entry_2()
+        self.scroll_ups()
+        self.empty_watchlist_msg()
+        self.click_on_test()
+        self.click_on_selected_watchlist()
+        self.click_on_Hapus()
 
 
 

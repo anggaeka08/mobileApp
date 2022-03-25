@@ -8,14 +8,17 @@ watchlist_name_edit = '/hierarchy/android.widget.FrameLayout/android.widget.Line
 watchlist_entry_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]'
 watchlist_name_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
 edit_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.ImageView'
+delete_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.ImageView'
+select_delete_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[3]/android.widget.ImageView'
 name_edit = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.EditText'
 simpan = '//*[@text="Simpan"]'
 Hapus = '//*[@text="HAPUS"]'
-delete_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.ImageView'
 Batal = '//*[@text="BATAL"]'
 pop_msg = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
 pop_ok_btn = '//*[@text="OK"]'
 cross_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.ImageView'
+Tambah_saham = "//*[@text='Tambah saham']"
+test = "//*[@text='test']"
 
 class Watchlist(HomePage):
 
@@ -36,6 +39,10 @@ class Watchlist(HomePage):
     @allure.step("Click on default btn")
     def click_on_defaults_btn(self):
         self.click(default)
+
+    @allure.step("Click on test")
+    def click_on_test(self):
+        self.click(test)
 
     @allure.step("Enter watchlist name")
     def enter_watchlist_name(self, name):
@@ -70,6 +77,9 @@ class Watchlist(HomePage):
     @allure.step("Click on delete")
     def click_on_delete(self):
         self.click(delete_btn)
+    @allure.step("Click on selected watchlist delete")
+    def click_on_selected_watchlist(self):
+        self.click(select_delete_btn)
 
 
     @allure.step("Delete the created watchlist")
@@ -89,6 +99,20 @@ class Watchlist(HomePage):
     @allure.step("Click on cross btn")
     def click_on_cross_btn(self):
         self.click(cross_btn)
+
+    @allure.step("Click on watchlist entry 2")
+    def click_on_watchlist_entry_2(self):
+        self.click(watchlist_entry_2)
+
+    @allure.step("Validate empty msg in watchlist")
+    def empty_watchlist_msg(self):
+        self.assert_equal(self.get_attribute(Tambah_saham, "text"), "Tambah saham")
+
+    @allure.step("small scroll up")
+    def scroll_ups(self):
+        self.scroll_screen(start_x=374, start_y=2057, end_x=435, end_y=1729, duration=5000)
+        self.sleep(2)
+
 
 
 
