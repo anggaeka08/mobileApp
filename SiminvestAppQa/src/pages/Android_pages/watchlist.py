@@ -19,6 +19,7 @@ pop_ok_btn = '//*[@text="OK"]'
 cross_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.ImageView'
 Tambah_saham = "//*[@text='Tambah saham']"
 test = "//*[@text='test']"
+default_watchlist = "//*[@text='Default']"
 
 class Watchlist(HomePage):
 
@@ -112,6 +113,10 @@ class Watchlist(HomePage):
     def scroll_ups(self):
         self.scroll_screen(start_x=374, start_y=2057, end_x=435, end_y=1729, duration=5000)
         self.sleep(2)
+
+    @allure.step("Validate default watchlist")
+    def validate_default_watchlist(self):
+        self.assert_equal(self.is_element_visible(default_watchlist), True)
 
 
 

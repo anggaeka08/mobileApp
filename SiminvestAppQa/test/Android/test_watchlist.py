@@ -55,6 +55,15 @@ class Watchlist_test(Watchlist):
         self.click_on_selected_watchlist()
         self.click_on_Hapus()
 
+    #Validate only new Siminvest’s will have default watchlis
+    @pytest.mark.Wat_SMMA_008
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_default_watchlist_for_new_user(self):
+        self.go_to_watchlist_option_after_login(user_data['unkyc_reg_no'])
+        self.validate_default_watchlist()
+
+
 
 
 
