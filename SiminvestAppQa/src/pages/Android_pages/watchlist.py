@@ -20,6 +20,11 @@ cross_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/a
 Tambah_saham = "//*[@text='Tambah saham']"
 test = "//*[@text='test']"
 default_watchlist = "//*[@text='Default']"
+ARTO = '//*[@text="ARTO"]'
+BBCA = '//*[@text="BBCA"]'
+BBRI = '//*[@text="BBRI"]'
+BMRI = '//*[@text="BMRI"]'
+TLKM = '//*[@text="TLKM"]'
 
 class Watchlist(HomePage):
 
@@ -118,6 +123,14 @@ class Watchlist(HomePage):
     def validate_default_watchlist(self):
         self.assert_equal(self.is_element_visible(default_watchlist), True)
 
+
+    @allure.step("Availability check Stock list in default watchlist")
+    def validate_avail_check_f0r_stock_on_watchlist(self):
+        self.assert_equal(self.is_element_visible(ARTO), True)
+        self.assert_equal(self.is_element_visible(BBCA), True)
+        self.assert_equal(self.is_element_visible(BBRI), True)
+        self.assert_equal(self.is_element_visible(BMRI), True)
+        self.assert_equal(self.is_element_visible(TLKM), True)
 
 
 
