@@ -1,5 +1,6 @@
 import pytest
 from SiminvestAppQa.src.pages.Android_pages.watchlist import Watchlist
+from SiminvestAppQa.src.utilities.genericUtilities import generate_random_string
 from SiminvestAppQa.src.data.userData import user_data
 
 @pytest.mark.usefixtures("unittest_setUpClass_fixture_Watchlist_test")
@@ -62,6 +63,28 @@ class Watchlist_test(Watchlist):
     def test_validate_default_watchlist_for_new_user(self):
         self.go_to_watchlist_option_after_login(user_data['unkyc_reg_no'])
         self.validate_default_watchlist()
+
+    # Validate stocks for default watchlist are BBCA, BBRI, TLKM, BMRI, ARTO
+    @pytest.mark.Wat_SMMA_009
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_stock_list_in_default_watchlist(self):
+        self.go_to_watchlist_option_after_login(user_data['unkyc_reg_no'])
+        self.validate_avail_check_f0r_stock_on_watchlist()
+
+    #Validate watchlist name will have maximum 60 characters.
+    @pytest.mark.Wat_SMMA_010
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_watchlist_name_max_60_character(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.click_on_defaults_btn()
+        self.click_on_plus_btn()
+        name = generate_random_string(65)
+        self.enter_watchlist_name(name)
+        self.validate_watchlist_entry(name[:60])
+        self.click_on_delete()
+        self.click_on_Hapus()
 
 
 
