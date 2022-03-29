@@ -109,6 +109,23 @@ class Watchlist_test(Watchlist):
         self.click_on_selected_watchlist()
         self.click_on_Hapus()
 
+   #Validate test cases from count 014 to 018.
+    @pytest.mark.Wat_SMMA_014_018
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_test_case_smma_014_to_smma_018(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.click_on_edit_for_stock()
+        self.search_stock('A')
+        self.verify_stock_list_after_single_character_search()
+        self.search_stock('ARGO')
+        self.verify_stock_search_by_full_code()
+        self.click_to_add_remove()
+        self.sleep(3)
+        self.click_to_add_remove()
+        self.click_on_ok()
+
+
 
 
 
