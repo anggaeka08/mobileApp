@@ -25,6 +25,13 @@ BBCA = '//*[@text="BBCA"]'
 BBRI = '//*[@text="BBRI"]'
 BMRI = '//*[@text="BMRI"]'
 TLKM = '//*[@text="TLKM"]'
+top_gainer = '//*[@text="Top gainers"]'
+top_frequency = '//*[@text="Top frequency"]'
+top_gainers_prese = '//*[@text="Top gainers %"]'
+top_value = '//*[@text="Top value"]'
+top_volume = '//*[@text="Top Volume"]'
+top_losers = '//*[@text="Top losers"]'
+top_losers_prese = '//*[@text="Top losers %"]'
 
 class Watchlist(HomePage):
 
@@ -114,15 +121,37 @@ class Watchlist(HomePage):
     def empty_watchlist_msg(self):
         self.assert_equal(self.get_attribute(Tambah_saham, "text"), "Tambah saham")
 
+    @allure.step("Click on Tambah saham")
+    def click_on_tambah_saham(self):
+        self.click(Tambah_saham)
+
     @allure.step("small scroll up")
     def scroll_ups(self):
-        self.scroll_screen(start_x=374, start_y=2057, end_x=435, end_y=1729, duration=5000)
         self.sleep(2)
+        self.scroll_screen(start_x=374, start_y=2057, end_x=435, end_y=1729, duration=10000)
+
 
     @allure.step("Validate default watchlist")
     def validate_default_watchlist(self):
         self.assert_equal(self.is_element_visible(default_watchlist), True)
 
+    @allure.step("Verify top gainer")
+    def verify_top_gainer_presence(self):
+        self.assert_equal(self.is_element_visible(top_gainer), True)
+
+    @allure.step("click on top gainer")
+    def click_on_top_gainer(self):
+        self.click(top_gainer)
+
+
+    @allure.step("Verify tambahkan page")
+    def verify_stock_type_selection(self):
+        self.assert_equal(self.is_element_visible(top_frequency), True)
+        self.assert_equal(self.is_element_visible(top_gainers_prese), True)
+        self.assert_equal(self.is_element_visible(top_value), True)
+        self.assert_equal(self.is_element_visible(top_volume), True)
+        self.assert_equal(self.is_element_visible(top_losers), True)
+        self.assert_equal(self.is_element_visible(top_losers_prese), True)
 
     @allure.step("Availability check Stock list in default watchlist")
     def validate_avail_check_f0r_stock_on_watchlist(self):

@@ -86,6 +86,29 @@ class Watchlist_test(Watchlist):
         self.click_on_delete()
         self.click_on_Hapus()
 
+    #Validate as default show top gainer at the time of adding stock.
+    @pytest.mark.Wat_SMMA_012_013
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_default_show_top_gainer(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.click_on_defaults_btn()
+        self.click_on_plus_btn()
+        self.enter_watchlist_name('test')
+        self.validate_watchlist_entry('test')
+        self.click_on_watchlist_entry_2()
+        self.scroll_ups()
+        self.empty_watchlist_msg()
+        self.click_on_tambah_saham()
+        self.verify_top_gainer_presence()
+        self.click_on_top_gainer()
+        self.verify_stock_type_selection()
+        self.go_back()
+        self.go_back()
+        self.click_on_test()
+        self.click_on_selected_watchlist()
+        self.click_on_Hapus()
+
 
 
 
