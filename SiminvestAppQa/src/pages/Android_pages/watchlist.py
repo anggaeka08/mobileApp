@@ -32,7 +32,11 @@ top_value = '//*[@text="Top value"]'
 top_volume = '//*[@text="Top Volume"]'
 top_losers = '//*[@text="Top losers"]'
 top_losers_prese = '//*[@text="Top losers %"]'
-
+search_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.EditText'
+stock_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView[1]'
+stock_1_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
+stock_2_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
+stock_3_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
 class Watchlist(HomePage):
 
     @allure.step("Go to watchlist option")
@@ -70,6 +74,10 @@ class Watchlist(HomePage):
     @allure.step("Click to edit watchlist name")
     def click_on_edit_btn(self):
         self.click(edit_btn)
+
+    @allure.step("Click to edit watchlist stock")
+    def click_on_edit_for_stock(self):
+        self.click('//*[@text="Edit"]')
 
     @allure.step("Edit watchlist name")
     def edit_watchlist_name(self):
@@ -160,6 +168,34 @@ class Watchlist(HomePage):
         self.assert_equal(self.is_element_visible(BBRI), True)
         self.assert_equal(self.is_element_visible(BMRI), True)
         self.assert_equal(self.is_element_visible(TLKM), True)
+
+    @allure.step("Search stock")
+    def search_stock(self, Value):
+        self.update_text(search_btn,Value)
+        self.sleep(3)
+
+    @allure.step("Verify Stock Search")
+    def verify_stock_search_by_full_code(self):
+        self.assert_equal(self.get_attribute(stock_name, "text"), "ARGO")
+
+
+    @allure.step("Verify stock after search by single character")
+    def verify_stock_list_after_single_character_search(self):
+        self.assert_equal(self.is_element_visible(stock_1_add), True)
+        self.assert_equal(self.is_element_visible(stock_2_add), True)
+        self.assert_equal(self.is_element_visible(stock_3_add), True)
+
+    @allure.step("Click to add or remove")
+    def click_to_add_remove(self):
+        self.click(stock_1_add)
+
+    @allure.step("Verify stock available in watchlist")
+    def verify_stock_available(self, Value):
+        self.assert_equal(self.is_element_visible(f"//*[@text='{Value}']"), True)
+
+    @allure.step("Click_on_ok_btn")
+    def click_on_ok(self):
+        self.click("//*[@text='OK']")
 
 
 
