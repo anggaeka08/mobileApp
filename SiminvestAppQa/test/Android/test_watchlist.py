@@ -125,6 +125,19 @@ class Watchlist_test(Watchlist):
         self.click_to_add_remove()
         self.click_on_ok()
 
+    #Validate test cases from count 019 to 020.
+    @pytest.mark.Wat_SMMA_019_020
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_stcok_sorting_and_delete_disble_for_single_watchlist(self):
+        self.go_to_watchlist_option_after_login(user_data['unkyc_reg_no'])
+        self.click_on_edit_for_stock()
+        self.validate_avail_check_for_stock_on_watchlist()
+        self.go_back()
+        self.go_back()
+        self.click_on_defaults_btn()
+        self.verify_delete_btn()
+
 
 
 

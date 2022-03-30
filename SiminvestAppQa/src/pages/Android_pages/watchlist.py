@@ -1,6 +1,7 @@
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
 from SiminvestAppQa.src.data.userData import user_data
 import allure
+import logging as logger
 
 default = '//*[@text="Default"]'
 plus_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.ImageView'
@@ -37,6 +38,8 @@ stock_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/
 stock_1_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
 stock_2_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
 stock_3_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
+
+
 class Watchlist(HomePage):
 
     @allure.step("Go to watchlist option")
@@ -98,10 +101,10 @@ class Watchlist(HomePage):
     @allure.step("Click on delete")
     def click_on_delete(self):
         self.click(delete_btn)
+
     @allure.step("Click on selected watchlist delete")
     def click_on_selected_watchlist(self):
         self.click(select_delete_btn)
-
 
     @allure.step("Delete the created watchlist")
     def Cancel_delete_and_delete_watchlist(self):
@@ -138,7 +141,6 @@ class Watchlist(HomePage):
         self.sleep(2)
         self.scroll_screen(start_x=374, start_y=2057, end_x=435, end_y=1729, duration=10000)
 
-
     @allure.step("Validate default watchlist")
     def validate_default_watchlist(self):
         self.assert_equal(self.is_element_visible(default_watchlist), True)
@@ -151,7 +153,6 @@ class Watchlist(HomePage):
     def click_on_top_gainer(self):
         self.click(top_gainer)
 
-
     @allure.step("Verify tambahkan page")
     def verify_stock_type_selection(self):
         self.assert_equal(self.is_element_visible(top_frequency), True)
@@ -162,7 +163,7 @@ class Watchlist(HomePage):
         self.assert_equal(self.is_element_visible(top_losers_prese), True)
 
     @allure.step("Availability check Stock list in default watchlist")
-    def validate_avail_check_f0r_stock_on_watchlist(self):
+    def validate_avail_check_for_stock_on_watchlist(self):
         self.assert_equal(self.is_element_visible(ARTO), True)
         self.assert_equal(self.is_element_visible(BBCA), True)
         self.assert_equal(self.is_element_visible(BBRI), True)
@@ -171,13 +172,12 @@ class Watchlist(HomePage):
 
     @allure.step("Search stock")
     def search_stock(self, Value):
-        self.update_text(search_btn,Value)
+        self.update_text(search_btn, Value)
         self.sleep(3)
 
     @allure.step("Verify Stock Search")
     def verify_stock_search_by_full_code(self):
         self.assert_equal(self.get_attribute(stock_name, "text"), "ARGO")
-
 
     @allure.step("Verify stock after search by single character")
     def verify_stock_list_after_single_character_search(self):
@@ -197,5 +197,12 @@ class Watchlist(HomePage):
     def click_on_ok(self):
         self.click("//*[@text='OK']")
 
+    @allure.step("Stock list available on page")
+    def stock_list_available_on_page(self):
+        elements = self.find_elements(
+            "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView")
+        logger.info(elements)
 
-
+    @allure.step("Verify delete btn")
+    def verify_delete_btn(self):
+        self.assert_equal(self.is_element_visible(delete_btn), False)
