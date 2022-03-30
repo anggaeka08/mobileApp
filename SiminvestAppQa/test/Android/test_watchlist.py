@@ -138,6 +138,33 @@ class Watchlist_test(Watchlist):
         self.click_on_defaults_btn()
         self.verify_delete_btn()
 
+    #Validate user able to create duplicate name watchlist and able to add stock
+    @pytest.mark.Wat_SMMA_021_022
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_user_able_to_create_duplicate_name_watchlist_and_able_to_add_stock(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.click_on_defaults_btn()
+        self.click_on_plus_btn()
+        self.enter_watchlist_name('Default')
+        self.validate_watchlist_entry('Default')
+        self.click_on_watchlist_entry_2()
+        self.scroll_ups()
+        self.empty_watchlist_msg()
+        self.click_on_tambah_saham()
+        self.search_stock('ARGO')
+        self.click_to_add_remove()
+        self.go_back()
+        self.scroll_ups()
+        self.verify_watchlist_entry()
+        self.click_on_defaults_btn()
+        self.click_on_selected_watchlist()
+        self.click_on_Hapus()
+
+
+
+
+
 
 
 
