@@ -161,6 +161,24 @@ class Watchlist_test(Watchlist):
         self.click_on_selected_watchlist()
         self.click_on_Hapus()
 
+    @pytest.mark.Wat_SMMA_024_028
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_selected_watchlist_visible_after_reopen_app_and_sdp_open_after_click_stock(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.click_on_defaults_btn()
+        self.click_on_plus_btn()
+        self.enter_watchlist_name('test')
+        self.validate_watchlist_entry('test')
+        self.click_on_watchlist_entry_2()
+        self.app_in_background(20)
+        self.scroll_ups()
+        self.click_on_test()
+        self.click_on_selected_watchlist()
+        self.click_on_Hapus()
+        self.go_back()
+        self.click_on_stock_code_in_watclist()
+        self.verify_sdp_page()
 
 
 
