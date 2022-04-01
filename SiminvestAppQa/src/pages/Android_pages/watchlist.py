@@ -40,6 +40,17 @@ stock_2_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout
 stock_3_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
 watchlist_stock_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup[13]/android.view.ViewGroup[2]/android.view.ViewGroup'
 watchlist_stock_entry_1_homepage='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[13]/android.view.ViewGroup[2]/android.view.ViewGroup'
+harga_decrease = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.widget.ImageView'
+harga_increase = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ImageView'
+lot_increase = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]'
+lot_decrease = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[1]'
+beli_btn ='//*[@text="Beli"]'
+cancel_btn = '//*[@text="CANCEL"]'
+confirm_btn = '//*[@text="CONFIRM"]'
+harga_value = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.EditText'
+lot_value = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.EditText'
+#market_close_message_lct_watch = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[1]'
+market_close_message_lct_watch = '//*[@text="Silahkan kembali"]'
 
 class Watchlist(HomePage):
 
@@ -216,3 +227,53 @@ class Watchlist(HomePage):
     def click_on_stock_code_in_watclist(self):
         self.click(watchlist_stock_entry_1_homepage)
         self.sleep(2)
+
+    @allure.step("swipe right")
+    def swipe_right(self):
+        self.sleep(1)
+        self.scroll_screen(start_x=73, start_y=1580, end_x=622, end_y=1595, duration=10000)
+
+    @allure.step("harga increase")
+    def harga_increase(self):
+        self.click(harga_increase)
+
+    @allure.step("Harga value")
+    def harga_value(self):
+        return self.get_attribute(harga_value, "text")
+
+
+    @allure.step("lot value")
+    def lot_value(self):
+        return self.get_attribute(lot_value, "text")
+
+    @allure.step("harga decrease")
+    def harga_decrease(self):
+        self.click(harga_decrease)
+
+    @allure.step("lot increase")
+    def lot_increase(self):
+        self.click(lot_increase)
+
+    @allure.step("lot decrease")
+    def lot_decrease(self):
+        self.click(lot_decrease)
+
+    @allure.step("Click on beli")
+    def click_on_beli(self):
+        self.click(beli_btn)
+
+    @allure.step("Click on confirm")
+    def click_on_confirm_btn(self):
+        self.click(confirm_btn)
+
+    @allure.step("verify trasaction page or market close message")
+    def verify_trasaction_page_or_market_close(self):
+        message = self.is_element_visible(market_close_message_lct_watch)
+        logger.info(message)
+        if (self.is_element_visible(market_close_message_lct_watch)) == True:
+            self.click_on_ok()
+        else :
+            self.click_on_ok()
+            self.verify_transaction_page()
+
+
