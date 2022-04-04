@@ -180,6 +180,26 @@ class Watchlist_test(Watchlist):
         self.click_on_stock_code_in_watclist()
         self.verify_sdp_page()
 
+    @pytest.mark.Wat_SMMA_036_to_40
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_right_swipe_with_buy_feature(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.swipe_right()
+        harga_value = self.harga_value()
+        self.harga_increase()
+        self.harga_decrease()
+        harga_value_1 = self.harga_value()
+        self.assert_equal(harga_value_1, harga_value)
+        lot_value = self.lot_value()
+        self.lot_increase()
+        self.lot_decrease()
+        lot_value_1 = self.lot_value()
+        self.assert_equal(lot_value_1, lot_value)
+        self.click_on_beli()
+        self.click_on_confirm_btn()
+        self.verify_trasaction_page_or_market_close()
+
 
 
 
