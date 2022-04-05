@@ -4,7 +4,7 @@ cp =[{
     "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
 
     # Set URL of the application under test
-    "app": "bs://3c6959f2eeb765e00ad7a683fd6da1ce2bd1990f",
+    "app": "bs://9fe0fdad3c1d25146701b0328c7242d93adb3a36",
 
     # Specify device and os_version for testing
     "device": "Xiaomi Redmi Note 7",
@@ -12,7 +12,7 @@ cp =[{
 
     # Set other BrowserStack capabilities
     "project": "Siminvest APP QA",
-    "build": "Android 1.49.6 All Test Cases",
+    "build": "Android 1.49.12 All Test Cases",
     "name": "UI_Test Android_1",
 
     # Set Specific capabilities regarding test
@@ -26,7 +26,7 @@ cp =[{
     "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
 
     # Set URL of the application under test
-    "app": "bs://3c6959f2eeb765e00ad7a683fd6da1ce2bd1990f",
+    "app": "bs://9fe0fdad3c1d25146701b0328c7242d93adb3a36",
 
     # Specify device and os_version for testing
     "device": "Xiaomi Redmi Note 9",
@@ -34,7 +34,7 @@ cp =[{
 
     # Set other BrowserStack capabilities
     "project": "Siminvest APP QA",
-    "build": "Android 1.49.6 All Test Cases",
+    "build": "Android 1.49.12 All Test Cases",
     "name": "UI_Test Android_2",
 
     # Set Specific capabilities regarding test

@@ -22,7 +22,7 @@ lot_area = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/an
 cancel_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView'
 gtc_on_off_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.Switch'
 date_option = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
-date_selection = '//android.view.View[@content-desc="30 March 2022"]'
+date_selection = '//android.view.View[@content-desc="30 April 2022"]'
 ok_btn_on_calender = '/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.ScrollView/android.widget.LinearLayout/android.widget.Button[2]'
 confirm_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
 ok_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
@@ -223,7 +223,7 @@ class BuyProcess(HomePage):
 
     @allure.step("verify total beli amount")
     def verify_total_beli_amount(self):
-        current_price = int((self.get_attribute(price_space, "text")))*100
+        current_price = int((self.get_attribute(price_space, "text")).replace(',', ''))*100
         self.click_on_lot_increase_no()
         lot_value = self.get_attribute(lot_count, "text")
         beli_amount_without_sep = int(lot_value) * current_price
@@ -243,7 +243,7 @@ class BuyProcess(HomePage):
 
     @allure.step("verify lot harga jumlah values")
     def verify_lot_harga_jumlah_value(self):
-        hagra_value_on_buy_pg = self.get_attribute(price_space, "text")
+        hagra_value_on_buy_pg = (self.get_attribute(price_space, "text")).replace(',','')
         lot_value = self.get_attribute(lot_count, "text")
         beli_with_rp = self.get_attribute(total_beli_amount, "text")
         beli_without_rp = beli_with_rp[3:]
@@ -271,7 +271,7 @@ class BuyProcess(HomePage):
 
     @allure.step("verify bit amount with beli di harga")
     def verify_bit_amount_with_beli_di_harga(self):
-        beli_da_hagra = self.get_attribute(price_space, "text")
+        beli_da_hagra = (self.get_attribute(price_space, "text")).replace(',', '')
         bid_amount_text = self.get_attribute(bid_amount, "text")
         self.assert_equal(self.add_thousand_seprator(int(beli_da_hagra)), bid_amount_text)
 
