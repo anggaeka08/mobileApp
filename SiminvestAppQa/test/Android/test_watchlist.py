@@ -201,6 +201,38 @@ class Watchlist_test(Watchlist):
         self.verify_trasaction_page_or_market_close()
 
 
+    @pytest.mark.Wat_SMMA_41_43_44_45_46_48_50_51
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_test_case_41_43_44_45_46_48_50_51(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.swipe_left_without_buy()
+        self.swipe_left_with_buy()
+        self.sleep(2)
+        self.verify_half_card_for_sell()
+        harga_value = self.harga_value()
+        self.harga_increase()
+        self.harga_decrease()
+        harga_value_1 = self.harga_value()
+        self.assert_equal(harga_value_1, harga_value)
+        lot_value = self.lot_value()
+        self.lot_increase()
+        self.lot_decrease()
+        lot_value_1 = self.lot_value()
+        self.assert_equal(lot_value_1, lot_value)
+        self.click_on_max_sell()
+        self.assert_not_equal(self.lot_value(), 1)
+        self.unclick_on_max_sell()
+        self.change_lot_value()
+        self.assert_equal(self.lot_value(), '5')
+        self.click_on_jual()
+        self.click_on_confirm_sell()
+        self.close_home_page_banner()
+        self.verify_transaction_page()
+
+
+
+
 
 
 
