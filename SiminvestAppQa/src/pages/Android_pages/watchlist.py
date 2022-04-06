@@ -45,12 +45,17 @@ harga_increase = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLay
 lot_increase = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]'
 lot_decrease = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[1]'
 beli_btn ='//*[@text="Beli"]'
+jual_btn ='//*[@text="Jual"]'
 cancel_btn = '//*[@text="CANCEL"]'
 confirm_btn = '//*[@text="CONFIRM"]'
+confirm_sell_btn = '//*[@text="SETUJU"]'
 harga_value = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.EditText'
 lot_value = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.EditText'
 #market_close_message_lct_watch = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[1]'
 market_close_message_lct_watch = '//*[@text="Silahkan kembali"]'
+order_jual = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]"
+max_sell = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ImageView'
+max_sell_after_click = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup/android.widget.ImageView'
 
 class Watchlist(HomePage):
 
@@ -233,6 +238,16 @@ class Watchlist(HomePage):
         self.sleep(1)
         self.scroll_screen(start_x=73, start_y=1580, end_x=622, end_y=1595, duration=10000)
 
+    @allure.step("swipe left for without buy")
+    def swipe_left_without_buy(self):
+        self.sleep(1)
+        self.scroll_screen(start_x=733, start_y=1900, end_x=248, end_y=1897, duration=10000)
+
+    @allure.step("swipe left for without buy")
+    def swipe_left_with_buy(self):
+        self.sleep(1)
+        self.scroll_screen(start_x=782, start_y=1572, end_x=244, end_y=1710, duration=10000)
+
     @allure.step("harga increase")
     def harga_increase(self):
         self.click(harga_increase)
@@ -245,6 +260,11 @@ class Watchlist(HomePage):
     @allure.step("lot value")
     def lot_value(self):
         return self.get_attribute(lot_value, "text")
+
+    @allure.step("change lot value")
+    def change_lot_value(self):
+        self.click(lot_value)
+        self.tap_by_coordinates(x=1060, y=2000)
 
     @allure.step("harga decrease")
     def harga_decrease(self):
@@ -262,6 +282,10 @@ class Watchlist(HomePage):
     def click_on_beli(self):
         self.click(beli_btn)
 
+    @allure.step("Click on jual")
+    def click_on_jual(self):
+        self.click(jual_btn)
+
     @allure.step("Click on confirm")
     def click_on_confirm_btn(self):
         self.click(confirm_btn)
@@ -275,5 +299,21 @@ class Watchlist(HomePage):
         else :
             self.click_on_ok()
             self.verify_transaction_page()
+
+    @allure.step("Verify half card for sell")
+    def verify_half_card_for_sell(self):
+        self.assert_equal(self.is_element_visible(order_jual), True)
+
+    @allure.step("Click on max sell")
+    def click_on_max_sell(self):
+        self.click(max_sell)
+
+    @allure.step("Click on max sell after click")
+    def unclick_on_max_sell(self):
+        self.click(max_sell_after_click)
+
+    @allure.step("Click on max sell after click")
+    def click_on_confirm_sell(self):
+        self.click(confirm_sell_btn)
 
 
