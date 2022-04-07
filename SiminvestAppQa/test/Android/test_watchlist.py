@@ -224,11 +224,36 @@ class Watchlist_test(Watchlist):
         self.assert_not_equal(self.lot_value(), 1)
         self.unclick_on_max_sell()
         self.change_lot_value()
-        self.assert_equal(self.lot_value(), '5')
+        #self.assert_equal(self.lot_value(), '5')
         self.click_on_jual()
         self.click_on_confirm_sell()
         self.close_home_page_banner()
         self.verify_transaction_page()
+
+    #Validate user should receive an error prompt when user trying to purchase the stock outside exchange hours.
+    @pytest.mark.Wat_SMMA_42
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_purchase_outside_exchange_hours(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.swipe_right()
+        self.click_on_beli()
+        self.click_on_confirm_sell()
+        self.verify_trasaction_page_or_market_close()
+
+    #Validate user is redirected to home page when user click on cancel button when user is on preview order page.
+    @pytest.mark.Wat_SMMA_47
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_redirection_after_cancel_buy(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.swipe_right()
+        self.click_on_beli()
+        self.click_on_Batal()
+        self.click_on_defaults_btn()
+
+
+
 
 
 

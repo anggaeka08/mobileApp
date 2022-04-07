@@ -236,7 +236,7 @@ class Watchlist(HomePage):
     @allure.step("swipe right")
     def swipe_right(self):
         self.sleep(1)
-        self.scroll_screen(start_x=73, start_y=1580, end_x=622, end_y=1595, duration=10000)
+        self.scroll_screen(start_x=248, start_y=1897, end_x=733, end_y=1900, duration=10000)
 
     @allure.step("swipe left for without buy")
     def swipe_left_without_buy(self):
