@@ -297,7 +297,6 @@ class Watchlist(HomePage):
         if (self.is_element_visible(market_close_message_lct_watch)) == True:
             self.click_on_ok()
         else :
-            self.click_on_ok()
             self.verify_transaction_page()
 
     @allure.step("Verify half card for sell")

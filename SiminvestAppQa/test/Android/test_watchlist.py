@@ -247,8 +247,8 @@ class Watchlist_test(Watchlist):
     @pytest.mark.watchlist
     def test_validate_redirection_after_cancel_buy(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
-        self.swipe_right()
-        self.click_on_beli()
+        self.swipe_left_with_buy()
+        self.click_on_jual()
         self.click_on_Batal()
         self.click_on_defaults_btn()
 
