@@ -278,7 +278,27 @@ class Watchlist_test(Watchlist):
         self.close_home_page_banner()
         self.verify_transaction_page()
 
-
+    #Validate buy with cash option.
+    @pytest.mark.Wat_SMMA_55_57
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_buy_with_cash_option(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        rp_amountt = self.find_RP_amount()
+        self.scroll_up()
+        self.swipe_right()
+        self.click_on_cash_option()
+        total_beli_amountt = self.total_beli_amount()
+        self.assertGreater(rp_amountt, total_beli_amountt)
+        self.click_on_beli()
+        self.click_on_confirm_sell()
+        self.close_home_page_banner()
+        self.verify_transaction_page()
 
 
 
