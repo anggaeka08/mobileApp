@@ -253,6 +253,37 @@ class Watchlist_test(Watchlist):
         self.click_on_defaults_btn()
 
 
+    #Validate buy with limit option.
+    @pytest.mark.Wat_SMMA_54_56
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_buy_with_limit_option(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['reg_no'])
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.close_home_page_banner()
+        buying_power = self.find_buying_power()
+        self.scroll_up()
+        self.swipe_right()
+        self.click_on_limit_option()
+        total_beli_amountt = self.total_beli_amount()
+        self.assertGreater(buying_power, total_beli_amountt)
+        harga = int((self.harga_value()).replace(',',''))
+        less_harga = self.less_price(price=harga)
+        self.enter_harga_amount(less_harga)
+        self.click_on_beli()
+        self.click_on_confirm_sell()
+        self.close_home_page_banner()
+        self.verify_transaction_page()
+
+
+
+
+
+
+
 
 
 
