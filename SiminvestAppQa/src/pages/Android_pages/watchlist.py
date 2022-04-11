@@ -61,6 +61,9 @@ limit_option = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayou
 total_beli_amounts = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[12]'
 rp_amount = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[2]'
 cash_option ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.ImageView'
+cross_btn_after_swipe = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
+harga = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[7]'
+jumlah_on_confirm = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[9]'
 
 class Watchlist(HomePage):
 
@@ -296,7 +299,7 @@ class Watchlist(HomePage):
         self.click(confirm_btn)
 
     @allure.step("verify trasaction page or market close message")
-    def verify_trasaction_page_or_market_close(self):
+    def verify_transaction_page_or_market_close(self):
         message = self.is_element_visible(market_close_message_lct_watch)
         logger.info(message)
         if (self.is_element_visible(market_close_message_lct_watch)) == True:
@@ -350,6 +353,21 @@ class Watchlist(HomePage):
     def enter_harga_amount(self, amount):
         self.double_tap(harga_value)
         self.update_text(harga_value,amount)
+
+    @allure.step("click on cross btn")
+    def click_on_cross_btn(self):
+        self.click(cross_btn_after_swipe)
+
+    @allure.step("harga value on confirmation btn")
+    def harga_value_on_conf_page(self):
+        return self.get_attribute(harga, "text")
+
+    @allure.step("jumlah_on_confirm on confirmation btn")
+    def jumlah_on_conf_page(self):
+        return self.get_attribute(jumlah_on_confirm, "text")
+
+
+
 
 
 

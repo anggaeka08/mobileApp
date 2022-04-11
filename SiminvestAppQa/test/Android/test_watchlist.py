@@ -2,6 +2,7 @@ import pytest
 from SiminvestAppQa.src.pages.Android_pages.watchlist import Watchlist
 from SiminvestAppQa.src.utilities.genericUtilities import generate_random_string
 from SiminvestAppQa.src.data.userData import user_data
+import logging as logger
 
 @pytest.mark.usefixtures("unittest_setUpClass_fixture_Watchlist_test")
 class Watchlist_test(Watchlist):
@@ -299,6 +300,39 @@ class Watchlist_test(Watchlist):
         self.click_on_confirm_sell()
         self.close_home_page_banner()
         self.verify_transaction_page()
+
+    #Validate redirection_after_click_on_cross_btn
+    @pytest.mark.Wat_SMMA_58
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_redirection_after_cross_btn(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.swipe_right()
+        self.click_on_cross_btn()
+        self.click_on_defaults_btn()
+
+    #Validate thousand separator
+    @pytest.mark.Wat_SMMA_59
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_thousand_separator(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.swipe_right()
+        harga_value = self.harga_value()
+        beli_amount = self.total_beli_amount()
+        self.click_on_beli()
+        harga_value_on_con = self.harga_value_on_conf_page()
+        jumlah_on_con = self.jumlah_on_conf_page()
+        try:
+            self.add_thousand_seprator(harga_value)
+            self.add_thousand_seprator(beli_amount)
+            self.add_thousand_seprator(harga_value_on_con)
+            self.add_thousand_seprator(jumlah_on_con)
+            logger.info("separator is not available")
+        except:
+            logger.info("separator is available")
+
+
 
 
 
