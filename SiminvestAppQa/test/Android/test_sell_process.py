@@ -9,6 +9,7 @@ class Sell_test(SellProcess):
     @pytest.mark.Sell_SMMA_502
     @pytest.mark.Sell
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_user_able_to_sell_stock(self):
         self.open_and_verify_portfolio(user_data['reg_no'])
         self.click_on_portfolio_entry_2()
@@ -87,6 +88,7 @@ class Sell_test(SellProcess):
     @pytest.mark.Sell_SMMA_509
     @pytest.mark.Sell
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_pop_for_sell_after_exchange_hours(self):
         self.open_and_verify_portfolio(user_data['reg_no'])
         self.click_on_portfolio_entry_2()

@@ -9,6 +9,7 @@ class Cancel_test(CancelProcess):
     @pytest.mark.CAN_SMMA_010
     @pytest.mark.Cancel
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_positive_flow_for_cancel_feature(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.check_for_buy_btn()
@@ -29,6 +30,7 @@ class Cancel_test(CancelProcess):
     @pytest.mark.CAN_SMMA_003
     @pytest.mark.Cancel
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_pop_message_after_outside_exchange_hour(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.open_status_page_of_buy_order()

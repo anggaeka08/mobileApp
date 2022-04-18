@@ -49,6 +49,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.BP_SMMA_306
     @pytest.mark.BuyProcess
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_gtc_buy_option(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.check_for_buy_btn()
@@ -129,6 +130,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.BP_SMMA_315
     @pytest.mark.BuyProcess
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_error_message_after_exchange_hour(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.check_for_buy_btn()
@@ -189,6 +191,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.BP_SMMA_320
     @pytest.mark.BuyProcess
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_after_redirection_from_transaction_page(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.check_for_buy_btn()
@@ -205,6 +208,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.BP_SMMA_321
     @pytest.mark.BuyProcess
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_status_on_transaction_page(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.check_for_buy_btn()
@@ -280,6 +284,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.BP_SMMA_326
     @pytest.mark.BuyProcess
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_msg_when_buy_stock_on_same_price_again(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.check_for_buy_btn()
@@ -303,6 +308,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.BP_SMMA_327
     @pytest.mark.BuyProcess
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_redirection_to_buy_page_when_buy_stock_on_same_price_again(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.check_for_buy_btn()
@@ -328,6 +334,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.BP_SMMA_328
     @pytest.mark.BuyProcess
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_buy_process_after_increase_lot_no(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.check_for_buy_btn()
@@ -354,6 +361,7 @@ class BuyProcess_test(BuyProcess):
     @pytest.mark.BP_SMMA_330
     @pytest.mark.BuyProcess
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_status_sending_of_buy_order(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.check_for_buy_btn()

@@ -165,6 +165,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_024_028
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @pytest.mark.timeBased
     def test_validate_selected_watchlist_visible_after_reopen_app_and_sdp_open_after_click_stock(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.click_on_defaults_btn()
@@ -205,6 +206,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_41_43_44_45_46_48_50_51
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @pytest.mark.timeBased
     def test_validate_test_case_41_43_44_45_46_48_50_51(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.swipe_left_without_buy()
@@ -228,13 +230,14 @@ class Watchlist_test(Watchlist):
         #self.assert_equal(self.lot_value(), '5')
         self.click_on_jual()
         self.click_on_confirm_sell()
-        self.close_home_page_banner()
+        #self.close_home_page_banner()
         self.verify_transaction_page()
 
     #Validate user should receive an error prompt when user trying to purchase the stock outside exchange hours.
     @pytest.mark.Wat_SMMA_42
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @pytest.mark.timeBased
     def test_validate_purchase_outside_exchange_hours(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.swipe_right()
@@ -258,6 +261,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_54_56
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @pytest.mark.timeBased
     def test_validate_buy_with_limit_option(self):
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['reg_no'])
@@ -276,13 +280,14 @@ class Watchlist_test(Watchlist):
         self.enter_harga_amount(less_harga)
         self.click_on_beli()
         self.click_on_confirm_sell()
-        self.close_home_page_banner()
+        #self.close_home_page_banner()
         self.verify_transaction_page()
 
     #Validate buy with cash option.
     @pytest.mark.Wat_SMMA_55_57
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @pytest.mark.timeBased
     def test_validate_buy_with_cash_option(self):
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['reg_no'])
@@ -298,7 +303,7 @@ class Watchlist_test(Watchlist):
         self.assertGreater(rp_amountt, total_beli_amountt)
         self.click_on_beli()
         self.click_on_confirm_sell()
-        self.close_home_page_banner()
+        #self.close_home_page_banner()
         self.verify_transaction_page()
 
     #Validate redirection_after_click_on_cross_btn

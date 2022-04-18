@@ -29,6 +29,7 @@ class Amend_test(AmendProcess):
     @pytest.mark.AMD_SMMA_004
     @pytest.mark.Amend
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_amend_process_success_after_submit(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.open_status_page_of_buy_order()
@@ -46,6 +47,7 @@ class Amend_test(AmendProcess):
     @pytest.mark.AMD_SMMA_005
     @pytest.mark.Amend
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_pop_for_amend_outside_exchange_hours(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.open_status_page_of_buy_order()
@@ -114,6 +116,7 @@ class Amend_test(AmendProcess):
     @pytest.mark.AMD_SMMA_012
     @pytest.mark.Amend
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_error_while_increase_lot_value(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.open_status_page_of_buy_order()
@@ -129,6 +132,7 @@ class Amend_test(AmendProcess):
     @pytest.mark.AMD_SMMA_013
     @pytest.mark.Amend
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_redirection_after_error_while_increase_lot_value(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.open_status_page_of_buy_order()
@@ -200,6 +204,7 @@ class Amend_test(AmendProcess):
     @pytest.mark.AMD_SMMA_018
     @pytest.mark.Amend
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_verify_amend_transaction_on_trans_page(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.open_status_page_of_buy_order()
@@ -212,6 +217,7 @@ class Amend_test(AmendProcess):
     @pytest.mark.AMD_SMMA_019
     @pytest.mark.Amend
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_pop_for_amend_outside_exchange_hour(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.open_status_page_of_buy_order()
@@ -228,6 +234,7 @@ class Amend_test(AmendProcess):
     @pytest.mark.AMD_SMMA_020
     @pytest.mark.Amend
     @pytest.mark.Android
+    @pytest.mark.timeBased
     def test_validate_redirect_to_amend_page_after_pop_of_market_close(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.open_status_page_of_buy_order()
