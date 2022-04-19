@@ -26,3 +26,17 @@ class signUpFlow_test(LoginPage):
         self.set_pin('123456')
         self.close_home_page_banner()
         self.verify_home_page()
+
+    #Validate application should not respond anything when user enter 5 digit PIN.
+    @pytest.mark.signup_SMMA_004
+    @pytest.mark.Android
+    @pytest.mark.signupFlow
+    def test_validate_appliction_action_after_enter_5_digit_pin(self):
+        number = generate_random_integer(length=7, prefix='844')
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        #self.verify_otp_page_with_phone_no(number)
+        self.enter_otp('1234')
+        self.set_pin('12345')
+        self.verify_setup_pin_page()
