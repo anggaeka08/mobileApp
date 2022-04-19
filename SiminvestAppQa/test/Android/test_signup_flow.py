@@ -54,3 +54,33 @@ class signUpFlow_test(LoginPage):
         self.type_mobile_no(number_1)
         self.click_selanjutnya()
         self.verify_otp_page_with_phone_no(number_1)
+
+    # Validate user is able to login after user click on resend OTP page
+    @pytest.mark.signup_SMMA_006
+    @pytest.mark.Android
+    @pytest.mark.signupFlow
+    def test_validate_signup_after_resend_otp(self):
+        number = generate_random_integer(length=7, prefix='844')
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        time.sleep(35)
+        self.click_Kirim_Ulang()
+        self.enter_otp('1234')
+        self.set_pin('123456')
+        self.close_home_page_banner()
+        self.verify_home_page()
+
+    # Validate user is able to login with correct details
+    @pytest.mark.signup_SMMA_010
+    @pytest.mark.Android
+    @pytest.mark.signupFlow
+    def test_validate_login_with_correct_details(self):
+        number = generate_random_integer(length=7, prefix='844')
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        self.enter_otp('1234')
+        self.set_pin('123456')
+        self.close_home_page_banner()
+        self.verify_home_page()
