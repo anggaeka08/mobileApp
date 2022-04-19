@@ -36,7 +36,21 @@ class signUpFlow_test(LoginPage):
         self.click_mulai_sekarang()
         self.type_mobile_no(number)
         self.click_selanjutnya()
-        #self.verify_otp_page_with_phone_no(number)
         self.enter_otp('1234')
         self.set_pin('12345')
         self.verify_setup_pin_page()
+
+    #Validate user should redirect to enter OTP page when  user change the mobile number.
+    @pytest.mark.signup_SMMA_005
+    @pytest.mark.Android
+    @pytest.mark.signupFlow
+    def test_validate_redirection_to_otp_page_when_re_enter_phone_no(self):
+        number = generate_random_integer(length=7, prefix='844')
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        self.click_back_button_otp_page()
+        number_1 = generate_random_integer(length=7, prefix='844')
+        self.type_mobile_no(number_1)
+        self.click_selanjutnya()
+        self.verify_otp_page_with_phone_no(number_1)
