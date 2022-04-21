@@ -253,7 +253,7 @@ class HomePage(LoginPage):
 
     @allure.step("scroll up")
     def scroll_up(self):
-        self.scroll_screen(start_x=500, start_y=1820, end_x=523, end_y=809, duration=5000)
+        self.scroll_screen(start_x=500, start_y=1820, end_x=523, end_y=809, duration=10000)
         self.sleep(2)
 
     @allure.step("scroll down")
