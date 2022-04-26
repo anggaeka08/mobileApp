@@ -2,6 +2,7 @@ import pytest
 from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
 from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
 from SiminvestAppQa.src.data.userData import user_data
+import logging as logger
 
 
 @pytest.mark.usefixtures("unittest_setUpClass_fixture_SDP_test")
@@ -42,5 +43,17 @@ class SDP_test(StockDetailPage, BuyProcess):
         self.go_back()
         self.go_back()
         self.verify_home_page_reg_user()
+
+    # Validate test cases SMMA_013
+    @pytest.mark.SDP_SMMA_006_013
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_Validate_test_cases_SMMA_006_013(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.chart_presence()
+        self.order_book_tab_open()
+
+
+
 
 
