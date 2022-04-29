@@ -46,6 +46,8 @@ Financials = '//*[@text="Financials"]'
 news_1= '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[2]'
 news_url_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]'
 browser_url = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.EditText'
+Hubungi = '//*[@text="Hubungi Customer Care"]'
+chrome_url = 'com.android.chrome:id/url_bar'
 
 class StockDetailPage(Watchlist):
 
@@ -284,6 +286,18 @@ class StockDetailPage(Watchlist):
                 logger.info("News are same")
             else:
                 logger.info("News are not same")
+
+
+    @allure.step('verify redirection after click on Hubungi Customer')
+    def verify_redirection_after_click_on_support_btn(self):
+        self.click(Hubungi)
+        self.sleep(2)
+        support_url_text = self.get_attribute(chrome_url,'text')
+        index = support_url_text.find('/')
+        domain_name = support_url_text[:index]
+        self.assert_equal(domain_name, 'sinarmassekuritas.zendesk.com')
+
+
 
 '''
     @allure.step("Validate grammar of title")

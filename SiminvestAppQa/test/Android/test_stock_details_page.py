@@ -89,4 +89,13 @@ class SDP_test(StockDetailPage, BuyProcess):
         self.validate_maximum_available_news()
         self.validate_all_news_are_separated()
 
+    # Validate user is redirected to customer care support page when user click on contact customer button available at the bottom on external browser.
+    @pytest.mark.SDP_SMMA_45
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_Validate_redirection_after_click_on_customer_support_btn(self):
+        self.open_sdp_by_portfolio_with_kyc_user(user_data['reg_no'])
+        self.scroll_up_screen()
+        self.verify_redirection_after_click_on_support_btn()
+
 
