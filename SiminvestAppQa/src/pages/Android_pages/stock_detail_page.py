@@ -3,6 +3,7 @@ from datetime import datetime
 import allure
 import logging as logger
 from SiminvestAppQa.src.pages.Android_pages.watchlist import Watchlist
+import language_tool_python
 
 star_without_click = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
 search_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView'
@@ -245,4 +246,59 @@ class StockDetailPage(Watchlist):
         browser_url_text = browser_full_url[:index]
         logger.info(browser_url_text)
         self.assert_equal(news_url, browser_url_text)
+
+    @allure.step("Validate maximum available news")
+    def validate_maximum_available_news(self):
+        try:
+            date_list = []
+            for i in range(1, 23, 2):
+                news_1_string = self.get_attribute(
+                    f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]',
+                    "text")
+                date_1 = news_1_string[-11:]
+                date_list.append(date_1)
+            logger.info(date_list)
+        except:
+            logger.info("News not available more then 10")
+            date_list = []
+            for i in range(1, 20, 2):
+                news_1_string = self.get_attribute(
+                    f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]',
+                    "text")
+                date_1 = news_1_string[-11:]
+                date_list.append(date_1)
+            self.assert_equal(len(date_list), 10)
+
+
+    @allure.step("Validate all news are separated")
+    def validate_all_news_are_separated(self):
+        self.scroll_up_screen()
+        title_lst = []
+        for i in range(1, 20, 2):
+            news_title = self.get_attribute(
+                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]',
+                "text")
+            title_lst.append(news_title)
+        for i in range(len(title_lst) - 1):
+            if title_lst[i] == title_lst[i + 1]:
+                logger.info("News are same")
+            else:
+                logger.info("News are not same")
+
+'''
+    @allure.step("Validate grammar of title")
+    def validate_grammar_of_title(self):
+        self.scroll_up_screen()
+        title_lst = []
+        my_tool = language_tool_python.LanguageTool('Indonesian')
+        for i in range(1, 20, 2):
+            news_title = self.get_attribute(
+                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]',
+                "text")
+            title_lst.append(news_title)
+        for i in range(len(title_lst)):
+            my_matches = my_tool.check(title_lst[i])
+            logger.info(my_matches)
+'''
+
 
