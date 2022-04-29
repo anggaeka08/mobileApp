@@ -64,6 +64,17 @@ class SDP_test(StockDetailPage, BuyProcess):
         self.scroll_up()
         self.verify_details_of_profile_tab()
 
-
+    #Validate news tab on SDP page and news page details
+    @pytest.mark.SDP_SMMA_023_to_027
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_Validate_news_tab_on_SDP_page_and_news_page_details(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.verify_news_availability_on_sdp()
+        self.click_on_news()
+        self.scroll_up_screen()
+        self.verify_news_dates_list()
+        self.verify_news_title()
+        self.validate_domain_name_for_one_news()
 
 

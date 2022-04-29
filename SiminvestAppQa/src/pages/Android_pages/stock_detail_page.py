@@ -1,5 +1,5 @@
 from SiminvestAppQa.src.data.userData import user_data
-import time
+from datetime import datetime
 import allure
 import logging as logger
 from SiminvestAppQa.src.pages.Android_pages.watchlist import Watchlist
@@ -41,7 +41,10 @@ Order_Book = '//*[@text="Order Book"]'
 News = '//*[@text="News"]'
 Keystats = '//*[@text="Keystats"]'
 Financials = '//*[@text="Financials"]'
-
+#list of news date and domain
+news_1= '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[2]'
+news_url_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]'
+browser_url = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.EditText'
 
 class StockDetailPage(Watchlist):
 
@@ -134,7 +137,6 @@ class StockDetailPage(Watchlist):
     @allure.step("ask lot list")
     def ask_lot_list(self):
         ask_lot_list = []
-        #ask_value_list.append(int((self.get_attribute('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[27]', "text")).replace(',','')))
         for i in range(28, 56,4):
             ask_lot_list.append(int((self.get_attribute(
                 f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[{i}]',
@@ -180,3 +182,67 @@ class StockDetailPage(Watchlist):
         self.assert_equal(self.is_element_visible(Commissioner_1_name), True)
         self.assert_equal(self.is_element_visible(Commissioner_2), True)
         self.assert_equal(self.is_element_visible(Commissioner_2_name), True)
+
+    @allure.step("Verify News section available on SDP")
+    def verify_news_availability_on_sdp(self):
+        self.assert_equal(self.is_element_visible(News), True)
+
+    @allure.step("Click on News")
+    def click_on_news(self):
+        self.click(News)
+
+    @allure.step("scroll up")
+    def scroll_up_screen(self):
+        self.scroll_screen(start_x=401, start_y=2030, end_x=401, end_y=717, duration=10000)
+        self.sleep(2)
+
+    @allure.step("Verify news date list is shorted")
+    def verify_news_dates_list(self):
+        date_list = []
+        sorted_date_list = []
+        for i in range(1, 20, 2):
+            news_1_string = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]', "text")
+            date_1 = news_1_string[-11:]
+            date_list.append(date_1)
+        logger.info(date_list)
+        date_list.sort(key=lambda date: datetime.strptime(date, '%d %b %Y'))
+        date_list.reverse()
+        sorted_date_list = date_list
+        logger.info(sorted_date_list)
+        self.assert_equal(date_list, sorted_date_list)
+
+    @allure.step("Verify news title")
+    def verify_news_title(self):
+        self.scroll_up_screen()
+        title_lst = []
+        for i in range(1, 20, 2):
+            news_title = self.get_attribute(
+                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]',
+                "text")
+            title_lst.append(news_title)
+        for i in range(len(title_lst)):
+            if len(title_lst[i]) > 80:
+                a = title_lst[i]
+                if '.' in a :
+                    logger.info(". Available after 81 string")
+            else:
+                logger.info("String length is not greater then 80")
+        logger.info(title_lst)
+
+    @allure.step("Validate domain name for one news")
+    def validate_domain_name_for_one_news(self):
+        news_url_text = self.get_attribute(news_url_1, 'text')
+        c = 'id'
+        #d = 'com'
+        index = news_url_text.find(c)
+        news_url = news_url_text[4:index+2]
+        logger.info(news_url)
+        self.click(news_1)
+        self.sleep(2)
+        browser_full_url = self.get_attribute(browser_url, 'text')
+        d = '/'
+        index = browser_full_url.find(d)
+        browser_url_text = browser_full_url[:index]
+        logger.info(browser_url_text)
+        self.assert_equal(news_url, browser_url_text)
+
