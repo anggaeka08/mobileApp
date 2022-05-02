@@ -63,6 +63,7 @@ class SDP_test(StockDetailPage, BuyProcess):
         self.click_on_profile()
         self.scroll_up()
         self.verify_details_of_profile_tab()
+        self.verify_stock_company_address()
 
     #Validate news tab on SDP page and news page details
     @pytest.mark.SDP_SMMA_023_to_027
@@ -98,4 +99,12 @@ class SDP_test(StockDetailPage, BuyProcess):
         self.scroll_up_screen()
         self.verify_redirection_after_click_on_support_btn()
 
-
+    #Validate test cases  SMMA_014
+    @pytest.mark.SDP_SMMA_014
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_validate_profile_details_for_stock_company_details_unavailable(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'WIFI-W')
+        self.verify_details_down_to_beli_btn()
+        self.click_on_profile()
+        self.verify_stock_profile_when_details_not_available()
