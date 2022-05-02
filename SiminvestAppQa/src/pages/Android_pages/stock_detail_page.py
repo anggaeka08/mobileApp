@@ -37,7 +37,8 @@ Commissioner_1_name = '/hierarchy/android.widget.FrameLayout/android.widget.Line
 Commissioner_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[32]'
 Commissioner_2_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[33]'
 address = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[38]'
-address_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[39]'
+#address_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[39]'
+address_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[30]'
 Order_Book = '//*[@text="Order Book"]'
 News = '//*[@text="News"]'
 Keystats = '//*[@text="Keystats"]'
@@ -208,11 +209,12 @@ class StockDetailPage(Watchlist):
             date_1 = news_1_string[-11:]
             date_list.append(date_1)
         logger.info(date_list)
+        fetched_date_lst = date_list
         date_list.sort(key=lambda date: datetime.strptime(date, '%d %b %Y'))
         date_list.reverse()
         sorted_date_list = date_list
         logger.info(sorted_date_list)
-        self.assert_equal(date_list, sorted_date_list)
+        self.assert_equal(fetched_date_lst, sorted_date_list)
 
     @allure.step("Verify news title")
     def verify_news_title(self):
@@ -296,6 +298,25 @@ class StockDetailPage(Watchlist):
         index = support_url_text.find('/')
         domain_name = support_url_text[:index]
         self.assert_equal(domain_name, 'sinarmassekuritas.zendesk.com')
+
+    @allure.step("Verify stock company address")
+    def verify_stock_company_address(self):
+        self.scroll_up_screen()
+        address = str(self.get_attribute(address_text, 'text'))
+        logger.info(address)
+        #address_spaces = address.isspace()
+        for i in range(len(address)):
+            if ' ' in address:
+                logger.info("single spaces available in address")
+            elif '  ' in address:
+                logger.info("double spaces available in address")
+                raise "double spaces available in address"
+
+    @allure.step("Verify stock profile when details not available")
+    def verify_stock_profile_when_details_not_available(self):
+        #sdp page have single view
+        pass
+
 
 
 
