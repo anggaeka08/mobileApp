@@ -49,6 +49,14 @@ news_url_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/
 browser_url = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.EditText'
 Hubungi = '//*[@text="Hubungi Customer Care"]'
 chrome_url = 'com.android.chrome:id/url_bar'
+total_nilai = "//*[@text='Total Nilai']"
+total_nilai_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[3]'
+lot_dimiliki = "//*[@text='Lot Dimiliki']"
+lot_dimiliki_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[4]'
+Diinvestasikan = "//*[@text='Diinvestasikan']"
+Diinvestasikan_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[7]'
+Harga_rata_rata = "//*[@text='Harga Rata-rata']"
+Harga_rata_rata_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[8]'
 
 class StockDetailPage(Watchlist):
 
@@ -317,8 +325,16 @@ class StockDetailPage(Watchlist):
         #sdp page have single view
         pass
 
-
-
+    @allure.step("Verify details availability when move to sdp by portfolio page")
+    def verify_details_availability_when_move_to_sdp_by_portfolio_page(self):
+        self.assert_equal(self.is_element_visible(total_nilai), True)
+        self.assert_equal(self.is_element_visible(total_nilai_text), True)
+        self.assert_equal(self.is_element_visible(lot_dimiliki), True)
+        self.assert_equal(self.is_element_visible(lot_dimiliki_text), True)
+        self.assert_equal(self.is_element_visible(Diinvestasikan), True)
+        self.assert_equal(self.is_element_visible(Diinvestasikan_text), True)
+        self.assert_equal(self.is_element_visible(Harga_rata_rata), True)
+        self.assert_equal(self.is_element_visible(Harga_rata_rata_text), True)
 
 '''
     @allure.step("Validate grammar of title")

@@ -108,3 +108,12 @@ class SDP_test(StockDetailPage, BuyProcess):
         self.verify_details_down_to_beli_btn()
         self.click_on_profile()
         self.verify_stock_profile_when_details_not_available()
+
+    #Validate test cases  SMMA_037
+    @pytest.mark.SDP_SMMA_037
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_validate_user_will_able_to_see_value_at_below_of_the_stock_price(self):
+        self.open_sdp_by_portfolio_with_kyc_user(user_data['reg_no'])
+        self.verify_details_availability_when_move_to_sdp_by_portfolio_page()
+
