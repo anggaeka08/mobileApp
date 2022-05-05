@@ -117,3 +117,14 @@ class SDP_test(StockDetailPage, BuyProcess):
         self.open_sdp_by_portfolio_with_kyc_user(user_data['reg_no'])
         self.verify_details_availability_when_move_to_sdp_by_portfolio_page()
 
+    #Validate the response is written for all the required detail.
+    @pytest.mark.SDP_SMMA_019
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_Validate_profile_details_doesnot_have_hiphan(self):
+        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+        self.verify_details_down_to_beli_btn()
+        self.click_on_profile()
+        self.scroll_up()
+        self.verify_details_of_profile()
+

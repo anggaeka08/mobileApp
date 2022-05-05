@@ -195,6 +195,25 @@ class StockDetailPage(Watchlist):
         self.assert_equal(self.is_element_visible(Commissioner_2), True)
         self.assert_equal(self.is_element_visible(Commissioner_2_name), True)
 
+    @allure.step("Verify profile details")
+    def verify_details_of_profile(self):
+        self.assert_not_equal(self.get_attribute(pemegang, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(direksi, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(komisaris, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(alamat, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(share_holder_1, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(share_holder_1_details, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(share_holder_2, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(share_holder_2_details, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(director_1, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(director_1_name, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(director_2, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(director_2_name, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(Commissioner_1, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(Commissioner_1_name, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(Commissioner_2, 'text'), '-')
+        self.assert_not_equal(self.get_attribute(Commissioner_2_name, 'text'), '-')
+
     @allure.step("Verify News section available on SDP")
     def verify_news_availability_on_sdp(self):
         self.assert_equal(self.is_element_visible(News), True)
