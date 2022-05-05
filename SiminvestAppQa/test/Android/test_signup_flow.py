@@ -84,3 +84,33 @@ class signUpFlow_test(LoginPage):
         self.set_pin('123456')
         self.close_home_page_banner()
         self.verify_home_page()
+
+    #Verify that for dots comma and spaces nomor ponsel filed shows error message
+    #Verify copy paste functionality working fine for nomor ponsel filed
+    @pytest.mark.signup_SMMA_012_014
+    @pytest.mark.Android
+    @pytest.mark.signupFlow
+    def test_validate_signs_dot_in_phone_input_verify_paste_functionality(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(',........')
+        self.click_selanjutnya()
+        self.verify_error_message_after_enter_dots_and_sign()
+        self.check_paste_option_in_phone_number()
+
+    #Verify that when user go to OTP page and input dot comma and spaces it throws error message
+    #Verify that setup pin page field do not take input as dot commas and spaces
+    @pytest.mark.signup_SMMA_015_016
+    @pytest.mark.Android
+    @pytest.mark.signupFlow
+    def test_validate_dots_and_spaces_not_allowed_in_otp_and_setup_pin(self):
+        number = generate_random_integer(length=7, prefix='844')
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        self.enter_otp('... ')
+        self.verify_otp_page_with_phone_no(number)
+        self.enter_otp('1234')
+        self.set_pin('... . ')
+        self.verify_setup_pin_page()
+
+

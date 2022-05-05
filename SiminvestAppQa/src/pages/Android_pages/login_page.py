@@ -44,6 +44,7 @@ finger_print_activate = "/hierarchy/android.widget.FrameLayout/android.widget.Li
 finger_print_remove = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]"
 profile_btn = '//android.widget.Button[@content-desc="Profile, tab, 5 of 5"]/android.view.ViewGroup'
 set_up_pin = '//android.widget.EditText[@content-desc="Browser_Stack"]'
+error_msg = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[4]'
 
 class LoginPage(BaseCase):
 
@@ -237,3 +238,11 @@ class LoginPage(BaseCase):
     def verify_home_page_reg_user_after_back_from_watchlist(self):
         Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
         self.assert_equal(Home_page_locator_text, "Portfolio saham")
+
+    @allure.step("verify error message after enter dots and sign")
+    def verify_error_message_after_enter_dots_and_sign(self):
+        self.assert_equal(self.get_attribute(error_msg, 'text'), 'Pastikan memasukkan Nomor Ponsel dengan benar')
+
+    @allure.step("check for paste option in phone_number")
+    def check_paste_option_in_phone_number(self):
+        self.assert_equal(self.get_attribute(text_input, 'long-clickable'), 'true')
