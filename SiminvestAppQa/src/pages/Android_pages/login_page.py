@@ -246,3 +246,7 @@ class LoginPage(BaseCase):
     @allure.step("check for paste option in phone_number")
     def check_paste_option_in_phone_number(self):
         self.assert_equal(self.get_attribute(text_input, 'long-clickable'), 'true')
+
+    @allure.step("check paste option in set pin")
+    def check_paste_option_in_set_pin(self):
+        self.assert_equal(self.get_attribute(set_up_pin, 'long-clickable'), 'true')

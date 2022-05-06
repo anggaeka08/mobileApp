@@ -113,4 +113,20 @@ class signUpFlow_test(LoginPage):
         self.set_pin('... . ')
         self.verify_setup_pin_page()
 
-
+    #Verify that Copy paste functionality works for setup pin page
+    # Verify that when user go back to Otp page and press tick button on keyboard it goes to pin page
+    @pytest.mark.signup_SMMA_017_018
+    @pytest.mark.Android
+    @pytest.mark.signupFlow
+    def test_validate_paste_functionality_back_functionality(self):
+        number = generate_random_integer(length=7, prefix='844')
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        self.enter_otp('1234')
+        self.verify_setup_pin_page()
+        self.check_paste_option_in_set_pin()
+        self.go_back()
+        self.sleep(2)
+        self.go_back()
+        self.verify_otp_page_with_phone_no(number)
