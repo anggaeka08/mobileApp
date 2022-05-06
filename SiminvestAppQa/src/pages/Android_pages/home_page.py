@@ -507,9 +507,9 @@ class HomePage(LoginPage):
     def verify_portfolio_on_homepage(self):
         portfolio_location = self.get_location_of_element(Portfolio_Saham)
         logger.info(portfolio_location)
-        assert portfolio_location == (52, 686), f"Element is not present at given location (52,686)"
+        assert portfolio_location == (52, 698), f"Element is not present at given location (52, 698) actual location {portfolio_location} "
         today_location = self.get_location_of_element(today)
-        assert today_location == (52, 841), f"Element is not present at given location (52,841)"
+        assert today_location == (52, 853), f"Element is not present at given location (52, 853) actual location {today_location} "
 
     @allure.step("verify buying power location")
     def verify_buying_power_location(self):
