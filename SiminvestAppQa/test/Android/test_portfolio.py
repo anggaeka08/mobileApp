@@ -1,13 +1,13 @@
 import pytest
 from SiminvestAppQa.src.pages.Android_pages.portfolio_page import Portfolio
-from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
+from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
 from SiminvestAppQa.src.pages.Android_pages.sell_process import SellProcess
 from SiminvestAppQa.src.utilities.genericUtilities import generate_random_string
 from SiminvestAppQa.src.data.userData import user_data
 import logging as logger
 
 @pytest.mark.usefixtures("unittest_setUpClass_fixture_Portfolio_test")
-class Portfolio_test(Portfolio, SellProcess):
+class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
 
     # Cover all 5 test cases in single test
     @pytest.mark.Port_SMMA_001_to_005
@@ -79,6 +79,25 @@ class Portfolio_test(Portfolio, SellProcess):
         self.click_on_reksadhana_tab()
         self.verify_tab_on_reksadhana()
         self.verify_redirection_reksadhana_tab()
+
+
+    # Cover all 4 test cases in single test
+    @pytest.mark.Port_SMMA_018_to_21
+    @pytest.mark.Android
+    @pytest.mark.portfolio
+    def test_right_left_swipe_on_portfolio_and_customer_care(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.click_on_portfolio_btn()
+        self.right_swipe_on_portfolio()
+        self.verify_half_card_page_buy()
+        self.go_back()
+        self.left_swipe_on_portfolio()
+        self.verify_half_card_for_sell()
+        self.go_back()
+        self.verify_redirection_after_click_on_support_btn()
+
+
+
 
 
 

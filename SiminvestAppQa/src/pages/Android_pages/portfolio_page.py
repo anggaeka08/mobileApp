@@ -26,6 +26,8 @@ lot_dimiki = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/
 harga = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[8]'
 portfolio_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup'
 buka_akun_reksadana = '//*[@text="Buka Akun Reksadana"]'
+order_buy = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]"
+
 
 class Portfolio(HomePage):
 
@@ -106,4 +108,14 @@ class Portfolio(HomePage):
     def verify_redirection_reksadhana_tab(self):
         self.assert_equal(self.is_element_visible(buka_akun_reksadana), True)
 
+    @allure.step("Right swipe on portfolio")
+    def right_swipe_on_portfolio(self):
+        self.scroll_screen(start_x=76, start_y=1065, end_x=691, end_y=1065, duration=10000)
 
+    @allure.step("Left swipe on portfolio")
+    def left_swipe_on_portfolio(self):
+        self.scroll_screen(start_x=691, start_y=1065, end_x=76, end_y=1065, duration=10000)
+
+    @allure.step("Verify half card page buy")
+    def verify_half_card_page_buy(self):
+        self.assert_equal(self.is_element_visible(order_buy), True)
