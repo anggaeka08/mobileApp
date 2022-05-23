@@ -658,7 +658,7 @@ class HomePage(LoginPage):
         self.click_selanjutnya()
         self.enter_otp('1234')
         self.enter_pin()
-        self.close_home_page_banner()
+        #self.close_home_page_banner()
         self.verify_home_page_reg_user()
 
     @allure.step("verify home page reg user after back from watchlist new")
