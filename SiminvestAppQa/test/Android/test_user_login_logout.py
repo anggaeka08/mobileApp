@@ -208,7 +208,8 @@ class Login_test(LoginPage):
         self.type_mobile_no(user_data['reg_no'])
         self.click_selanjutnya()
         self.verify_otp_page_with_phone_no(user_data['reg_no'])
-        self.click_back_button_otp_page()
+        self.go_back()
+        self.go_back()
         self.verify_mobile_no_page()
 
     # Validate user is able to login after user click on resend OTP page
