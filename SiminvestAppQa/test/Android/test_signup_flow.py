@@ -53,7 +53,7 @@ class signUpFlow_test(LoginPage):
         self.go_back()
         self.go_back()
         number_1 = generate_random_integer(length=7, prefix='844')
-        self.type_mobile_no(number_1)
+        self.type_mobile_no_update(number_1)
         self.click_selanjutnya()
         self.sleep(2)
         self.verify_otp_page_with_phone_no(number_1)
