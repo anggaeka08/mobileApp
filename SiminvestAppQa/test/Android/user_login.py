@@ -64,7 +64,7 @@ def test_re_enter_phone_no_after_otp():
     LoginPage.type_mobile_no(user_data['reg_no'])
     LoginPage.click_selanjutnya()
     LoginPage.verify_otp_page_with_phone_no(user_data['reg_no'])
-    LoginPage.click_back_button_otp_page()
+    LoginPage.go_back()
     LoginPage.type_mobile_no(user_data['unkyc_reg_no'])
     LoginPage.click_selanjutnya()
     LoginPage.verify_otp_page_with_phone_no(user_data['unkyc_reg_no'])
