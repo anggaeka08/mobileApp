@@ -29,7 +29,8 @@ cp =[{
     #"app": "bs://9422a9b565a1fba896c39520077b2ea1189a0ea2",
     #"app": "bs://bbda199708923beb4f51c0c2c63d2b96cb3a1a99",1.54.5
     #"app": "bs://2fa1c78f301e6e6ec70589f8cc6e6aac984e740c",1.56.1
-    "app": "bs://e540651cfdabacd7d70264f92ec398fb86fa9224",
+    #"app": "bs://e540651cfdabacd7d70264f92ec398fb86fa9224",1.56.5
+    "app": "bs://2ad5a6ff7e2e54d1e9240d5be651fac0e3e3d11c",
 
 
     # Specify device and os_version for testing
