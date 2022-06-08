@@ -30,6 +30,7 @@ cp =[{
     #"app": "bs://bbda199708923beb4f51c0c2c63d2b96cb3a1a99",1.54.5
     #"app": "bs://2fa1c78f301e6e6ec70589f8cc6e6aac984e740c",1.56.1
     #"app": "bs://e540651cfdabacd7d70264f92ec398fb86fa9224",1.56.5
+    #"app": "bs://2ad5a6ff7e2e54d1e9240d5be651fac0e3e3d11c",
     "app": "bs://2ad5a6ff7e2e54d1e9240d5be651fac0e3e3d11c",
 
 
