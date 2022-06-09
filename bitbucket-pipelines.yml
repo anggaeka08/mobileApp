@@ -17,3 +17,4 @@ pipelines:
             - apt-get install python3-pip -y
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             #- pytest -v --cap-file=SiminvestAppQa/src/cap_files/bs_android_cap.py --bs --junitxml=test-reports/results.xml
+            - python post_test_report.py
