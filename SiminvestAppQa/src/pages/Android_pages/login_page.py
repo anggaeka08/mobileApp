@@ -83,6 +83,7 @@ class LoginPage(BaseCase):
     @allure.step("enter otp")
     def enter_otp(self, otp):
         self.set_text(otp_enter, otp)
+        #self.execute_script('mobile: shell', {'command': 'input text', 'args': otp})
 
     @allure.step("enter set/confirm pin")
     def set_pin(self,pin):
