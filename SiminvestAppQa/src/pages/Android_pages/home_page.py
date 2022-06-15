@@ -32,9 +32,9 @@ nominal_penarikan = 'TarikPageNominal'
 tarik_dana_btn = 'TarikPageBtn'
 #riwayat page locators
 riwayat_page_header = 'RiwayatHeader'
-riwayat_entry_1 = 'RiwayatPageEntry0'
-riwayat_entry_2 = 'RiwayatPageEntry1'
-riwayat_entry_3 = 'RiwayatPageEntry1'
+riwayat_entry_1 = 'RiwayatPageEntry0 '
+riwayat_entry_2 = 'RiwayatPageEntry1 '
+riwayat_entry_3 = 'RiwayatPageEntry1 '
 default_watchlist_btn="//android.widget.TextView[@text='Default']"
 #locators to verify spellings
 Saham ="//android.widget.TextView[@text='Saham']"
@@ -58,8 +58,8 @@ Portfolio = '//android.widget.TextView[@text="Portfolio"]'
 Transaction ='//android.widget.TextView[@text="Transaction"]'
 profile = '//android.widget.TextView[@text="Profile"]'
 Dafter_btn = '//android.widget.TextView[@text="Daftar / Masuk"]'
-Masuk_locator ="//android.widget.TextView[@index='1']"
-Masuk_page_data = "//android.widget.TextView[@index='2']"
+Masuk_locator ="//android.widget.TextView[@index='0']"
+Masuk_page_data = "//android.widget.TextView[@index='1']"
 top_up_page_header = 'TopupPageHeader'
 top_up_page_down = 'TopupPageText1'
 Simobi_btn = 'TopupPageSimobiTitle'
@@ -100,7 +100,6 @@ homepage_stock_code = '//android.view.ViewGroup[@content-desc="HomepageIHSGStock
 homepage_stock_value = '//android.view.ViewGroup[@content-desc="HomepageIHSGStock"]/android.widget.TextView[2]'
 homepage_stock_per = '//android.view.ViewGroup[@content-desc="HomepageIHSGStock"]/android.widget.TextView[4]'
 homepag_stock_name = '//android.view.ViewGroup[@content-desc="HomepageIHSGStock"]/android.widget.TextView[3]'
-top_frequency_stock_element ='Top frequency'
 top_frequency_stock_1 = 'HomepageTFStock0'
 top_frequency_stock_2 = 'HomepageTFStock1'
 top_frequency_down_arrow = 'MoverPageDownArrow'
@@ -108,7 +107,7 @@ top_frequency_page_header ='TopFrequencyHeader'
 half_card_entry ='ScreenHomeTop frequency'
 see_more_btn ='//android.widget.TextView[@text="See more"]'
 mover_page_header = 'MoverPageHeader'
-mover_page_down = 'MoverTop frequency'
+mover_page_down = 'Mover'
 mover_page_entry_1 = 'MoverPageEntry0'
 mover_page_entry_2 = 'MoverPageEntry1'
 default_btn ='//android.widget.TextView[@text="Default"]'
@@ -121,37 +120,37 @@ watchlist_edit_btn ='WatchListNameEditBtn0'
 watchlist_delete_btn='WatchListDeleteBtn0'
 portfolioe_saham ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView[1]'
 portfolio_rp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView[2]'
-default_watchlist_entry_1='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[13]/android.view.ViewGroup[2]/android.view.ViewGroup'
-research_header ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView'
-last_report = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
-news = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView'
-media = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
-Research_btn = '//android.widget.Button[@content-desc="Research, tab, 2 of 5"]/android.view.ViewGroup/android.widget.ImageView'
-stock_signal = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[1]'
-stock_signal_entry_1 ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]'
-stock_signal_entry_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[1]'
-stock_signal_down = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[1]'
+default_watchlist_entry_1='HomepageWLEntry0'
+research_header ='ResearchPageHeader'
+last_report = 'ResearchPageTabHeader1'
+news = 'ResearchPageTabHeader2'
+media = 'ResearchPageTabHeader3'
+Research_btn = '//android.widget.TextView[@text="Research"]'
+stock_signal = '/ResearchPageTabHeader0'
+stock_signal_entry_1 ='ResearchPageSignalEntry0'
+stock_signal_entry_2 = 'ResearchPageSignalEntry1'
+stock_signal_down = 'ResearchPageSignalTandai'
 phone_home_screen='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout[2]/android.widget.FrameLayout[1]/com.miui.home.launcher.ScreenView[1]/android.widget.FrameLayout[1]/android.view.ViewGroup'
 portfolio_btn = '//android.widget.TextView[@text="Portfolio"]'
 investasi_sekrang = '//android.widget.TextView[@text="INVESTASI SEKARANG"]'
 kamu_belum ='//android.widget.TextView[@text="Kamu belum memiliki investasi"]'
-portofolio_saham ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup'
-portfolio_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup'
-portfolio_entry_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup'
-reksadhana_tab = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
-transition_btn = '//android.widget.Button[@content-desc="Transaction, tab, 4 of 5"]/android.view.ViewGroup'
-saham_trans = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView'
-order_tab = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup'
-trade_list_tab = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup'
-history_tab = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup'
-GTC_list_tab = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup'
-all_types = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.EditText'
-cari_saham = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.EditText'
+portofolio_saham ='PortPagePorfilioText'
+portfolio_entry_1 = 'PortPageEntry0'
+portfolio_entry_2 = 'PortPageEntry1'
+reksadhana_tab = '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[2]'
+transition_btn = '//android.widget.TextView[@text="Transaction"]'
+saham_trans = '(//android.view.ViewGroup[@content-desc="TranasactionPageSaham"])[1]'
+order_tab = 'TransactionPageSahamHeader0'
+trade_list_tab = 'TransactionPageSahamHeader1'
+history_tab = 'TransactionPageSahamHeader2'
+GTC_list_tab = 'TransactionPageSahamHeader3'
+all_types = '//android.view.ViewGroup[@content-desc="TransactionSahamOrderListDropDown"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText'
+cari_saham = 'TransactionSahamOrderListSearchBox'
 trans_details_header = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup'
-trans_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup'
-entry_for_account = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup'
-account_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
-username_on_homepage = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[1]'
+trans_entry_1 = 'OrderListEntry0'
+entry_for_account = 'ProfilePageImage'
+account_text = 'ScreenProfilePageName'
+username_on_homepage = 'HomePageUserName'
 
 class HomePage(LoginPage):
 
@@ -183,7 +182,7 @@ class HomePage(LoginPage):
             assert buy_btn_with_sell_present == True, f"buy Btn Should be present"
         else :
             stock_buy_bttton_text = self.get_attribute(stock_buy_bttton, "text")
-            self.assert_equal(stock_buy_bttton_text, "Beli")
+            self.assert_equal(stock_buy_bttton_text, "")
         #self.is_element_visible(sdp_orderbook)
         sdp_orderbook_text = self.get_attribute(sdp_orderbook, "text")
         self.assert_equal(sdp_orderbook_text, "Order Book")
@@ -242,6 +241,7 @@ class HomePage(LoginPage):
 
     @allure.step("verify riwayat page")
     def verify_riwayat_page(self):
+        self.sleep(3)
         riwayat_page_header_text = self.get_attribute(riwayat_page_header, "text")
         self.assert_equal(riwayat_page_header_text, "Riwayat")
         riwayat_entry_1_present = self.is_element_visible(riwayat_entry_1)
@@ -385,10 +385,11 @@ class HomePage(LoginPage):
 
     @allure.step("verify event page")
     def verify_event_page(self):
+        self.sleep(2)
         events_page_header_text = self.get_attribute(events_page_header, "text")
         self.assert_equal(events_page_header_text, "Events")
         events_page_data_text = self.get_attribute(events_page_data, "text")
-        self.assert_equal(events_page_data_text, "Dividend")
+        self.assert_equal(events_page_data_text, " Dividend ")
 
     @allure.step("click on eipo btn")
     def click_on_eipo_btn(self):
@@ -396,6 +397,7 @@ class HomePage(LoginPage):
 
     @allure.step("verify eipo page")
     def verify_eipo_page(self):
+        self.sleep(3)
         eipo_page_header_text = self.get_attribute(eipo_page_header, "text")
         self.assert_equal(eipo_page_header_text, "eIPO")
         eipo_panduan_present = self.is_element_visible(eipo_panduan)
@@ -442,8 +444,7 @@ class HomePage(LoginPage):
 
     @allure.step("verify stock presence in top frequency")
     def verify_stock_presence_in_top_frequency(self):
-        top_frequency_stock_element_present = self.is_element_visible(top_frequency_stock_element)
-        assert top_frequency_stock_element_present == True, f"top_frequency_stock_element Should be present"
+        self.scroll_up()
         top_frequency_stock_1_present = self.is_element_visible(top_frequency_stock_1)
         assert top_frequency_stock_1_present == True, f"top_frequency_stock_1 Should be present"
         top_frequency_stock_2_present = self.is_element_visible(top_frequency_stock_2)
@@ -474,6 +475,7 @@ class HomePage(LoginPage):
         self.assert_equal(mover_page_header_text, 'Mover')
         mover_page_down_text = self.get_attribute(mover_page_down, "text")
         self.assert_equal(mover_page_down_text, 'Top frequency')
+        self.sleep(2)
         mover_page_entry_1_present = self.is_element_visible(mover_page_entry_1)
         assert mover_page_entry_1_present == True, f"mover page entry 1 Should be present"
         mover_page_entry_2_present = self.is_element_visible(mover_page_entry_2)
@@ -507,9 +509,9 @@ class HomePage(LoginPage):
     def verify_portfolio_on_homepage(self):
         portfolio_location = self.get_location_of_element(Portfolio_Saham)
         logger.info(portfolio_location)
-        assert portfolio_location == (52, 698), f"Element is not present at given location (52, 698) actual location {portfolio_location} "
+        assert portfolio_location == (70, 908), f"Element is not present at given location (70, 908) actual location {portfolio_location} "
         today_location = self.get_location_of_element(today)
-        assert today_location == (52, 853), f"Element is not present at given location (52, 853) actual location {today_location} "
+        assert today_location == (70, 1097), f"Element is not present at given location (70, 1097) actual location {today_location} "
 
     @allure.step("verify buying power location")
     def verify_buying_power_location(self):
@@ -529,7 +531,7 @@ class HomePage(LoginPage):
         stock_name_present = self.is_element_visible(stock_name)
         assert stock_name_present == True, f"stock_name Should be present"
         stock_buy_bttton_text = self.get_attribute(stock_buy_bttton, "text")
-        self.assert_equal(stock_buy_bttton_text, "Beli")
+        self.assert_equal(stock_buy_bttton_text, "")
         # self.is_element_visible(sdp_orderbook)
         sdp_orderbook_text = self.get_attribute(sdp_orderbook, "text")
         self.assert_equal(sdp_orderbook_text, "Order Book")
@@ -605,8 +607,7 @@ class HomePage(LoginPage):
         assert portfolio_entry_1_presence == True, f"portfolio_entry_1  available"
         portfolio_entry_2_presence = self.is_element_visible(portfolio_entry_2)
         assert portfolio_entry_2_presence == True, f"portfolio_entry_1  available"
-        reksadhana_tab_text = self.get_attribute(reksadhana_tab, "text")
-        self.assert_equal(reksadhana_tab_text, "Reksadana")
+        self.assert_equal(self.is_element_visible(reksadhana_tab), True)
 
     @allure.step("click on portfolio entry 2")
     def click_on_portfolio_entry_2(self):
@@ -620,8 +621,8 @@ class HomePage(LoginPage):
 
     @allure.step("verify transaction page")
     def verify_transaction_page(self):
-        saham_trans_text = self.get_attribute(saham_trans, "text")
-        self.assert_equal(saham_trans_text, "Saham")
+        self.sleep(3)
+        self.assert_equal(self.is_element_visible(saham_trans), True)
         order_tab_presence = self.is_element_visible(order_tab)
         assert order_tab_presence == True, f"order_tab  available on transaction page"
         trade_list_tab_presence = self.is_element_visible(trade_list_tab)
@@ -634,8 +635,8 @@ class HomePage(LoginPage):
         assert all_types_presence == True, f"all_types  available on transaction page"
         cari_saham_presence = self.is_element_visible(cari_saham)
         assert cari_saham_presence == True, f"cari_saham  available on transaction page"
-        trans_details_header_presence = self.is_element_visible(trans_details_header)
-        assert trans_details_header_presence == True, f"trans_details_header  available on transaction page"
+        #trans_details_header_presence = self.is_element_visible(trans_details_header)
+        #assert trans_details_header_presence == True, f"trans_details_header  available on transaction page"
         trans_entry_1_presence = self.is_element_visible(trans_entry_1)
         assert trans_entry_1_presence == True, f"trans_entry_1  available on transaction page"
 
@@ -644,15 +645,16 @@ class HomePage(LoginPage):
         entry_for_account_presence = self.is_element_visible(entry_for_account)
         assert entry_for_account_presence == True, f"entry_for_account  available on profile page"
         account_text_text = self.get_attribute(account_text, "text")
-        self.assert_equal(account_text_text, "Account")
+        self.assert_equal(account_text_text, "Test Wippy")
 
     @allure.step("verify username on homepage")
     def verify_username_on_homepage(self):
         username_on_homepage_text = self.get_attribute(username_on_homepage, "text")
-        self.assert_equal(username_on_homepage_text, "Hi, test")
+        self.assert_equal(username_on_homepage_text, "Hi, Test")
 
     @allure.step("login and verify homepage for rg user")
     def login_and_verify_homepage_for_reg_user(self, phone_number):
+        self.sleep(4)
         self.click_mulai_sekarang()
         self.type_mobile_no(phone_number)
         self.click_selanjutnya()
