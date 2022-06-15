@@ -48,6 +48,7 @@ class homePage_test(HomePage,LoginPage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_swipe_up_and_down_on_homepage(self):
+        self.sleep(4)
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['reg_no'])
         self.click_selanjutnya()
@@ -81,6 +82,7 @@ class homePage_test(HomePage,LoginPage):
     @pytest.mark.Android
     def test_verify_redirection_for_new_user_to_the_register_page(self):
         number = generate_random_integer(length=7, prefix='844')
+        self.sleep(4)
         self.click_mulai_sekarang()
         self.type_mobile_no(number)
         self.click_selanjutnya()
@@ -211,7 +213,7 @@ class homePage_test(HomePage,LoginPage):
     @pytest.mark.Android
     def test_verify_watchlist_half_card(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
-        self.scroll_down()
+        self.scroll_up()
         self.click_on_default_btn()
         self.verify_watchlist_card()
         self.verify_watchlist_details()
@@ -261,6 +263,7 @@ class homePage_test(HomePage,LoginPage):
     def test_verify_sdp_from_top_frequecny_list(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_stock_1_from_top_frequency_list()
+        self.sleep(3)
         self.verify_sdp_page_from_top_freqency_list()
 
     #Validate user is redirected to the SDP when user click on the company name under "Default watchlist" list.
@@ -320,6 +323,7 @@ class homePage_test(HomePage,LoginPage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_portfolio_page_for_non_kyc_user(self):
+        self.sleep(4)
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['unkyc_reg_no'])
         self.click_selanjutnya()
@@ -335,6 +339,7 @@ class homePage_test(HomePage,LoginPage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_portfolio_page_for_kyc_user(self):
+        self.sleep(4)
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['reg_no'])
         self.click_selanjutnya()
@@ -350,6 +355,7 @@ class homePage_test(HomePage,LoginPage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_transaction_page_kyc_user(self):
+        self.sleep(4)
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['reg_no'])
         self.click_selanjutnya()
@@ -365,6 +371,7 @@ class homePage_test(HomePage,LoginPage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_profile_page_kyc_user(self):
+        self.sleep(4)
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['reg_no'])
         self.click_selanjutnya()
@@ -380,6 +387,7 @@ class homePage_test(HomePage,LoginPage):
     @pytest.mark.Homepage
     @pytest.mark.Android
     def test_verify_username_on_homepage_page_user(self):
+        self.sleep(4)
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['reg_no'])
         self.click_selanjutnya()
