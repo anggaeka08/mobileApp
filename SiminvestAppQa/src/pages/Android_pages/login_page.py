@@ -10,31 +10,31 @@ mobile_no_page="EnterNumText1"
 text_input = 'EnterNumEdit'
 selanjutnya = "//*[@text='SELANJUTNYA']"
 otp_enter = 'PinTextInput'
-set_pin ="//android.widget.TextView[@resource-id='SetUpPinText1']"
+set_pin ="SetUpPinText1"
 risk_profile_page="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView"
 risk_profile = "Pilih tipe portfolio yang sesuai dengan Kamu."
 agresif = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView"
-Home_page_locator = "//android.widget.TextView[@index='2']"
+Home_page_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
 Home_page_text = "Mulai Investasi Yuk…"
 Home_page_reg_user_locator = "HomePageRDN"
 Home_page_reg_user_locator_text ="Saldo RDN"
-phone_no_page_text_r = "Bagaimana kami menghubungi Kamu?"
-phone_no_page_locator ="//android.widget.TextView[@resource-id='EnterNumText1']"
+phone_no_page_text_r = "Masukkan Nomor \nPonsel"
+phone_no_page_locator ="EnterNumText1"
 click_1 = "//*[@text='1']"
 click_2 = "//*[@text='2']"
 click_3 = "//*[@text='3']"
 click_4 = "//*[@text='4']"
 click_5 = "//*[@text='5']"
 click_6 = "//*[@text='6']"
-Kirim_Ulang_click = '//android.view.ViewGroup[@content-desc="Browser_Stack"]/android.widget.TextView'
-Kirim_Ulang_unclick = '//android.view.ViewGroup[@content-desc="Browser_Stack"]/android.widget.TextView'
-otp_page_back = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView"
-otp_page_locator = "//android.widget.TextView[@resource-id='OtpText2']"
-wrong_pin_msg = "Nomor telepon atau PIN salah"
-wrong_pin_msg_locator = "//android.widget.TextView[@resource-id='EnterPinErrorMsg']"
+Kirim_Ulang_click = 'OTPResendText'
+Kirim_Ulang_unclick = 'OTPResendCounter'
+otp_page_back = "OtpBackBtn"
+otp_page_locator = "OtpText2"
+wrong_pin_msg = "Nomor telepon dan pin kamu salah, coba lagi ya"
+wrong_pin_msg_locator = "EnterPinErrorMsg"
 #reset_pin_btn = "//android.widget.TextView[@text='RESET PIN']"
-reset_pin_btn = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup[1]/android.widget.TextView"
-pin_page_locator = "//android.widget.TextView[@resource-id='EnterPinText1']"
+reset_pin_btn = "ResetPinBtn"
+pin_page_locator = "EnterPinText1"
 confirm_pin_page_locator = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
 pin_page_text_dir = "Masukkan PIN SimInvest"
 pin_reset_confirm = "Berhasil"
@@ -45,7 +45,8 @@ finger_print_activate = "/hierarchy/android.widget.FrameLayout/android.widget.Li
 finger_print_remove = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]"
 profile_btn = '//android.widget.TextView[@text="Profile"]'
 set_up_pin = 'setupPin'
-error_msg = "//android.widget.TextView[@index='7']"
+error_msg = "//android.widget.TextView[@text='Pastikan memasukkan Nomor Ponsel dengan benar']"
+send_otp_bia_sms = '//android.widget.TextView[@text="Kirim OTP via SMS"]'
 
 class LoginPage(BaseCase):
 
@@ -66,7 +67,7 @@ class LoginPage(BaseCase):
     @allure.step("verify count of mobile no")
     def verify_count_of_mobile_no(self, phone_number):
         entered_no = self.get_attribute(text_input, "text")
-        self.assert_equal(entered_no, phone_number[:12])
+        self.assert_equal(entered_no, phone_number[:13])
 
     @allure.step("type mobile no")
     def type_mobile_no(self, mobile_no):
@@ -257,3 +258,7 @@ class LoginPage(BaseCase):
     @allure.step("check paste option in set pin")
     def check_paste_option_in_set_pin(self):
         self.assert_equal(self.get_attribute(set_up_pin, 'long-clickable'), 'true')
+
+    @allure.step("click on otp send by sms")
+    def click_on_otp_send_by_sms(self):
+        self.click(send_otp_bia_sms)

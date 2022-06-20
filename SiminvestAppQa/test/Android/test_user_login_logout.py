@@ -250,6 +250,7 @@ class Login_test(LoginPage):
         self.click_selanjutnya()
         self.enter_otp(user_data['valid_otp'])
         self.click_on_reset_pin()
+        self.click_on_otp_send_by_sms()
         self.enter_otp(user_data['valid_otp'])
         time.sleep(2)
         self.set_pin(user_data['setup_pin_value'])

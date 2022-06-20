@@ -69,6 +69,7 @@ class signUpFlow_test(LoginPage):
         self.click_selanjutnya()
         time.sleep(35)
         self.click_Kirim_Ulang()
+        self.sleep(4)
         self.enter_otp('1234')
         self.set_pin('123456')
         self.close_home_page_banner()
