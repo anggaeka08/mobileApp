@@ -45,7 +45,7 @@ finger_print_activate = "/hierarchy/android.widget.FrameLayout/android.widget.Li
 finger_print_remove = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]"
 profile_btn = '//android.widget.TextView[@text="Profile"]'
 set_up_pin = 'setupPin'
-error_msg = "//android.widget.TextView[@index='7']"
+error_msg = "//android.widget.TextView[@text='Pastikan memasukkan Nomor Ponsel dengan benar']"
 send_otp_bia_sms = '//android.widget.TextView[@text="Kirim OTP via SMS"]'
 
 class LoginPage(BaseCase):
