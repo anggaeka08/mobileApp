@@ -34,7 +34,7 @@ class SDP_test(StockDetailPage, BuyProcess):
     @pytest.mark.SDP_SMMA_003_004
     @pytest.mark.Android
     @pytest.mark.SDP
-    def test_validate_star_mark_on_sdp(self):
+    def test_validate_search_option_on_sdp(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.click_on_search_btn()
         self.enter_stock_code('ACES')
@@ -96,6 +96,7 @@ class SDP_test(StockDetailPage, BuyProcess):
     @pytest.mark.SDP
     def test_Validate_redirection_after_click_on_customer_support_btn(self):
         self.open_sdp_by_portfolio_with_kyc_user(user_data['reg_no'])
+        self.scroll_up_screen()
         self.scroll_up_screen()
         self.verify_redirection_after_click_on_support_btn()
 
