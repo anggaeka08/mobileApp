@@ -139,7 +139,7 @@ class BuyProcess_test(BuyProcess):
         self.click_on_buy_btn_on_buy_page()
         self.click_on_confirm_btn()
         self.verify_error_message_after_exchange_market()
-        self.click_on_ok_btn()
+        self.click_on_ok_btn_after_market_close()
 
     #Validate user is able to increase or decrease the value at buy at price "beli di harga" via + and - button.
     @pytest.mark.BP_SMMA_316
@@ -173,8 +173,8 @@ class BuyProcess_test(BuyProcess):
         self.click_on_buy_btn()
         self.verify_buy_page()
         self.verify_buying_power_exceed_msg()
-        self.click_on_buy_btn_on_buy_page()
-        self.verify_buy_page()
+        self.click_disabled_buy_btn()
+        self.verify_buy_page_after_disable_buy_btn()
 
     #Validate the total beli amount should equal to multiple of beli di harga and jumlah lot.
     @pytest.mark.BP_SMMA_319
