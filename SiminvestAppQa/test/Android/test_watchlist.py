@@ -71,7 +71,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.watchlist
     def test_validate_stock_list_in_default_watchlist(self):
         self.go_to_watchlist_option_after_login(user_data['unkyc_reg_no'])
-        self.validate_avail_check_f0r_stock_on_watchlist()
+        self.validate_avail_check_for_stock_on_watchlist()
 
     #Validate watchlist name will have maximum 60 characters.
     @pytest.mark.Wat_SMMA_010
@@ -155,6 +155,7 @@ class Watchlist_test(Watchlist):
         self.click_on_tambah_saham()
         self.search_stock('ARGO')
         self.click_to_add_remove()
+        self.go_back()
         self.go_back()
         self.scroll_ups()
         self.verify_watchlist_entry()

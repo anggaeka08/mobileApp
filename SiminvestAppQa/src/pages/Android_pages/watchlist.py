@@ -4,41 +4,41 @@ import allure
 import logging as logger
 
 default = '//*[@text="Default"]'
-plus_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.ImageView'
-watchlist_name_edit = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.EditText'
-watchlist_entry_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]'
-watchlist_name_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
-edit_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.ImageView'
-delete_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.ImageView'
-select_delete_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[3]/android.widget.ImageView'
-name_edit = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.EditText'
-simpan = '//*[@text="Simpan"]'
+plus_btn = 'WatchListAddBtn'
+watchlist_name_edit = 'WatchListNewAddNameInput'
+watchlist_entry_2 = 'WatchListName1'
+watchlist_name_2 = 'WatchListName1'
+edit_btn = 'WatchListNameEditBtn1'
+delete_btn = 'WatchListDeleteBtn1'
+select_delete_btn = 'WatchListDeleteBtn1'
+name_edit = 'watchlistEnterEditName'
+simpan = 'watchlistEnterNameSimpan'
 Hapus = '//*[@text="HAPUS"]'
 Batal = '//*[@text="BATAL"]'
 pop_msg = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
 pop_ok_btn = '//*[@text="OK"]'
-cross_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.ImageView'
+cross_btn = 'WatchListNewAddCancelBtn'
 Tambah_saham = "//*[@text='Tambah saham']"
 test = "//*[@text='test']"
 default_watchlist = "//*[@text='Default']"
-ARTO = '//*[@text="ARTO"]'
-BBCA = '//*[@text="BBCA"]'
-BBRI = '//*[@text="BBRI"]'
-BMRI = '//*[@text="BMRI"]'
-TLKM = '//*[@text="TLKM"]'
-top_gainer = '//*[@text="Top gainers"]'
-top_frequency = '//*[@text="Top frequency"]'
-top_gainers_prese = '//*[@text="Top gainers %"]'
-top_value = '//*[@text="Top value"]'
-top_volume = '//*[@text="Top Volume"]'
-top_losers = '//*[@text="Top losers"]'
-top_losers_prese = '//*[@text="Top losers %"]'
-search_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.EditText'
-stock_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView[1]'
-stock_1_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
-stock_2_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
-stock_3_add = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.ImageView'
-watchlist_stock_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup[13]/android.view.ViewGroup[2]/android.view.ViewGroup'
+WL_stock_1 = 'HomepageWLEntry0'
+WL_stock_2 = 'HomepageWLEntry1'
+WL_stock_3 = 'HomepageWLEntry2'
+WL_stock_4 = 'HomepageWLEntry3'
+WL_stock_5 = 'HomepageWLEntry4'
+top_gainer = 'MoverPageDownArrow'
+top_frequency = 'ScreenHomeTop frequency'
+top_gainers_prese = 'ScreenHomeTop gainers %'
+top_value = 'ScreenHomeTop value'
+top_volume = 'ScreenHomeTop Volume'
+top_losers = 'ScreenHomeTop losers'
+top_losers_prese = 'ScreenHomeTop losers %'
+search_btn = 'StockAddPageSearchBtn'
+stock_name = 'StockAddPageEntryToAdd0Code'
+stock_1_add = 'StockAddPageEntryToAdd0ImageBtn'
+stock_2_add = 'StockAddPageEntryToAdd1Image'
+stock_3_add = 'StockAddPageEntryToAdd2Image'
+watchlist_stock_entry_1 = 'HomepageWLEntry0'
 watchlist_stock_entry_1_homepage='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[13]/android.view.ViewGroup[2]/android.view.ViewGroup'
 harga_decrease = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.widget.ImageView'
 harga_increase = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ImageView'
@@ -75,6 +75,7 @@ class Watchlist(HomePage):
         self.enter_otp(user_data['valid_otp'])
         self.enter_pin()
         self.close_home_page_banner()
+        self.sleep(5)
         self.scroll_up()
 
     @allure.step("Click on plus btn")
@@ -92,10 +93,11 @@ class Watchlist(HomePage):
     @allure.step("Enter watchlist name")
     def enter_watchlist_name(self, name):
         self.update_text(watchlist_name_edit, name)
-        self.tap_by_coordinates(x=1060, y=2100)
+        self.tap_by_coordinates(x=1294, y=2613)
 
     @allure.step("Validate watchlist Entry")
     def validate_watchlist_entry(self, name):
+        self.sleep(4)
         self.assert_equal(self.is_element_visible(watchlist_entry_2), True)
         self.assert_equal(self.get_attribute(watchlist_name_2, "text"), name)
 
@@ -135,9 +137,11 @@ class Watchlist(HomePage):
     def Cancel_delete_and_delete_watchlist(self):
         self.click(delete_btn)
         self.click_on_Batal()
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(watchlist_entry_2), True)
         self.click(delete_btn)
         self.click_on_Hapus()
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(watchlist_entry_2), False)
 
     @allure.step("Validate pop msg")
@@ -189,11 +193,11 @@ class Watchlist(HomePage):
 
     @allure.step("Availability check Stock list in default watchlist")
     def validate_avail_check_for_stock_on_watchlist(self):
-        self.assert_equal(self.is_element_visible(ARTO), True)
-        self.assert_equal(self.is_element_visible(BBCA), True)
-        self.assert_equal(self.is_element_visible(BBRI), True)
-        self.assert_equal(self.is_element_visible(BMRI), True)
-        self.assert_equal(self.is_element_visible(TLKM), True)
+        self.assert_equal(self.is_element_visible(WL_stock_1), True)
+        self.assert_equal(self.is_element_visible(WL_stock_2), True)
+        self.assert_equal(self.is_element_visible(WL_stock_3), True)
+        self.assert_equal(self.is_element_visible(WL_stock_4), True)
+        self.assert_equal(self.is_element_visible(WL_stock_5), True)
 
     @allure.step("Search stock")
     def search_stock(self, Value):
@@ -238,7 +242,7 @@ class Watchlist(HomePage):
 
     @allure.step("Click on watchlist stock")
     def click_on_stock_code_in_watclist(self):
-        self.click(watchlist_stock_entry_1_homepage)
+        self.click(watchlist_stock_entry_1)
         self.sleep(2)
 
     @allure.step("swipe right")
