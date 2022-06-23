@@ -15,8 +15,9 @@ class Sell_test(SellProcess):
         self.click_on_portfolio_entry_2()
         self.verify_sdp_page()
         self.click_on_jual_btn()
+        self.sleep(2)
         self.verify_buy_page()
-        self.click_on_jual_btn()
+        self.click_on_jual_btn_on_sell_page()
         self.click_on_setuju()
         self.click_on_ok_btn()
         self.verify_transaction_page()
@@ -33,8 +34,9 @@ class Sell_test(SellProcess):
         self.click_on_jual_btn()
         self.sleep(4)
         self.verify_buy_page()
-        self.click_on_jual_btn()
+        self.click_on_jual_btn_on_sell_page()
         self.click_on_batal()
+        self.sleep(3)
         self.verify_buy_page()
 
     #Validate GTC option is working fine.
@@ -51,7 +53,7 @@ class Sell_test(SellProcess):
         self.tap_on_gtc_option()
         self.click_on_date()
         self.select_date()
-        self.click_on_jual_btn()
+        self.click_on_jual_btn_on_sell_page()
         self.click_on_setuju()
         self.click_on_ok_btn()
         self.verify_transaction_page()
@@ -84,7 +86,7 @@ class Sell_test(SellProcess):
         self.open_and_verify_portfolio(user_data['reg_no'])
         self.click_on_portfolio_entry_2()
         self.click_on_jual_btn()
-        self.verify_lot_harga_jumlah_value()
+        self.verify_lot_harga_jumlah_value_sell()
 
 
     #Validate user should receive and error prompt of exchange not operating if user is trying to sell the stock outside exchange operating hours.
@@ -99,10 +101,11 @@ class Sell_test(SellProcess):
         self.click_on_jual_btn()
         self.sleep(2)
         self.verify_buy_page()
-        self.click_on_jual_btn()
+        self.click_on_jual_btn_on_sell_page()
         self.click_on_setuju()
+        self.sleep(2)
         self.verify_error_message_after_exchange_market()
-        self.click_on_ok_btn()
+        self.click_on_ok_btn_after_market_close()
 
     #alidate user is able to increase or decrease the value of sell at price "beli di harga" via + and - button.
     @pytest.mark.Sell_SMMA_510
