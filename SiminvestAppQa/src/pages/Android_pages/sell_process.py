@@ -1,20 +1,27 @@
 from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
 import allure
+import logging as logger
 
-jaul_btn = '//*[@text="Jual"]'
-Setuju_btn = '//*[@text="Setuju"]'
-Batal_btn = '//*[@text="Batal"]'
-bs_on_trans = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[4]'
-bs_on_gtc = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[4]'
-GTC_list_tab = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup'
-status_on_gtc_page = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
-lot_count = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.widget.EditText'
-lot_decrease_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.ImageView'
-available_lot = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[2]'
-bit_amount = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
-ask_amount = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView'
-price_space = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.EditText'
+jaul_btn = 'SDPPageSellBtn'
+jaul_btn_on_sell = 'SellPageSellBtn'
+Setuju_btn = 'BuySellConfSetujuBtn'
+Batal_btn = 'BuySellConfBetalBtn'
+bs_on_trans = 'OrderlistEntry0BS'
+bs_on_gtc = 'GTCListEntry0BS'
+GTC_list_tab = 'TransactionPageSahamHeader3'
+status_on_gtc_page = 'GTCListEntry0BS'
+lot_count = 'SellPageLotValue'
+lot_decrease_btn = 'SellPageLotMinus'
+available_lot = 'SellPageTotalLotValue'
+bit_amount = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextBid0"]/android.widget.TextView'
+ask_amount = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextAsk0"]/android.widget.TextView'
+price_space = 'SellPageHargaValue'
+total_beli_amount = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[6]'
+buy_btn_on_buy_page = 'SellPageSellBtn'
+hagra_on_sell_conf_page = 'SellConfHargaValue'
+lot_count_on_sell_conf_page= 'SellConfLotValue'
+jumlah_on_sell_conf_page = 'SellConfJumlahValue'
 
 class SellProcess(BuyProcess):
 
@@ -34,6 +41,10 @@ class SellProcess(BuyProcess):
     def click_on_jual_btn(self):
         self.click(jaul_btn)
 
+    @allure.step("Click on jual button on sell page")
+    def click_on_jual_btn_on_sell_page(self):
+        self.click(jaul_btn_on_sell)
+
     @allure.step("click on setuju btn")
     def click_on_setuju(self):
         self.click(Setuju_btn)
@@ -44,6 +55,7 @@ class SellProcess(BuyProcess):
 
     @allure.step("Verify transaction for sell")
     def verify_transaction_page_for_sell(self):
+        self.sleep(4)
         self.assert_equal(self.get_attribute(bs_on_trans, "text"), 'SELL')
 
     @allure.step("Verify transaction for sell on gtc page")
@@ -61,8 +73,9 @@ class SellProcess(BuyProcess):
     @allure.step("Verify lot value change default when change it overlimit")
     def verify_lot_value_change_default(self):
         available_lot_value = self.get_attribute(available_lot, "text")
-        enter_new_value = int(available_lot_value) + 1
+        enter_new_value = int(available_lot_value) + 5
         self.set_text(lot_count, enter_new_value)
+        self.sleep(3)
         self.assert_equal(self.get_attribute(lot_count, "text"), available_lot_value)
 
     @allure.step("Verify error message for sell stock exceed limit")
@@ -72,7 +85,19 @@ class SellProcess(BuyProcess):
     @allure.step("Verify value change in harga accord. to click")
     def verify_value_change_in_harga_accord_to_click(self):
         self.click(bit_amount)
+        self.sleep(2)
         self.assert_equal(self.add_thousand_seprator(int((self.get_attribute(price_space, "text").replace(',','')))), self.get_attribute(bit_amount, "text"))
         self.click(ask_amount)
+        self.sleep(2)
         self.assert_equal(self.add_thousand_seprator(int((self.get_attribute(price_space, "text").replace(',','')))), self.get_attribute(ask_amount, "text"))
 
+    @allure.step("verify lot harga jumlah values")
+    def verify_lot_harga_jumlah_value_sell(self):
+        hagra_value_on_buy_pg = (self.get_attribute(price_space, "text")).replace(',','')
+        lot_value = self.get_attribute(lot_count, "text")
+        beli_with_rp = self.get_attribute(total_beli_amount, "text")
+        beli_without_rp = beli_with_rp[3:]
+        self.click(buy_btn_on_buy_page)
+        self.assert_equal(self.add_thousand_seprator(int(hagra_value_on_buy_pg)), self.get_attribute(hagra_on_sell_conf_page, "text"))
+        self.assert_equal(lot_value, self.get_attribute(lot_count_on_sell_conf_page, "text"))
+        self.assert_equal(beli_without_rp, self.get_attribute(jumlah_on_sell_conf_page, "text"))
