@@ -194,6 +194,7 @@ class Amend_test(AmendProcess):
         self.click_on_amend_btn()
         self.verify_amend_purchase_page()
         self.click_amend_btn_amend_page()
+        self.sleep(2)
         self.go_back()
         self.verify_amend_purchase_page()
         self.click_amend_btn_amend_page()
