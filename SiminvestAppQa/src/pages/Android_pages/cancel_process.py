@@ -6,8 +6,8 @@ import logging as logger
 
 cancel_confirmation ='//*[@text="Ya"]'
 Cancel_btn_Confirmation_pop = '//*[@text="Tidak"]'
-trans_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup'
-status_on_trasction_page = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+trans_entry_1 = 'OrderListEntry0'
+status_on_trasction_page = 'OrderListEntry0Status'
 order_id = '//*[@text="Order ID"]'
 tanggal = '//*[@text="Tanggal Pembelian"]'
 produk ='//*[@text="Produk"]'
@@ -16,16 +16,20 @@ Lot = '//*[@text="Lot Dipesan"]'
 Lot_s = '//*[@text="Lot Selesai"]'
 jumlah = '//*[@text="Jumlah Selesai"]'
 Biaya = '//*[@text="Biaya"]'
-
+market_close_message_lct = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[1]'
+market_close_message = 'Bursa Tidak Beroperasi'
+ok_btn_close = '//*[@text="OK"]'
 
 class CancelProcess(AmendProcess):
 
     @allure.step("Click on ok btn")
     def click_on_cancel_confirmation_btn(self):
+        self.sleep(1)
         self.click(cancel_confirmation)
 
     @allure.step("Verify transaction on transaction page after cancel")
     def verify_transaction_on_transaction_page_after_cancel(self):
+        self.sleep(2)
         trans_entry_1_presence = self.is_element_visible(trans_entry_1)
         assert trans_entry_1_presence == True, f"trans_entry_1  available on transaction page"
         self.assert_equal(self.get_attribute(status_on_trasction_page, "text"), 'WITHDRAW')
@@ -44,3 +48,18 @@ class CancelProcess(AmendProcess):
     @allure.step("Click on cancel btn at confirmation pop up")
     def click_on_click_cancel_btn_at_confirmation_pop_up(self):
         self.click(Cancel_btn_Confirmation_pop)
+
+    @allure.step("Verify error message after exchange hour")
+    def verify_error_message_after_exchange_market(self):
+        error_message_text = self.get_attribute(market_close_message_lct, "text")
+        self.assert_equal(error_message_text, market_close_message)
+
+    @allure.step("click on ok after market close")
+    def click_on_ok_btn_after_market_close(self):
+        self.click(ok_btn_close)
+        self.sleep(2)
+
+    @allure.step("click on ok")
+    def click_on_ok_btn(self):
+        self.click(ok_btn_close)
+        self.sleep(2)
