@@ -34,11 +34,13 @@ class Cancel_test(CancelProcess):
     def test_validate_pop_message_after_outside_exchange_hour(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.open_status_page_of_buy_order()
+        self.sleep(3)
         self.verify_order_status_page()
         self.click_on_cancel_btn_on_status_page()
         self.click_on_cancel_confirmation_btn()
+        self.sleep(5)
         self.verify_error_message_after_exchange_market()
-        self.click_on_ok_btn()
+        self.click_on_ok_btn_after_market_close()
         self.verify_order_status_page()
 
     #Validate all the words are grammatically correct at the time of cancel process.
