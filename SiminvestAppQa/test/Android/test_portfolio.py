@@ -89,6 +89,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_portfolio_btn()
         self.right_swipe_on_portfolio()
+        self.sleep(2)
         self.verify_half_card_page_buy()
         self.go_back()
         self.left_swipe_on_portfolio()
