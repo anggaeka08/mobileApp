@@ -97,6 +97,14 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
         self.go_back()
         self.verify_redirection_after_click_on_support_btn()
 
+    # Cover all 3 test cases in single test
+    @pytest.mark.Port_SMMA_025_26_29a
+    @pytest.mark.Android
+    @pytest.mark.portfolio
+    def test_validate_portfolio_value_buying_power_PL_value_with_portfolio_page_value(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.Compare_values_between_homepage_and_portfolio()
+
 
 
 
