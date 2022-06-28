@@ -27,7 +27,12 @@ harga = 'SDPPortPageText9'
 portfolio_entry_1 = 'PortPageEntry0'
 buka_akun_reksadana = '//android.widget.TextView[@text="Buka Akun Reksadana"]'
 order_buy = '//android.widget.TextView[@text="ORDER BELI"]'
-
+portfolio_value_H = 'HomepageRp'
+pl_h = 'HomepageRpAmount'
+rdn_h = 'HomePageRdnValue'
+portfolio_value_port = 'PortPagePortfolioValue'
+pl_port = 'PortPageText3'
+cash_balance = 'PortPageText11'
 
 class Portfolio(HomePage):
 
@@ -119,3 +124,22 @@ class Portfolio(HomePage):
     @allure.step("Verify half card page buy")
     def verify_half_card_page_buy(self):
         self.assert_equal(self.is_element_visible(order_buy), True)
+
+    @allure.step("Compare portfolio_value_buying_power_PL_value with homepage")
+    def Compare_values_between_homepage_and_portfolio(self):
+        Portfolio_value_H = self.get_attribute(portfolio_value_H, "text").replace(' ', '')
+        PL_H = self.get_attribute(pl_h, "text")
+        c = '('
+        index = PL_H.find(c)
+        PL_H_value = PL_H[:index]
+        RDN_H = self.get_attribute(rdn_h, "text")
+        RDN_H_Value = RDN_H[3:]
+        self.click_on_portfolio_btn()
+        Portfolio_value_Port = self.get_attribute(portfolio_value_port, "text").replace(' ','')
+        PL_Port = self.get_attribute(pl_port, "text")
+        Cash_balance = self.get_attribute(cash_balance, "text")
+        self.assert_equal(Portfolio_value_H,Portfolio_value_Port)
+        self.assert_equal(PL_H_value, PL_Port)
+        self.assert_equal(RDN_H_Value, Cash_balance)
+
+
