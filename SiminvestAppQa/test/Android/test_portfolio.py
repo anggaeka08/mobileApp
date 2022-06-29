@@ -120,6 +120,16 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
         self.click_to_help_btn()
         self.verify_redirection_after_click_on_customer_support()
 
+# Cover all 2 test cases in single test
+    @pytest.mark.Port_SMMA_039_040
+    @pytest.mark.Android
+    @pytest.mark.portfolio
+    def test_validate_PL_and_PL_per_value(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.click_on_portfolio_btn()
+        self.verify_pl_value()
+        self.verify_pl_percentage()
+
 
 
 
