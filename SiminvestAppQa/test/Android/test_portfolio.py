@@ -105,6 +105,24 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.Compare_values_between_homepage_and_portfolio()
 
+# Cover all 3 test cases in single test
+    @pytest.mark.Port_SMMA_034_035_037
+    @pytest.mark.Android
+    @pytest.mark.portfolio
+    def test_back_btn_non_kyc_reksadana_help_btn(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.click_on_portfolio_btn()
+        self.go_back()
+        self.verify_portfolio_for_kyc_user()
+        self.click_on_reksadhana_tab()
+        self.sleep(2)
+        self.verify_redirection_reksadhana_tab()
+        self.click_to_help_btn()
+        self.verify_redirection_after_click_on_customer_support()
+
+
+
+
 
 
 
