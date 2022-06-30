@@ -33,6 +33,9 @@ rdn_h = 'HomePageRdnValue'
 portfolio_value_port = 'PortPagePortfolioValue'
 pl_port = 'PortPageText3'
 cash_balance = 'PortPageText11'
+help_btn = "//android.widget.TextView[@text = 'Hubungi Customer Care']"
+chrome_xpath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[2]/android.webkit.WebView/android.view.View[2]/android.view.View[1]/android.view.View'
+pl_percentage_over="PortPageText2"
 
 class Portfolio(HomePage):
 
@@ -142,4 +145,28 @@ class Portfolio(HomePage):
         self.assert_equal(PL_H_value, PL_Port)
         self.assert_equal(RDN_H_Value, Cash_balance)
 
+    @allure.step('Click to help btn')
+    def click_to_help_btn(self):
+        self.click(help_btn)
+
+    @allure.step("Verify redirection after click on customer support")
+    def verify_redirection_after_click_on_customer_support(self):
+        self.sleep(3)
+        self.assert_equal(self.is_element_visible(chrome_xpath), True)
+
+    @allure.step("Verify PL value")
+    def verify_pl_value(self):
+        PL_value = self.get_attribute(pl_port, "text")
+        invest_value = self.get_attribute(invested_value, "text")
+        self.assert_equal(PL_value[1:], invest_value)
+
+
+    @allure.step("verify PL Percentage")
+    def verify_pl_percentage(self):
+        PL_value = int(self.get_attribute(pl_port, "text").replace(',', ''))
+        invest_value = int(self.get_attribute(invested_value, "text").replace(',', ''))
+        PL_per = str((invest_value*100) / PL_value)
+        percentage_value = self.get_attribute(pl_percentage_over, "text")
+        percentage = percentage_value[1:7]
+        self.assert_equal(PL_per, percentage)
 
