@@ -13,3 +13,12 @@ class Portfolio_test(Transaction):
     def test_validate_transaction_btn_redirection_saham_reksadana_tab(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.verify_last_transaction_orderlist()
+
+    @pytest.mark.T_SMMA_008
+    @pytest.mark.Android
+    @pytest.mark.transaction
+    def test_GTC_tab_contain_gtc_transactions(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.click_on_gtc_tab()
+        self.verify_GTC_tab_entries()
+

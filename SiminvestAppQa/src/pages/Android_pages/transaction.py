@@ -4,6 +4,7 @@ import allure
 import logging as logger
 from datetime import date
 
+GTC_list ='TransactionPageSahamHeader3'
 '''
 transaction_tab = "//android.widget.TextView[@text='Transaction']"
 saham_tab = '(//android.view.ViewGroup[@content-desc="TranasactionPageSaham"])[1]'
@@ -11,7 +12,7 @@ rekshadana_tab ='(//android.view.ViewGroup[@content-desc="TranasactionPageSaham"
 order_list='TransactionPageSahamHeader0'
 trade_list = 'TransactionPageSahamHeader1'
 history = 'TransactionPageSahamHeader2'
-GTC_list ='TransactionPageSahamHeader3'
+
 today_transaction =''
 '''
 date_last_trans='AmendPageTanggalValue'
@@ -31,4 +32,16 @@ class Transaction(AmendProcess):
         index = d2.find(c)
         d3 = d2[:index-1]
         self.assert_equal(d1, d3)
+
+    @allure.step("Click on GTC tab")
+    def click_on_gtc_tab(self):
+        self.click(GTC_list)
+
+    @allure.step("Verify GTC tab entries")
+    def verify_GTC_tab_entries(self):
+        self.sleep(3)
+        for i in range(0,9):
+            self.is_element_visible(f'GTCListEntry{i}Date')
+
+
 
