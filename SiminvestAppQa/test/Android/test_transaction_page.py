@@ -4,7 +4,7 @@ from SiminvestAppQa.src.pages.Android_pages.transaction import Transaction
 
 
 @pytest.mark.usefixtures("unittest_setUpClass_fixture_Portfolio_test")
-class Portfolio_test(Transaction):
+class Transaction_test(Transaction):
 
     # Cover all 5 test cases in single test
     @pytest.mark.T_SMMA_001_to_005

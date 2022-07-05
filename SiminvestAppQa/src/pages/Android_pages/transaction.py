@@ -29,7 +29,7 @@ class Transaction(AmendProcess):
         d2 = today.strftime("%d %B, %Y")
         c = ','
         index = d2.find(c)
-        d3 = d2[:index-1]
+        d3 = d2[1:index-1]
         self.assert_equal(d1, d3)
 
     @allure.step("Click on GTC tab")
