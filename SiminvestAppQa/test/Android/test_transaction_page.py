@@ -3,7 +3,7 @@ from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.transaction import Transaction
 
 
-@pytest.mark.usefixtures("unittest_setUpClass_fixture_Portfolio_test")
+@pytest.mark.usefixtures("unittest_setUpClass_fixture_Transaction_test")
 class Transaction_test(Transaction):
 
     # Cover all 5 test cases in single test
@@ -42,6 +42,33 @@ class Transaction_test(Transaction):
         self.click_to_all_types()
         self.click_on_sell_all()
         self.verify_transaction_page_for_sell_all()
+
+    @pytest.mark.T_SMMA_019_to_026
+    @pytest.mark.Android
+    @pytest.mark.transaction
+    def test_verify_reksadana_transactions(self):
+        self.open_trans_page_with_reg_user(user_data['mf_user'])
+        self.click_to_reksadana()
+        self.verify_all_types_and_all_status_btn()
+        self.verify_orderlist_and_riwayat_tab()
+        self.click_on_all_status_btn()
+        self.verify_option_in_all_status_btn()
+        self.click_on_in_progress()
+        self.verify_status_after_sorting_by_inprogress()
+        #self.click_on_all_status_btn()
+        #self.click_on_awaiting_payment()
+        #self.verify_status_after_sorting_by_awaitning_payemnt()
+        self.scroll_up()
+        self.scroll_down()
+        self.click_to_saham()
+        self.sleep(3)
+        self.scroll_down()
+        self.scroll_up()
+
+
+
+
+
 
 
 
