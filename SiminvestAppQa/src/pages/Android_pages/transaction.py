@@ -34,7 +34,18 @@ batal_btn = '//android.widget.TextView[@text ="BATAL"]'
 YA_btn = '//android.widget.TextView[@text ="Ya"]'
 ok_btn = '//android.widget.TextView[@text ="OK"]'
 status_of_gtc_first_entry = 'GTCListEntry0Status'
-
+#GTCODP = GTC order details Page
+GTCODP_status = "AmendPageStatusValue"
+GTCODP_till_date = '//android.widget.TextView[@index="6"]'
+GTCODP_purchase_date = '//android.widget.TextView[@index="8"]'
+GTCODP_stock_code = '//android.widget.TextView[@index="11"]'
+GTCODP_harga_value = '//android.widget.TextView[@index="13"]'
+GTCODP_lot_dipesan_value = '//android.widget.TextView[@index="15"]'
+GTCODP_lot_selesia_value = '//android.widget.TextView[@index="17"]'
+GTCODP_lot_jumlah_value = '//android.widget.TextView[@index="19"]'
+GTCODP_customer_btn = '//android.widget.TextView[@text="Hubungi Customer Care"]'
+GTCODP_BATAL_btn = '//android.widget.TextView[@text="BATAL"]'
+chrome_xpath ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.EditText'
 
 today = date.today()
 
@@ -220,4 +231,31 @@ class Transaction(AmendProcess):
     @allure.step("Verify first entry status after cancel buy/sell")
     def verify_status_of_first_entry(self):
         self.assert_equal(self.get_attribute(status_of_gtc_first_entry, "text"), "WITHDRAW")
+
+    @allure.step("verify details available on gtc order details page")
+    def verify_details_available_on_gtc_order_details_page(self):
+        self.assert_equal(self.is_element_visible(GTCODP_status), True)
+        self.assert_equal(self.is_element_visible(GTCODP_till_date), True)
+        self.assert_equal(self.is_element_visible(GTCODP_purchase_date), True)
+        self.assert_equal(self.is_element_visible(GTCODP_stock_code), True)
+        self.assert_equal(self.is_element_visible(GTCODP_harga_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_dipesan_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_selesia_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_jumlah_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_customer_btn), True)
+        self.assert_equal(self.is_element_visible(GTCODP_BATAL_btn), True)
+
+    @allure.step("Click on customer btn")
+    def click_on_customer_btn(self):
+        self.click(GTCODP_customer_btn)
+
+    @allure.step("Verify GTC first entry available")
+    def verify_gtc_first_entry_available(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(gtc_entry), True)
+
+    @allure.step("Verify redirection after click on customer support")
+    def verify_redirection_after_click_on_customer_support(self):
+        self.assert_equal(self.is_element_visible(chrome_xpath), True)
+
 
