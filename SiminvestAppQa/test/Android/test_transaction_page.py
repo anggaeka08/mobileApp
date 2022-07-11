@@ -3,7 +3,7 @@ from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.transaction import Transaction
 
 
-@pytest.mark.usefixtures("unittest_setUpClass_fixture_Transaction_test")
+@pytest.mark.usefixtures("_unittest_setUpClass_fixture_Transaction_test")
 class Transaction_test(Transaction):
 
     # Cover all 5 test cases in single test
@@ -64,6 +64,38 @@ class Transaction_test(Transaction):
         self.sleep(3)
         self.scroll_down()
         self.scroll_up()
+
+    @pytest.mark.T_SMMA_028_29_30_34
+    @pytest.mark.Android
+    @pytest.mark.transaction
+    def test_verify_left_right_swipe_and_search_options(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.swipe_right()
+        self.verify_all_types_btn_for_trade_list()
+        self.swipe_right()
+        self.verify_all_type_btn_for_history_list()
+        self.swipe_right()
+        self.verify_all_type_btn_for_gtc_list()
+        self.swipe_left()
+        self.swipe_left()
+        self.swipe_left()
+        self.verify_all_types_btn_for_order_list()
+        self.enter_value_in_search_box('TEST')
+        self.verify_enteries_after_enter_null_or_space_in_search_option()
+        self.enter_value_in_search_box(' ')
+        self.verify_enteries_after_enter_null_or_space_in_search_option()
+        self.click_on_gtc_tab()
+        self.click_on_gtc_first_entry()
+        self.click_on_batal()
+        self.click_on_YA()
+        self.click_on_ok()
+        self.verify_status_of_first_entry()
+
+
+
+
+
+
 
 
 
