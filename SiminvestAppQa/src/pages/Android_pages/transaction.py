@@ -23,6 +23,18 @@ entry_status = 'ReksadanaEnrty0Status0'
 all_status_choice = '//android.widget.CheckedTextView[@text="All Status"]'
 inprogress = '//android.widget.CheckedTextView[@text="In Progress"]'
 awaiting_payment = '//android.widget.CheckedTextView[@text="Awaiting Payment"]'
+all_types_trade_lst='TransactionSahamTradeListDropDown'
+all_types_order_lst='TransactionSahamOrderListDropDown'
+all_types_History_lst = 'TransactionSahamHistoryListDropDown'
+all_types_gtc_lst = 'TransactionSahamGTCListDropDown'
+orderlist_entry = 'OrderListEntry0'
+GTC_tab = 'TransactionPageSahamHeader3'
+gtc_entry = 'GTCListEntry0'
+batal_btn = '//android.widget.TextView[@text ="BATAL"]'
+YA_btn = '//android.widget.TextView[@text ="Ya"]'
+ok_btn = '//android.widget.TextView[@text ="OK"]'
+status_of_gtc_first_entry = 'GTCListEntry0Status'
+
 
 today = date.today()
 
@@ -144,4 +156,68 @@ class Transaction(AmendProcess):
         self.sleep(2)
         self.assert_equal(self.get_attribute(entry_status, 'text'), 'Awaiting Payment')
 
+    @allure.step("Swipe right")
+    def swipe_right(self):
+        self.scroll_screen(start_x=1190, start_y=1724, end_x=225, end_y=1715, duration=10000)
+        self.sleep(2)
+
+    @allure.step("Swipe Left")
+    def swipe_left(self):
+        self.scroll_screen(start_x=225, start_y=1715, end_x=1190, end_y=1724, duration=10000)
+        self.sleep(2)
+
+    @allure.step("Verify all_types btn for trade list")
+    def verify_all_types_btn_for_trade_list(self):
+        self.assert_equal(self.is_element_visible(all_types_trade_lst), True)
+
+    @allure.step("Verify search btn for trade list")
+    def verify_all_types_btn_for_order_list(self):
+        self.assert_equal(self.is_element_visible(all_types_order_lst), True)
+
+    @allure.step("Verify search btn for Order list")
+    def verify_all_type_btn_for_history_list(self):
+        self.assert_equal(self.is_element_visible(all_types_History_lst), True)
+
+    @allure.step("Verify search btn for gtc list")
+    def verify_all_type_btn_for_gtc_list(self):
+        self.assert_equal(self.is_element_visible(all_types_gtc_lst), True)
+
+    @allure.step("Enter value in search bar")
+    def enter_value_in_search_box(self, Value):
+        self.set_text(search_oderlist, Value)
+
+    @allure.step("Verify enteries after enter null or space in search option")
+    def verify_enteries_after_enter_null_or_space_in_search_option(self):
+        self.assert_equal(self.is_element_visible(orderlist_entry), False)
+
+    @allure.step("Click to GTC tab")
+    def click_on_gtc_tab(self):
+        self.click(GTC_tab)
+        self.sleep(3)
+
+    @allure.step("Click to GTC first entry")
+    def click_on_gtc_first_entry(self):
+        self.click(gtc_entry)
+        self.sleep(3)
+
+    @allure.step("Click on batal btn")
+    def click_on_batal(self):
+        self.click(batal_btn)
+        self.sleep(3)
+
+    @allure.step("Click on YA btn")
+    def click_on_YA(self):
+        self.sleep(2)
+        self.click(YA_btn)
+        self.sleep(1)
+
+    @allure.step("Click on ok btn")
+    def click_on_ok(self):
+        self.sleep(2)
+        self.click(ok_btn)
+        self.sleep(1)
+
+    @allure.step("Verify first entry status after cancel buy/sell")
+    def verify_status_of_first_entry(self):
+        self.assert_equal(self.get_attribute(status_of_gtc_first_entry, "text"), "WITHDRAW")
 
