@@ -91,6 +91,32 @@ class Transaction_test(Transaction):
         self.click_on_ok()
         self.verify_status_of_first_entry()
 
+    @pytest.mark.T_SMMA_039_040
+    @pytest.mark.Android
+    @pytest.mark.transaction
+    def test_verify_gtc_order_page_and_help_option(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.click_on_gtc_tab()
+        self.click_on_gtc_first_entry()
+        self.verify_details_available_on_gtc_order_details_page()
+        self.click_on_customer_btn()
+        self.sleep(3)
+        self.verify_redirection_after_click_on_customer_support()
+
+
+    @pytest.mark.T_SMMA_035
+    @pytest.mark.Android
+    @pytest.mark.transaction
+    def test_verify_gtc_order_page_redirection(self):
+        self.open_trans_page_with_reg_user(user_data['reg_no'])
+        self.click_on_gtc_tab()
+        self.click_on_gtc_first_entry()
+        self.go_back()
+        self.verify_gtc_first_entry_available()
+
+
+
+
 
 
 
