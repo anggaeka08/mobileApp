@@ -11,6 +11,15 @@ last_report_search = '//android.widget.TextView[@text="Last Report"]'
 news_search = '//android.widget.TextView[@text="News"]'
 news_entry = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView'
 last_reports_entry = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView'
+stock_signal = 'ResearchPageTabHeader0'
+last_report='ResearchPageTabHeader1'
+news='ResearchPageTabHeader2'
+media = 'ResearchPageTabHeader3'
+news_entry_research = 'ResearchPageNewsEnrty0'
+media_entry_title='ResearchPageMediaTitle0'
+search_entry = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView'
+
+
 
 class Research(HomePage):
 
@@ -65,6 +74,34 @@ class Research(HomePage):
         self.click(last_report_search)
         self.sleep(2)
         self.assert_equal(self.is_element_visible(last_reports_entry), True)
+
+    @allure.step("Verify tabs on research page")
+    def verify_tabs_on_research_page(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(stock_signal), True)
+        self.assert_equal(self.is_element_visible(last_report), True)
+        self.assert_equal(self.is_element_visible(news), True)
+        self.assert_equal(self.is_element_visible(media), True)
+
+    @allure.step("Click on news research tab and verify entry")
+    def click_on_news_research_tab_and_verify_entry(self):
+        self.click(news)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(news_entry_research), True)
+
+    @allure.step("Click on media tab and verify entry")
+    def click_on_media_tab_and_verify_entry(self):
+        self.click(media)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(media_entry_title), True)
+
+    @allure.step("Enter some value in search_option")
+    def enter_some_value_in_search_option_verify_entry(self):
+        self.set_text(search_option, 'REAL')
+        self.sleep(3)
+        self.assert_equal(self.is_element_visible(search_entry), True)
+
+
 
 
 

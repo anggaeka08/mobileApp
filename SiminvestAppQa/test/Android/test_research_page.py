@@ -21,3 +21,18 @@ class Research_test(Research):
         self.Click_to_new_and_verify_entry()
         self.click_to_lastreport_and_verify_entry()
 
+    @pytest.mark.RE_014_to_019
+    @pytest.mark.Android
+    @pytest.mark.Research
+    def test_validate_redirection_for_news_and_media_and_search_option(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.click_on_research_btn()
+        self.verify_tabs_on_research_page()
+        self.click_on_news_research_tab_and_verify_entry()
+        self.click_on_media_tab_and_verify_entry()
+        self.click_on_search_btn()
+        self.enter_some_value_in_search_option_verify_entry()
+
+
+
+
