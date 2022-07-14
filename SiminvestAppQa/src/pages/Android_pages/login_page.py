@@ -9,7 +9,8 @@ mobile_no_page="EnterNumText1"
 #mobile_no_page="Browser_StackENTERNUMBER"
 text_input = 'EnterNumEdit'
 selanjutnya = "//*[@text='SELANJUTNYA']"
-otp_enter = 'PinTextInput'
+#otp_enter = 'PinTextInput'
+otp_enter = '(//android.widget.EditText[@content-desc="Browser_Stack"])[1]'
 set_pin ="SetUpPinText1"
 risk_profile_page="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView"
 risk_profile = "Pilih tipe portfolio yang sesuai dengan Kamu."
