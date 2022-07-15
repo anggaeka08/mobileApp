@@ -18,8 +18,12 @@ media = 'ResearchPageTabHeader3'
 news_entry_research = 'ResearchPageNewsEnrty0'
 media_entry_title='ResearchPageMediaTitle0'
 search_entry = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView'
-
-
+daily_search= 'ResearchPageReportDailySearchText'
+daily_search_header='//android.widget.TextView[@text = "Daily Research"]'
+red_dont0_SS = 'ResearchPageSignalEntry0UnreadMark'
+red_dont1_SS = 'ResearchPageSignalEntry1UnreadMark'
+SS_entry0 = 'ResearchPageSignalEntry0'
+signal_tandai = 'ResearchPageSignalTandaiText'
 
 class Research(HomePage):
 
@@ -72,7 +76,7 @@ class Research(HomePage):
     @allure.step("Click to lastreport and verify entry")
     def click_to_lastreport_and_verify_entry(self):
         self.click(last_report_search)
-        self.sleep(2)
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(last_reports_entry), True)
 
     @allure.step("Verify tabs on research page")
@@ -100,6 +104,72 @@ class Research(HomePage):
         self.set_text(search_option, 'REAL')
         self.sleep(3)
         self.assert_equal(self.is_element_visible(search_entry), True)
+
+    @allure.step("Verify 10 entries on news section")
+    def verify_10_entries_on_news_section(self):
+        self.click(news)
+        self.sleep(2)
+        for i in range(9):
+            self.assert_equal(self.is_element_visible(f'ResearchPageNewsEnrty{i}'), True)
+            if i == 5:
+                self.scroll_up()
+
+    @allure.step("Click to daily search verify redirection")
+    def click_to_daily_search_verify_redirection(self):
+        self.click(last_report_search)
+        self.sleep(2)
+        self.click(daily_search)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(daily_search_header), True)
+
+    @allure.step("Click on stock signal")
+    def click_on_stock_signal(self):
+        self.click(stock_signal)
+
+    @allure.step("Verify red dont on one entry")
+    def verify_red_dont_on_one_entry(self):
+        self.assert_equal(self.is_element_visible(red_dont0_SS), True)
+
+    @allure.step("Click on entry and verify red dot remove from entry")
+    def Click_on_entry_and_verify_red_dot_remove_from_entry(self):
+        self.click(SS_entry0)
+        self.sleep(2)
+        self.go_back()
+        self.assert_equal(self.is_element_visible(red_dont0_SS), False)
+
+    @allure.step("Verify red dont on one entry")
+    def verify_red_dont_on_one_entry_after_read(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(red_dont0_SS), False)
+
+    @allure.step("Click to signal tadai btn and verify red dots")
+    def click_to_signal_tadai_and_verify_red_dots(self):
+        self.click(signal_tandai)
+        self.assert_equal(self.is_element_visible(red_dont0_SS), False)
+        self.assert_equal(self.is_element_visible(red_dont1_SS), False)
+        self.assert_equal(self.is_element_visible(signal_tandai), False)
+
+    @allure.step("Verify exit from app on research page")
+    def Verify_exit_from_app_on_research_page(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(stock_signal), False)
+        self.assert_equal(self.is_element_visible(last_report), False)
+        self.assert_equal(self.is_element_visible(news), False)
+        self.assert_equal(self.is_element_visible(media), False)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
