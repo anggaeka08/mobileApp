@@ -33,6 +33,30 @@ class Research_test(Research):
         self.click_on_search_btn()
         self.enter_some_value_in_search_option_verify_entry()
 
+    @pytest.mark.RE_022_to_039
+    @pytest.mark.Android
+    @pytest.mark.Research
+    def test_validate_red_dots_on_stock_signal(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.click_on_research_btn()
+        self.verify_10_entries_on_news_section()
+        #self.click_to_lastreport_and_verify_entry()
+        self.click_to_daily_search_verify_redirection()
+        self.go_back()
+        self.click_on_stock_signal()
+        self.verify_red_dont_on_one_entry()
+        self.Click_on_entry_and_verify_red_dot_remove_from_entry()
+        self.close()
+        self.launch_app_again()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.click_on_research_btn()
+        self.verify_red_dont_on_one_entry_after_read()
+        self.click_to_signal_tadai_and_verify_red_dots()
+        self.go_back()
+        self.go_back()
+        self.Verify_exit_from_app_on_research_page()
+
+
 
 
 
