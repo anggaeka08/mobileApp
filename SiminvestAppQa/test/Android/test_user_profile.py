@@ -49,6 +49,20 @@ class userProfile_test(UserProfile):
         self.click_on_send_btn()
         self.verify_send_btn_for_feedback(False)
 
+    @pytest.mark.User_profile_RateFeature_03
+    @pytest.mark.android
+    @pytest.mark.userProfile
+    def test_validate_submit_feedback_by_default_keyboard_btn(self):
+        number = generate_random_integer(length=6, prefix='8442')
+        self.login_with_new_number(number)
+        self.click_on_profile_btn()
+        self.click_on_second_star()
+        self.verify_emoji_section()
+        self.verify_comment_in_feedback_section('Good')
+        self.tap_by_coordinates(1290, 2617)
+        self.sleep(2)
+        self.verify_send_btn_for_feedback(False)
+
 
 
 
