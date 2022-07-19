@@ -77,5 +77,11 @@ class UserProfile(HomePage):
     def click_on_kirim_btn(self):
         self.click(kirim_btn)
 
+    @allure.step("Click to send btn")
+    def click_on_send_btn(self):
+        self.sleep(2)
+        self.double_tap(send_btn)
+        self.sleep(1)
+
 
 
