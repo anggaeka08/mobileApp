@@ -1,4 +1,5 @@
 import pytest
+from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.user_profile import UserProfile
 from SiminvestAppQa.src.utilities.genericUtilities import generate_random_integer
 
@@ -62,6 +63,27 @@ class userProfile_test(UserProfile):
         self.tap_by_coordinates(1290, 2617)
         self.sleep(2)
         self.verify_send_btn_for_feedback(False)
+
+    @pytest.mark.User_profile_otherPages_01
+    @pytest.mark.android
+    @pytest.mark.userProfile
+    def test_validate_ajak_btn_and_refferal_feature(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.click_on_profile_btn()
+        self.scroll_up()
+        self.scroll_down()
+        self.verify_phone_number_available_on_profile_page()
+        self.click_on_ajak_akun_and_validate_redirection()
+        self.click_to_check_box()
+        self.click_on_submit_btn()
+        self.verify_redirection_to_referral_page()
+        self.go_back()
+        self.click_on_ajak_akun()
+        self.verify_redirection_to_referral_page()
+        self.copy_referral_code()
+        self.click_on_begikan_btn_and_redirection()
+        self.go_back()
+        self.click_on_gift_icon_and_verify_redirection()
 
 
 
