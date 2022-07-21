@@ -15,6 +15,18 @@ emoji = 'ProfilePageRateEmoji'
 feedback_section ='ProfilePageFeedbackEdit'
 send_btn='ProfilePageFeedBackSendImage'
 kirim_btn =  '//android.widget.TextView[@text="Kirim Rating"]'
+phone__number_profile ='ScreenProfilePageNumber.'
+ajak_akun_btn = 'ScreenProfileCardTextSubEntryEntry0'
+submit_pop_text = '//android.widget.TextView[@text="Saya menyetujui, syarat dan ketentuan yang berlaku"]'
+check_box = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
+submit_btn = '//android.widget.TextView[@text="SUBMIT"]'
+referral_page_header ='RefferalPageHeader'
+salin_btn ='RefferalPageCodeCopyBtn'
+begikan_btn ='RefferalPageBegikan'
+refer_friend ='//android.widget.TextView[@text="Refer a friend"]'
+gift_icon='RefferalPageGiftIcon'
+Stock_Reward_header = '//android.widget.TextView[@text="Stock Reward"]'
+
 
 class UserProfile(HomePage):
 
@@ -82,6 +94,52 @@ class UserProfile(HomePage):
         self.sleep(2)
         self.double_tap(send_btn)
         self.sleep(1)
+
+    @allure.step("Verify phone number available on prifile page")
+    def verify_phone_number_available_on_profile_page(self):
+        self.assert_equal(self.is_element_visible(phone__number_profile), True)
+
+    @allure.step("Click on ajak akun and validate redirection")
+    def click_on_ajak_akun_and_validate_redirection(self):
+        self.click(ajak_akun_btn)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(submit_pop_text), True)
+
+    @allure.step("Click to check box")
+    def click_to_check_box(self):
+        self.click(check_box)
+
+    @allure.step("Click on submit btn")
+    def click_on_submit_btn(self):
+        self.click(submit_btn)
+        self.sleep(2)
+
+    @allure.step("Verify redirection to referral page")
+    def verify_redirection_to_referral_page(self):
+        self.assert_equal(self.is_element_visible(referral_page_header), True)
+
+    @allure.step("Click on ajak akun")
+    def click_on_ajak_akun(self):
+        self.click(ajak_akun_btn)
+        self.sleep(2)
+
+    @allure.step("Copy referral code")
+    def copy_referral_code(self):
+        self.click(salin_btn)
+
+    @allure.step("Click on begikan btn")
+    def click_on_begikan_btn_and_redirection(self):
+        self.click(begikan_btn)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(refer_friend), True)
+
+    @allure.step("Click on gift icon and verify redirection")
+    def click_on_gift_icon_and_verify_redirection(self):
+        self.click(gift_icon)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(Stock_Reward_header),True)
+
+
 
 
 
