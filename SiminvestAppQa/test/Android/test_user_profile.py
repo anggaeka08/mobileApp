@@ -85,6 +85,26 @@ class userProfile_test(UserProfile):
         self.go_back()
         self.click_on_gift_icon_and_verify_redirection()
 
+    @pytest.mark.User_profile_otherPages_02
+    @pytest.mark.android
+    @pytest.mark.userProfile
+    def test_validate_profile_page_for_non_kyc_user(self):
+        self.login_with_non_kyc_number(user_data['unkyc_reg_no'])
+        self.click_on_profile_btn()
+        self.verify_daftar_masuk_btn()
+        self.click_on_Daftar_masuk_btn()
+        self.verify_redirection_masuk_page()
+        self.go_back()
+        self.verify_daftar_masuk_btn()
+        self.verify_informasi_btn_on_profile_page_for_non_kyc_user()
+        self.click_on_akun_pengaturn()
+        self.verify_redirection_masuk_page()
+
+
+
+
+
+
 
 
 

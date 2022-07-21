@@ -26,7 +26,10 @@ begikan_btn ='RefferalPageBegikan'
 refer_friend ='//android.widget.TextView[@text="Refer a friend"]'
 gift_icon='RefferalPageGiftIcon'
 Stock_Reward_header = '//android.widget.TextView[@text="Stock Reward"]'
-
+daftar_masuk_btn = '//android.widget.TextView[@text="Daftar / Masuk"]'
+masuk_page_header = '//android.widget.TextView[@text="Masuk"]'
+informasi_btn = '//android.widget.TextView[@text=""]'
+akun_pengguna = 'ScreenProfileCardTextSubEntryEntry1'
 
 class UserProfile(HomePage):
 
@@ -40,6 +43,15 @@ class UserProfile(HomePage):
         self.enter_otp(user_data['valid_otp'])
         self.set_pin(user_data['setup_pin_value'])
         self.close_home_page_banner()
+        self.verify_home_page()
+
+    @allure.step("Login with new number")
+    def login_with_non_kyc_number(self, number):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
         self.verify_home_page()
 
     @allure.step("Click on first star")
@@ -138,6 +150,30 @@ class UserProfile(HomePage):
         self.click(gift_icon)
         self.sleep(2)
         self.assert_equal(self.is_element_visible(Stock_Reward_header),True)
+
+    @allure.step("Verify daftar masuk btn available")
+    def verify_daftar_masuk_btn(self):
+        self.assert_equal(self.is_element_visible(daftar_masuk_btn), True)
+
+    @allure.step("Click on daftar masuk btn")
+    def click_on_Daftar_masuk_btn(self):
+        self.click(daftar_masuk_btn)
+        self.sleep(2)
+
+    @allure.step("Verify redirection to masuk page")
+    def verify_redirection_masuk_page(self):
+        self.assert_equal(self.is_element_visible(masuk_page_header), True)
+
+    @allure.step("Verify informasi btn on profile page for non kyc user")
+    def verify_informasi_btn_on_profile_page_for_non_kyc_user(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(informasi_btn), False)
+
+    @allure.step("Click on akun pengaturn")
+    def click_on_akun_pengaturn(self):
+        self.sleep(2)
+        self.click(akun_pengguna)
+        self.sleep(1)
 
 
 
