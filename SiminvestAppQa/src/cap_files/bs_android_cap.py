@@ -1,26 +1,4 @@
-cp =[{
-    # Set your access credentials
-    "browserstack.user": "pawan_N1RjdY",
-    "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
-
-    # Set URL of the application under test
-    "app": "bs://db5b5e17410d799211bfe7b11222b7cbc62ac7b2",
-
-    # Specify device and os_version for testing
-    "device": "Xiaomi Redmi Note 7",
-    "os_version": "9.0",
-
-    # Set other BrowserStack capabilities
-    "project": "Siminvest APP QA",
-    "build": "Android 1.49.12 All Test Cases",
-    "name": "UI_Test Android_1",
-
-    # Set Specific capabilities regarding test
-    'autoAcceptAlerts': 'true',
-    #"browserstack.local": "true"
-},
-
-{
+cp ={
     # Set your access credentials
     "browserstack.user": "pawan_N1RjdY",
     "browserstack.key": "bz4L2FFH1bYoQ4N58HTN",
@@ -32,20 +10,22 @@ cp =[{
     #"app": "bs://e540651cfdabacd7d70264f92ec398fb86fa9224",1.56.5
     #"app": "bs://2ad5a6ff7e2e54d1e9240d5be651fac0e3e3d11c",
     #"app": "bs://2ad5a6ff7e2e54d1e9240d5be651fac0e3e3d11c",
-    "app": "bs://db5b5e17410d799211bfe7b11222b7cbc62ac7b2", #1.58.1
+    #"app": "bs://db5b5e17410d799211bfe7b11222b7cbc62ac7b2", #1.58.1
+    #"app": "bs://dd3917c11e36b6f8328332133a8b20f2e830bee1", #1.60.1
+    "app": "bs://151384012e7be32ce47833894fc555cffe26f0d9", #1.60.4
 
 
     # Specify device and os_version for testing
-    "device": "Xiaomi Redmi Note 9",
+    "device": "Google Pixel 3",
     "os_version": "10.0",
 
     # Set other BrowserStack capabilities
     "project": "Siminvest APP QA",
     #"build": "Android 1.54.5 All Test Cases",
-    "build": "Android 1.58.1 All Test Cases",
+    "build": "Android 1.60.1 Profile Page",
     "name": "UI_Test Android",
 
     # Set Specific capabilities regarding test
     'autoAcceptAlerts': 'true',
     #"browserstack.local": "true"
-}]
+}
