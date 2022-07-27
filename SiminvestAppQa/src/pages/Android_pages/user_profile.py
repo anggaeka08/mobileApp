@@ -28,8 +28,16 @@ gift_icon='RefferalPageGiftIcon'
 Stock_Reward_header = '//android.widget.TextView[@text="Stock Reward"]'
 daftar_masuk_btn = '//android.widget.TextView[@text="Daftar / Masuk"]'
 masuk_page_header = '//android.widget.TextView[@text="Masuk"]'
-informasi_btn = '//android.widget.TextView[@text=""]'
+informasi_btn = '//android.widget.TextView[@text="Informasi RDN"]'
 akun_pengguna = 'ScreenProfileCardTextSubEntryEntry1'
+profile_icon = 'ProfilePageImage'
+batan_btn = '//android.widget.TextView[@text="Batal"]'
+camera_option = '//android.widget.TextView[@text="Camera"]'
+take_pic_allow = '//android.widget.Button[@text="Allow"]'
+location_allow = '//android.widget.Button[@text="Allow only while using the app"]'
+take_pic = 'Take photo'
+done_btn = 'Done'
+crop_btn = 'Crop'
 
 class UserProfile(HomePage):
 
@@ -174,6 +182,46 @@ class UserProfile(HomePage):
         self.sleep(2)
         self.click(akun_pengguna)
         self.sleep(1)
+
+    @allure.step("Click on profile icon")
+    def click_on_profile_icon(self):
+        self.click(profile_icon)
+        self.sleep(2)
+
+    @allure.step("Click on batal btn")
+    def click_batal_btn(self):
+        self.click(batan_btn)
+        self.sleep(1)
+
+    @allure.step("Verify image icon availability")
+    def verify_image_icon_availability(self):
+        self.assert_equal(self.is_element_visible(profile_icon), True)
+
+    @allure.step("Upload image by camera option")
+    def upload_image_by_camera_option(self):
+        self.click(camera_option)
+        self.sleep(2)
+        self.click(take_pic_allow)
+        self.sleep(2)
+        self.click(take_pic_allow)
+        self.sleep(2)
+        self.click(location_allow)
+        self.sleep(2)
+        self.click(take_pic)
+        self.click(done_btn)
+        self.click(crop_btn)
+        self.sleep(2)
+
+    @allure.step("Upload cancel process")
+    def uplaod_cancel_process(self):
+        self.click(camera_option)
+        self.sleep(2)
+        self.click(take_pic)
+        self.click(done_btn)
+        self.go_back()
+        self.sleep(2)
+
+
 
 
 

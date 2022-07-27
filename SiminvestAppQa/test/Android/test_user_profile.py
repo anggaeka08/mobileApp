@@ -100,6 +100,24 @@ class userProfile_test(UserProfile):
         self.click_on_akun_pengaturn()
         self.verify_redirection_masuk_page()
 
+    @pytest.mark.User_profile_otherPages_03
+    @pytest.mark.android
+    @pytest.mark.userProfile
+    def test_validate_user_profile_image_upload_option(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.click_on_profile_btn()
+        self.click_on_profile_icon()
+        self.click_batal_btn()
+        self.verify_image_icon_availability()
+        self.click_on_profile_icon()
+        self.go_back()
+        self.verify_image_icon_availability()
+        self.click_on_profile_icon()
+        self.upload_image_by_camera_option()
+        self.verify_image_icon_availability()
+        self.click_on_profile_icon()
+        self.uplaod_cancel_process()
+        self.verify_image_icon_availability()
 
 
 
