@@ -119,6 +119,17 @@ class userProfile_test(UserProfile):
         self.uplaod_cancel_process()
         self.verify_image_icon_availability()
 
+    @pytest.mark.User_profile_otherPages_04
+    @pytest.mark.android
+    @pytest.mark.userProfile
+    def test_validate_user_profile_image_upload_by_gallery(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.click_on_profile_btn()
+        self.click_on_profile_icon()
+        self.upload_image_using_gallery_option()
+        self.verify_image_icon_availability()
+
+
 
 
 

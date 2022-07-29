@@ -38,6 +38,8 @@ location_allow = '//android.widget.Button[@text="Allow only while using the app"
 take_pic = 'Take photo'
 done_btn = 'Done'
 crop_btn = 'Crop'
+gallery_option = '//android.widget.TextView[@text="Upload From Photos"]'
+image = '//android.widget.LinearLayout[@content-desc="Laptop_with_code.jpg, 2.48 MB, 4:58 AM"]/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.ImageView'
 
 class UserProfile(HomePage):
 
@@ -220,6 +222,19 @@ class UserProfile(HomePage):
         self.click(done_btn)
         self.go_back()
         self.sleep(2)
+
+    @allure.step("Upload image using gallery")
+    def upload_image_using_gallery_option(self):
+        self.click(gallery_option)
+        self.sleep(1)
+        self.click(take_pic_allow)
+        self.sleep(1)
+        self.tap(image)
+        self.sleep(1)
+        self.click(crop_btn)
+
+
+
 
 
 
