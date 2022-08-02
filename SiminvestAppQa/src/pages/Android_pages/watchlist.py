@@ -64,6 +64,7 @@ cash_option ='FastBSMaxSelectCashUnchecked'
 cross_btn_after_swipe = 'FastBSClose'
 harga = 'FastBSConfHargaValue'
 jumlah_on_confirm = 'FastBSConfJumlahValue'
+watchlist_header = 'WatchListHeader'
 
 class Watchlist(HomePage):
 
@@ -93,7 +94,7 @@ class Watchlist(HomePage):
     @allure.step("Enter watchlist name")
     def enter_watchlist_name(self, name):
         self.update_text(watchlist_name_edit, name)
-        self.tap_by_coordinates(x=1294, y=2613)
+        self.tap_by_coordinates(x=1070, y=2018)
 
     @allure.step("Validate watchlist Entry")
     def validate_watchlist_entry(self, name):
@@ -359,7 +360,7 @@ class Watchlist(HomePage):
         self.update_text(harga_value,amount)
 
     @allure.step("click on cross btn")
-    def click_on_cross_btn(self):
+    def click_on_cross_btn_FS(self):
         self.click(cross_btn_after_swipe)
 
     @allure.step("harga value on confirmation btn")
@@ -369,6 +370,10 @@ class Watchlist(HomePage):
     @allure.step("jumlah_on_confirm on confirmation btn")
     def jumlah_on_conf_page(self):
         return self.get_attribute(jumlah_on_confirm, "text")
+
+    @allure.step("Verify half card page for watchlist")
+    def verify_half_card_page_for_watchlist(self, Status):
+        self.assert_equal(self.is_element_visible(watchlist_header), Status)
 
 
 

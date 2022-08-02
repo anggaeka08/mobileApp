@@ -4,7 +4,7 @@ from SiminvestAppQa.src.utilities.genericUtilities import generate_random_string
 from SiminvestAppQa.src.data.userData import user_data
 import logging as logger
 
-@pytest.mark.usefixtures("unittest_setUpClass_fixture_Watchlist_test")
+@pytest.mark.usefixtures("_unittest_setUpClass_fixture_Watchlist_test")
 class Watchlist_test(Watchlist):
 
     #Cover all 5 test cases in single test
@@ -130,7 +130,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_019_020
     @pytest.mark.Android
     @pytest.mark.watchlist
-    def test_validate_stcok_sorting_and_delete_disble_for_single_watchlist(self):
+    def test_validate_stock_sorting_and_delete_disable_for_single_watchlist(self):
         self.go_to_watchlist_option_after_login(user_data['unkyc_reg_no'])
         self.click_on_edit_for_stock()
         self.validate_avail_check_for_stock_on_watchlist()
@@ -314,7 +314,7 @@ class Watchlist_test(Watchlist):
     def test_validate_redirection_after_cross_btn(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.swipe_right()
-        self.click_on_cross_btn()
+        self.click_on_cross_btn_FS()
         self.click_on_defaults_btn()
 
     #Validate thousand separator
@@ -337,6 +337,25 @@ class Watchlist_test(Watchlist):
             logger.info("separator is not available")
         except:
             logger.info("separator is available")
+
+    #Valdiate watchlist half card and keyboard open and close
+    @pytest.mark.Wat_N_03_04_05_07
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_valdiate_watchlist_half_card_and_keyboard_open_and_close(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.click_on_defaults_btn()
+        self.verify_half_card_page_for_watchlist(True)
+        self.click_on_plus_btn()
+        self.verify_keyboard_on_off(True)
+        self.click_on_cross_btn()
+        self.verify_keyboard_on_off(False)
+        self.scroll_down()
+        self.verify_half_card_page_for_watchlist(False)
+
+
+
+
 
 
 
