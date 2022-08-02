@@ -74,7 +74,7 @@ class homePage_test(HomePage,LoginPage):
     def test_verify_keyboard_is_open_after_click_on_global_search(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_global_search_btn()
-        self.verify_keyboard_on_off()
+        self.verify_keyboard_on_off(True)
 
     # Validate user is redirected to the registration page when new user click on the "register" or "login" "Daftar masuk" button.
     @pytest.mark.H_SMMA_008

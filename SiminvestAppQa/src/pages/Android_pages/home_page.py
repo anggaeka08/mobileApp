@@ -303,9 +303,9 @@ class HomePage(LoginPage):
         self.assert_equal(Profile_text, "Profile")
 
     @allure.step("verify keyboard on off")
-    def verify_keyboard_on_off(self):
+    def verify_keyboard_on_off(self, Status):
         keyboard_status = self.check_keyboard_shown()
-        assert keyboard_status == True, f"Keyboard is not available"
+        assert keyboard_status == Status, f"Keyboard is not available"
 
     @allure.step("click on daftar masuk")
     def click_on_Daftar_masuk(self):
