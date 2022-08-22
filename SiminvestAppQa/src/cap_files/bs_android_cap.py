@@ -22,7 +22,7 @@ cp ={
     # Set other BrowserStack capabilities
     "project": "Siminvest APP QA",
     #"build": "Android 1.54.5 All Test Cases",
-    "build": "Android 1.60.1 Profile Page",
+    "build": "Android 1.60.1 login",
     "name": "UI_Test Android",
 
     # Set Specific capabilities regarding test

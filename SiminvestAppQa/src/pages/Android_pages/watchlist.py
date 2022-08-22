@@ -94,7 +94,8 @@ class Watchlist(HomePage):
     @allure.step("Enter watchlist name")
     def enter_watchlist_name(self, name):
         self.update_text(watchlist_name_edit, name)
-        self.tap_by_coordinates(x=1070, y=2018)
+        #self.tap_by_coordinates(x=1070, y=2018)
+        self.tap_by_coordinates(x=1281, y=2609)
 
     @allure.step("Validate watchlist Entry")
     def validate_watchlist_entry(self, name):
@@ -111,8 +112,8 @@ class Watchlist(HomePage):
         self.click('//*[@text="Edit"]')
 
     @allure.step("Edit watchlist name")
-    def edit_watchlist_name(self):
-        self.set_text(name_edit, 'test')
+    def edit_watchlist_name(self, name):
+        self.set_text(name_edit, name)
 
     @allure.step("Click on Simpan")
     def click_on_simpan(self):
@@ -173,7 +174,13 @@ class Watchlist(HomePage):
 
     @allure.step("Validate default watchlist")
     def validate_default_watchlist(self):
+        self.sleep(2)
         self.assert_equal(self.is_element_visible(default_watchlist), True)
+
+    @allure.step("Validate default watchlist")
+    def validate_only_default_watchlist_for_a_user(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(watchlist_entry_2), False)
 
     @allure.step("Verify top gainer")
     def verify_top_gainer_presence(self):
@@ -185,6 +192,7 @@ class Watchlist(HomePage):
 
     @allure.step("Verify tambahkan page")
     def verify_stock_type_selection(self):
+        self.sleep(1)
         self.assert_equal(self.is_element_visible(top_frequency), True)
         self.assert_equal(self.is_element_visible(top_gainers_prese), True)
         self.assert_equal(self.is_element_visible(top_value), True)
@@ -194,6 +202,7 @@ class Watchlist(HomePage):
 
     @allure.step("Availability check Stock list in default watchlist")
     def validate_avail_check_for_stock_on_watchlist(self):
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(WL_stock_1), True)
         self.assert_equal(self.is_element_visible(WL_stock_2), True)
         self.assert_equal(self.is_element_visible(WL_stock_3), True)
