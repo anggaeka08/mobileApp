@@ -261,6 +261,11 @@ class HomePage(LoginPage):
         self.scroll_screen(start_x=513, start_y=513, end_x=503, end_y=1754, duration=10000)
         self.sleep(2)
 
+    @allure.step("small scroll down")
+    def small_scroll_down(self):
+        self.scroll_screen(start_x=513, start_y=513, end_x=513, end_y=750, duration=10000)
+        self.sleep(2)
+
     @allure.step("verify spelling on homepage")
     def verify_spelling_on_homepage(self):
         Saham_text = self.get_attribute(Saham, "text")

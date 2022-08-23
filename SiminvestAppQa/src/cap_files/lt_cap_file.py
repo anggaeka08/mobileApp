@@ -1,24 +1,20 @@
 cp = [
-   {
-    "user": "pawanbinmile",
-    "accessKey": "xJmyAJzNwAjqx15QrRMAtaTODM5OPfL10aBWnKlJVgjYgA8U5T",
-    "app": "lt://APP100201841649069223602856",
+{
+    "app": "lt://APP10160501221660619630949854",
     "platformName": "Android",
-    "deviceName": "Google Pixel 3",
+    "deviceName": "Google Pixel 4",
     "platformVersion": "10",
-    "build": "Build 1.49.6",
-    "name": "Login_parallel_1",
+    "build": "Build 1.60.8 parallel",
+    "name": "Login Test Cases",
     "isRealMobile": True
     },
 {
-    "user": "pawanbinmile",
-    "accessKey": "xJmyAJzNwAjqx15QrRMAtaTODM5OPfL10aBWnKlJVgjYgA8U5T",
-    "app": "lt://APP100201841649069223602856",
+    "app": "lt://APP10160501221660619630949854",
     "platformName": "Android",
-    "deviceName": "Redmi Note 9",
-    "platformVersion": "10",
-    "build": "Build 1.49.12",
-    "name": "All test Cases",
+    "deviceName": "Google Pixel 3",
+    "platformVersion": "9",
+    "build": "Build 1.60.8 Login Demo",
+    "name": "Login Test Cases",
     "isRealMobile": True
     }
 

@@ -65,6 +65,7 @@ cross_btn_after_swipe = 'FastBSClose'
 harga = 'FastBSConfHargaValue'
 jumlah_on_confirm = 'FastBSConfJumlahValue'
 watchlist_header = 'WatchListHeader'
+watchlist_activation= 'WatchListActiveBtn0'
 
 class Watchlist(HomePage):
 
@@ -94,7 +95,8 @@ class Watchlist(HomePage):
     @allure.step("Enter watchlist name")
     def enter_watchlist_name(self, name):
         self.update_text(watchlist_name_edit, name)
-        self.tap_by_coordinates(x=1070, y=2018)
+        #self.tap_by_coordinates(x=1070, y=2018)
+        self.tap_by_coordinates(x=1281, y=2609)
 
     @allure.step("Validate watchlist Entry")
     def validate_watchlist_entry(self, name):
@@ -111,8 +113,8 @@ class Watchlist(HomePage):
         self.click('//*[@text="Edit"]')
 
     @allure.step("Edit watchlist name")
-    def edit_watchlist_name(self):
-        self.set_text(name_edit, 'test')
+    def edit_watchlist_name(self, name):
+        self.set_text(name_edit, name)
 
     @allure.step("Click on Simpan")
     def click_on_simpan(self):
@@ -173,7 +175,13 @@ class Watchlist(HomePage):
 
     @allure.step("Validate default watchlist")
     def validate_default_watchlist(self):
+        self.sleep(2)
         self.assert_equal(self.is_element_visible(default_watchlist), True)
+
+    @allure.step("Validate default watchlist")
+    def validate_only_default_watchlist_for_a_user(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(watchlist_entry_2), False)
 
     @allure.step("Verify top gainer")
     def verify_top_gainer_presence(self):
@@ -185,6 +193,7 @@ class Watchlist(HomePage):
 
     @allure.step("Verify tambahkan page")
     def verify_stock_type_selection(self):
+        self.sleep(1)
         self.assert_equal(self.is_element_visible(top_frequency), True)
         self.assert_equal(self.is_element_visible(top_gainers_prese), True)
         self.assert_equal(self.is_element_visible(top_value), True)
@@ -194,6 +203,7 @@ class Watchlist(HomePage):
 
     @allure.step("Availability check Stock list in default watchlist")
     def validate_avail_check_for_stock_on_watchlist(self):
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(WL_stock_1), True)
         self.assert_equal(self.is_element_visible(WL_stock_2), True)
         self.assert_equal(self.is_element_visible(WL_stock_3), True)
@@ -374,6 +384,32 @@ class Watchlist(HomePage):
     @allure.step("Verify half card page for watchlist")
     def verify_half_card_page_for_watchlist(self, Status):
         self.assert_equal(self.is_element_visible(watchlist_header), Status)
+
+    @allure.step("long scroll up")
+    def long_scroll_up(self):
+        self.scroll_screen(start_x=609, start_y=2488, end_x=609, end_y=601, duration=4000)
+        self.sleep(2)
+
+    @allure.step("Add stock in watchlist")
+    def add_stock_in_watchlist(self):
+        self.sleep(1)
+        self.go_back()
+        for i in range(0,9):
+            self.click(f'StockAddPageEntryToAdd{i}Image')
+            self.sleep(1)
+        self.long_scroll_up()
+        for i in range(9,15):
+            self.click(f'StockAddPageEntryToAdd{i}Image')
+            self.sleep(1)
+        self.long_scroll_up()
+        for i in range(15, 18):
+            self.click(f'StockAddPageEntryToAdd{i}Image')
+            self.sleep(1)
+
+    @allure.step("Verify watchlist activation")
+    def verify_watchlist_activation(self):
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(watchlist_activation), True)
 
 
 
