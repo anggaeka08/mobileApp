@@ -14,6 +14,7 @@ class Watchlist_test(Watchlist):
     def test_validate_user_able_to_add_maximum_10_watchlist(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.click_on_defaults_btn()
+        self.verify_watchlist_activation()
         for i in range(10):
             self.click_on_plus_btn()
             self.enter_watchlist_name(f'test{i}')
@@ -120,6 +121,20 @@ class Watchlist_test(Watchlist):
         self.validate_watchlist_entry("test"+name[:56])
         self.Cancel_delete_and_delete_watchlist()
 
+    @pytest.mark.Wat_SMMA_013_015
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_user_not_able_to_add_more_then_15_stock_i_watchlist(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.click_on_defaults_btn()
+        self.click_on_plus_btn()
+        self.enter_watchlist_name('test')
+        self.validate_watchlist_entry('test')
+        self.click_on_watchlist_entry_2()
+        self.sleep(1)
+        self.scroll_up()
+        self.click_on_tambah_saham()
+        self.add_stock_in_watchlist()
 
 
 

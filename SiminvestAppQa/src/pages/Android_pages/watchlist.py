@@ -65,6 +65,7 @@ cross_btn_after_swipe = 'FastBSClose'
 harga = 'FastBSConfHargaValue'
 jumlah_on_confirm = 'FastBSConfJumlahValue'
 watchlist_header = 'WatchListHeader'
+watchlist_activation= 'WatchListActiveBtn0'
 
 class Watchlist(HomePage):
 
@@ -383,6 +384,32 @@ class Watchlist(HomePage):
     @allure.step("Verify half card page for watchlist")
     def verify_half_card_page_for_watchlist(self, Status):
         self.assert_equal(self.is_element_visible(watchlist_header), Status)
+
+    @allure.step("long scroll up")
+    def long_scroll_up(self):
+        self.scroll_screen(start_x=609, start_y=2488, end_x=609, end_y=601, duration=4000)
+        self.sleep(2)
+
+    @allure.step("Add stock in watchlist")
+    def add_stock_in_watchlist(self):
+        self.sleep(1)
+        self.go_back()
+        for i in range(0,9):
+            self.click(f'StockAddPageEntryToAdd{i}Image')
+            self.sleep(1)
+        self.long_scroll_up()
+        for i in range(9,15):
+            self.click(f'StockAddPageEntryToAdd{i}Image')
+            self.sleep(1)
+        self.long_scroll_up()
+        for i in range(15, 18):
+            self.click(f'StockAddPageEntryToAdd{i}Image')
+            self.sleep(1)
+
+    @allure.step("Verify watchlist activation")
+    def verify_watchlist_activation(self):
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(watchlist_activation), True)
 
 
 
