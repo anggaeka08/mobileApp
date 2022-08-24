@@ -7,12 +7,14 @@ import logging as logger
 @pytest.mark.usefixtures("_unittest_setUpClass_fixture_Watchlist_test")
 class Watchlist_test(Watchlist):
 
-    #SMMA-005 Validate user will able to have maximum 10 watchlists.
-    @pytest.mark.Wat_SMMA_005
+    #SMMA-005 Validate user will able to have maximum 10 watchlists and verify stock details in watchlist.
+    @pytest.mark.Wat_SMMA_005_018_019_020
     @pytest.mark.Android
     @pytest.mark.watchlist
     def test_validate_user_able_to_add_maximum_10_watchlist(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.scroll_up()
+        self.verify_stock_code_and_name_in_watchlist_stocks()
         self.click_on_defaults_btn()
         self.verify_watchlist_activation()
         for i in range(10):
@@ -135,6 +137,7 @@ class Watchlist_test(Watchlist):
         self.scroll_up()
         self.click_on_tambah_saham()
         self.add_stock_in_watchlist()
+
 
 
 
