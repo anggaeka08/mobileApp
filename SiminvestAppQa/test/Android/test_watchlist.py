@@ -21,6 +21,7 @@ class Watchlist_test(Watchlist):
             self.click_on_plus_btn()
             self.enter_watchlist_name(f'test{i}')
         self.validate_pop_message()
+        self.go_back()
         self.click_on_cross_btn()
         for i in range(9):
             self.click_on_delete()
@@ -137,6 +138,32 @@ class Watchlist_test(Watchlist):
         self.scroll_up()
         self.click_on_tambah_saham()
         self.add_stock_in_watchlist()
+
+    @pytest.mark.Wat_SMMA_25
+    @pytest.mark.Android
+    @pytest.mark.watchlist
+    def test_validate_same_stock_(self):
+        self.go_to_watchlist_option_after_login(user_data['reg_no'])
+        self.scroll_up()
+        self.click_on_defaults_btn()
+        for i in range(9):
+            self.click_on_plus_btn()
+            self.enter_watchlist_name(f'test{i}')
+        self.go_back()
+        self.add_stock_in_all_watchlist()
+        self.go_back()
+        self.sleep(1)
+        self.go_back()
+        self.sleep(1)
+        self.scroll_up()
+        self.click_on_defaults_btn()
+        self.verify_stock_in_all_watchlist()
+        for i in range(9):
+            self.click_on_delete()
+            self.click_on_Hapus()
+            self.sleep(1)
+
+
 
 
 
