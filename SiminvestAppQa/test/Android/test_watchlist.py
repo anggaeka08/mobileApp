@@ -1,3 +1,4 @@
+import allure
 import pytest
 from SiminvestAppQa.src.pages.Android_pages.watchlist import Watchlist
 from SiminvestAppQa.src.utilities.genericUtilities import generate_random_string
@@ -11,6 +12,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_005_018_019_020
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @allure.story("F-1:Watchlist Feature")
     def test_validate_user_able_to_add_maximum_10_watchlist(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.scroll_up()
@@ -33,6 +35,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_021_022
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @allure.story("F-1:Watchlist Feature")
     def test_user_able_to_create_duplicate_name_watchlist_and_able_to_add_stock(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.click_on_defaults_btn()
@@ -58,6 +61,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_024_028
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @allure.story("F-1:Watchlist Feature")
     def test_validate_selected_watchlist_visible_after_reopen_app_and_sdp_open_after_click_stock(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.click_on_defaults_btn()
@@ -76,7 +80,8 @@ class Watchlist_test(Watchlist):
 
     @pytest.mark.cover_many_testcase
     @pytest.mark.Android
-    @pytest.mark.watchlist_all
+    @pytest.mark.watchlist
+    @allure.story("F-1:Watchlist Feature")
     def test_validate_maximum_watchlist_test_cases(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.scroll_up()
@@ -127,6 +132,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_013_015
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @allure.story("F-1:Watchlist Feature")
     def test_user_not_able_to_add_more_then_15_stock_i_watchlist(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.click_on_defaults_btn()
@@ -142,6 +148,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_25
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @allure.story("F-1:Watchlist Feature")
     def test_validate_same_stock_(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.scroll_up()
