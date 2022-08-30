@@ -9,17 +9,18 @@ mobile_no_page="EnterNumText1"
 #mobile_no_page="Browser_StackENTERNUMBER"
 text_input = 'EnterNumEdit'
 selanjutnya = "//*[@text='SELANJUTNYA']"
-#otp_enter = 'PinTextInput'
-otp_enter = '(//android.widget.EditText[@content-desc="Browser_Stack"])[1]'
+otp_enter = 'PinTextInput'
+#otp_enter = '(//android.widget.EditText[@content-desc="Browser_Stack"])[1]'
 set_pin ="SetUpPinText1"
 risk_profile_page="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView"
 risk_profile = "Pilih tipe portfolio yang sesuai dengan Kamu."
 agresif = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView"
 Home_page_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
 Home_page_text = "Mulai Investasi Yuk…"
-Home_page_reg_user_locator = ""
-Home_page_reg_user_locator_text ="Saldo RDN"
-phone_no_page_text_r = "Masukkan Nomor \nPonsel"
+Home_page_reg_user_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
+#Home_page_reg_user_locator_text ="Saldo RDN"
+Home_page_reg_user_locator_text ="Mulai Investasi Yuk…"
+phone_no_page_text_r = "Masukkan Nomor Ponsel"
 phone_no_page_locator ="EnterNumText1"
 click_1 = "//*[@text='1']"
 click_2 = "//*[@text='2']"
@@ -31,7 +32,7 @@ Kirim_Ulang_click = 'OTPResendText'
 Kirim_Ulang_unclick = 'OTPResendCounter'
 otp_page_back = "OtpBackBtn"
 otp_page_locator = "OtpText2"
-wrong_pin_msg = "Nomor telepon dan pin kamu salah, coba lagi ya"
+wrong_pin_msg = "Pin masih salah, Silahkan coba 1x lagi"
 wrong_pin_msg_locator = "EnterPinErrorMsg"
 #reset_pin_btn = "//android.widget.TextView[@text='RESET PIN']"
 reset_pin_btn = "ResetPinBtn"
@@ -40,7 +41,7 @@ confirm_pin_page_locator = '/hierarchy/android.widget.FrameLayout/android.widget
 pin_page_text_dir = "Masukkan PIN SimInvest"
 pin_reset_confirm = "Berhasil"
 banner_close = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView"
-logout_button_on_pin = "//android.widget.TextView[@text='Logout']"
+logout_button_on_pin = "//android.widget.TextView[@text='Keluar']"
 finger_print_on_off = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.FrameLayout[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView"
 finger_print_activate = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]"
 finger_print_remove = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]"
@@ -63,7 +64,7 @@ class LoginPage(BaseCase):
     @allure.step("verify mobile no page")
     def verify_mobile_no_page(self):
         mobile_no_page_text = self.get_attribute(mobile_no_page, "text")
-        self.assert_equal(mobile_no_page_text, "Masukkan Nomor \nPonsel")
+        self.assert_equal(mobile_no_page_text, "Masukkan Nomor Ponsel")
 
     @allure.step("verify count of mobile no")
     def verify_count_of_mobile_no(self, phone_number):
@@ -96,7 +97,7 @@ class LoginPage(BaseCase):
     @allure.step("verify set up pin page")
     def verify_setup_pin_page(self):
         setup_page_text = self.get_attribute(set_pin, "text")
-        self.assert_equal(setup_page_text, "Setup PIN")
+        self.assert_equal(setup_page_text, "Atur PIN")
 
     @allure.step("verify risk profile page")
     def verify_risk_profile_page(self):
@@ -171,8 +172,9 @@ class LoginPage(BaseCase):
 
     @allure.step("otp page with phone no")
     def verify_otp_page_with_phone_no(self, phone_no):
+        self.sleep(1)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
-        self.assert_equal(otp_page_text, f"Kami mengirimkan kode melalui SMS ke nomor  +62{phone_no}")
+        self.assert_equal(otp_page_text, f"Kami mengirimkan kode melalui SMS ke nomor +62{phone_no}")
 
     @allure.step("verify wrong pin message")
     def verify_wrong_pin_message(self):
