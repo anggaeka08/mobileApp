@@ -95,20 +95,6 @@ class Login_test(LoginPage):
         self.click_on_enterPin_logout_button()
         self.verify_starting_page()
 
-    '''
-    #Validate the first time login user should be redirected to type of risk profile selection page when user enter 6 digit pin
-    @pytest.mark.SMMA_010
-    @pytest.mark.Android
-    @pytest.mark.login
-    def test_verify_redirect_to_risk_profile_page_after_enter_pin_for_new_no():
-        self.launch_app_again()
-        self.click_mulai_sekarang()
-        self.type_mobile_no(generate_random_integer(length=7, prefix='844'))
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        self.set_pin(user_data['setup_pin_value'])
-        self.verify_risk_profile_page()
-    '''
 
     # Validate user should redirected to home page when user login with same account 2nd time and in future.
     @pytest.mark.SMMA_011
@@ -261,29 +247,49 @@ class Login_test(LoginPage):
         self.click_selanjutnya()
         self.verify_otp_timmer()
 
-    '''Validate reset functionality is working fine on login page
-    @pytest.mark.SMMA_023
+    @pytest.mark.Ganti_pin_feature_logout
     @pytest.mark.Android
-    @pytest.mark.login
-    def test_validate_reset_functionality_working_fine_on_login_page(self):
-        #LoginPage.launch_app_again()
+    @pytest.mark.Login_Logout
+    @allure.story("F-2:Login/logout Feature")
+    def test_validate_ganti_pin_and_logout_feature(self):
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['reg_no'])
         self.click_selanjutnya()
         self.enter_otp(user_data['valid_otp'])
-        self.click_on_reset_pin()
-        self.sleep(26)
-        self.click_selanjutnya()
-        self.enter_otp(user_data['valid_otp'])
-        time.sleep(2)
-        self.set_pin(user_data['setup_pin_value'])
-        time.sleep(3)
-        self.set_pin(user_data['setup_pin_value'])
-        time.sleep(2)
-        self.confirm_pin_reset()
-        time.sleep(10)
-        self.verify_redirect_to_pin_page()
         self.enter_pin()
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
-        '''
+        self.click_on_profile_btn()
+        self.click_on_pengaturan_btn()
+        self.Click_to_Ganti_pin_siminvest()
+        self.enter_old_pin('123678')
+        self.validate_error_msg_on_pin_lama_page()
+        self.enter_old_pin('123456')
+        self.set_pin('654321')
+        self.enter_confirm_pin('123456')
+        self.validate_error_msg_on_confirm_pin_page_page()
+        self.enter_confirm_pin('654321')
+        self.click_on_ok_btn()
+        self.enter_pin_after_ganti_pin()
+        self.click_on_profile_btn()
+        self.click_on_pengaturan_btn()
+        self.Click_to_Ganti_pin_siminvest()
+        self.enter_old_pin('654321')
+        self.set_pin('123456')
+        self.enter_confirm_pin('123456')
+        self.click_on_ok_btn()
+        self.enter_pin()
+        self.click_on_profile_btn()
+        self.click_on_pengaturan_btn()
+        self.click_on_ganti_pin_password_btn()
+        self.verify_header_of_Ganti_pin_password_page()
+        self.go_back()
+        self.go_back()
+        self.scroll_up()
+        self.click_on_kelur_btn()
+        self.click_on_YA_btn()
+        self.verify_starting_page()
+
+
+
+

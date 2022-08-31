@@ -49,6 +49,16 @@ profile_btn = '//android.widget.TextView[@text="Profile"]'
 set_up_pin = 'setupPin'
 error_msg = "//android.widget.TextView[@text='Pastikan memasukkan Nomor Ponsel dengan benar']"
 send_otp_bia_sms = '//android.widget.TextView[@text="Kirim OTP via SMS"]'
+pengaturan_btn = 'ProfilePageEntry3'
+ganti_pin_siminvest='PengaturanPagePinSiminvest'
+pin_lama = "//android.widget.EditText[@index = '4']"
+old_pin_error_msg = "//android.widget.TextView[@index= '11']"
+ok_btn = "//android.widget.TextView[@text= 'OK']"
+YA_btn = "//android.widget.TextView[@text= 'YA']"
+confirm_pin = 'cnfPin'
+logout_btn_on_profile_page = 'ProfilePageLogoutText'
+ganti_pin_password ='PengaturanPageGantiPin'
+ganti_pin_password_page_header = 'GantiPAgeHeader'
 
 class LoginPage(BaseCase):
 
@@ -265,3 +275,72 @@ class LoginPage(BaseCase):
     @allure.step("click on otp send by sms")
     def click_on_otp_send_by_sms(self):
         self.click(send_otp_bia_sms)
+
+    @allure.step("Click on pengaturan_btn")
+    def click_on_pengaturan_btn(self):
+        self.click(pengaturan_btn)
+
+    @allure.step("Click to Ganti pin siminvest")
+    def Click_to_Ganti_pin_siminvest(self):
+        self.click(ganti_pin_siminvest)
+
+    @allure.step("Enter Old Pin")
+    def enter_old_pin(self, pin):
+        self.set_text(pin_lama, pin)
+
+    @allure.step("Validate error msg on pin lama page")
+    def validate_error_msg_on_pin_lama_page(self):
+        self.assert_equal(self.get_attribute(old_pin_error_msg, "text"), 'PIN salah. Mohon ulangi lagi')
+
+    @allure.step("Enter confirm Pin")
+    def enter_confirm_pin(self, pin):
+        self.set_text(confirm_pin, pin)
+
+    @allure.step("Validate error msg on confirm pin page")
+    def validate_error_msg_on_confirm_pin_page_page(self):
+        self.assert_equal(self.get_attribute(old_pin_error_msg, "text"), 'PIN tidak sama. Mohon ulangi lagi')
+
+    @allure.step("Click on ok btn")
+    def click_on_ok_btn(self):
+        self.click(ok_btn)
+
+    @allure.step("Click on kelur btn")
+    def click_on_kelur_btn(self):
+        self.click(logout_btn_on_profile_page)
+
+    @allure.step("Click on ganti_pin_password btn")
+    def click_on_ganti_pin_password_btn(self):
+        self.sleep(2)
+        self.click(ganti_pin_password)
+
+    @allure.step("Click on YA btn")
+    def click_on_YA_btn(self):
+        self.click(YA_btn)
+
+    @allure.step("Verify Header of Ganti pin password page")
+    def verify_header_of_Ganti_pin_password_page(self):
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(ganti_pin_password_page_header), True)
+
+    @allure.step("enter pin")
+    def enter_pin_after_ganti_pin(self):
+        self.sleep(2)
+        self.click(click_6)
+        self.click(click_5)
+        self.click(click_4)
+        self.click(click_3)
+        self.click(click_2)
+        self.click(click_1)
+        self.sleep(2)
+
+    @allure.step("scroll up")
+    def scroll_up(self):
+        self.scroll_screen(start_x=609, start_y=2488, end_x=609, end_y=601, duration=4000)
+        self.sleep(2)
+
+
+
+
+
+
+
