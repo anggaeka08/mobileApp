@@ -150,7 +150,7 @@ class Login_test(LoginPage):
     @pytest.mark.Android
     @pytest.mark.Login_Logout
     @allure.story("F-2:Login/logout Feature")
-    def test_validate_login_with_invalid_phone(self):
+    def test_validate_login_with_invalid_pin(self):
         #LoginPage.launch_app_again()
         self.click_mulai_sekarang()
         self.type_mobile_no(user_data['unkyc_reg_no'])
@@ -177,9 +177,9 @@ class Login_test(LoginPage):
         time.sleep(2)
         self.set_pin(user_data['setup_pin_value'])
         time.sleep(3)
-        self.set_pin(user_data['setup_pin_value'])
+        self.enter_confirm_pin(user_data['setup_pin_value'])
         time.sleep(2)
-        self.confirm_pin_reset()
+        #self.confirm_pin_reset()
         time.sleep(10)
         self.verify_redirect_to_pin_page()
         self.enter_pin()
@@ -288,6 +288,19 @@ class Login_test(LoginPage):
         self.scroll_up()
         self.click_on_kelur_btn()
         self.click_on_YA_btn()
+        self.verify_starting_page()
+
+    @pytest.mark.SMMA_039
+    @pytest.mark.Android
+    @pytest.mark.Login_Logout
+    @allure.story("F-2:Login/logout Feature")
+    def test_Validate_that_when_user_input_otp_and_close_the_app_next_time_user_get_redirected_to_Mulai_sekarang_page(self):
+        number = generate_random_integer(length=7, prefix='844')
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.launch_app_again()
         self.verify_starting_page()
 
 
