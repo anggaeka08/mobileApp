@@ -188,8 +188,8 @@ class LoginPage(BaseCase):
 
     @allure.step("verify wrong pin message")
     def verify_wrong_pin_message(self):
-        wrong_pin_text = self.get_attribute(wrong_pin_msg_locator, "text")
-        self.assert_equal(wrong_pin_msg, wrong_pin_text)
+        #wrong_pin_text = self.get_attribute(wrong_pin_msg_locator, "text")
+        self.assert_equal(self.is_element_visible(wrong_pin_msg_locator), True)
 
     @allure.step("click on reset pin")
     def click_on_reset_pin(self):
