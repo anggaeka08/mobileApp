@@ -59,6 +59,12 @@ confirm_pin = 'cnfPin'
 logout_btn_on_profile_page = 'ProfilePageLogoutText'
 ganti_pin_password ='PengaturanPageGantiPin'
 ganti_pin_password_page_header = 'GantiPAgeHeader'
+sms_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[1]'
+whatsaap_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[2]'
+otp_verfiy = 'EnterNumText2'
+otp_verify_text = 'Kami akan mengirimkan 4 digit kode verifikasi'
+wrong_number_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[3]'
+
 
 class LoginPage(BaseCase):
 
@@ -92,6 +98,7 @@ class LoginPage(BaseCase):
     @allure.step("click selanjutnya")
     def click_selanjutnya(self):
         self.click(selanjutnya)
+
 
     @allure.step("enter otp")
     def enter_otp(self, otp):
@@ -180,7 +187,7 @@ class LoginPage(BaseCase):
     def click_back_button_otp_page(self):
         self.click(otp_page_back)
 
-    @allure.step("otp page with phone no")
+    @allure.step("otp page with SMS phone no")
     def verify_otp_page_with_phone_no(self, phone_no):
         self.sleep(1)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
@@ -337,6 +344,51 @@ class LoginPage(BaseCase):
     def scroll_up(self):
         self.scroll_screen(start_x=609, start_y=2488, end_x=609, end_y=601, duration=4000)
         self.sleep(2)
+
+    '''@allure.step("SMS Button Enabled")
+    def sms_btn_enabled(self):
+        self.assert_equal(self.is_element_enabled(whatsaap_btn), True)'''
+
+    @allure.step("Verify otp text on login page")
+    def verify_otp_text_on_login_page(self):
+        self.assert_equal(self.get_attribute(otp_verfiy, 'text'), otp_verify_text)
+
+    @allure.step("Validate wrong phone number error")
+    def validate_wrong_phone_number_error(self):
+        self.assert_equal(self.get_attribute(wrong_number_text, 'text'), 'Nomor telepon tidak valid')
+
+    @allure.step("Verify the mobile number field when user taps on outside the field")
+    def verify_mobile_number_field_when_user_taps_on_outside_field(self):
+        self.type_mobile_no('83671834752')
+        self.tap_by_coordinates(x=413, y=1845)
+        self.click(text_input)
+        self.assert_equal(self.get_attribute(text_input, 'text'), '83671834752')
+
+    @allure.step("Validate if the field is clear the seljutniya button should be disabled")
+    def validate_if_the_field_is_clear_the_seljutniya_button_should_be_disabled(self):
+        self.update_text(text_input, '')
+        self.click_selanjutnya()
+        self.verify_otp_text_on_login_page()
+
+    @allure.step("Validate the user able to enter 15 digit value including 62")
+    def validate_the_user_able_to_enter_15_digit_value_including_62(self):
+        number = '12345678912345'
+        self.update_text(text_input, number)
+        self.assert_equal(self.get_attribute(text_input, 'text'), number[:13])
+
+    @allure.step("Click on whatsApp button ")
+    def click_on_whatsapp_btn(self):
+        self.click(whatsaap_btn)
+
+    @allure.step("otp page with Whatsaap phone no")
+    def verify_otp_page_with_whatsapp_phone_no(self, phone_no):
+        self.sleep(2)
+        otp_page_text = self.get_attribute(otp_page_locator, "text")
+        self.assert_equal(otp_page_text, f"Kami mengirimkan kode melalui Whatsapp ke nomor +62{phone_no}")
+
+
+
+
 
 
 
