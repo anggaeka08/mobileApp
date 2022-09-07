@@ -8,7 +8,7 @@ mulai_sekarang = "WelcomeScreenMulaiSekarangButton"
 mobile_no_page="EnterNumText1"
 #mobile_no_page="Browser_StackENTERNUMBER"
 text_input = 'EnterNumEdit'
-selanjutnya = "//*[@text='SELANJUTNYA']"
+selanjutnya = "selanjutana_btn"
 otp_enter = 'PinTextInput'
 #otp_enter = '(//android.widget.EditText[@content-desc="Browser_Stack"])[1]'
 set_pin ="SetUpPinText1"
@@ -59,12 +59,14 @@ confirm_pin = 'cnfPin'
 logout_btn_on_profile_page = 'ProfilePageLogoutText'
 ganti_pin_password ='PengaturanPageGantiPin'
 ganti_pin_password_page_header = 'GantiPAgeHeader'
-sms_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[1]'
-whatsaap_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.view.ViewGroup[2]'
+sms_btn = 'SMSBtn'
+whatsaap_btn = 'WhatsappBtn'
 otp_verfiy = 'EnterNumText2'
 otp_verify_text = 'Kami akan mengirimkan 4 digit kode verifikasi'
-wrong_number_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[3]'
-
+wrong_number_text = 'WrongNumText'
+wrong_otp_msg = 'wrongOtpMsg'
+wrong_otp_msg_text ='OTP Salah. Silahkan ulangi lagi'
+ignore_btn = "//android.widget.Button[@text= 'IGNORE']"
 
 class LoginPage(BaseCase):
 
@@ -74,7 +76,9 @@ class LoginPage(BaseCase):
 
     @allure.step("click mulai sekarang")
     def click_mulai_sekarang(self):
-        self.sleep(3)
+        self.sleep(2)
+        self.tap(ignore_btn)
+        self.sleep(1)
         self.click(mulai_sekarang)
 
     @allure.step("verify mobile no page")
@@ -385,6 +389,19 @@ class LoginPage(BaseCase):
         self.sleep(2)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
         self.assert_equal(otp_page_text, f"Kami mengirimkan kode melalui Whatsapp ke nomor +62{phone_no}")
+
+    @allure.step("Verify phone number autofilled after back")
+    def verify_phone_nubmer_autofilled_after_back(self, number):
+        self.assert_equal(self.get_attribute(text_input,'text'), number)
+
+    @allure.step('Verify wrong otp messege')
+    def verify_wrong_otp_msg(self):
+        self.assert_equal(self.get_attribute(wrong_otp_msg, 'text'), wrong_otp_msg_text)
+
+    @allure.step("verify keyboard on off")
+    def verify_keyboard_on_off(self, Status):
+        keyboard_status = self.check_keyboard_shown()
+        assert keyboard_status == Status, f"Keyboard is not available"
 
 
 
