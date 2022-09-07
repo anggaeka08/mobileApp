@@ -328,6 +328,31 @@ class Login_test(LoginPage):
         self.click_selanjutnya()
         self.verify_otp_page_with_whatsapp_phone_no(number)
 
+    @pytest.mark.UseCase_02
+    @pytest.mark.Android
+    @pytest.mark.Login_Logout
+    @allure.story("F-2:Login/logout Feature")
+    def test_validate_user_is_receiving_OTP_on_WhatsApp_SMS(self):
+        number = generate_random_integer(length=7, prefix='844')
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        self.verify_otp_page_with_phone_no(number)
+        self.enter_otp('1456')
+        self.verify_wrong_otp_msg()
+        self.go_back()
+        self.verify_phone_nubmer_autofilled_after_back(number)
+        self.sleep(15)
+        self.click_on_whatsapp_btn()
+        self.click_selanjutnya()
+        self.verify_otp_page_with_whatsapp_phone_no(number)
+        self.sleep(25)
+        self.click_Kirim_Ulang()
+        self.verify_keyboard_on_off(True)
+        self.enter_otp('1456')
+        self.verify_wrong_otp_msg()
+        self.enter_otp('1234')
+        self.verify_setup_pin_page()
 
 
 
