@@ -67,6 +67,7 @@ wrong_number_text = 'WrongNumText'
 wrong_otp_msg = 'wrongOtpMsg'
 wrong_otp_msg_text ='OTP Salah. Silahkan ulangi lagi'
 ignore_btn = "//android.widget.Button[@text= 'IGNORE']"
+kirim_otp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
 
 class LoginPage(BaseCase):
 
@@ -402,6 +403,25 @@ class LoginPage(BaseCase):
     def verify_keyboard_on_off(self, Status):
         keyboard_status = self.check_keyboard_shown()
         assert keyboard_status == Status, f"Keyboard is not available"
+
+    @allure.step('Verify timer with given time')
+    def verify_timer_for_given_time(self, time):
+        otp_page_time = self.get_attribute(Kirim_Ulang_unclick, 'text', timeout=50000)
+        timer_on_page = otp_page_time[12:]
+        self.assert_equal(timer_on_page, str(time))
+
+    @allure.step("Click by position")
+    def click_by_position(self):
+        self.tap_by_coordinates(x=622, y=1607)
+
+    @allure.step("Verify kirim otp via sms/whatsapp btn")
+    def verify_kirim_otp_via_sms_otp(self):
+        self.assert_equal(self.is_element_visible(kirim_otp), True)
+
+    @allure.step("Click to kirim otp buttun")
+    def click_to_kirim_otp_btn(self):
+        self.click(kirim_otp)
+
 
 
 

@@ -354,6 +354,52 @@ class Login_test(LoginPage):
         self.enter_otp('1234')
         self.verify_setup_pin_page()
 
+    @pytest.mark.UseCase_03
+    @pytest.mark.Android
+    @pytest.mark.Login_Logout
+    @allure.story("F-2:Login/logout Feature")
+    def test_Validate_the_number_of_attempts_for_WhatsApp_or_sms_on_OTP_page(self):
+        number = generate_random_integer(length=7, prefix='844')
+        #number = 8440276346
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        self.verify_timer_for_given_time(29)
+        time.sleep(30)
+        self.verify_kirim_otp_via_sms_otp()
+        self.click_Kirim_Ulang()
+        self.verify_timer_for_given_time(60)
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.verify_kirim_otp_via_sms_otp()
+        self.click_Kirim_Ulang()
+        self.verify_timer_for_given_time(120)
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.verify_kirim_otp_via_sms_otp()
+        self.click_to_kirim_otp_btn()
+        self.sleep(1)
+        self.verify_timer_for_given_time(30)
+        time.sleep(31)
+        self.verify_kirim_otp_via_sms_otp()
+        self.click_Kirim_Ulang()
+        self.verify_timer_for_given_time(60)
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(31)
+        self.verify_kirim_otp_via_sms_otp()
+        self.click_Kirim_Ulang()
+        self.verify_timer_for_given_time(120)
+
+
+
+
 
 
 
