@@ -67,7 +67,8 @@ jumlah_on_confirm = 'FastBSConfJumlahValue'
 watchlist_header = 'WatchListHeader'
 watchlist_activation= 'WatchListActiveBtn0'
 homepage_stock = 'HomepageTFStock0'
-star_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
+star_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
+stock_added_marker = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
 
 class Watchlist(HomePage):
 
@@ -425,10 +426,12 @@ class Watchlist(HomePage):
     @allure.step("Add stock for multiple watchlist")
     def add_stock_in_all_watchlist(self):
         self.click(homepage_stock)
-        self.sleep(3)
+        self.sleep(4)
         for i in range(0,6):
+            self.assert_equal(self.is_element_visible())
+            self.sleep(3)
             self.click(star_btn)
-            self.sleep(1)
+            self.sleep(2)
             self.click(f'//android.widget.TextView[@text="test{i}"]')
 
     @allure.step("Verify stock in all watchlist")
@@ -438,6 +441,7 @@ class Watchlist(HomePage):
             self.sleep(1)
             self.assert_equal(self.is_element_visible(WL_stock_1), True)
             self.click(f'//android.widget.TextView[@text="test{i-1}"]')
+
 
 
 
