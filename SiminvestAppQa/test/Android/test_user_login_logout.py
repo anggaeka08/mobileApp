@@ -23,7 +23,7 @@ class Login_test(LoginPage):
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_phone_no_page_after_click_MulaiSekarang(self):
         #LoginPage.launch_app_again()
-        self.verify_starting_page()
+        #self.verify_starting_page()
         self.click_mulai_sekarang()
         self.verify_mobile_no_page()
 
@@ -396,6 +396,67 @@ class Login_test(LoginPage):
         self.verify_kirim_otp_via_sms_otp()
         self.click_Kirim_Ulang()
         self.verify_timer_for_given_time(120)
+
+    @pytest.mark.UseCase_04
+    @pytest.mark.Android
+    @pytest.mark.Login_Logout
+    @allure.story("F-2:Login/logout Feature")
+    def test_Validate_reset_funtionality_the_number_of_attempts_for_WhatsApp_or_sms_on_OTP_page(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['unkyc_reg_no_2'])
+        self.click_selanjutnya()
+        self.enter_otp('1234')
+        self.click_on_reset_pin()
+        self.sleep(2)
+        self.verify_redirection_after_click_on_reset_bn()
+        self.verify_timer_on_otp_medium_seletion_page(23)
+        self.verify_click_selanjutnya_btn_during_timer()
+        self.verify_redirection_after_click_on_reset_bn()
+        time.sleep(26)
+        self.click_on_selanjutnya()
+        self.verify_timer_for_given_time(59)
+        self.go_back()
+        self.go_back()
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.click_on_selanjutnya()
+        self.verify_timer_for_given_time(119)
+        self.go_back()
+        self.go_back()
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.click_on_whatsapp_btn()
+        self.click_on_selanjutnya()
+        self.verify_timer_for_given_time(29)
+        self.click_on_back_after_whatsapp_otp()
+        time.sleep(30)
+        self.click_on_selanjutnya()
+        self.verify_timer_for_given_time(59)
+        self.click_on_back_after_whatsapp_otp()
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.click_on_selanjutnya()
+       # self.verify_timer_for_given_time(119)
+        self.enter_otp('1345')
+        self.verify_wrong_otp_msg()
+        self.enter_otp('1234')
+        self.set_pin('123456')
+        self.enter_confirm_pin('123456')
+        self.sleep(5)
+        self.verify_redirect_to_pin_page()
+        self.enter_pin()
+        self.verify_home_page()
+
+
+
+
 
 
 
