@@ -68,6 +68,8 @@ wrong_otp_msg = 'wrongOtpMsg'
 wrong_otp_msg_text ='OTP Salah. Silahkan ulangi lagi'
 ignore_btn = "//android.widget.Button[@text= 'IGNORE']"
 kirim_otp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
+selanjutnya_otp_sel = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
+back_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 
 class LoginPage(BaseCase):
 
@@ -77,7 +79,7 @@ class LoginPage(BaseCase):
 
     @allure.step("click mulai sekarang")
     def click_mulai_sekarang(self):
-        self.sleep(2)
+        self.sleep(4)
         self.tap(ignore_btn)
         self.sleep(1)
         self.click(mulai_sekarang)
@@ -233,7 +235,9 @@ class LoginPage(BaseCase):
 
     @allure.step("verify starting page")
     def verify_starting_page(self):
-        self.sleep(5)
+        self.sleep(3)
+        self.tap(ignore_btn)
+        self.sleep(1)
         self.assert_equal(self.is_element_visible(mulai_sekarang), True)
 
     @allure.step("enable finger print")
@@ -421,6 +425,33 @@ class LoginPage(BaseCase):
     @allure.step("Click to kirim otp buttun")
     def click_to_kirim_otp_btn(self):
         self.click(kirim_otp)
+
+    @allure.step("verify redirection after click on reset_bn")
+    def verify_redirection_after_click_on_reset_bn(self):
+        self.assert_equal(self.is_element_visible(sms_btn), True)
+        self.assert_equal(self.is_element_visible(whatsaap_btn), True)
+
+    @allure.step("Verify Timer on opt medium selection page")
+    def verify_timer_on_otp_medium_seletion_page(self, time):
+        timer_with_text = self.get_attribute(selanjutnya_otp_sel, 'text')
+        timer = timer_with_text[13:]
+        self.assert_equal(timer, str(time)+')')
+
+    @allure.step("Click on selanjutnya")
+    def click_on_selanjutnya(self):
+        self.click(selanjutnya_otp_sel)
+
+
+    @allure.step("Click on back after whatsapp otp ")
+    def click_on_back_after_whatsapp_otp(self):
+        self.click(back_btn)
+
+
+    @allure.step("Verify click selanjutnya btn during timer")
+    def verify_click_selanjutnya_btn_during_timer(self):
+        self.click(selanjutnya_otp_sel)
+
+
 
 
 
