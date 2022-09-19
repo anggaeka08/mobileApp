@@ -149,7 +149,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Android
     @pytest.mark.watchlist
     @allure.story("F-1:Watchlist Feature")
-    def test_validate_same_stock_(self):
+    def test_validate_same_stock_will_be_added_to_many_watchlist(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.scroll_up()
         self.click_on_defaults_btn()
