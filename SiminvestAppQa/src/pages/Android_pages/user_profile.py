@@ -30,12 +30,13 @@ daftar_masuk_btn = '//android.widget.TextView[@text="Daftar / Masuk"]'
 masuk_page_header = '//android.widget.TextView[@text="Masuk"]'
 informasi_btn = '//android.widget.TextView[@text="Informasi RDN"]'
 akun_pengguna = 'ScreenProfileCardTextSubEntryEntry1'
-profile_icon = 'ProfilePageImage'
+#profile_icon = 'ProfilePageImage'
+profile_icon = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]'
 batan_btn = '//android.widget.TextView[@text="Batal"]'
 camera_option = '//android.widget.TextView[@text="Camera"]'
-take_pic_allow = '//android.widget.Button[@text="Allow"]'
+take_pic_allow = '//android.widget.Button[@text="ALLOW"]'
 location_allow = '//android.widget.Button[@text="Allow only while using the app"]'
-take_pic = 'Take photo'
+take_pic = 'Shutter'
 done_btn = 'Done'
 crop_btn = 'Crop'
 gallery_option = '//android.widget.TextView[@text="Upload From Photos"]'
@@ -207,12 +208,22 @@ class UserProfile(HomePage):
         self.sleep(2)
         self.click(take_pic_allow)
         self.sleep(2)
-        self.click(location_allow)
-        self.sleep(2)
+        #self.click(location_allow)
+        #self.sleep(2)
         self.click(take_pic)
+        self.sleep(2)
         self.click(done_btn)
+        self.sleep(3)
         self.click(crop_btn)
         self.sleep(2)
+        if self.is_element_visible(profile_icon) == True:
+            self.verify_image_icon_availability()
+        else:
+            self.enter_pin()
+            self.sleep(5)
+            self.click_on_profile_btn()
+            self.sleep(3)
+            self.verify_image_icon_availability()
 
     @allure.step("Upload cancel process")
     def uplaod_cancel_process(self):
@@ -220,7 +231,8 @@ class UserProfile(HomePage):
         self.sleep(2)
         self.click(take_pic)
         self.click(done_btn)
-        self.go_back()
+        self.sleep(2)
+        self.click_on_cancel()
         self.sleep(2)
 
     @allure.step("Upload image using gallery")

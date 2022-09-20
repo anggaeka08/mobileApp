@@ -17,9 +17,10 @@ risk_profile = "Pilih tipe portfolio yang sesuai dengan Kamu."
 agresif = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView"
 Home_page_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
 Home_page_text = "Mulai Investasi Yuk…"
-Home_page_reg_user_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
-#Home_page_reg_user_locator_text ="Saldo RDN"
-Home_page_reg_user_locator_text ="Mulai Investasi Yuk…"
+#Home_page_reg_user_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
+Home_page_reg_user_locator = "HomePageRDN"
+Home_page_reg_user_locator_text ="Saldo RDN"
+#Home_page_reg_user_locator_text ="Mulai Investasi Yuk…"
 phone_no_page_text_r = "Masukkan Nomor Ponsel"
 phone_no_page_locator ="EnterNumText1"
 click_1 = "//*[@text='1']"
@@ -70,6 +71,7 @@ ignore_btn = "//android.widget.Button[@text= 'IGNORE']"
 kirim_otp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
 selanjutnya_otp_sel = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
 back_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
+navigate_up = 'Navigate up'
 
 class LoginPage(BaseCase):
 
@@ -450,6 +452,10 @@ class LoginPage(BaseCase):
     @allure.step("Verify click selanjutnya btn during timer")
     def verify_click_selanjutnya_btn_during_timer(self):
         self.click(selanjutnya_otp_sel)
+
+    @allure.step("Click on cancel")
+    def click_on_cancel(self):
+        self.click(navigate_up)
 
 
 
