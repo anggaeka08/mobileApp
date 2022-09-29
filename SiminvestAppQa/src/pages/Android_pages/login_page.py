@@ -82,8 +82,8 @@ class LoginPage(BaseCase):
     @allure.step("click mulai sekarang")
     def click_mulai_sekarang(self):
         self.sleep(4)
-        self.tap(ignore_btn)
-        self.sleep(1)
+        #self.tap(ignore_btn)
+        #self.sleep(1)
         self.click(mulai_sekarang)
 
     @allure.step("verify mobile no page")
