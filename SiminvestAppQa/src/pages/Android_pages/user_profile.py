@@ -41,6 +41,15 @@ done_btn = 'Done'
 crop_btn = 'Crop'
 gallery_option = '//android.widget.TextView[@text="Upload From Photos"]'
 image = '//android.widget.LinearLayout[@content-desc="Laptop_with_code.jpg, 2.48 MB, 4:58 AM"]/android.widget.RelativeLayout/android.widget.FrameLayout[1]/android.widget.ImageView'
+slider_on_akun = 'RefferalPageStarpointSlider'
+teman_telah_btn = 'RefferalPageTeman'
+teman_page_header = '//android.widget.TextView[@text="Daftar Teman"]'
+syrat_btn = 'RefferalPageSyarat'
+syrat_page_header = '//android.widget.TextView[@text="Syarat dan ketentuan"]'
+text_after_loading = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.webkit.WebView'
+Cara_Kerja_btn = 'RefferalPageCara'
+Cara_Keraja_page_header = '//android.widget.TextView[@text="Cara Kerja"]'
+Cara_kerja_loading = '//android.widget.TextView[@text="Oops, this help center no longer exists"]'
 
 class UserProfile(HomePage):
 
@@ -139,6 +148,7 @@ class UserProfile(HomePage):
 
     @allure.step("Verify redirection to referral page")
     def verify_redirection_to_referral_page(self):
+        self.sleep(2)
         self.assert_equal(self.is_element_visible(referral_page_header), True)
 
     @allure.step("Click on ajak akun")
@@ -245,7 +255,32 @@ class UserProfile(HomePage):
         self.sleep(1)
         self.click(crop_btn)
 
+    @allure.step("Verify slider on referral page")
+    def verify_slider_on_referral_page(self):
+        self.assert_equal(self.is_element_visible(slider_on_akun), True)
 
+    @allure.step("Verify Teman telah btn")
+    def verify_teman_telah_btn(self):
+        self.click(teman_telah_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(teman_page_header), True)
+
+    @allure.step("Verify Syarat dan btn")
+    def verify_syarat_dan_btn(self):
+        self.click(syrat_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(syrat_page_header), True)
+        self.sleep(5)
+        self.assert_equal(self.is_element_visible(text_after_loading), True)
+
+    @allure.step("Verify Cara Kerja btn")
+    def verify_cara_kerja_tab(self):
+        self.sleep(1)
+        self.click(Cara_Kerja_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(Cara_Keraja_page_header), True)
+        self.sleep(5)
+        self.assert_equal(self.is_element_visible(text_after_loading), True)
 
 
 

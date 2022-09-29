@@ -68,7 +68,7 @@ class userProfile_test(UserProfile):
         self.sleep(2)
         self.verify_send_btn_for_feedback(False)
 
-    @pytest.mark.User_profile_otherPages_01
+    @pytest.mark.User_profile_Ajak_teman_tab
     @pytest.mark.android
     @pytest.mark.userProfile
     @pytest.mark.otherFeature
@@ -80,16 +80,33 @@ class userProfile_test(UserProfile):
         self.scroll_down()
         self.verify_phone_number_available_on_profile_page()
         self.click_on_ajak_akun_and_validate_redirection()
+        self.scroll_up()
+        self.scroll_down()
         self.click_to_check_box()
         self.click_on_submit_btn()
         self.verify_redirection_to_referral_page()
+        self.verify_slider_on_referral_page()
+        self.click_on_gift_icon_and_verify_redirection()
         self.go_back()
-        self.click_on_ajak_akun()
         self.verify_redirection_to_referral_page()
         self.copy_referral_code()
         self.click_on_begikan_btn_and_redirection()
         self.go_back()
-        self.click_on_gift_icon_and_verify_redirection()
+        self.verify_redirection_to_referral_page()
+        self.verify_teman_telah_btn()
+        self.go_back()
+        self.verify_redirection_to_referral_page()
+        self.verify_syarat_dan_btn()
+        self.go_back()
+        self.verify_cara_kerja_tab()
+        self.go_back()
+        self.verify_redirection_to_referral_page()
+        self.go_back()
+        self.verify_phone_number_available_on_profile_page()
+
+
+        
+
 
     @pytest.mark.User_profile_otherPages_02
     @pytest.mark.android
