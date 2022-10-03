@@ -29,7 +29,6 @@ Stock_Reward_header = '//android.widget.TextView[@text="Stock Reward"]'
 daftar_masuk_btn = '//android.widget.TextView[@text="Daftar / Masuk"]'
 masuk_page_header = '//android.widget.TextView[@text="Masuk"]'
 informasi_btn = '//android.widget.TextView[@text="Informasi RDN"]'
-akun_pengguna = 'ScreenProfileCardTextSubEntryEntry1'
 #profile_icon = 'ProfilePageImage'
 profile_icon = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]'
 batan_btn = '//android.widget.TextView[@text="Batal"]'
@@ -50,6 +49,38 @@ text_after_loading = '/hierarchy/android.widget.FrameLayout/android.widget.Linea
 Cara_Kerja_btn = 'RefferalPageCara'
 Cara_Keraja_page_header = '//android.widget.TextView[@text="Cara Kerja"]'
 Cara_kerja_loading = '//android.widget.TextView[@text="Oops, this help center no longer exists"]'
+#Akun Pengguna
+akun_pengguna = 'ScreenProfileCardTextSubEntryEntry1'
+informtion_tab = 'ProfileDetailsPersonalTab'
+personal_tab ='(//android.view.ViewGroup[@content-desc="ProfileDetailsPersonalTab"])[2]'
+serkuritas_tab = '(//android.view.ViewGroup[@content-desc="ProfileDetailsPersonalTab"])[2]'
+sid='ProfileDetailsSID'
+sid_value = 'ProfileDetailsSIDValue'
+name = 'ProfileDetailsName'
+name_value = 'ProfileDetailsNameValue'
+number_details = 'ProfileDetailsNo'
+number_value = 'ProfileDetailsNoValue'
+email = 'ProfileDetailsEmail'
+email_value = 'ProfileDetailsEmailValue'
+address = 'ProfileDetailsAddress'
+address_value = 'ProfileDetailsAddressValue'
+#serkuritas tab
+clientID = 'ProfileDetailsClientID'
+clientID_value = 'ProfileDetailsClientIDValue'
+Sub_Rekening = "ProfileDetailsRekening"
+Sub_Rekening_value='ProfileDetailsRekeningValue'
+bank = 'ProfileDetailsBankName'
+bank_value = 'ProfileDetailsBankNameValue'
+pemilik = 'ProfileDetailsPemilik'
+pemilik_value ='ProfileDetailsPemilikValue'
+no_rekening = 'ProfileDetailsNoRem'
+#no_rekening_value = 'ProfileDetailsNoRemValue'
+personal_bank = 'ProfileDetailsPersonalBank'
+personal_bank_value = 'ProfileDetailsPersonalBankValue'
+personal_pemilik = 'ProfileDetailsPersonalPemilik'
+personal_pemilik_value = 'ProfileDetailsPersonalPemilikValue'
+personal_no_rekening = 'ProfileDetailsPersonalNo'
+personal_no_rekening_value = '//android.widget.TextView[@content-desc="ProfileDetailsPersonaNoValue"]'
 
 class UserProfile(HomePage):
 
@@ -282,10 +313,48 @@ class UserProfile(HomePage):
         self.sleep(5)
         self.assert_equal(self.is_element_visible(text_after_loading), True)
 
+    @allure.step("Click on akun penggunna tab")
+    def click_on_akun_penggunna_tab(self):
+        self.click(akun_pengguna)
+        self.sleep(2)
 
+    @allure.step("Verify personal tab details in akun penggunna")
+    def Verify_personal_tab_details_in_akun_penggunna(self, number):
+        self.assert_equal(self.is_element_visible(informtion_tab), True)
+        self.assert_equal(self.is_element_visible(sid), True)
+        self.assert_equal(self.get_attribute(sid_value, 'text'), '')
+        self.assert_equal(self.is_element_visible(name), True)
+        self.assert_equal(self.get_attribute(name_value, 'text'), '-')
+        self.assert_equal(self.is_element_visible(number_details), True)
+        self.assert_equal(self.get_attribute(number_value, 'text'), number)
+        self.assert_equal(self.is_element_visible(email), True)
+        self.assert_equal(self.get_attribute(email_value, 'text'), '-')
+        self.assert_equal(self.is_element_visible(address), True)
+        self.assert_equal(self.get_attribute(address_value, 'text'), '-')
 
+    @allure.step("Click on serkuritas tab")
+    def click_on_serkuritas_tab(self):
+        self.click(serkuritas_tab)
+        self.sleep(2)
 
-
+    @allure.step("Verify serkuritas tab details in akun penggunna")
+    def Verify_serkuritas_tab_details_in_akun_penggunna(self):
+        self.assert_equal(self.is_element_visible(clientID), True)
+        self.assert_not_equal(self.get_attribute(clientID_value, 'text'), '-')
+        self.assert_equal(self.is_element_visible(Sub_Rekening), True)
+        self.assert_equal(self.get_attribute(Sub_Rekening_value, 'text'), '-')
+        self.assert_equal(self.is_element_visible(bank), True)
+        self.assert_equal(self.get_attribute(bank_value, 'text'), '-')
+        self.assert_equal(self.is_element_visible(pemilik), True)
+        self.assert_equal(self.get_attribute(pemilik_value, 'text'), '-')
+        self.assert_equal(self.is_element_visible(no_rekening), True)
+       # self.assert_equal(self.get_attribute(no_rekening_value, 'text'), '-')
+        self.assert_equal(self.is_element_visible(personal_bank), True)
+        self.assert_equal(self.get_attribute(personal_bank_value, 'text'), '-')
+        self.assert_equal(self.is_element_visible(personal_pemilik), True)
+        self.assert_equal(self.get_attribute(personal_pemilik_value, 'text'), '-')
+        self.assert_equal(self.is_element_visible(personal_no_rekening), True)
+        self.assert_equal(self.get_attribute(personal_no_rekening_value, 'text'), '-')
 
 
 

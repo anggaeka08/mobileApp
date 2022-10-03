@@ -68,12 +68,12 @@ class userProfile_test(UserProfile):
         self.sleep(2)
         self.verify_send_btn_for_feedback(False)
 
-    @pytest.mark.User_profile_Ajak_teman_tab
+    @pytest.mark.User_profile_Ajak_teman_akun_penggunna_tab
     @pytest.mark.android
     @pytest.mark.userProfile
     @pytest.mark.otherFeature
     @allure.story("F-3:Profile Feature")
-    def test_validate_ajak_btn_and_refferal_feature(self):
+    def test_validate_ajak_btn_and_refferal_and_akun_pennegguna_feature(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_profile_btn()
         self.scroll_up()
@@ -103,8 +103,12 @@ class userProfile_test(UserProfile):
         self.verify_redirection_to_referral_page()
         self.go_back()
         self.verify_phone_number_available_on_profile_page()
-
-
+        self.click_on_akun_penggunna_tab()
+        self.Verify_personal_tab_details_in_akun_penggunna(f"62{user_data['reg_no']}")
+        self.click_on_serkuritas_tab()
+        self.Verify_serkuritas_tab_details_in_akun_penggunna()
+        self.go_back()
+        self.verify_phone_number_available_on_profile_page()
         
 
 
