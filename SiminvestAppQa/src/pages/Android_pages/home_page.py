@@ -225,8 +225,8 @@ class HomePage(LoginPage):
     def verify_tarik_dana_page(self):
         tarik_dana_header_text = self.get_attribute(tarik_dana_header, "text")
         self.assert_equal(tarik_dana_header_text, "Tarik Dana")
-        dana_tersedia_present = self.is_element_visible(dana_tersedia)
-        assert dana_tersedia_present == True, f"dana_tersedia Should be present"
+        #dana_tersedia_present = self.is_element_visible(dana_tersedia)
+        #assert dana_tersedia_present == True, f"dana_tersedia Should be present"
         account_details_present = self.is_element_visible(account_details)
         assert account_details_present == True, f"account_details Should be present"
         nominal_penarikan_present = self.is_element_visible(nominal_penarikan)
