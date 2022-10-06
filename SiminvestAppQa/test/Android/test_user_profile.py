@@ -68,12 +68,12 @@ class userProfile_test(UserProfile):
         self.sleep(2)
         self.verify_send_btn_for_feedback(False)
 
-    @pytest.mark.User_profile_Ajak_teman_akun_penggunna_tab
+    @pytest.mark.User_profile_Ajak_akun_informasi_tab
     @pytest.mark.android
     @pytest.mark.userProfile
     @pytest.mark.otherFeature
     @allure.story("F-3:Profile Feature")
-    def test_validate_ajak_btn_and_refferal_and_akun_pennegguna_feature(self):
+    def test_validate_ajak_btn_and_refferal_and_akun_pennegguna_informasi_tab_feature(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_profile_btn()
         self.scroll_up()
@@ -109,7 +109,19 @@ class userProfile_test(UserProfile):
         self.Verify_serkuritas_tab_details_in_akun_penggunna()
         self.go_back()
         self.verify_phone_number_available_on_profile_page()
-        
+        self.click_on_informasi_tab()
+        self.verify_rdn_balance_page()
+        self.scroll_down()
+        self.verify_rdn_balance_page()
+        self.verify_top_up_page()
+        self.click_on_tarik_dana_btn()
+        self.verify_tarik_dana_page()
+        self.verify_limit_msg_on_tarik_dana_page()
+        self.verify_riwayat_page_with_details()
+        self.go_back()
+        self.verify_phone_number_available_on_profile_page()
+
+
 
 
     @pytest.mark.User_profile_otherPages_02

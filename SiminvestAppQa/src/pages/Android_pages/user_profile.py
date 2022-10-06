@@ -81,6 +81,31 @@ personal_pemilik = 'ProfileDetailsPersonalPemilik'
 personal_pemilik_value = 'ProfileDetailsPersonalPemilikValue'
 personal_no_rekening = 'ProfileDetailsPersonalNo'
 personal_no_rekening_value = '//android.widget.TextView[@content-desc="ProfileDetailsPersonaNoValue"]'
+#informasi tab
+informasi_tab='ScreenProfileCardTextSubEntryEntry2'
+RDn_page_header = 'RdnBalanceHeader'
+RDN_balance = 'RdnBalanceValue'
+top_up_btn = 'RdnBalanceTopIcon'
+tarik_dana_btn = 'RdnBalanceTarikIcon'
+riwayat_btn = 'RdnBalanceRiwayatIcon'
+informasi_saldo_tab = 'RdnBalanceSaldo'
+informasi_rekening_tab ='RdnBalanceRekening'
+top_page_header= 'TopupPageHeader'
+simbosi_title = 'TopupPageSimobiTitle'
+top_up_bank_title= 'TopupPageBankTitle'
+tarik_dana_page_header = 'Tarik DanaHeader'
+tarik_dana_nominal='TarikPageNominal'
+tarik_page_btn ='TarikPageBtn'
+pop_up_msg_11 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+pop_up_msg_11_text='Permintaan penarikkan dana diatas pukul 11.00 WIB akan di proses di hari kerja bursa berikutnya.'
+pop_up_msg_rquired_fund='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+pop_up_msg_rquired_fund_text='Cash Withdrawal Required more Fund.'
+riwayat_page_header ='RiwayatHeader'
+riwayat_page_entry= 'RiwayatPageEntry0'
+entry_name = 'RiwayatPageName0'
+entry_date = 'RiwayatPageTime0'
+entry_value = 'RiwayatPageRpValue0'
+entry_status = 'RiwayatPageStatus0'
 
 class UserProfile(HomePage):
 
@@ -355,6 +380,52 @@ class UserProfile(HomePage):
         self.assert_equal(self.get_attribute(personal_pemilik_value, 'text'), '-')
         self.assert_equal(self.is_element_visible(personal_no_rekening), True)
         self.assert_equal(self.get_attribute(personal_no_rekening_value, 'text'), '-')
+
+    @allure.step("Click on informasi tab")
+    def click_on_informasi_tab(self):
+        self.click(informasi_tab)
+
+    @allure.step("Verify top up page")
+    def verify_top_up_page(self):
+        self.click(top_up_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(top_page_header), True)
+        self.assert_equal(self.is_element_visible(simbosi_title), True)
+        self.assert_equal(self.is_element_visible(top_up_bank_title), True)
+        self.go_back()
+
+    @allure.step("verify limit msg on tarik dana page")
+    def verify_limit_msg_on_tarik_dana_page(self):
+        self.set_text(tarik_dana_nominal, '1000')
+        self.click(tarik_page_btn)
+        self.assert_equal(self.get_attribute(pop_up_msg_rquired_fund,'text'),pop_up_msg_rquired_fund_text)
+        self.click_on_ok_btn()
+        self.set_text(tarik_dana_nominal, '100000')
+        self.click(tarik_page_btn)
+        self.assert_equal(self.get_attribute(pop_up_msg_11,'text'),pop_up_msg_11_text)
+        self.click_on_ok_btn()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(riwayat_page_header), True)
+        self.go_back()
+
+    @allure.step("verify riwayat page with details")
+    def verify_riwayat_page_with_details(self):
+        self.click(riwayat_btn)
+        self.sleep(1)
+        self.verify_riwayat_page()
+        self.assert_equal(self.is_element_visible(entry_name), True)
+        self.assert_equal(self.is_element_visible(entry_date), True)
+        self.assert_equal(self.is_element_visible(entry_value), True)
+        self.assert_equal(self.is_element_visible(entry_status), True)
+        self.go_back()
+
+
+
+
+
+
+
+
 
 
 
