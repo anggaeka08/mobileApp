@@ -337,7 +337,7 @@ class LoginPage(BaseCase):
 
     @allure.step("Verify Header of Ganti pin password page")
     def verify_header_of_Ganti_pin_password_page(self):
-        self.sleep(1)
+        self.sleep(2)
         self.assert_equal(self.is_element_visible(ganti_pin_password_page_header), True)
 
     @allure.step("enter pin")

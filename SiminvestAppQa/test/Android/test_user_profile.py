@@ -122,24 +122,31 @@ class userProfile_test(UserProfile):
         self.verify_phone_number_available_on_profile_page()
 
 
-
-
-    @pytest.mark.User_profile_otherPages_02
+    @pytest.mark.User_profile_pengaturan_tab
     @pytest.mark.android
     @pytest.mark.userProfile
     @pytest.mark.otherFeature
     @allure.story("F-3:Profile Feature")
-    def test_validate_profile_page_for_non_kyc_user(self):
-        self.login_with_non_kyc_number(user_data['unkyc_reg_no'])
+    def test_validate_pengaturan_tab(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_profile_btn()
-        self.verify_daftar_masuk_btn()
-        self.click_on_Daftar_masuk_btn()
-        self.verify_redirection_masuk_page()
+        self.click_on_pengaturan_btn()
+        self.verify_pengaturan_page()
+        self.Click_to_Ganti_pin_siminvest()
+        self.sleep(1)
         self.go_back()
-        self.verify_daftar_masuk_btn()
-        self.verify_informasi_btn_on_profile_page_for_non_kyc_user()
-        self.click_on_akun_pengaturn()
-        self.verify_redirection_masuk_page()
+        self.sleep(1)
+        self.go_back()
+        self.verify_pengaturan_page()
+        self.click_on_ganti_pin_password_btn()
+        self.verify_header_of_Ganti_pin_password_page()
+        self.verify_ganti_password_tab()
+        self.verify_ganti_pin_tab()
+        self.go_back()
+        self.verify_pengaturan_page()
+        self.go_back()
+        self.verify_phone_number_available_on_profile_page()
+
 
     @pytest.mark.User_profile_otherPages_03
     @pytest.mark.android

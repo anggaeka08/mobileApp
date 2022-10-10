@@ -106,6 +106,35 @@ entry_name = 'RiwayatPageName0'
 entry_date = 'RiwayatPageTime0'
 entry_value = 'RiwayatPageRpValue0'
 entry_status = 'RiwayatPageStatus0'
+#pengaturan tab locators
+pengaturan_tab = 'ScreenProfileCardTextSubEntryEntry3'
+Pengaturan_Page_Header='PengaturanPageHeader'
+ganti_pin_siminvest = 'PengaturanPagePinSiminvest'
+ganti_pin_sekuritas = 'PengaturanPageGantiPin'
+ganti_passsword_tab = '(//android.view.ViewGroup[@content-desc="GantiPagePasswordTab"])[1]'
+ganti_pin_tab = '(//android.view.ViewGroup[@content-desc="GantiPagePasswordTab"])[2]'
+password_lama = '//android.view.ViewGroup[@content-desc="GantiPagePasswordLama"]/android.widget.EditText'
+password_lama_show = 'GantiPagePasswordLamaShow'
+password_baru = '//android.view.ViewGroup[@content-desc="GantiPagePasswordBaru"]/android.widget.EditText'
+password_baru_show = 'GantiPagePasswordBaruShow'
+conf_pass_baru = '//android.view.ViewGroup[@content-desc="GantiPagePasswordConfirm"]/android.widget.EditText'
+conf_pass_baru_show = 'GantiPagePasswordConfirmShow'
+password_baru_error = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[3]'
+password_baru_error_2_text = 'Password Baru minimal 6 karakter'
+password_baru_error_1_text = 'Password Baru must contain at least one uppercase letter.'
+conf_pass_baru_error ='hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[4]'
+conf_pass_baru_error_text ='Konfirmasi Password Baru tidak sama. Mohon ulangi lagi'
+pin_lama ='//android.view.ViewGroup[@content-desc="GantiPagePinLama"]/android.widget.EditText'
+pin_lama_show = 'GantiPagePinLamaShow'
+pin_baru = '//android.view.ViewGroup[@content-desc="GantiPagePinBaru"]/android.widget.EditText'
+pin_baru_show = 'GantiPagePinBaruShow'
+pin_baru_error = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[3]'
+pin_baru_error_1_text ='PIN Baru minimal 6-15 karakter'
+pin_baru_error_2_text = 'PIN Baru maksimal 15 karakter'
+pin_conf_baru ='//android.view.ViewGroup[@content-desc="GantiPageBaruConfirm"]/android.widget.EditText'
+pin_conf_baru_show = 'GantiPageBaruConfirmShow'
+pin_conf_baru_error ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[4]'
+pin_conf_baru_error_1_text = 'Konfirmasi PIN Baru salah. Mohon ulangi lagi'
 
 class UserProfile(HomePage):
 
@@ -185,6 +214,7 @@ class UserProfile(HomePage):
 
     @allure.step("Verify phone number available on prifile page")
     def verify_phone_number_available_on_profile_page(self):
+        self.sleep(1)
         self.assert_equal(self.is_element_visible(phone__number_profile), True)
 
     @allure.step("Click on ajak akun and validate redirection")
@@ -419,13 +449,49 @@ class UserProfile(HomePage):
         self.assert_equal(self.is_element_visible(entry_status), True)
         self.go_back()
 
+    @allure.step("Verify Header of pengaturan tab page")
+    def verify_pengaturan_page(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(Pengaturan_Page_Header), True)
+        self.assert_equal(self.is_element_visible(ganti_pin_siminvest), True)
+        self.assert_equal(self.is_element_visible(ganti_pin_sekuritas), True)
 
+    @allure.step("Verify Ganti password tab")
+    def verify_ganti_password_tab(self):
+        self.set_text(password_lama, '123457')
+        self.assert_equal(self.get_attribute(password_lama, 'text'), '••••••')
+        self.click(password_lama_show)
+        self.assert_equal(self.get_attribute(password_lama, 'text'), '123457')
+        self.set_text(password_baru, '1234')
+        self.assert_equal(self.get_attribute(password_baru, 'text'), '••••')
+        self.click(password_baru_show)
+        self.assert_equal(self.get_attribute(password_baru, 'text'), '1234')
+        self.assert_equal(self.get_attribute(password_baru_error, 'text'),password_baru_error_2_text)
+        self.set_text(password_baru, '12347689')
+        self.assert_equal(self.get_attribute(password_baru_error, 'text'), password_baru_error_1_text)
+        self.set_text(conf_pass_baru, '1234')
+        self.assert_equal(self.get_attribute(conf_pass_baru, 'text'), '••••')
+        self.click(conf_pass_baru_show)
+        self.assert_equal(self.get_attribute(conf_pass_baru, 'text'), '1234')
+        #self.assert_equal(self.get_attribute(conf_pass_baru_error, 'text'), conf_pass_baru_error_text)
 
-
-
-
-
-
-
-
-
+    def verify_ganti_pin_tab(self):
+        self.click(ganti_pin_tab)
+        self.set_text(pin_lama, '123567')
+        self.assert_equal(self.get_attribute(pin_lama, 'text'), '••••••')
+        self.click(pin_lama_show)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(pin_lama, 'text'), '123567')
+        self.set_text(pin_baru, '1234')
+        self.assert_equal(self.get_attribute(pin_baru, 'text'), '••••')
+        self.click(pin_baru_show)
+        self.assert_equal(self.get_attribute(pin_baru, 'text'), '1234')
+        self.assert_equal(self.get_attribute(pin_baru_error, 'text'), pin_baru_error_1_text)
+        self.set_text(pin_baru, '1234567890123456')
+        self.assert_equal(self.get_attribute(pin_baru_error, 'text'), pin_baru_error_2_text)
+        self.set_text(pin_baru, '123456')
+        self.set_text(pin_conf_baru, '1234')
+        self.assert_equal(self.get_attribute(pin_conf_baru, 'text'), '••••')
+        self.click(pin_conf_baru_show)
+        self.assert_equal(self.get_attribute(pin_conf_baru, 'text'), '1234')
+        self.assert_equal(self.get_attribute(pin_conf_baru_error, 'text'), pin_conf_baru_error_1_text)
