@@ -4,6 +4,7 @@ from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
 import allure
 from SiminvestAppQa.src.utilities.genericUtilities import generate_random_integer
 
+mulai_sekarang = "WelcomeScreenMulaiSekarangButton"
 #locators
 profile = '//android.widget.TextView[@text="Profile"]'
 first_star = 'ProfilePageRateStar11'
@@ -29,9 +30,10 @@ Stock_Reward_header = '//android.widget.TextView[@text="Stock Reward"]'
 daftar_masuk_btn = '//android.widget.TextView[@text="Daftar / Masuk"]'
 masuk_page_header = '//android.widget.TextView[@text="Masuk"]'
 informasi_btn = '//android.widget.TextView[@text="Informasi RDN"]'
-#profile_icon = 'ProfilePageImage'
-profile_icon = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]'
+profile_icon = 'ProfilePageImage'
+#profile_icon = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]'
 batan_btn = '//android.widget.TextView[@text="Batal"]'
+batan_btn1 = '//android.widget.TextView[@text="BATAL"]'
 camera_option = '//android.widget.TextView[@text="Camera"]'
 take_pic_allow = '//android.widget.Button[@text="ALLOW"]'
 location_allow = '//android.widget.Button[@text="Allow only while using the app"]'
@@ -135,6 +137,19 @@ pin_conf_baru ='//android.view.ViewGroup[@content-desc="GantiPageBaruConfirm"]/a
 pin_conf_baru_show = 'GantiPageBaruConfirmShow'
 pin_conf_baru_error ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[4]'
 pin_conf_baru_error_1_text = 'Konfirmasi PIN Baru salah. Mohon ulangi lagi'
+#other tabs locators
+pt_sinarmas = '(//android.view.ViewGroup[@content-desc="ProfilePageEntry0"])[2]'
+equity_page = '//android.view.View[@text="EQUITY"]'
+hubunagi_tab = '(//android.view.ViewGroup[@content-desc="ProfilePageEntry1"])[2]'
+hubungi_header = '//android.widget.TextView[@text="Hubungi Kami"]'
+hubungi_email = '//android.widget.TextView[@text="cs@sinarmassekuritas.co.id"]'
+hubungi_number = '//android.widget.TextView[@text="150555"]'
+hubungi_whatsapp = '//android.widget.TextView[@text="Whatsapp"]'
+FAQs_tab = '(//android.view.ViewGroup[@content-desc="ProfilePageEntry2"])[2]'
+FAQ_header = '//android.widget.TextView[@text="FAQs"]'
+logout_btn ='ProfilePageLogoutButton'
+Home_page_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
+Home_page_text = "Mulai Investasi Yuk…"
 
 class UserProfile(HomePage):
 
@@ -292,8 +307,14 @@ class UserProfile(HomePage):
         self.click(batan_btn)
         self.sleep(1)
 
+    @allure.step("Click on batal btn")
+    def click_batal1_btn(self):
+        self.click(batan_btn1)
+        self.sleep(1)
+
     @allure.step("Verify image icon availability")
     def verify_image_icon_availability(self):
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(profile_icon), True)
 
     @allure.step("Upload image by camera option")
@@ -312,14 +333,7 @@ class UserProfile(HomePage):
         self.sleep(3)
         self.click(crop_btn)
         self.sleep(2)
-        if self.is_element_visible(profile_icon) == True:
-            self.verify_image_icon_availability()
-        else:
-            self.enter_pin()
-            self.sleep(5)
-            self.click_on_profile_btn()
-            self.sleep(3)
-            self.verify_image_icon_availability()
+        self.verify_image_icon_availability()
 
     @allure.step("Upload cancel process")
     def uplaod_cancel_process(self):
@@ -495,3 +509,56 @@ class UserProfile(HomePage):
         self.click(pin_conf_baru_show)
         self.assert_equal(self.get_attribute(pin_conf_baru, 'text'), '1234')
         self.assert_equal(self.get_attribute(pin_conf_baru_error, 'text'), pin_conf_baru_error_1_text)
+
+    @allure.step("Click and verify to PT Sinarmas tab")
+    def click_and_verify_to_pt_sinarmas_tab(self):
+        self.click(pt_sinarmas)
+        self.sleep(16)
+        #self.assert_equal(self.is_element_visible(equity_page), True)
+        self.go_back()
+        self.sleep(1)
+        self.verify_phone_number_available_on_profile_page()
+
+    @allure.step("Click and verify to hubunagi tab")
+    def click_and_verify_to_hubunagi_tab(self):
+        self.click(hubunagi_tab)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(hubungi_header), True)
+        self.assert_equal(self.is_element_visible(hubungi_email), True)
+        self.assert_equal(self.is_element_visible(hubungi_number), True)
+        self.assert_equal(self.is_element_visible(hubungi_whatsapp), True)
+        self.go_back()
+        self.sleep(1)
+        self.verify_phone_number_available_on_profile_page()
+
+
+    @allure.step("Click and verify to FAQs tab")
+    def click_and_verify_to_FAQs_tab(self):
+        self.click(FAQs_tab)
+        self.sleep(3)
+        self.assert_equal(self.is_element_visible(FAQ_header), True)
+        self.sleep(2)
+        self.go_back()
+        self.sleep(2)
+        self.verify_phone_number_available_on_profile_page()
+
+    @allure.step("Verify mulai text on profile page")
+    def verify_mulai_text_on_profile_page(self):
+        Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
+        self.assert_equal(Home_page_locator_text, Home_page_text)
+
+    @allure.step("click mulai sekarang")
+    def click_mulai_sekarang_after_profile(self):
+        #self.sleep(1)
+        self.click(mulai_sekarang)
+
+    @allure.step("login and verify homepage for rg user")
+    def login_and_verify_homepage_from_logout(self, phone_number):
+        self.sleep(4)
+        self.click_mulai_sekarang_after_profile()
+        self.type_mobile_no(phone_number)
+        self.click_selanjutnya()
+        self.enter_otp('1234')
+        self.enter_pin()
+        #self.close_home_page_banner()
+        self.verify_home_page()
