@@ -147,6 +147,27 @@ class userProfile_test(UserProfile):
         self.go_back()
         self.verify_phone_number_available_on_profile_page()
 
+    @pytest.mark.User_profile_others_tab
+    @pytest.mark.android
+    @pytest.mark.userProfile
+    @pytest.mark.otherFeature
+    @allure.story("F-3:Profile Feature")
+    def test_validate_profile_others_tab(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.click_on_profile_btn()
+        self.verify_phone_number_available_on_profile_page()
+        self.click_and_verify_to_pt_sinarmas_tab()
+        self.click_and_verify_to_hubunagi_tab()
+        self.click_and_verify_to_FAQs_tab()
+        self.click_on_kelur_btn()
+        self.click_batal1_btn()
+        self.verify_phone_number_available_on_profile_page()
+        self.click_on_kelur_btn()
+        self.click_on_YA_btn()
+        self.login_and_verify_homepage_from_logout(user_data['unkyc_reg_no'])
+        self.click_on_profile_btn()
+        self.verify_mulai_text_on_profile_page()
+        self.assert_equal(self.is_element_visible('ProfileDetailsPersonalTab'), False)
 
     @pytest.mark.User_profile_otherPages_03
     @pytest.mark.android
@@ -168,7 +189,7 @@ class userProfile_test(UserProfile):
         self.uplaod_cancel_process()
         self.verify_image_icon_availability()
 
-    @pytest.mark.User_profile_otherPages_04
+    """@pytest.mark.User_profile_otherPages_04
     @pytest.mark.android
     @pytest.mark.userProfile
     @pytest.mark.otherFeature
@@ -178,7 +199,7 @@ class userProfile_test(UserProfile):
         self.click_on_profile_btn()
         self.click_on_profile_icon()
         self.upload_image_using_gallery_option()
-        self.verify_image_icon_availability()
+        self.verify_image_icon_availability()"""
 
 
 
