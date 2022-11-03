@@ -362,13 +362,13 @@ class UserProfile(HomePage):
     @allure.step("Verify Teman telah btn")
     def verify_teman_telah_btn(self):
         self.click(teman_telah_btn)
-        self.sleep(1)
+        self.sleep(2)
         self.assert_equal(self.is_element_visible(teman_page_header), True)
 
     @allure.step("Verify Syarat dan btn")
     def verify_syarat_dan_btn(self):
         self.click(syrat_btn)
-        self.sleep(1)
+        self.sleep(2)
         self.assert_equal(self.is_element_visible(syrat_page_header), True)
         self.sleep(5)
         self.assert_equal(self.is_element_visible(text_after_loading), True)
@@ -465,7 +465,7 @@ class UserProfile(HomePage):
 
     @allure.step("Verify Header of pengaturan tab page")
     def verify_pengaturan_page(self):
-        self.sleep(2)
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(Pengaturan_Page_Header), True)
         self.assert_equal(self.is_element_visible(ganti_pin_siminvest), True)
         self.assert_equal(self.is_element_visible(ganti_pin_sekuritas), True)
@@ -486,6 +486,7 @@ class UserProfile(HomePage):
         self.set_text(conf_pass_baru, '1234')
         self.assert_equal(self.get_attribute(conf_pass_baru, 'text'), '••••')
         self.click(conf_pass_baru_show)
+        self.sleep(1)
         self.assert_equal(self.get_attribute(conf_pass_baru, 'text'), '1234')
         #self.assert_equal(self.get_attribute(conf_pass_baru_error, 'text'), conf_pass_baru_error_text)
 
@@ -561,4 +562,5 @@ class UserProfile(HomePage):
         self.enter_otp('1234')
         self.enter_pin()
         #self.close_home_page_banner()
+        self.sleep(2)
         self.verify_home_page()

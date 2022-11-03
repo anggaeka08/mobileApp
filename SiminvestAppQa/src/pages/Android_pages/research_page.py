@@ -76,7 +76,7 @@ class Research(HomePage):
     @allure.step("Click to lastreport and verify entry")
     def click_to_lastreport_and_verify_entry(self):
         self.click(last_report_search)
-        self.sleep(3)
+        self.sleep(4)
         self.assert_equal(self.is_element_visible(last_reports_entry), True)
 
     @allure.step("Verify tabs on research page")
@@ -144,7 +144,9 @@ class Research(HomePage):
 
     @allure.step("Click to signal tadai btn and verify red dots")
     def click_to_signal_tadai_and_verify_red_dots(self):
+        self.sleep(1)
         self.click(signal_tandai)
+        self.sleep(1)
         self.assert_equal(self.is_element_visible(red_dont0_SS), False)
         self.assert_equal(self.is_element_visible(red_dont1_SS), False)
         self.assert_equal(self.is_element_visible(signal_tandai), False)
@@ -156,6 +158,15 @@ class Research(HomePage):
         self.assert_equal(self.is_element_visible(last_report), False)
         self.assert_equal(self.is_element_visible(news), False)
         self.assert_equal(self.is_element_visible(media), False)
+
+    @allure.step("Login with non kyc number")
+    def login_with_non_kyc_number(self, number):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(number)
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.verify_home_page()
 
 
 

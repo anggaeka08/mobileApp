@@ -10,7 +10,7 @@ class userProfile_test(UserProfile):
 
     @pytest.mark.User_profile_RateFeature_01
     @pytest.mark.android
-    @pytest.mark.userProfile
+    @pytest.mark.userProfile_Not_run
     @allure.story("F-3:Profile Feature")
     def test_validate_rate_feature_all_testcases(self):
         number = generate_random_integer(length=7, prefix='844')
@@ -55,7 +55,7 @@ class userProfile_test(UserProfile):
 
     @pytest.mark.User_profile_RateFeature_03
     @pytest.mark.android
-    @pytest.mark.userProfile
+    @pytest.mark.userProfile_Not_run
     @allure.story("F-3:Profile Feature")
     def test_validate_submit_feedback_by_default_keyboard_btn(self):
         number = generate_random_integer(length=6, prefix='8442')
@@ -159,9 +159,9 @@ class userProfile_test(UserProfile):
         self.click_and_verify_to_pt_sinarmas_tab()
         self.click_and_verify_to_hubunagi_tab()
         self.click_and_verify_to_FAQs_tab()
+        self.scroll_up()
         self.click_on_kelur_btn()
         self.click_batal1_btn()
-        self.verify_phone_number_available_on_profile_page()
         self.click_on_kelur_btn()
         self.click_on_YA_btn()
         self.login_and_verify_homepage_from_logout(user_data['unkyc_reg_no'])
