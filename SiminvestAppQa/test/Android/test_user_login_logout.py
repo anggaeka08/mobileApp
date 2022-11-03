@@ -93,7 +93,7 @@ class Login_test(LoginPage):
         self.click_selanjutnya()
         self.enter_otp(user_data['valid_otp'])
         self.click_on_enterPin_logout_button()
-        self.verify_starting_page()
+        self.verify_starting_page_without_ignore()
 
 
     # Validate user should redirected to home page when user login with same account 2nd time and in future.
@@ -167,12 +167,12 @@ class Login_test(LoginPage):
     def test_validate_reset_pin_functinality(self):
         #LoginPage.launch_app_again()
         self.click_mulai_sekarang()
-        self.type_mobile_no(user_data['unkyc_reg_no'])
+        self.type_mobile_no(user_data['unkyc_reg_no_2'])
         self.click_selanjutnya()
         self.enter_otp(user_data['valid_otp'])
         self.click_on_reset_pin()
-        self.sleep(29)
-        self.click_selanjutnya()
+        self.sleep(25)
+        self.click_on_selanjutnya()
         self.enter_otp(user_data['valid_otp'])
         time.sleep(2)
         self.set_pin(user_data['setup_pin_value'])
@@ -200,7 +200,7 @@ class Login_test(LoginPage):
         self.enter_otp(user_data['valid_otp'])
         self.sleep(1)
         self.click_on_enterPin_logout_button()
-        self.verify_starting_page()
+        self.verify_starting_page_without_ignore()
 
     # validate the back button is working fine at enter OTP page
     @pytest.mark.SMMA_018
@@ -285,10 +285,11 @@ class Login_test(LoginPage):
         self.verify_header_of_Ganti_pin_password_page()
         self.go_back()
         self.go_back()
+        self.sleep(2)
         self.scroll_up()
         self.click_on_kelur_btn()
         self.click_on_YA_btn()
-        self.verify_starting_page()
+        self.verify_starting_page_without_ignore()
 
     @pytest.mark.SMMA_039
     @pytest.mark.Android
@@ -397,6 +398,7 @@ class Login_test(LoginPage):
         self.click_Kirim_Ulang()
         self.verify_timer_for_given_time(120)
 
+
     @pytest.mark.UseCase_04
     @pytest.mark.Android
     @pytest.mark.Login_Logout
@@ -453,6 +455,37 @@ class Login_test(LoginPage):
         self.verify_redirect_to_pin_page()
         self.enter_pin()
         self.verify_home_page()
+
+    @pytest.mark.UseCase_05
+    @pytest.mark.Android
+    @pytest.mark.Login_Logout
+    @allure.story("F-2:Login/logout Feature")
+    def test_Validate_another_method_if_user_got_blocked_for_whatsApp_OTP(self):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(user_data['unkyc_reg_no'])
+        self.click_on_whatsapp_btn()
+        self.click_selanjutnya()
+        self.verify_timer_for_given_time(29)
+        self.sleep(25)
+        self.click_Kirim_Ulang()
+        self.verify_timer_for_given_time(60)
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.verify_kirim_otp_via_sms_otp()
+        self.click_Kirim_Ulang()
+        self.verify_timer_for_given_time(120)
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.click_by_position()
+        time.sleep(30)
+        self.click_on_otp_send_by_sms()
+        self.verify_timer_for_given_time(30)
+
+
 
 
 

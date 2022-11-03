@@ -81,7 +81,7 @@ class LoginPage(BaseCase):
 
     @allure.step("click mulai sekarang")
     def click_mulai_sekarang(self):
-        self.sleep(4)
+        self.sleep(5)
         self.tap(ignore_btn)
         #self.sleep(1)
         self.click(mulai_sekarang)
@@ -139,13 +139,13 @@ class LoginPage(BaseCase):
     @allure.step("verify home page")
     def verify_home_page(self):
         self.sleep(2)
-        self.click('//*[@text="Lewati"]')
+        #self.click('//*[@text="Lewati"]')
         Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
         self.assert_equal(Home_page_locator_text, Home_page_text)
 
     @allure.step("verify home page reg user")
     def verify_home_page_reg_user(self):
-        self.sleep(2)
+        self.sleep(4)
         #self.click('//*[@text="Lewati"]')
         Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
         self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
@@ -241,6 +241,13 @@ class LoginPage(BaseCase):
     def verify_starting_page(self):
         self.sleep(3)
         self.tap(ignore_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(mulai_sekarang), True)
+
+    @allure.step("verify starting page without ignore")
+    def verify_starting_page_without_ignore(self):
+        self.sleep(3)
+        #self.tap(ignore_btn)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(mulai_sekarang), True)
 
