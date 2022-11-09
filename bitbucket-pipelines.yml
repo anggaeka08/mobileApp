@@ -3,19 +3,18 @@
 #  This template allows you to validate your python code.
 #  The workflow allows running tests and code linting on the default branch.
 
-image: appium/appium
-
 pipelines:
   default:
       - step:
           name: Test
+          image: appium/appium
           caches:
             - pip
           script:
             - apt-get update -y
-            - apt-get install python3.10 -y
+            - apt-get install python3.9 -y
             - apt-get install python3-pip -y
-            - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             - pytest -v -m Login_Logout --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml --alluredir=allure-results  > test.log|| true
             - python post_test_report.py
             - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
