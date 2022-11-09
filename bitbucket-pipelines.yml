@@ -10,8 +10,6 @@ pipelines:
       - step:
           name: Test
           image: pawan793/appium_with_python:v1.0.0
-          caches:
-            - pip3
           script:
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             - pytest -v -m Login_Logout --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml
@@ -41,4 +39,4 @@ pipelines:
             - cd smssekuritas.bitbucket.io
             - git add .
             - git commit -m "Report Updated"
-            - git push           -
+            - git push
