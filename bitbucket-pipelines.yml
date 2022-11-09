@@ -1,4 +1,4 @@
-image: python:3.9
+image: appium/appium
 
 pipelines:
   default:
@@ -7,5 +7,8 @@ pipelines:
           caches:
             - pip
           script:
-            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            - pytest -v --cap-file=SiminvestAppQa\src\cap_files\lt_cap_file.py --lt --junitxml=test-reports/results.xml
+            - apt-get update -y
+            - apt-get install python3.10 -y
+            - apt-get install python-pip3 -y
+            - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+            - pytest -v -m  Login_Logout --cap-file=SiminvestAppQa\src\cap_files\lt_cap_file.py --lt --junitxml=test-reports/results.xml
