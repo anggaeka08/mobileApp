@@ -10,5 +10,5 @@ pipelines:
             - apt-get update -y
             - apt-get install python3.10 -y
             - apt-get install python-pip -y
-            - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             - pytest -v -m  Login_Logout --cap-file=SiminvestAppQa\src\cap_files\lt_cap_file.py --lt --junitxml=test-reports/results.xml
