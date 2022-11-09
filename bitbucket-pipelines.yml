@@ -9,7 +9,7 @@ pipelines:
   default:
       - step:
           name: Test
-          image: pawan793/appium_with_python
+          image: pawan793/appium_with_python:v1.0.0
           caches:
             - pip
           script:
