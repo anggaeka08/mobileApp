@@ -1,4 +1,4 @@
 appiumbase~=0.1.0
-requests~=2.18.4
+requests==2.26.0
 pytest~=6.2.5
 allure-pytest~=2.9.45
