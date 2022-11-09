@@ -3,22 +3,21 @@
 #  This template allows you to validate your python code.
 #  The workflow allows running tests and code linting on the default branch.
 
+
+
 pipelines:
   default:
       - step:
           name: Test
-          image: appium/appium
+          image: pawan793/appium_with_python
           caches:
             - pip
           script:
-            - apt-get update -y
-            - apt-get install python3.10 -y
-            - apt-get install python3-pip -y
-            - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-            - pytest -v -m Login_Logout --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml --alluredir=allure-results  > test.log|| true
+            - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+            - pytest -v -m Login_Logout --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml
             - python post_test_report.py
             - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
-            - cp -r smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/history/ allure-results/history/
+            - cp -r smssekuritas.bitbucket.io/siminvest-api-qa/allure-report/history/ allure-results/history/
           artifacts:
             - allure-results/**
 
@@ -37,8 +36,8 @@ pipelines:
             - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
             - git config --global user.name bitbucket-pipelines
             - git config --global user.email commits-noreply@bitbucket.org
-            - rm -rf smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/
-            - cp -r allure-report/ smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/
+            - rm -rf smssekuritas.bitbucket.io/siminvest-api-qa/allure-report/
+            - cp -r allure-report/ smssekuritas.bitbucket.io/siminvest-api-qa/allure-report/
             - cd smssekuritas.bitbucket.io
             - git add .
             - git commit -m "Report Updated"
