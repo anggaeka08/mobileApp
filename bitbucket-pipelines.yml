@@ -1,14 +1,9 @@
-image: appium/appium
+image: pawan793/python_with_appium
 
 pipelines:
   default:
       - step:
           name: Test
-          caches:
-            - pip
           script:
-            - apt-get update -y
-            - apt-get install python3.10 -y
-            - apt-get install python-pip -y
             - if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
             - pytest -v -m  Login_Logout --cap-file=SiminvestAppQa\src\cap_files\lt_cap_file.py --lt --junitxml=test-reports/results.xml
