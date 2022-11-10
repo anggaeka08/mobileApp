@@ -1,4 +1,4 @@
-image: appium_with_python
+image: appium/appium
 
 pipelines:
   default:
