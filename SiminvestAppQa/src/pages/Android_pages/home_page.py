@@ -4,9 +4,12 @@ import logging as logger
 import allure
 
 # sdp page Locators
-Cari_btn_before_click ='//android.view.ViewGroup[@content-desc="Browser_Stack"]/android.view.ViewGroup/android.widget.EditText'
+Cari_btn_before_click ='//android.view.ViewGroup[@content-desc="Browser_Stack"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText'
 cari_btn_after_click ="StockSearch"
+stock_entry_code = '(//android.widget.TextView[@content-desc="StockSearchCode"])[1]'
 stock_code_btn ='StockSearchCode'
+stock_search_name = 'StockSearchName'
+search_header = 'StockSearchType'
 stock_name ='SDPStockName'
 chart_element ='SDPChartArea'
 stock_buy_bttton ='SDPBeliBtn'
@@ -16,6 +19,8 @@ sdp_news = "//android.widget.TextView[@text='News']"
 sdp_keystate = "//android.widget.TextView[@text='Keystats']"
 sdp_profile = "//android.widget.TextView[@text='Financials']"
 sdp_bit = "//android.widget.TextView[@text='Bid']"
+mf_saerched_entry = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup'
+mf_header = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
 #RDN Balance page locators
 rdn_balance_page_header = 'RdnBalanceHeader'
 rdn_balance = 'RdnBalanceValue'
@@ -156,13 +161,37 @@ class HomePage(LoginPage):
 
     @allure.step("click global search btn and search stock")
     def click_global_search_btn_and_saerch_stock(self, stock_code):
-        self.click(Cari_btn_before_click)
+        #self.click(Cari_btn_before_click)
         self.update_text(cari_btn_after_click, stock_code)
 
     @allure.step("click global search btn")
     def click_global_search_btn(self):
         self.click(Cari_btn_before_click)
         self.sleep(3)
+
+    @allure.step("Validate Text in global search before click")
+    def validate_text_in_global_search_before_click(self):
+        self.sleep(3)
+        self.assert_equal(self.get_attribute(Cari_btn_before_click, 'text'), 'Cari...')
+
+    @allure.step("Validate text and keyboard on after click in global search")
+    def Validate_text_and_keyboard_on_after_click_in_global_search(self):
+        self.assert_equal(self.get_attribute(cari_btn_after_click, 'text'), 'Cari saham atau reksadana')
+        self.assert_equal(self.check_keyboard_shown() , True)
+
+    @allure.step("Validate search entry for invalid stock")
+    def validate_search_entry_for_invalid_stock_and_saham_text(self):
+        self.click_global_search_btn_and_saerch_stock('ALLLI')
+        self.assert_not_equal(self.get_attribute(cari_btn_after_click, 'text'), 'Cari saham atau reksadana')
+        self.assert_equal(self.is_element_visible(stock_entry_code), False)
+
+    @allure.step("Validate saham header and stock code and stock name")
+    def validate_saham_header_and_stock_code_and_stock_name(self, name):
+        self.assert_equal(self.get_attribute(cari_btn_after_click, 'text'), name)
+        self.assert_equal(self.is_element_visible(search_header),True)
+        self.assert_equal(self.get_attribute(search_header, 'text'),'SAHAM')
+        self.assert_equal(self.is_element_visible(stock_code_btn),True)
+        self.assert_equal(self.is_element_visible(stock_search_name),True)
 
     @allure.step("click on stock code")
     def click_on_stock_code(self):
@@ -198,6 +227,21 @@ class HomePage(LoginPage):
         #self.is_element_visible(sdp_bid)
         sdp_bit_text = self.get_attribute(sdp_bit, "text")
         self.assert_equal(sdp_bit_text, "Bid")
+
+    @allure.step("Validate MF search in global search and redirection after click")
+    def validate_MF_search_in_global_search_and_Redirection_after_click(self):
+        self.assert_equal(self.is_element_visible(search_header), True)
+        self.assert_equal(self.get_attribute(search_header, 'text'), 'REKSADANA')
+        self.assert_equal(self.is_element_visible(mf_saerched_entry), True)
+        self.click(mf_saerched_entry)
+        self.sleep(3)
+        self.assert_equal(self.is_element_visible(mf_header), True)
+        self.go_back()
+        self.sleep(3)
+        self.assert_equal(self.is_element_visible(search_header), True)
+        self.assert_equal(self.get_attribute(search_header, 'text'), 'REKSADANA')
+        self.assert_equal(self.is_element_visible(mf_saerched_entry), True)
+
 
     @allure.step("verify rdn balance page")
     def verify_rdn_balance_page(self):
