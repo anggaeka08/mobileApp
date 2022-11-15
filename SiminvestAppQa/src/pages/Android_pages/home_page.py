@@ -22,6 +22,7 @@ sdp_bit = "//android.widget.TextView[@text='Bid']"
 mf_saerched_entry = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup'
 mf_header = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
 #RDN Balance page locators
+saldo_rdn_btn = 'HomePageRDN'
 rdn_balance_page_header = 'RdnBalanceHeader'
 rdn_balance = 'RdnBalanceValue'
 topup_btn = 'RdnBalanceTopIcon'
@@ -88,7 +89,7 @@ infrastruktur = 'SectorPageType9'
 transportasi = 'SectorPageType10'
 # Event page locators
 events_page_header = 'EventsPageHeader'
-events_page_data = 'TodaySubHeader1'
+events_page_data = '//android.view.ViewGroup[@content-desc="EventsPageHeaderTab1"]/android.widget.TextView'
 #eipo page locators
 eipo_page_header = 'eIPOPageHeader'
 eipo_panduan = 'eIPOPageDetailsOpen'
@@ -123,6 +124,7 @@ watchlist_name = 'WatchListName0'
 watchlist_right_btn='WatchListActiveBtn0'
 watchlist_edit_btn ='WatchListNameEditBtn0'
 watchlist_delete_btn='WatchListDeleteBtn0'
+edit_btn = '//android.widget.TextView[@text="Edit"]'
 portfolioe_saham ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView[1]'
 portfolio_rp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView[2]'
 default_watchlist_entry_1='HomepageWLEntry0'
@@ -156,6 +158,9 @@ trans_entry_1 = 'OrderListEntry0'
 entry_for_account = 'ProfilePageImage'
 account_text = 'ScreenProfilePageName'
 username_on_homepage = 'HomePageUserName'
+stock_add_page_Header = 'StockAddPageHeader'
+mulai_btn ='//android.widget.TextView[@text="Mulai"]'
+reksadhana_home = '//android.widget.TextView[@text="Top Reksadana"]'
 
 class HomePage(LoginPage):
 
@@ -242,6 +247,10 @@ class HomePage(LoginPage):
         self.assert_equal(self.get_attribute(search_header, 'text'), 'REKSADANA')
         self.assert_equal(self.is_element_visible(mf_saerched_entry), True)
 
+    @allure.step("Click to soldo rdn btn")
+    def click_to_soldo_rdn(self):
+        self.click(saldo_rdn_btn)
+        self.sleep(2)
 
     @allure.step("verify rdn balance page")
     def verify_rdn_balance_page(self):
@@ -434,7 +443,7 @@ class HomePage(LoginPage):
         events_page_header_text = self.get_attribute(events_page_header, "text")
         self.assert_equal(events_page_header_text, "Events")
         events_page_data_text = self.get_attribute(events_page_data, "text")
-        self.assert_equal(events_page_data_text, " Dividend ")
+        self.assert_equal(events_page_data_text, "Dividend")
 
     @allure.step("click on eipo btn")
     def click_on_eipo_btn(self):
@@ -712,3 +721,29 @@ class HomePage(LoginPage):
     def verify_home_page_reg_user_after_back_from_watchlist_new(self):
         default_btn_presence = self.is_element_visible(default_btn)
         assert default_btn_presence == True, f"default_btn available on Home page"
+
+    @allure.step("Verify Edit Btn")
+    def verify_edit_btn(self):
+        self.click(edit_btn)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(stock_add_page_Header), True)
+
+    @allure.step("Verify Star point btn")
+    def verify_star_point_btn(self):
+        self.click(StarPoint)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(mulai_btn), True)
+
+    @allure.step('Verify Reksadana page')
+    def verify_Reksadana_page(self):
+        self.click(Reksadana)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(reksadhana_home), True)
+        self.click(Saham)
+        self.sleep(2)
+
+
+
+
+
+
