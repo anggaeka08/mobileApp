@@ -1,8 +1,12 @@
+import json
+
 from appiumbase import BaseCase
 from SiminvestAppQa.src.pages.Android_pages.login_page import LoginPage
 import logging as logger
 import allure
+from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 
+request_utilities = RequestsUtilities()
 # sdp page Locators
 Cari_btn_before_click ='//android.view.ViewGroup[@content-desc="Browser_Stack"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.EditText'
 cari_btn_after_click ="StockSearch"
@@ -30,6 +34,8 @@ trik_dana_btn = 'RdnBalanceTarikIcon'
 riwayat_btn = 'RdnBalanceRiwayatIcon'
 informasi_saldo = 'RdnBalanceSaldo'
 informasi_rekening = 'RdnBalanceRekening'
+home_rdn_value = 'HomePageRdnValue'
+homepage_starpoint_value = 'HomepageStarPointValue'
 #TarikDana page locators
 tarik_dana_header = 'Tarik DanaHeader'
 dana_tersedia = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[2]'
@@ -48,6 +54,7 @@ Reksadana ="//android.widget.TextView[@text='Reksadana']"
 StarPoint ="HomeStarPointText"
 Portfolio_Saham = "HomepagePortfolioText"
 today = "HomepageRpAmount"
+homepage_rp = 'HomepageRp'
 Buying_Power="HomepagebuyPower"
 Keren_dua = "HomepageText1"
 Top_up = "//android.widget.TextView[@text='Top Up']"
@@ -476,7 +483,7 @@ class HomePage(LoginPage):
         ipo_type_for_entry_1_present = self.is_element_visible(ipo_type_for_entry_1)
         assert ipo_type_for_entry_1_present == True, f"ipo type for entry 1 Should be present"
 
-    @allure.step("verify home pahe stock")
+    @allure.step("verify home page stock")
     def verify_homepage_stock(self):
         IHSG_stock_element_present = self.is_element_visible(IHSG_stock_element)
         assert IHSG_stock_element_present == True, f"IHSG_stock_element should be present"
@@ -742,8 +749,45 @@ class HomePage(LoginPage):
         self.click(Saham)
         self.sleep(2)
 
+    @allure.step("Verify data with api")
+    def verify_data_with_api(self):
+        saldo_rdn_with_rp = self.get_attribute(home_rdn_value, 'text')
+        saldo_rdn_value = saldo_rdn_with_rp[3:]
+        star_point_value = self.get_attribute(homepage_starpoint_value, 'text')
+        homepage_rp_with_rp = self.get_attribute(homepage_rp, 'text')
+        homepage_rp_value = homepage_rp_with_rp[3:]
+        buying_power_with_buy = self.get_attribute(Buying_Power, 'text')
+        buying_power = (buying_power_with_buy[13:]).replace(',', '')
+        IHSG_value = (self.get_attribute(homepage_stock_value, 'text')).replace(',', '')
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        saldo_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='api/v1/users/rdn', headers=token,expected_status_code=200)
+        star_point = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='radix/v1/account/45997/balance/1', headers=token,expected_status_code=200)
+        buying_power_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='api/v1/users/portfolios/equities/45997', headers=token,expected_status_code=202)
+        ihsg_value_api= request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='emerson/v1/index', headers=token,expected_status_code=200)
+        self.assert_not_equal(saldo_api['data']['balance'],int(saldo_rdn_value))
+        self.assert_equal(star_point['data']['value'], int(star_point_value))
+        self.assert_equal(buying_power_rs['data']['buying_power'], int(buying_power))
+        self.assert_equal(buying_power_rs['data']['market_value'], int(homepage_rp_value))
+        list_of_index = ihsg_value_api['data']
+        for i in range(len(list_of_index)):
+            if list_of_index[i]['name'] == 'COMPOSITE':
+                IHSG_value_api = list_of_index[i]['lp']
+                break
+        formated_value = "{:.2f}".format(IHSG_value_api)
+        self.assert_equal(str(formated_value), IHSG_value)
 
 
 
+    @allure.step("Login with an user ")
+    def login(self):
+        base_url = 'https://stg-api.siminvest.co.id/'
+        endpoint = 'api/v1/users/signin/phone'
+        data = {"phone_number": "628445557108","pin": "123456","device_id": "3F4330E5-4F07-4A26-A710-A6552D583FE8"}
+        payload = json.dumps(data)
+        rs_api = request_utilities.post(base_url=base_url,endpoint=endpoint, payload=payload,expected_status_code=201)
+        logger.info(f"Given Endpoint : {endpoint} _______payload : {payload}___________ Response Body = {rs_api}")
+        return rs_api['data']['access_token']
 
 

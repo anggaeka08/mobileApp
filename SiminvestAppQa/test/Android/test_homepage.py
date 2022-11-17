@@ -105,6 +105,15 @@ class homePage_test(HomePage,LoginPage):
         self.verify_home_page_reg_user_after_back_from_watchlist_new()
         self.verify_edit_btn()
 
+    # Validate api data with homepage data.
+    @pytest.mark.DataValidation
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    @allure.story("F-5:HomePage Feature")
+    def test_validate_api_data_with_homepage_data(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.verify_data_with_api()
+
 
 
 
