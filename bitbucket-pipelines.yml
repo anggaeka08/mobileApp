@@ -9,7 +9,7 @@ pipelines:
             - apt-get update -y
             - apt-get install python3.10 -y
             - apt-get install python3-pip -y
-            - python -m pip install -U selenium
+            - python -m pip3 install -U selenium
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             - pytest -v -m Login_Logout --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml
             - python post_test_report.py
