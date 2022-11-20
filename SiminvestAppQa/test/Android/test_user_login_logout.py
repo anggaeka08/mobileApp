@@ -19,7 +19,7 @@ class Login_test(LoginPage):
     # Verify that user should be redirecting to the input phone number page when user tap on 'Mulai Sekarang' button
     @pytest.mark.SMMA_002
     @pytest.mark.Android
-    @pytest.mark.Login_Logout_1
+    @pytest.mark.Login_Logout
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_phone_no_page_after_click_MulaiSekarang(self):
         #LoginPage.launch_app_again()
