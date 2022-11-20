@@ -10,7 +10,7 @@ pipelines:
             - apt-get install python3.10 -y
             - apt-get install python3-pip -y
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
-            - pytest -v -m Login_Logout --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml
+            - pytest -v -m Login_Logout_1 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml
             - python post_test_report.py
             - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
             - cp -r smssekuritas.bitbucket.io/siminvest-api-qa/allure-report/history/ allure-results/history/
