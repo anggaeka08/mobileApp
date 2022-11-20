@@ -5,10 +5,7 @@ pipelines:
           name: delete cache if changes in the build dependencies
           script:
             - pipe: atlassian/bitbucket-clear-cache:3.1.1
-            variables:
-              BITBUCKET_USERNAME: $BITBUCKET_USER_NAME
-              BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
-              CACHES: [ "node" ]
+
 
       - step:
           name: Test
