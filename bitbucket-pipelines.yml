@@ -9,7 +9,7 @@ pipelines:
             - apt-get update -y
             - apt-get install python3.10 -y
             - apt-get install python3-pip -y
-            - apt-get install python3-requests
+            - apt-get uninstall python3-requests
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             - pytest -v -m Login_Logout_1 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
             - python post_test_report.py
