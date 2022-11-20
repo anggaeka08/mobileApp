@@ -1,5 +1,15 @@
 pipelines:
   default:
+
+      - step:
+          name: delete cache if changes in the build dependencies
+          script:
+            - pipe: atlassian/bitbucket-clear-cache:3.1.1
+            variables:
+              BITBUCKET_USERNAME: $BITBUCKET_USER_NAME
+              BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
+              CACHES: [ "node" ]
+
       - step:
           name: Test
           image: appium/appium
@@ -10,6 +20,7 @@ pipelines:
             - apt-get install python3.10 -y
             - apt-get install python3-pip -y
             - pip3 install selenium>=3.141.0
+            - python -m pip install -U selenium
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             - pytest -v -m Login_Logout --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml
             - python post_test_report.py
