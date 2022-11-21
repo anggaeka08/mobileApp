@@ -11,7 +11,8 @@ class Login_test(LoginPage):
     # Verify that user should be redirecting to the welcome page after open the application.
     @pytest.mark.SMMA_001
     @pytest.mark.Android
-    @pytest.mark.Login_Logout_1
+    @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_welcome_after_open_app(self):
         self.verify_starting_page()
@@ -20,6 +21,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_002
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_phone_no_page_after_click_MulaiSekarang(self):
         #LoginPage.launch_app_again()
@@ -31,6 +33,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_004
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_Selanjutnya_button_activate_after_6_digit_no(self):
         #LoginPage.launch_app_again()
@@ -42,6 +45,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_005
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_security_code_page_by_using_valid_no(self):
         number = generate_random_integer(length=7, prefix='844')
@@ -55,6 +59,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_006
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_setup_pin_by_using_valid_no(self):
         number = generate_random_integer(length=7, prefix='844')
@@ -70,6 +75,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_007
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_home_page_after_enter_pin(self):
         #LoginPage.launch_app_again()
@@ -85,6 +91,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_008
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_welcome_page_after_logout_click(self):
         #LoginPage.launch_app_again()
@@ -100,6 +107,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_011
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_home_when_login_with_same_no_second_time(self):
         number = generate_random_integer(length=7, prefix='844')
@@ -127,6 +135,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_012
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_login_with_invalid_mobile_number(self):
         #LoginPage.launch_app_again()
@@ -138,6 +147,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_013
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_entry_of_max_12_digit_no_in_phone_section(self):
         #LoginPage.launch_app_again()
@@ -149,6 +159,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_015
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_login_with_invalid_pin(self):
         #LoginPage.launch_app_again()
@@ -163,6 +174,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_016
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_reset_pin_functinality(self):
         #LoginPage.launch_app_again()
@@ -190,6 +202,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_017
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_user_able_to_logout_from_enter_pin_page(self):
         #number = generate_random_integer(length=7, prefix='844')
@@ -206,6 +219,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_018
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_back_btn_at_enter_otp_page(self):
         #LoginPage.launch_app_again()
@@ -221,6 +235,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_021
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_login_after_resend_otp(self):
         number = generate_random_integer(length=7, prefix='844')
@@ -238,6 +253,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_022
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_otp_timout_timmer_while_app_in_backgroud(self):
         #LoginPage.launch_app_again()
@@ -250,6 +266,7 @@ class Login_test(LoginPage):
     @pytest.mark.Ganti_pin_feature_logout
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_ganti_pin_and_logout_feature(self):
         self.click_mulai_sekarang()
@@ -294,6 +311,7 @@ class Login_test(LoginPage):
     @pytest.mark.SMMA_039
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_Validate_that_when_user_input_otp_and_close_the_app_next_time_user_get_redirected_to_Mulai_sekarang_page(self):
         number = generate_random_integer(length=7, prefix='844')
@@ -307,6 +325,7 @@ class Login_test(LoginPage):
     @pytest.mark.UseCase_01
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_Validate_WhatsApp_and_SMS_options_on_Login_page(self):
         self.click_mulai_sekarang()
@@ -332,6 +351,7 @@ class Login_test(LoginPage):
     @pytest.mark.UseCase_02
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_user_is_receiving_OTP_on_WhatsApp_SMS(self):
         number = generate_random_integer(length=7, prefix='844')
@@ -358,6 +378,7 @@ class Login_test(LoginPage):
     @pytest.mark.UseCase_03
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_Validate_the_number_of_attempts_for_WhatsApp_or_sms_on_OTP_page(self):
         number = generate_random_integer(length=7, prefix='844')
@@ -402,6 +423,7 @@ class Login_test(LoginPage):
     @pytest.mark.UseCase_04
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_Validate_reset_funtionality_the_number_of_attempts_for_WhatsApp_or_sms_on_OTP_page(self):
         self.click_mulai_sekarang()
@@ -459,6 +481,7 @@ class Login_test(LoginPage):
     @pytest.mark.UseCase_05
     @pytest.mark.Android
     @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_Validate_another_method_if_user_got_blocked_for_whatsApp_OTP(self):
         self.click_mulai_sekarang()

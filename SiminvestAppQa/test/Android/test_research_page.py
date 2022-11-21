@@ -9,6 +9,7 @@ class Research_test(Research):
     @pytest.mark.RE_001_to_012
     @pytest.mark.Android
     @pytest.mark.Research
+    @pytest.mark.Revamp
     @allure.story("F-4:Research Feature")
     def test_validate_research_page_redirection_and_search_option(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
@@ -27,6 +28,7 @@ class Research_test(Research):
     @pytest.mark.RE_014_to_019
     @pytest.mark.Android
     @pytest.mark.Research
+    @pytest.mark.Revamp
     @allure.story("F-4:Research Feature")
     def test_validate_redirection_for_news_and_media_and_search_option(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
@@ -40,6 +42,7 @@ class Research_test(Research):
     @pytest.mark.RE_022_to_039
     @pytest.mark.Android
     @pytest.mark.Research
+    @pytest.mark.Revamp
     @allure.story("F-4:Research Feature")
     def test_validate_red_dots_on_stock_signal(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])

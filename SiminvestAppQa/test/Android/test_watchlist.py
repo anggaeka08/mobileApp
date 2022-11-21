@@ -5,7 +5,7 @@ from SiminvestAppQa.src.utilities.genericUtilities import generate_random_string
 from SiminvestAppQa.src.data.userData import user_data
 import logging as logger
 
-@pytest.mark.usefixtures("_unittest_setUpClass_fixture_Watchlist_test")
+
 class Watchlist_test(Watchlist):
 
     #SMMA-005 Validate user will able to have maximum 10 watchlists and verify stock details in watchlist.
@@ -13,6 +13,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Android
     @pytest.mark.watchlist
     @allure.story("F-1:Watchlist Feature")
+    @pytest.mark.Revamp
     def test_validate_user_able_to_add_maximum_10_watchlist(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
         self.scroll_up()
@@ -35,6 +36,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_021_022
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @pytest.mark.Revamp
     @allure.story("F-1:Watchlist Feature")
     def test_user_able_to_create_duplicate_name_watchlist_and_able_to_add_stock(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
@@ -61,6 +63,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_024_028
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @pytest.mark.Revamp
     @allure.story("F-1:Watchlist Feature")
     def test_validate_selected_watchlist_visible_after_reopen_app_and_sdp_open_after_click_stock(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
@@ -81,6 +84,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.cover_many_testcase
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @pytest.mark.Revamp
     @allure.story("F-1:Watchlist Feature")
     def test_validate_maximum_watchlist_test_cases(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
@@ -132,6 +136,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_013_015
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @pytest.mark.Revamp
     @allure.story("F-1:Watchlist Feature")
     def test_user_not_able_to_add_more_then_15_stock_i_watchlist(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
@@ -148,6 +153,7 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Wat_SMMA_25
     @pytest.mark.Android
     @pytest.mark.watchlist
+    @pytest.mark.Revamp
     @allure.story("F-1:Watchlist Feature")
     def test_validate_same_stock_will_be_added_to_many_watchlist(self):
         self.go_to_watchlist_option_after_login(user_data['reg_no'])
