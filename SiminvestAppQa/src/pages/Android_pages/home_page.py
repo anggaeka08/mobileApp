@@ -711,7 +711,7 @@ class HomePage(LoginPage):
     @allure.step("verify username on homepage")
     def verify_username_on_homepage(self):
         username_on_homepage_text = self.get_attribute(username_on_homepage, "text")
-        self.assert_equal(username_on_homepage_text, "Hi, Test")
+        self.assert_equal(username_on_homepage_text, "Hi, -")
 
     @allure.step("login and verify homepage for rg user")
     def login_and_verify_homepage_for_reg_user(self, phone_number):
@@ -778,6 +778,14 @@ class HomePage(LoginPage):
         formated_value = "{:.2f}".format(IHSG_value_api)
         self.assert_equal(str(formated_value), IHSG_value)
 
+    @allure.step("Validate default btn available after scroll up")
+    def validate_default_btn_available_after_scroll_up(self):
+        self.assert_equal(self.is_element_visible(default_watchlist_btn), True)
+
+
+    @allure.step("Verify username on homepage after close")
+    def verify_username_on_homepage_after_close(self):
+        self.assert_equal(self.is_element_visible(saldo_rdn_btn), False)
 
 
     @allure.step("Login with an user ")
@@ -789,5 +797,6 @@ class HomePage(LoginPage):
         rs_api = request_utilities.post(base_url=base_url,endpoint=endpoint, payload=payload,expected_status_code=201)
         logger.info(f"Given Endpoint : {endpoint} _______payload : {payload}___________ Response Body = {rs_api}")
         return rs_api['data']['access_token']
+
 
 
