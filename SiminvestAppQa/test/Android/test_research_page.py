@@ -3,7 +3,6 @@ import pytest
 from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.research_page import Research
 
-@pytest.mark.usefixtures("_unittest_setUpClass_fixture_Research_test")
 class Research_test(Research):
 
     @pytest.mark.RE_001_to_012
