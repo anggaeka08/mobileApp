@@ -11,6 +11,7 @@ class userProfile_test(UserProfile):
     @pytest.mark.User_profile_RateFeature_01
     @pytest.mark.android
     @pytest.mark.userProfile_Not_run
+    @pytest.mark.Revamp
     @allure.story("F-3:Profile Feature")
     def test_validate_rate_feature_all_testcases(self):
         number = generate_random_integer(length=7, prefix='844')
@@ -40,6 +41,7 @@ class userProfile_test(UserProfile):
     @pytest.mark.User_profile_RateFeature_02
     @pytest.mark.android
     @pytest.mark.userProfile
+    @pytest.mark.Revamp
     @allure.story("F-3:Profile Feature")
     def test_validate_on_two_start_rating(self):
         number = generate_random_integer(length=6, prefix='8442')
@@ -56,6 +58,7 @@ class userProfile_test(UserProfile):
     @pytest.mark.User_profile_RateFeature_03
     @pytest.mark.android
     @pytest.mark.userProfile_Not_run
+    @pytest.mark.Revamp
     @allure.story("F-3:Profile Feature")
     def test_validate_submit_feedback_by_default_keyboard_btn(self):
         number = generate_random_integer(length=6, prefix='8442')
@@ -72,6 +75,7 @@ class userProfile_test(UserProfile):
     @pytest.mark.android
     @pytest.mark.userProfile
     @pytest.mark.otherFeature
+    @pytest.mark.Revamp
     @allure.story("F-3:Profile Feature")
     def test_validate_ajak_btn_and_refferal_and_akun_pennegguna_informasi_tab_feature(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
@@ -126,6 +130,7 @@ class userProfile_test(UserProfile):
     @pytest.mark.android
     @pytest.mark.userProfile
     @pytest.mark.otherFeature
+    @pytest.mark.Revamp
     @allure.story("F-3:Profile Feature")
     def test_validate_pengaturan_tab(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
@@ -151,6 +156,7 @@ class userProfile_test(UserProfile):
     @pytest.mark.android
     @pytest.mark.userProfile
     @pytest.mark.otherFeature
+    @pytest.mark.Revamp
     @allure.story("F-3:Profile Feature")
     def test_validate_profile_others_tab(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
@@ -173,6 +179,7 @@ class userProfile_test(UserProfile):
     @pytest.mark.android
     @pytest.mark.userProfile
     @pytest.mark.otherFeature
+    @pytest.mark.Revamp
     @allure.story("F-3:Profile Feature")
     def test_validate_user_profile_image_upload_option(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
