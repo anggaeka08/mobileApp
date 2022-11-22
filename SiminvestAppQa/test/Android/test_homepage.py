@@ -8,7 +8,7 @@ from SiminvestAppQa.src.data.userData import user_data
 import time
 import logging as logger
 
-@pytest.mark.usefixtures("_unittest_setUpClass_fixture_homePage_test")
+
 class homePage_test(HomePage,LoginPage):
 
     # Validate global search bar.

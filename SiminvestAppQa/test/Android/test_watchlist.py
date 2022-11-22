@@ -62,7 +62,7 @@ class Watchlist_test(Watchlist):
 
     @pytest.mark.Wat_SMMA_024_028
     @pytest.mark.Android
-    @pytest.mark.watchlist
+    @pytest.mark.watchlist_1
     @pytest.mark.Revamp
     @allure.story("F-1:Watchlist Feature")
     def test_validate_selected_watchlist_visible_after_reopen_app_and_sdp_open_after_click_stock(self):
