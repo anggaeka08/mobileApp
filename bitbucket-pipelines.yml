@@ -8,7 +8,7 @@ pipelines:
           script:
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
-            - pytest -v -m Homepage_1 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
+            - pytest -v -m Homepage --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
             - python3 post_test_report.py
             - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
             - cp -r smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/history/ allure-results/history/
@@ -22,7 +22,7 @@ pipelines:
           script:
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
-            - pytest -v -m Research_1 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
+            - pytest -v -m Research --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
             - python3 post_test_report.py
             - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
             - cp -r smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/history/ allure-results/history/
@@ -35,7 +35,7 @@ pipelines:
           script:
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
-            - pytest -v -m userProfile_1 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
+            - pytest -v -m userProfile --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
             - python3 post_test_report.py
             - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
             - cp -r smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/history/ allure-results/history/
@@ -48,7 +48,7 @@ pipelines:
           script:
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
-            - pytest -v -m Login_Logout_1 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
+            - pytest -v -m Login_Logout --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
             - python3 post_test_report.py
             - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
             - cp -r smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/history/ allure-results/history/
@@ -61,7 +61,7 @@ pipelines:
           script:
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
-            - pytest -v -m watchlist_1 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
+            - pytest -v -m watchlist --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
             - python3 post_test_report.py
             - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
             - cp -r smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/history/ allure-results/history/
@@ -89,3 +89,4 @@ pipelines:
             - git add .
             - git commit -m "Report Updated"
             - git push
+            - python3 post_report_url.py

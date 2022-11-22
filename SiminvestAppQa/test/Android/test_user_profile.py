@@ -153,7 +153,7 @@ class userProfile_test(UserProfile):
 
     @pytest.mark.User_profile_others_tab
     @pytest.mark.android
-    @pytest.mark.userProfile_1
+    @pytest.mark.userProfile
     @pytest.mark.otherFeature
     @pytest.mark.Revamp
     @allure.story("F-3:Profile Feature")

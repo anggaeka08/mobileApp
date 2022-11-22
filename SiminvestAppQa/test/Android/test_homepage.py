@@ -13,7 +13,7 @@ class homePage_test(HomePage,LoginPage):
 
     # Validate global search bar.
     @pytest.mark.GlobalSaerchOption
-    @pytest.mark.Homepage_1
+    @pytest.mark.Homepage
     @pytest.mark.Android
     @pytest.mark.Revamp
     @allure.story("F-5:HomePage Feature")
