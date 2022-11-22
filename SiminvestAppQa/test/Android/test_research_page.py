@@ -7,7 +7,7 @@ class Research_test(Research):
 
     @pytest.mark.RE_001_to_012
     @pytest.mark.Android
-    @pytest.mark.Research
+    @pytest.mark.Research_1
     @pytest.mark.Revamp
     @allure.story("F-4:Research Feature")
     def test_validate_research_page_redirection_and_search_option(self):

@@ -11,7 +11,7 @@ class Login_test(LoginPage):
     # Verify that user should be redirecting to the welcome page after open the application.
     @pytest.mark.SMMA_001
     @pytest.mark.Android
-    @pytest.mark.Login_Logout
+    @pytest.mark.Login_Logout_1
     @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_welcome_after_open_app(self):

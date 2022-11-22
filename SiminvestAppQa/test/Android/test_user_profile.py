@@ -10,7 +10,7 @@ class userProfile_test(UserProfile):
     @pytest.mark.User_profile_RateFeature_01
     @pytest.mark.android
     @pytest.mark.userProfile_Not_run
-    @pytest.mark.Revamp
+    @pytest.mark.Revamp_1
     @allure.story("F-3:Profile Feature")
     def test_validate_rate_feature_all_testcases(self):
         number = generate_random_integer(length=7, prefix='844')
