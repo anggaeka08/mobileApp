@@ -16,7 +16,7 @@ cp = [
     "deviceName": "Google Pixel 3",
     "platformVersion": "9",
     "build": "Build 1.60.8 Login Demo",
-    "name": "Login Test Cases",
+    "name": "Regression Test Cases",
     "isRealMobile": True,
     "user": "pawan@binmile.com",
     "accessKey": "nrVDKFpgRayhZV7Y9KGQh6J7MuJ4M4rWbNZV4Y0eYZzmJ3sTlj"

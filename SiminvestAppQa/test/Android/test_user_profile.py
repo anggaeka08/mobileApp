@@ -5,7 +5,6 @@ from SiminvestAppQa.src.pages.Android_pages.user_profile import UserProfile
 from SiminvestAppQa.src.utilities.genericUtilities import generate_random_integer
 
 
-@pytest.mark.usefixtures("_unittest_setUpClass_fixture_userProfile_test")
 class userProfile_test(UserProfile):
 
     @pytest.mark.User_profile_RateFeature_01
