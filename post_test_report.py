@@ -7,7 +7,6 @@ def post_reports_to_slack():
 
     # To generate report file add "> test.log" at end of pytest command for e.g. pytest -v > test.log
     test_report_file = 'test.log'  # Add report file name and address here
-    report_url = "APP UI Automation Report : https://smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/"
     # Open report file and read data
     with open(test_report_file, "r") as in_file:
         testdata = ""
@@ -17,22 +16,20 @@ def post_reports_to_slack():
                 write = 1
             if write == 1:
                 testdata = testdata + line
-    testdata = testdata + report_url
+
     # Set Slack Pass Fail bar indicator color according to test results
     if 'FAILED' in testdata:
         bar_color = "#ff0000"
         data = {"color": bar_color,
                 "title": "Test Report",
-                "text": testdata,
-                "Report URL" : report_url}
+                "text": testdata}
         res = requests.post(url=slack_url, data=json.dumps(data), headers={"Content-type": "application/json"})
         print(res)
     else:
         bar_color = "#ff0000"
         data = {"color": bar_color,
                 "title": "Test Report",
-                "text": testdata,
-                "Report URL": report_url}
+                "text": testdata}
         res = requests.post(url=slack_url, data=json.dumps(data), headers={"Content-type": "application/json"})
         print(res)
 
