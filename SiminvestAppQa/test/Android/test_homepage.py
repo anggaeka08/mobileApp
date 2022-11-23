@@ -125,7 +125,7 @@ class homePage_test(HomePage,LoginPage):
     @pytest.mark.Android
     @pytest.mark.Revamp
     @allure.story("F-5:HomePage Feature")
-    def test_validate_api_data_with_homepage_data(self):
+    def test_functional_with_homepage_data(self):
         try:
             self.execute_script('lambda-name=validate_api_data_with_homepage_data')
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
