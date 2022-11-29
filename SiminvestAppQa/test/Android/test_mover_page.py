@@ -13,12 +13,12 @@ import logging as logger
 class mover_page_test(HomePage, LoginPage):
 
     # Validate global search bar.
-    @pytest.mark.StockValidationForMoverOnHomePage
+    @pytest.mark.StockValidationForMoverOnHomePageKYC
     @pytest.mark.MoverPage
     @pytest.mark.Android
     @pytest.mark.Revamp
     @allure.story("F-6:MoverPage Feature")
-    def test_validate_mover_stock_on_homepage(self):
+    def test_validate_mover_stock_on_homepage_KYC(self):
         try:
             self.execute_script('lambda-name=test_validate_mover_stock_on_homepage')
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
