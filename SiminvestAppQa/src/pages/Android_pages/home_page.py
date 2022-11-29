@@ -4,6 +4,7 @@ from appiumbase import BaseCase
 from SiminvestAppQa.src.pages.Android_pages.login_page import LoginPage
 import logging as logger
 import allure
+from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 
 request_utilities = RequestsUtilities()
@@ -115,6 +116,7 @@ homepage_stock_per = '//android.view.ViewGroup[@content-desc="HomepageIHSGStock"
 homepag_stock_name = '//android.view.ViewGroup[@content-desc="HomepageIHSGStock"]/android.widget.TextView[3]'
 top_frequency_stock_1 = 'HomepageTFStock0'
 top_frequency_stock_2 = 'HomepageTFStock1'
+top_frequency_stock_5 = 'HomepageTFStock3'
 top_frequency_down_arrow = 'MoverPageDownArrow'
 top_frequency_page_header ='TopFrequencyHeader'
 half_card_entry ='ScreenHomeTop frequency'
@@ -168,6 +170,11 @@ username_on_homepage = 'HomePageUserName'
 stock_add_page_Header = 'StockAddPageHeader'
 mulai_btn ='//android.widget.TextView[@text="Mulai"]'
 reksadhana_home = '//android.widget.TextView[@text="Top Reksadana"]'
+# locators for mover page
+mover_type_list= ['ScreenHomeTop frequency', 'ScreenHomeTop gainers', 'ScreenHomeTop gainers %', 'ScreenHomeTop value', 'ScreenHomeTop Volume', 'ScreenHomeTop losers','ScreenHomeTop losers %','ScreenHomePapan Akselerasi']
+marker = 'UrutkanSelectMark'
+top_gainer = 'ScreenHomeTop gainers'
+top_gainer_on_homepage = "//android.widget.TextView[@text='Top gainers']"
 
 class HomePage(LoginPage):
 
@@ -797,6 +804,57 @@ class HomePage(LoginPage):
         rs_api = request_utilities.post(base_url=base_url,endpoint=endpoint, payload=payload,expected_status_code=201)
         logger.info(f"Given Endpoint : {endpoint} _______payload : {payload}___________ Response Body = {rs_api}")
         return rs_api['data']['access_token']
+
+
+# Helper methods for mover page
+    @allure.step("Swipe right to left")
+    def swipe_right_to_left(self):
+        self.scroll_screen(start_x=767, start_y=1021, end_x=310, end_y=1081, duration=10000)
+        self.sleep(2)
+
+    @allure.step("Swipe left to right")
+    def swipe_left_to_right(self):
+        self.scroll_screen(start_x=310, start_y=1081, end_x=767, end_y=1021, duration=10000)
+        self.sleep(2)
+
+    @allure.step("Validate stock list on homepage")
+    def validate_all_details_about_stock_list_on_homepage(self):
+        for i in range(5):
+            if i == 4:
+                self.swipe_right_to_left()
+                self.assert_equal(self.is_element_visible(f'HomepageTFStock{i}'), True)
+                self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[1]'), True)
+                self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[2]'), True)
+                self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[3]'), True)
+                self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.ImageView'), True)
+
+            self.assert_equal(self.is_element_visible(f'HomepageTFStock{i}'), True)
+            self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[1]'), True)
+            self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[2]'), True)
+            self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[3]'), True)
+            self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.ImageView'),True)
+        self.swipe_left_to_right()
+        self.assert_equal(self.is_element_visible(f'HomepageTFStock0'), True)
+
+    @allure.step("Verify all value on half card and tick")
+    def verify_all_value_on_half_card_and_tick(self):
+        for i in range(len(mover_type_list)):
+            self.assert_equal(self.is_element_visible(mover_type_list[i]), True)
+        self.assert_equal(self.is_element_visible(marker), True)
+        self.click(top_gainer)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(top_gainer_on_homepage), True)
+        self.launch_app_again()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(top_gainer_on_homepage), False)
+        self.verify_top_frequency_presention()
+        self.click_on_TF_down_arrow()
+        self.go_back()
+        self.verify_top_frequency_presention()
+
+
+
 
 
 
