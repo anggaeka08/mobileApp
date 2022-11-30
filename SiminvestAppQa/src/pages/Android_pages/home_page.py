@@ -809,16 +809,19 @@ class HomePage(LoginPage):
 # Helper methods for mover page
     @allure.step("Swipe right to left")
     def swipe_right_to_left(self):
+        self.sleep(2)
         self.scroll_screen(start_x=767, start_y=1021, end_x=310, end_y=1081, duration=10000)
         self.sleep(2)
 
     @allure.step("Swipe left to right")
     def swipe_left_to_right(self):
+        self.sleep(2)
         self.scroll_screen(start_x=310, start_y=1081, end_x=767, end_y=1021, duration=10000)
         self.sleep(2)
 
     @allure.step("Validate stock list on homepage")
     def validate_all_details_about_stock_list_on_homepage(self):
+
         for i in range(5):
             if i == 4:
                 self.swipe_right_to_left()
@@ -826,18 +829,18 @@ class HomePage(LoginPage):
                 self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[1]'), True)
                 self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[2]'), True)
                 self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[3]'), True)
-                self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.ImageView'), True)
+               # self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.ImageView'), True)
 
             self.assert_equal(self.is_element_visible(f'HomepageTFStock{i}'), True)
             self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[1]'), True)
             self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[2]'), True)
             self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[3]'), True)
-            self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.ImageView'),True)
+           # self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.ImageView'),True)
         self.swipe_left_to_right()
         self.assert_equal(self.is_element_visible(f'HomepageTFStock0'), True)
 
     @allure.step("Verify all value on half card and tick")
-    def verify_all_value_on_half_card_and_tick(self):
+    def verify_all_value_on_half_card_and_tick_for_kyc_user(self, number):
         for i in range(len(mover_type_list)):
             self.assert_equal(self.is_element_visible(mover_type_list[i]), True)
         self.assert_equal(self.is_element_visible(marker), True)
@@ -845,13 +848,41 @@ class HomePage(LoginPage):
         self.sleep(2)
         self.assert_equal(self.is_element_visible(top_gainer_on_homepage), True)
         self.launch_app_again()
-        self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+        self.login_and_verify_homepage_for_reg_user(number)
         self.scroll_up()
         self.assert_equal(self.is_element_visible(top_gainer_on_homepage), False)
         self.verify_top_frequency_presention()
         self.click_on_TF_down_arrow()
         self.go_back()
         self.verify_top_frequency_presention()
+
+    @allure.step("Verify all value on half card and tick")
+    def verify_all_value_on_half_card_and_tick_for_non_kyc_user(self, number):
+        for i in range(len(mover_type_list)):
+            self.assert_equal(self.is_element_visible(mover_type_list[i]), True)
+        self.assert_equal(self.is_element_visible(marker), True)
+        self.click(top_gainer)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(top_gainer_on_homepage), True)
+        self.launch_app_again()
+        self.login_and_verify_homepage_for_non_kyc_user(number)
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(top_gainer_on_homepage), False)
+        self.verify_top_frequency_presention()
+        self.click_on_TF_down_arrow()
+        self.go_back()
+        self.verify_top_frequency_presention()
+
+    @allure.step("login and verify homepage for rg user")
+    def login_and_verify_homepage_for_non_kyc_user(self, phone_number):
+        self.sleep(4)
+        self.click_mulai_sekarang()
+        self.type_mobile_no(phone_number)
+        self.click_selanjutnya()
+        self.enter_otp('1234')
+        self.enter_pin()
+        #self.close_home_page_banner()
+        self.verify_home_page()
 
 
 

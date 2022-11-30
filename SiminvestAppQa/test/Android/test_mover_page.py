@@ -26,7 +26,32 @@ class mover_page_test(HomePage, LoginPage):
             self.verify_top_frequency_presention()
             self.validate_all_details_about_stock_list_on_homepage()
             self.click_on_TF_down_arrow()
-            self.verify_all_value_on_half_card_and_tick()
+            self.verify_all_value_on_half_card_and_tick_for_kyc_user(user_data['reg_no'])
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_mover_stock_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_mover_stock_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    # Validate global search bar.
+    @pytest.mark.StockValidationForMoverOnHomePageNonKYC
+    @pytest.mark.MoverPage
+    @pytest.mark.Android
+    @pytest.mark.Revamp
+    @allure.story("F-6:MoverPage Feature")
+    def test_validate_mover_stock_on_homepage_Non_KYC(self):
+        try:
+            self.execute_script('lambda-name=test_validate_mover_stock_on_homepage')
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no'])
+            self.scroll_up()
+            self.verify_top_frequency_presention()
+            self.validate_all_details_about_stock_list_on_homepage()
+            self.click_on_TF_down_arrow()
+            self.verify_all_value_on_half_card_and_tick_for_non_kyc_user(user_data['unkyc_reg_no'])
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_validate_mover_stock_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
