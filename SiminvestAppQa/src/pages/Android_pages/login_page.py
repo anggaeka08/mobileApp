@@ -139,7 +139,7 @@ class LoginPage(BaseCase):
     @allure.step("verify home page")
     def verify_home_page(self):
         self.sleep(2)
-        #self.click('//*[@text="Lewati"]')
+        self.click('//*[@text="Lewati"]')
         Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
         self.assert_equal(Home_page_locator_text, Home_page_text)
 
