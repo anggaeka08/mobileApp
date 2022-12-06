@@ -175,6 +175,8 @@ mover_type_list= ['ScreenHomeTop frequency', 'ScreenHomeTop gainers', 'ScreenHom
 marker = 'UrutkanSelectMark'
 top_gainer = 'ScreenHomeTop gainers'
 top_gainer_on_homepage = "//android.widget.TextView[@text='Top gainers']"
+mover_stock_code = 'MoverPageEntry0Code'
+search_btn_mover = 'MoverPageSearchBtn'
 
 class HomePage(LoginPage):
 
@@ -232,6 +234,8 @@ class HomePage(LoginPage):
             stock_buy_bttton_text = self.get_attribute(stock_buy_bttton, "text")
             self.assert_equal(stock_buy_bttton_text, "")
         #self.is_element_visible(sdp_orderbook)
+        self.scroll_up()
+        self.sleep(2)
         sdp_orderbook_text = self.get_attribute(sdp_orderbook, "text")
         self.assert_equal(sdp_orderbook_text, "Order Book")
         #self.is_element_visible(sdp_news)
@@ -883,6 +887,138 @@ class HomePage(LoginPage):
         self.enter_pin()
         #self.close_home_page_banner()
         self.verify_home_page()
+
+    @allure.step("Compare the stock details with mover page")
+    def compare_the_stock_details_with_mover_page(self):
+        stock_name_lst = []
+        mover_page_stock_name = []
+        for i in range(3):
+            stock_name = self.get_attribute(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[1]', 'text')
+            stock_name_lst.append(stock_name)
+        self.click(see_more_btn)
+        self.verify_mover_page()
+        for i in range(3):
+            stock_name = self.get_attribute(f'MoverPageEntry{i}Code', 'text')
+            mover_page_stock_name.append(stock_name)
+        self.assert_equal(mover_page_stock_name,mover_page_stock_name)
+
+    @allure.step("Scroll up and scroll down validation")
+    def scroll_up_and_scroll_down_validation(self):
+        self.scroll_up()
+        self.scroll_down()
+        self.assert_equal(self.is_element_visible(mover_page_entry_1), True)
+
+    @allure.step("stock value not change according to mover change")
+    def stock_value_not_change_according_to_mover_change(self):
+        top_frequency_code = self.get_attribute(mover_stock_code, 'text')
+        self.click(top_frequency_down_arrow)
+        self.click(top_gainer)
+        self.sleep(2)
+        top_gainer_stock = self.get_attribute(mover_stock_code, 'text')
+        self.assert_not_equal(top_frequency_code, top_gainer_stock)
+        self.go_back()
+        self.verify_top_frequency_presention()
+        stock_code_home_page = self.get_attribute(f'//android.view.ViewGroup[@content-desc="HomepageTFStock0"]/android.view.ViewGroup/android.widget.TextView[1]','text')
+        self.assert_equal(top_frequency_code, stock_code_home_page)
+
+    @allure.step("Validate Urutkan half card")
+    def validate_urutkan_half_card(self):
+        self.click(see_more_btn)
+        self.click(top_frequency_down_arrow)
+        for i in range(len(mover_type_list)):
+            self.assert_equal(self.is_element_visible(mover_type_list[i]), True)
+        self.assert_equal(self.is_element_visible(marker), True)
+        self.go_back()
+        self.verify_mover_page()
+
+    @allure.step("Collect all value from mover page")
+    def collect_all_value_from_mover_page(self):
+        stock_code = []
+        stock_name = []
+        stock_last_price = []
+        for i in range(10):
+            if i == 10:
+                stock_codes = self.get_attribute(f'MoverPageEntry{i}Code', 'text')
+                self.assert_equal(self.is_element_visible(f'MoverPageEntry{i}Code'), True)
+                stock_code.append(stock_codes)
+                stock_names = self.get_attribute(f'MoverPageEntry{i}Name', 'text')
+                self.assert_equal(self.is_element_visible(f'MoverPageEntry{i}Name'), True)
+                stock_name.append(stock_names)
+                stock_lastprices = self.get_attribute(f'MoverPageEntry{i}LastPrice', 'text')
+                self.assert_equal(self.is_element_visible(f'MoverPageEntry{i}LastPrice'), True)
+                stock_last_price.append(stock_lastprices)
+                self.scroll_up()
+                self.scroll_up()
+                self.sleep(5)
+            #logger.info(f'MoverPageEntry{i}Code')
+            stock_codes = self.get_attribute(f'MoverPageEntry{i}Code', 'text')
+            self.assert_equal(self.is_element_visible(f'MoverPageEntry{i}Code'), True)
+            stock_code.append(stock_codes)
+            stock_names = self.get_attribute(f'MoverPageEntry{i}Name', 'text')
+            self.assert_equal(self.is_element_visible(f'MoverPageEntry{i}Name'), True)
+            stock_name.append(stock_names)
+            stock_lastprices = self.get_attribute(f'MoverPageEntry{i}LastPrice', 'text')
+            self.assert_equal(self.is_element_visible(f'MoverPageEntry{i}LastPrice'), True)
+            stock_last_price.append(stock_lastprices)
+            #self.scroll_down()
+            #logger.info(stock_code)
+            #logger.info(stock_name)
+            #logger.info(stock_last_price)
+        return stock_code, stock_name, stock_last_price
+
+    @allure.step("Click to mover dropDown")
+    def click_mover_dropDown_btn(self):
+        self.click(mover_page_down)
+        self.sleep(2)
+
+    @allure.step("Verfiy Stock on mover page with api")
+    def verify_stock_on_mover_page_with_api_for_top_frequency(self):
+        top_frequency = []
+        top_top_gainer=[]
+        top_gainer_percent =[]
+        top_gainer_value=[]
+        top_gainer_volume = []
+        top_loser_price = []
+        top_loser_percent=[]
+        getAccelerationBoardList=[]
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        top_frequency_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/mds/v1/stock/category', endpoint='/top-gainer-frequency',headers=token, expected_status_code=200)
+        top_top_gainer_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/mds/v1/stock/category', endpoint='/top-gainer-price',headers=token, expected_status_code=200)
+        top_gainer_percent_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/mds/v1/stock/category', endpoint='/top-gainer-percent',headers=token, expected_status_code=200)
+        top_gainer_value_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/mds/v1/stock/category', endpoint='/top-gainer-value',headers=token, expected_status_code=200)
+        top_gainer_volume_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/mds/v1/stock/category', endpoint='/top-gainer-volume',headers=token, expected_status_code=200)
+        top_loser_price_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/mds/v1/stock/category', endpoint='/top-loser-price',headers=token, expected_status_code=200)
+        top_loser_percent_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/mds/v1/stock/category', endpoint='/top-loser-percent',headers=token, expected_status_code=200)
+        getAccelerationBoardList_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id', endpoint='/emerson/v1/stock?board_id=3&sort_by=code&is_asc=true&limit=50',headers=token, expected_status_code=200)
+        #logger.info(type(top_frequency_rs))
+        #logger.info(top_frequency_rs[0])
+        for i in range(20):
+            top_frequency.append(top_frequency_rs[i]['code'])
+            top_top_gainer.append(top_top_gainer_rs[i]['code'])
+            top_gainer_percent.append(top_gainer_percent_rs[i]['code'])
+            top_gainer_value.append(top_gainer_value_rs[i]['code'])
+            top_gainer_volume.append(top_gainer_volume_rs[i]['code'])
+            top_loser_price.append(top_loser_price_rs[i]['code'])
+            top_loser_percent.append(top_loser_percent_rs[i]['code'])
+            getAccelerationBoardList.append(getAccelerationBoardList_rs['data'][i]['code'])
+        return top_frequency,top_gainer_percent, top_gainer_value, top_gainer_volume, top_loser_price, top_loser_percent, top_top_gainer,getAccelerationBoardList
+
+    @allure.step("Click on search Btn")
+    def click_on_mover_search_btn(self):
+        self.click(search_btn_mover)
+
+    @allure.step("Click on stock in mover")
+    def click_on_stock_in_mver(self):
+        self.click(mover_page_entry_1)
+        self.sleep(3)
+
+
+
+
+
+
 
 
 
