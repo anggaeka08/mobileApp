@@ -65,7 +65,7 @@ class BuyProcess(HomePage):
         self.click_global_search_btn_and_saerch_stock(stock_code)
         self.sleep(3)
         self.click_on_stock_code()
-        self.verify_sdp_page()
+        #self.verify_sdp_page()
 
     @allure.step("open sdp page with non-kyc user")
     def open_sdp_page_with_non_kyc_user(self, number, stock_code):

@@ -182,7 +182,7 @@ class HomePage(LoginPage):
 
     @allure.step("click global search btn and search stock")
     def click_global_search_btn_and_saerch_stock(self, stock_code):
-        #self.click(Cari_btn_before_click)
+        self.click(Cari_btn_before_click)
         self.update_text(cari_btn_after_click, stock_code)
 
     @allure.step("click global search btn")

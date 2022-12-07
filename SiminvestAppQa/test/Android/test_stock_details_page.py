@@ -3,10 +3,29 @@ from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetail
 from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
 from SiminvestAppQa.src.data.userData import user_data
 import logging as logger
+from selenium.common.exceptions import NoSuchElementException
 
 
-@pytest.mark.usefixtures("unittest_setUpClass_fixture_SDP_test")
 class SDP_test(StockDetailPage, BuyProcess):
+
+
+    @pytest.mark.SDP_Grammar
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_validate_Grammar_on_sdp_page(self):
+        try:
+            self.execute_script('lambda-name=test_validate_Grammar_on_sdp_page')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+            self.validate_grammar_of_title()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_Grammar_on_sdp_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_Grammar_on_sdp_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
 
     # Validate user is able to star mark the stock/ Validate user is able to un-mark the star.
     @pytest.mark.SDP_SMMA_001_002
