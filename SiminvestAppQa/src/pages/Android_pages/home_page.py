@@ -344,7 +344,7 @@ class HomePage(LoginPage):
         Reksadana_text = self.get_attribute(Reksadana, "text")
         self.assert_equal(Reksadana_text, "Reksadana")
         StarPoint_text = self.get_attribute(StarPoint, "text")
-        self.assert_equal(StarPoint_text, "Star Points")
+        self.assert_equal(StarPoint_text, "StarPoin")
         Portfolio_Saham_text = self.get_attribute(Portfolio_Saham, "text")
         self.assert_equal(Portfolio_Saham_text, "Portfolio saham")
         today_text = self.get_attribute(today, "text")

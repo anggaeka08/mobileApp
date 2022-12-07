@@ -20,7 +20,7 @@ class homePage_test(HomePage,LoginPage):
     def test_validate_global_search_for_stock(self):
         try:
             self.execute_script('lambda-name=test_validate_global_search_for_stock')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no'])
             self.validate_text_in_global_search_before_click()
             self.click_global_search_btn()
             self.Validate_text_and_keyboard_on_after_click_in_global_search()
@@ -148,6 +148,10 @@ class homePage_test(HomePage,LoginPage):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
+            self.save_screenshot('test_validate_api_data_with_homepage_data', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+        except ValueError as E:
             self.save_screenshot('test_validate_api_data_with_homepage_data', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)

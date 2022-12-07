@@ -45,7 +45,7 @@ class Research_test(Research):
     def test_validate_redirection_for_news_and_media_and_search_option(self):
         try:
             self.execute_script('lambda-name=test_validate_redirection_for_news_and_media_and_search_option')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no'])
             self.click_on_research_btn()
             self.verify_tabs_on_research_page()
             self.click_on_news_research_tab_and_verify_entry()
