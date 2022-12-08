@@ -10,15 +10,17 @@ search_btn = 'SDPSearchBtn'
 search_box = '//android.widget.EditText[@text="Cari Saham"]'
 searched_stock = '//android.widget.TextView[@text="Ace Hardware Indonesia Tbk."]'
 stock = '//*[@text="ACES"]'
+sdp_header = 'SDPStockCode'
+stock_name = 'SDPStockName'
 watchlist ='//*[@text="Default"]'
 chart_view = '//android.view.View[@resource-id="root"]'
 bid_lot = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[23]'
 bid = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[24]'
 ask = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[27]'
 ask_lot = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[28]'
-bid_text = '//*[@text="Bid"]'
-ask_text = '//*[@text="Ask"]'
-lot_text = '//*[@text="Lot"]'
+bid_text = '//android.widget.TextView[@text="Bid"]'
+ask_text = '//android.widget.TextView[@text="Ask"]'
+lot_text = '//android.widget.TextView[@text="Lot"]'
 profile_btn = '//android.widget.TextView[@text="Profile"]'
 pemegang = '//android.widget.TextView[@text="Pemegang Saham"]'
 direksi = '//android.widget.TextView[@text="Direksi"]'
@@ -43,6 +45,8 @@ Order_Book = '//*[@text="Order Book"]'
 News = '//*[@text="News"]'
 Keystats = '//*[@text="Keystats"]'
 Financials = '//*[@text="Financials"]'
+Profile = '//*[@text="Profile"]'
+beli_btn = 'SDPBeliBtn'
 #list of news date and domain
 news_1= '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[13]/android.widget.TextView[2]'
 news_url_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[13]/android.widget.TextView[1]'
@@ -57,6 +61,14 @@ Diinvestasikan = "SDPPortPageText6"
 Diinvestasikan_text = 'SDPPortPageText8'
 Harga_rata_rata = "SDPPortPageText7"
 Harga_rata_rata_text = 'SDPPortPageText9'
+#running trade account
+running_trade = '//android.widget.TextView[@text="Running Trade"]'
+lihat_semua = '//android.widget.TextView[@text="Lihat Semua"]'
+running_time = '//android.widget.TextView[@text="Time"]'
+running_Code = '//android.widget.TextView[@text="Code"]'
+running_Price = '//android.widget.TextView[@text="Price"]'
+running_Lot = '//android.widget.TextView[@text="Lot"]'
+
 
 class StockDetailPage(Watchlist):
 
@@ -374,12 +386,35 @@ class StockDetailPage(Watchlist):
         self.assert_equal(self.is_element_visible(Harga_rata_rata), True)
         self.assert_equal(self.is_element_visible(Harga_rata_rata_text), True)
 
-'''
+
     @allure.step("Validate grammar of title")
     def validate_grammar_of_title(self):
+        all_value_lst = ['ACES', 'Ace Hardware Indonesia Tbk', 'Open','','High','','Vol','', 'Close', '','Low','', 'Val', '','Avg','', 'F.Buy', '','F.Sell' ]
+        self.assert_equal(self.get_attribute(sdp_header, 'text'), all_value_lst[0])
+        self.assert_equal(self.get_attribute(stock_name, 'text'), all_value_lst[1])
+        for i in range(1, 18, 2):
+            logger.info(self.get_attribute(f'SDPText{i}', 'text'))
+            logger.info(all_value_lst[1+i])
+            self.assert_equal(self.get_attribute(f'SDPText{i}', 'text'), all_value_lst[1+i])
         self.scroll_up_screen()
+        self.assert_equal(self.is_element_visible(beli_btn), True)
+        self.assert_equal(self.is_element_visible(Order_Book), True)
+        self.assert_equal(self.is_element_visible(News), True)
+        self.assert_equal(self.is_element_visible(Financials), True)
+        self.assert_equal(self.is_element_visible(Profile), True)
+        self.assert_equal(self.is_element_visible(bid_text), True)
+        self.assert_equal(self.is_element_visible(lot_text), True)
+        self.assert_equal(self.is_element_visible(ask_text), True)
+        self.assert_equal(self.is_element_visible(running_trade), True)
+        self.assert_equal(self.is_element_visible(lihat_semua), True)
+        self.assert_equal(self.is_element_visible(running_time), True)
+        self.assert_equal(self.is_element_visible(running_Code), True)
+        self.assert_equal(self.is_element_visible(running_Price), True)
+        self.assert_equal(self.is_element_visible(running_Lot), True)
+
+        """self.scroll_up_screen()      
         title_lst = []
-        my_tool = language_tool_python.LanguageTool('Indonesian')
+        my_tool = language_tool_python.LanguageTool('Eng US')
         for i in range(1, 20, 2):
             news_title = self.get_attribute(
                 f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]',
@@ -387,7 +422,7 @@ class StockDetailPage(Watchlist):
             title_lst.append(news_title)
         for i in range(len(title_lst)):
             my_matches = my_tool.check(title_lst[i])
-            logger.info(my_matches)
-'''
+            logger.info(my_matches)"""
+
 
 
