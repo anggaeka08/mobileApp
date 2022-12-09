@@ -4,7 +4,9 @@ import allure
 import logging as logger
 from SiminvestAppQa.src.pages.Android_pages.watchlist import Watchlist
 import language_tool_python
+from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 
+request_utilities = RequestsUtilities()
 star_without_click = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
 search_btn = 'SDPSearchBtn'
 search_box = '//android.widget.EditText[@text="Cari Saham"]'
@@ -411,6 +413,38 @@ class StockDetailPage(Watchlist):
         self.assert_equal(self.is_element_visible(running_Code), True)
         self.assert_equal(self.is_element_visible(running_Price), True)
         self.assert_equal(self.is_element_visible(running_Lot), True)
+
+    @allure.step("Validate all api data")
+    def validate_all_api_data(self):
+        api_value=[]
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        sdp_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/v1/pcs/v2/product/equity',endpoint='/ACES', headers=token,expected_status_code=200)
+        vol = str(sdp_rs['vol'])
+        val = str(sdp_rs['val'])
+        new_value = vol[:2]+"."+vol[2:3] +" M"
+        new_value_val = val[:2]+"."+val[2:3] +" M"
+        logger.info(new_value)
+        api_value.append(sdp_rs['open'])
+        api_value.append(sdp_rs['high'])
+        api_value.append(new_value)
+        api_value.append(sdp_rs['close'])
+        api_value.append(sdp_rs['low'])
+        api_value.append(new_value_val)
+        api_value.append(sdp_rs['avg'])
+        api_value.append(sdp_rs['buy_f_vol'])
+        api_value.append(sdp_rs['sell_f_vol'])
+        return api_value
+
+    @allure.step("Collect data from sdp ui")
+    def collect_all_data_from_ui(self):
+        all_value = []
+        for i in range(2, 20, 2):
+            value = self.get_attribute(f'SDPText{i}', 'text')
+            all_value.append(value)
+        return all_value
+
 
         """self.scroll_up_screen()      
         title_lst = []

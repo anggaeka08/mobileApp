@@ -35,7 +35,7 @@ profile_icon = 'ProfilePageImage'
 batan_btn = '//android.widget.TextView[@text="Batal"]'
 batan_btn1 = '//android.widget.TextView[@text="BATAL"]'
 camera_option = '//android.widget.TextView[@text="Camera"]'
-take_pic_allow = '//android.widget.Button[@text="ALLOW"]'
+take_pic_allow = '//android.widget.Button[@text="Allow"]'
 location_allow = '//android.widget.Button[@text="Allow only while using the app"]'
 take_pic = 'Shutter'
 done_btn = 'Done'
@@ -325,8 +325,8 @@ class UserProfile(HomePage):
         self.sleep(2)
         self.click(take_pic_allow)
         self.sleep(2)
-        #self.click(location_allow)
-        #self.sleep(2)
+        self.click(location_allow)
+        self.sleep(2)
         self.click(take_pic)
         self.sleep(2)
         self.click(done_btn)

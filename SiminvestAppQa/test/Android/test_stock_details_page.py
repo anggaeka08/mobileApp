@@ -27,6 +27,28 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+
+    @pytest.mark.SDP_Data_with_api
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_validate_sdp_page_with_api_data(self):
+        try:
+            self.execute_script('lambda-name=SDP_Data_with_api')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+            UI_data = self.collect_all_data_from_ui()
+            API_data =self.validate_all_api_data()
+            for i in range(9):
+                self.assert_equal(UI_data[i] , str(API_data[i]))
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('SDP_Data_with_api', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('SDP_Data_with_api', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
     # Validate user is able to star mark the stock/ Validate user is able to un-mark the star.
     @pytest.mark.SDP_SMMA_001_002
     @pytest.mark.Android
