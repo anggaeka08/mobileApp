@@ -10,7 +10,7 @@ request_utilities = RequestsUtilities()
 star_without_click = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
 search_btn = 'SDPSearchBtn'
 search_box = '//android.widget.EditText[@text="Cari Saham"]'
-searched_stock = '//android.widget.TextView[@text="Ace Hardware Indonesia Tbk."]'
+searched_stock = '//android.widget.TextView[@text="Ace Hardware Indonesia Tbk"]'
 stock = '//*[@text="ACES"]'
 sdp_header = 'SDPStockCode'
 stock_name = 'SDPStockName'
@@ -70,7 +70,8 @@ running_time = '//android.widget.TextView[@text="Time"]'
 running_Code = '//android.widget.TextView[@text="Code"]'
 running_Price = '//android.widget.TextView[@text="Price"]'
 running_Lot = '//android.widget.TextView[@text="Lot"]'
-
+back_btn_on_search='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
+back_btn_on_sdp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 
 class StockDetailPage(Watchlist):
 
@@ -444,6 +445,14 @@ class StockDetailPage(Watchlist):
             value = self.get_attribute(f'SDPText{i}', 'text')
             all_value.append(value)
         return all_value
+
+    @allure.step("click on back btn")
+    def click_on_back_btn(self):
+        self.click(back_btn_on_search)
+
+    @allure.step("click on back btn on SDP")
+    def click_on_back_btn_on_SDP(self):
+        self.click(back_btn_on_sdp)
 
 
         """self.scroll_up_screen()      

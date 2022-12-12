@@ -34,7 +34,7 @@ class SDP_test(StockDetailPage, BuyProcess):
     def test_validate_sdp_page_with_api_data(self):
         try:
             self.execute_script('lambda-name=SDP_Data_with_api')
-            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_2'], 'ACES')
             UI_data = self.collect_all_data_from_ui()
             API_data =self.validate_all_api_data()
             for i in range(9):
@@ -46,6 +46,46 @@ class SDP_test(StockDetailPage, BuyProcess):
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
             self.save_screenshot('SDP_Data_with_api', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.SDP_back_btn
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_validate_back_btn_on_sdp_page(self):
+        try:
+            self.execute_script('lambda-name=validate_back_btn_on_sdp_page')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_3'], 'ACES')
+            self.verify_sdp_page_after_back()
+            self.click_on_search_btn()
+            self.verify_keyboard_on_off(True)
+            self.go_back()
+            self.verify_keyboard_on_off(False)
+            self.go_back()
+            self.verify_sdp_page_after_back()
+            self.click_on_search_btn()
+            self.click_on_back_btn()
+            self.verify_sdp_page_after_back()
+            self.click_on_search_btn()
+            self.enter_stock_code('ACES')
+            self.click_on_stocks()
+            self.verify_sdp_page_after_back()
+            self.go_back()
+            self.go_back()
+            self.verify_home_page_reg_user()
+            self.scroll_up()
+            self.click_stock_1_from_top_frequency_list()
+            self.sleep(2)
+            self.verify_sdp_page_after_back()
+            self.click_on_back_btn_on_SDP()
+            self.verify_home_page_reg_user_after_back_from_watchlist_new()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('validate_back_btn_on_sdp_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('validate_back_btn_on_sdp_page', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 

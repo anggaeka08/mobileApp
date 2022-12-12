@@ -1011,6 +1011,10 @@ class HomePage(LoginPage):
         self.click(mover_page_entry_1)
         self.sleep(3)
 
+    @allure.step("verify stock page after back")
+    def verify_sdp_page_after_back(self):
+        self.assert_equal(self.is_element_visible(stock_name), True)
+
 
 
 
