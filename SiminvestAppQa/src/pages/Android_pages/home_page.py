@@ -317,10 +317,7 @@ class HomePage(LoginPage):
         self.assert_equal(riwayat_page_header_text, "Riwayat")
         riwayat_entry_1_present = self.is_element_visible(riwayat_entry_1)
         assert riwayat_entry_1_present == True, f"riwayat_entry_1 Should be present"
-        riwayat_entry_2_present = self.is_element_visible(riwayat_entry_2)
-        assert riwayat_entry_2_present == True, f"riwayat_entry_2 Should be present"
-        riwayat_entry_3_present = self.is_element_visible(riwayat_entry_3)
-        assert riwayat_entry_3_present == True, f"riwayat_entry_3 Should be present"
+
 
     @allure.step("scroll up")
     def scroll_up(self):

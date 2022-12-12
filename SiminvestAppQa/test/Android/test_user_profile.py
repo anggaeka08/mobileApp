@@ -115,7 +115,7 @@ class userProfile_test(UserProfile):
     def test_validate_ajak_btn_and_refferal_and_akun_pennegguna_informasi_tab_feature(self):
         try:
             self.execute_script('lambda-name=test_validate_ajak_btn_and_refferal_and_akun_pennegguna_informasi_tab_feature')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
             self.click_on_profile_btn()
             self.scroll_up()
             self.scroll_down()
@@ -145,7 +145,7 @@ class userProfile_test(UserProfile):
             self.go_back()
             self.verify_phone_number_available_on_profile_page()
             self.click_on_akun_penggunna_tab()
-            self.Verify_personal_tab_details_in_akun_penggunna(f"62{user_data['reg_no']}")
+            self.Verify_personal_tab_details_in_akun_penggunna(f"62{user_data['reg_no_2']}")
             self.click_on_serkuritas_tab()
             self.Verify_serkuritas_tab_details_in_akun_penggunna()
             self.go_back()

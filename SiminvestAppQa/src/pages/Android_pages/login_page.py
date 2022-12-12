@@ -200,7 +200,7 @@ class LoginPage(BaseCase):
 
     @allure.step("otp page with SMS phone no")
     def verify_otp_page_with_phone_no(self, phone_no):
-        self.sleep(1)
+        self.sleep(2)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
         self.assert_equal(otp_page_text, f"Kami mengirimkan kode melalui SMS ke nomor +62{phone_no}")
 
@@ -362,7 +362,7 @@ class LoginPage(BaseCase):
 
     @allure.step("scroll up")
     def scroll_up(self):
-        self.scroll_screen(start_x=609, start_y=2488, end_x=609, end_y=601, duration=4000)
+        self.scroll_screen(start_x=500, start_y=1820, end_x=523, end_y=809, duration=10000)
         self.sleep(2)
 
     '''@allure.step("SMS Button Enabled")
@@ -380,7 +380,8 @@ class LoginPage(BaseCase):
     @allure.step("Verify the mobile number field when user taps on outside the field")
     def verify_mobile_number_field_when_user_taps_on_outside_field(self):
         self.type_mobile_no('83671834752')
-        self.tap_by_coordinates(x=413, y=1845)
+        self.tap_by_coordinates(x=793, y=874)
+        self.sleep(2)
         self.click(text_input)
         self.assert_equal(self.get_attribute(text_input, 'text'), '83671834752')
 
@@ -412,6 +413,7 @@ class LoginPage(BaseCase):
 
     @allure.step('Verify wrong otp messege')
     def verify_wrong_otp_msg(self):
+        self.sleep(5)
         self.assert_equal(self.get_attribute(wrong_otp_msg, 'text'), wrong_otp_msg_text)
 
     @allure.step("verify keyboard on off")
