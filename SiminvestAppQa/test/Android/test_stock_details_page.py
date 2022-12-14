@@ -89,10 +89,31 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.SDP_search_btn
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_validate_search_btn_on_sdp_page(self):
+        try:
+            self.execute_script('lambda-name=test_validate_search_btn_on_sdp_page')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_4'], 'ACES')
+            self.verify_sdp_page_after_back()
+            self.click_on_search_btn()
+            self.verify_text_in_search_bar()
+            self.verify_search_option_in_search_bar()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_search_btn_on_sdp_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_search_btn_on_sdp_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+
     # Validate user is able to star mark the stock/ Validate user is able to un-mark the star.
     @pytest.mark.SDP_SMMA_001_002
     @pytest.mark.Android
-    @pytest.mark.SDP
     def test_validate_star_mark_on_sdp(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.scroll_down()
@@ -114,7 +135,6 @@ class SDP_test(StockDetailPage, BuyProcess):
     # Validate search option on sdp page
     @pytest.mark.SDP_SMMA_003_004
     @pytest.mark.Android
-    @pytest.mark.SDP
     def test_validate_search_option_on_sdp(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.click_on_search_btn()
@@ -128,7 +148,6 @@ class SDP_test(StockDetailPage, BuyProcess):
     # Validate test cases SMMA_013
     @pytest.mark.SDP_SMMA_006_013
     @pytest.mark.Android
-    @pytest.mark.SDP
     def test_Validate_test_cases_SMMA_006_013(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.chart_presence()
@@ -137,7 +156,6 @@ class SDP_test(StockDetailPage, BuyProcess):
   # Validate test cases  SMMA_016_021_022
     @pytest.mark.SDP_SMMA_016_021_022
     @pytest.mark.Android
-    @pytest.mark.SDP
     def test_Validate_profile_btn_and_header_details_of_values(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.verify_details_down_to_beli_btn()
@@ -149,7 +167,6 @@ class SDP_test(StockDetailPage, BuyProcess):
     #Validate news tab on SDP page and news page details
     @pytest.mark.SDP_SMMA_023_to_027
     @pytest.mark.Android
-    @pytest.mark.SDP
     def test_Validate_news_tab_on_SDP_page_and_news_page_details(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.verify_news_availability_on_sdp()
@@ -162,7 +179,6 @@ class SDP_test(StockDetailPage, BuyProcess):
     #Validate news tab on SDP page and news page details
     @pytest.mark.SDP_SMMA_028_to_031
     @pytest.mark.Android
-    @pytest.mark.SDP
     def test_Validate_news_tab_on_SDP_pages(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.verify_news_availability_on_sdp()
@@ -174,7 +190,6 @@ class SDP_test(StockDetailPage, BuyProcess):
     # Validate user is redirected to customer care support page when user click on contact customer button available at the bottom on external browser.
     @pytest.mark.SDP_SMMA_45
     @pytest.mark.Android
-    @pytest.mark.SDP
     def test_Validate_redirection_after_click_on_customer_support_btn(self):
         self.open_sdp_by_portfolio_with_kyc_user(user_data['reg_no'])
         self.scroll_up_screen()
@@ -184,7 +199,6 @@ class SDP_test(StockDetailPage, BuyProcess):
     #Validate test cases  SMMA_014
     @pytest.mark.SDP_SMMA_014
     @pytest.mark.Android
-    @pytest.mark.SDP
     def test_validate_profile_details_for_stock_company_details_unavailable(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'WIFI-W')
         self.verify_details_down_to_beli_btn()
@@ -194,7 +208,6 @@ class SDP_test(StockDetailPage, BuyProcess):
     #Validate test cases  SMMA_037
     @pytest.mark.SDP_SMMA_037
     @pytest.mark.Android
-    @pytest.mark.SDP
     def test_validate_user_will_able_to_see_value_at_below_of_the_stock_price(self):
         self.open_sdp_by_portfolio_with_kyc_user(user_data['reg_no'])
         self.verify_details_availability_when_move_to_sdp_by_portfolio_page()
@@ -202,7 +215,6 @@ class SDP_test(StockDetailPage, BuyProcess):
     #Validate the response is written for all the required detail.
     @pytest.mark.SDP_SMMA_019
     @pytest.mark.Android
-    @pytest.mark.SDP
     def test_Validate_profile_details_doesnot_have_hiphan(self):
         self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
         self.verify_details_down_to_beli_btn()
