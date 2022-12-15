@@ -140,7 +140,7 @@ class homePage_test(HomePage,LoginPage):
     def test_validate_api_data_with_homepage_data(self):
         try:
             self.execute_script('lambda-name=test_validate_api_data_with_homepage_data')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
             self.verify_data_with_api()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
@@ -165,7 +165,7 @@ class homePage_test(HomePage,LoginPage):
     def test_functional_with_homepage_data(self):
         try:
             self.execute_script('lambda-name=test_functional_with_homepage_data')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_3'])
             self.scroll_up()
             self.validate_default_btn_available_after_scroll_up()
             self.scroll_down()
