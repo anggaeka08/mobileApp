@@ -5,6 +5,7 @@ import logging as logger
 from SiminvestAppQa.src.pages.Android_pages.watchlist import Watchlist
 import language_tool_python
 from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
+from datetime import datetime
 
 request_utilities = RequestsUtilities()
 star_without_click = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
@@ -14,6 +15,8 @@ searched_stock = '//android.widget.TextView[@text="Ace Hardware Indonesia Tbk"]'
 stock = '//*[@text="ACES"]'
 sdp_header = 'SDPStockCode'
 stock_name = 'SDPStockName'
+stock_price = 'SDPStockPrice'
+stock_pl = 'SDPStockPL'
 watchlist ='//*[@text="Default"]'
 chart_view = '//android.view.View[@resource-id="root"]'
 bid_lot = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[23]'
@@ -77,6 +80,11 @@ search_entry_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLay
 search_entry_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]'
 search_entry_code= '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]'
 search_entry_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[2]'
+exchange_notification= '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView'
+exchange_time_loader ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ImageView'
+buy_btn_on_buy_page = 'SellPageSellBtn'
+confirm_btn = 'BuySellConfSetujuBtn'
+market_close_msg ='BuyTransactionMarketClosePopUpHeading'
 
 class StockDetailPage(Watchlist):
 
@@ -476,6 +484,43 @@ class StockDetailPage(Watchlist):
         self.assert_equal(self.is_element_visible(search_entry_name), True)
         self.set_text(search_edit_box, 'Simas Danamas Saham')
         self.assert_equal(self.is_element_visible(search_entry_1), False)
+
+    @allure.step("Validate notification in timeline")
+    def validate_notification_in_timeline(self):
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <='10:00') or (current_time >='12:00' and current_time <='13:15') :
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.assert_equal(self.get_attribute(exchange_notification, 'text'), 'Sedang berada di luar jam kerja bursa')
+            self.assert_equal(self.is_element_visible(exchange_time_loader), True)
+            self.click(exchange_notification)
+            self.verify_sdp_page_after_back()
+            self.scroll_up()
+            self.click_on_news()
+            self.scroll_down()
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(beli_btn)
+            self.click(buy_btn_on_buy_page)
+            self.click(confirm_btn)
+            self.sleep(2)
+            self.assert_equal(self.is_element_visible(market_close_msg), True)
+
+    @allure.step("Validate pposition of elements on sdp")
+    def validate_position_of_elements_on_sdp(self):
+        self.assert_equal(self.get_attribute(stock_name, 'bounds'), '[52,357][541,412]')
+        self.assert_equal(self.get_attribute(stock_price, 'bounds'), '[52,445][163,517]')
+        self.assert_equal(self.get_attribute(stock_pl, 'bounds'), '[52,536][440,572]')
+
+
+
+
+
+
 
 
 

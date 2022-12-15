@@ -110,6 +110,24 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.SDP_exchange_hour_notification
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_validate_sdp_exchange_hour_notification(self):
+        try:
+            self.execute_script('lambda-name=test_validate_sdp_exchange_hour_notification')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+            self.validate_position_of_elements_on_sdp()
+            self.validate_notification_in_timeline()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_sdp_exchange_hour_notification', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_sdp_exchange_hour_notification', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
 
     # Validate user is able to star mark the stock/ Validate user is able to un-mark the star.
     @pytest.mark.SDP_SMMA_001_002
