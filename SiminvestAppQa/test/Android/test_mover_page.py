@@ -18,7 +18,7 @@ class mover_page_test(HomePage, LoginPage):
     @pytest.mark.Android
     @pytest.mark.Revamp
     @allure.story("F-6:MoverPage Feature")
-    def test_validate_mover_stock_on_homepage_KYC(self):
+    def test_validate_stock_mover_stock_on_homepage_KYC(self):
         try:
             self.execute_script('lambda-name=test_validate_mover_stock_on_homepage')
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
@@ -72,7 +72,7 @@ class mover_page_test(HomePage, LoginPage):
         API_RS = self.verify_stock_on_mover_page_with_api_for_top_frequency()
         try:
             self.execute_script('lambda-name=test_validate_mover_stock_on_homepage')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
             self.scroll_up()
             self.compare_the_stock_details_with_mover_page()
             self.scroll_up_and_scroll_down_validation()
@@ -93,15 +93,15 @@ class mover_page_test(HomePage, LoginPage):
             logger.info(API_RS[0])
             check = all(item in API_RS[6] for item in MoverPage_TG[0])
             self.assert_equal(check, True)
-            """ #Top Gainer Percentnage
-            #self.click_mover_dropDown_btn()
-            #self.click('ScreenHomeTop gainers %')
-            #self.sleep(3)
-            #MoverPage_TG = self.collect_all_value_from_mover_page()
-            #logger.info(MoverPage_TG[0])
-            #logger.info(API_RS[1])
-            #check = all(item in API_RS[1] for item in MoverPage_TG[0])
-            #self.assert_equal(check, True)
+            #Top Gainer Percentnage
+            self.click_mover_dropDown_btn()
+            self.click('ScreenHomeTop gainers %')
+            self.sleep(3)
+            MoverPage_TG = self.collect_all_value_from_mover_page()
+            logger.info(MoverPage_TG[0])
+            logger.info(API_RS[1])
+            check = all(item in API_RS[1] for item in MoverPage_TG[0])
+            self.assert_equal(check, True)
             #topgainer Value
             self.click_mover_dropDown_btn()
             self.click('ScreenHomeTop value')
@@ -144,7 +144,7 @@ class mover_page_test(HomePage, LoginPage):
             logger.info(MoverPage_TG[0])
             logger.info(API_RS[0])
             check = all(item in API_RS[7] for item in MoverPage_TG[0])
-            self.assert_equal(check, True)"""
+            self.assert_equal(check, True)
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_validate_mover_stock_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
@@ -205,7 +205,7 @@ class mover_page_test(HomePage, LoginPage):
         API_RS = self.verify_stock_on_mover_page_with_api_for_top_frequency()
         try:
             self.execute_script('lambda-name=test_validate_search_sdp_redirection')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
             self.scroll_up()
             self.click_on_see_more_btn()
             self.click_on_mover_search_btn()
