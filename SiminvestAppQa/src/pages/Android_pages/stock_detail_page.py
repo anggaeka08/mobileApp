@@ -85,6 +85,11 @@ exchange_time_loader ='/hierarchy/android.widget.FrameLayout/android.widget.Line
 buy_btn_on_buy_page = 'SellPageSellBtn'
 confirm_btn = 'BuySellConfSetujuBtn'
 market_close_msg ='BuyTransactionMarketClosePopUpHeading'
+notation_watchlist = '//android.view.ViewGroup[@content-desc="HomepageWLEntry4"]/android.view.ViewGroup[2]'
+notation_search = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup'
+notation_text = '//android.view.TextView[@text="!"]'
+notation_after_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]'
+notation_after_chart ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[6]'
 
 class StockDetailPage(Watchlist):
 
@@ -517,13 +522,30 @@ class StockDetailPage(Watchlist):
         self.assert_equal(self.get_attribute(stock_pl, 'bounds'), '[52,536][440,572]')
 
 
-
-
-
-
-
-
-
+    @allure.step("Validate Special notation")
+    def validate_special_notation(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
+        self.scroll_up()
+        self.sleep(1)
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(notation_watchlist), True)
+        self.click_on_edit_for_stock()
+        self.sleep(2)
+        self.search_stock('KBLV')
+        self.assert_equal(self.is_element_visible(notation_text), False)
+        self.go_back()
+        self.sleep(1)
+        self.go_back()
+        self.scroll_down()
+        self.sleep(1)
+        self.scroll_down()
+        self.click_global_search_btn_and_saerch_stock('KBLV')
+        self.assert_equal(self.is_element_visible(notation_search), True)
+        self.click_on_stock_code()
+        self.verify_sdp_page_after_back()
+        self.assert_equal(self.is_element_visible(notation_after_name), True)
+        self.assert_equal(self.is_element_visible(notation_after_chart), True)
+        self.assert_equal(self.get_attribute(notation_after_chart, 'bounds'), '[52,1421][1028,1547]')
 
 
 

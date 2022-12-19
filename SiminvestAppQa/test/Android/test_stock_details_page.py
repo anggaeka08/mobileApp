@@ -129,6 +129,23 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.stock_special_notation
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_validate_special_notation_on_stock(self):
+        try:
+            self.execute_script('lambda-name=test_validate_special_notation_on_stock')
+            self.validate_special_notation()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_special_notation_on_stock', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_special_notation_on_stock', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
     # Validate user is able to star mark the stock/ Validate user is able to un-mark the star.
     @pytest.mark.SDP_SMMA_001_002
     @pytest.mark.Android
