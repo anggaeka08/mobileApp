@@ -209,7 +209,7 @@ class mover_page_test(HomePage, LoginPage):
             self.scroll_up()
             self.click_on_see_more_btn()
             self.click_on_mover_search_btn()
-            self.click_global_search_btn_and_saerch_stock('ACES')
+            self.global_search_stock('ACES')
             self.validate_saham_header_and_stock_code_and_stock_name('ACES')
             self.go_back()
             self.sleep(1)

@@ -165,25 +165,24 @@ class SDP_test(StockDetailPage, BuyProcess):
             pytest.fail(E.msg, pytrace=True)
 
     # Validate user is able to star mark the stock/ Validate user is able to un-mark the star.
-    @pytest.mark.SDP_SMMA_001_002
+    @pytest.mark.Star_mark_test
     @pytest.mark.Android
+    @pytest.mark.SDP
     def test_validate_star_mark_on_sdp(self):
-        self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
-        self.scroll_down()
-        self.tap_on_star()
-        self.click_on_watchlist()
-        self.sleep(2)
-        self.go_back()
-        self.go_back()
-        self.sleep(2)
-        self.scroll_up()
-        self.verify_stock_on_watchlist(True)
-        self.click_on_stock()
-        self.tap_on_star()
-        self.click_on_watchlist()
-        self.go_back()
-        self.scroll_ups()
-        self.verify_stock_on_watchlist(False)
+        try:
+            self.execute_script('lambda-name=test_validate_star_mark_on_sdp')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_3'], 'ACES')
+            self.verify_star_mark_on_sdp()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_star_mark_on_sdp', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_star_mark_on_sdp', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
 
     # Validate search option on sdp page
     @pytest.mark.SDP_SMMA_003_004
