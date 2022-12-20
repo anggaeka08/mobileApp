@@ -285,7 +285,7 @@ class LoginPage(BaseCase):
     @allure.step("verify home page reg user back from watchlist")
     def verify_home_page_reg_user_after_back_from_watchlist(self):
         Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
-        self.assert_equal(Home_page_locator_text, "Portfolio saham")
+        self.assert_equal(Home_page_locator_text, "Saldo RDN")
 
     @allure.step("verify error message after enter dots and sign")
     def verify_error_message_after_enter_dots_and_sign(self):

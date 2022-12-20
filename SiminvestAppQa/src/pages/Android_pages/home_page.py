@@ -185,6 +185,10 @@ class HomePage(LoginPage):
         self.click(Cari_btn_before_click)
         self.update_text(cari_btn_after_click, stock_code)
 
+    @allure.step("click global search btn and search stock")
+    def global_search_stock(self, stock_code):
+        self.update_text(cari_btn_after_click, stock_code)
+
     @allure.step("click global search btn")
     def click_global_search_btn(self):
         self.click(Cari_btn_before_click)
@@ -202,7 +206,8 @@ class HomePage(LoginPage):
 
     @allure.step("Validate search entry for invalid stock")
     def validate_search_entry_for_invalid_stock_and_saham_text(self):
-        self.click_global_search_btn_and_saerch_stock('ALLLI')
+        #self.click_global_search_btn_and_saerch_stock('ALLLI')
+        self.update_text(cari_btn_after_click, 'ALLLI')
         self.assert_not_equal(self.get_attribute(cari_btn_after_click, 'text'), 'Cari saham atau reksadana')
         self.assert_equal(self.is_element_visible(stock_entry_code), False)
 
@@ -349,7 +354,7 @@ class HomePage(LoginPage):
         Buying_Power_text = self.get_attribute(Buying_Power, "text")
         self.assert_equal(Buying_Power_text[:12], "Buying power")
         Keren_dua_text = self.get_attribute(Keren_dua, "text")
-        self.assert_equal(Keren_dua_text, "Gapapa, roda berputar. Tetap konsisten")
+        self.assert_equal(Keren_dua_text, "Sudah siap? Yuk, mulai sekarang")
         Top_up_text = self.get_attribute(Top_up, "text")
         self.assert_equal(Top_up_text, "Top Up")
         Indeks_text = self.get_attribute(Indeks, "text")
@@ -774,7 +779,7 @@ class HomePage(LoginPage):
         star_point = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='radix/v1/account/45997/balance/1', headers=token,expected_status_code=200)
         buying_power_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='api/v1/users/portfolios/equities/45997', headers=token,expected_status_code=202)
         ihsg_value_api= request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='emerson/v1/index', headers=token,expected_status_code=200)
-        self.assert_not_equal(saldo_api['data']['balance'],int(saldo_rdn_value))
+        self.assert_equal(saldo_api['data']['balance'],int(saldo_rdn_value.replace(',', '')))
         self.assert_equal(star_point['data']['value'], int(star_point_value))
         self.assert_equal(buying_power_rs['data']['buying_power'], int(buying_power))
         self.assert_equal(buying_power_rs['data']['market_value'], int(homepage_rp_value))
@@ -823,21 +828,21 @@ class HomePage(LoginPage):
     @allure.step("Validate stock list on homepage")
     def validate_all_details_about_stock_list_on_homepage(self):
 
-        for i in range(5):
-            if i == 4:
+        for i in range(3):
+            """if i == 4:
                 self.swipe_right_to_left()
                 self.assert_equal(self.is_element_visible(f'HomepageTFStock{i}'), True)
                 self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[1]'), True)
                 self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[2]'), True)
                 self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[3]'), True)
-               # self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.ImageView'), True)
+               """# self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.ImageView'), True)
 
             self.assert_equal(self.is_element_visible(f'HomepageTFStock{i}'), True)
             self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[1]'), True)
             self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[2]'), True)
             self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.TextView[3]'), True)
            # self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup[@content-desc="HomepageTFStock{i}"]/android.view.ViewGroup/android.widget.ImageView'),True)
-        self.swipe_left_to_right()
+        #self.swipe_left_to_right()
         self.assert_equal(self.is_element_visible(f'HomepageTFStock0'), True)
 
     @allure.step("Verify all value on half card and tick")
@@ -1014,6 +1019,7 @@ class HomePage(LoginPage):
     @allure.step("verify stock page after back")
     def verify_sdp_page_after_back(self):
         self.assert_equal(self.is_element_visible(stock_name), True)
+        self.sleep(1)
 
 
 

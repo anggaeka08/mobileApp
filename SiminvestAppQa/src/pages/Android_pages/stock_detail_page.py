@@ -90,6 +90,7 @@ notation_search = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLa
 notation_text = '//android.view.TextView[@text="!"]'
 notation_after_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]'
 notation_after_chart ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[6]'
+suspend_image = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ImageView'
 
 class StockDetailPage(Watchlist):
 
@@ -547,6 +548,31 @@ class StockDetailPage(Watchlist):
         self.assert_equal(self.is_element_visible(notation_after_chart), True)
         self.assert_equal(self.get_attribute(notation_after_chart, 'bounds'), '[52,1421][1028,1547]')
 
+    @allure.step("Validate watchlist buy for suspended stock")
+    def validate_watchlist_buy_for_suspended_stock(self):
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no_3'])
+        self.scroll_up()
+        self.sleep(1)
+        self.scroll_up()
+        self.scroll_screen(start_x=144, start_y=1566, end_x=901, end_y=1566, duration=10000)
+        self.sleep(2)
+        self.scroll_down()
+        self.sleep(1)
+        self.scroll_down()
+        self.verify_home_page_reg_user_after_back_from_watchlist()
+
+    @allure.step("Validate suspended stock on SDP")
+    def validate_suspended_stock_on_sdp(self):
+        self.click_global_search_btn_and_saerch_stock('PURE-W')
+        self.sleep(1)
+        self.click_on_stock_code()
+        self.verify_sdp_page_after_back()
+        self.assert_equal(self.is_element_visible(suspend_image), True)
+        self.click(beli_btn)
+        self.verify_sdp_page_after_back()
+        self.click(suspend_image)
+        self.verify_sdp_page_after_back()
+        self.assert_equal(self.get_attribute(suspend_image, 'bounds'), '[843,452][1027,510]')
 
 
         """self.scroll_up_screen()      

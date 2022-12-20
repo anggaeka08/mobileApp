@@ -20,7 +20,7 @@ class homePage_test(HomePage,LoginPage):
     def test_validate_global_search_for_stock(self):
         try:
             self.execute_script('lambda-name=test_validate_global_search_for_stock')
-            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no'])
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
             self.validate_text_in_global_search_before_click()
             self.click_global_search_btn()
             self.Validate_text_and_keyboard_on_after_click_in_global_search()
@@ -28,7 +28,7 @@ class homePage_test(HomePage,LoginPage):
             self.go_back()
             self.go_back()
             self.validate_text_in_global_search_before_click()
-            self.click_global_search_btn()
+            #self.click_global_search_btn()
             self.click_global_search_btn_and_saerch_stock('ACES')
             self.sleep(2)
             self.validate_saham_header_and_stock_code_and_stock_name('ACES')
@@ -37,10 +37,10 @@ class homePage_test(HomePage,LoginPage):
             self.go_back()
             self.sleep(2)
             self.validate_saham_header_and_stock_code_and_stock_name('ACES')
-            self.click_global_search_btn_and_saerch_stock('A')
+            self.global_search_stock('A')
             self.sleep(3)
             self.validate_saham_header_and_stock_code_and_stock_name('A')
-            self.click_global_search_btn_and_saerch_stock('Simas Saham Bertumbuh')
+            self.global_search_stock('Simas Saham Bertumbuh')
             self.sleep(3)
             self.validate_MF_search_in_global_search_and_Redirection_after_click()
             self.execute_script("lambda-status=passed")
@@ -140,7 +140,7 @@ class homePage_test(HomePage,LoginPage):
     def test_validate_api_data_with_homepage_data(self):
         try:
             self.execute_script('lambda-name=test_validate_api_data_with_homepage_data')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
             self.verify_data_with_api()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
