@@ -62,7 +62,7 @@ class homePage_test(HomePage,LoginPage):
     def test_validate_all_buttons_on_homepage(self):
         try:
             self.execute_script('lambda-name=test_validate_all_buttons_on_homepage')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
             self.click_to_soldo_rdn()
             self.verify_rdn_balance_page()
             self.click_on_top_up_btn()

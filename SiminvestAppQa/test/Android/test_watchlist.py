@@ -17,8 +17,8 @@ class Watchlist_test(Watchlist):
     @pytest.mark.Revamp
     def test_validate_user_able_to_add_maximum_10_watchlist(self):
         try:
-            self.execute_script('lambda-name=test_verify_redirect_to_welcome_after_open_app')
-            self.go_to_watchlist_option_after_login(user_data['reg_no'])
+            self.execute_script('lambda-name=test_validate_user_able_to_add_maximum_10_watchlist')
+            self.go_to_watchlist_option_after_login(user_data['reg_no_2'])
             self.scroll_up()
             self.verify_stock_code_and_name_in_watchlist_stocks()
             self.click_on_defaults_btn()
@@ -27,7 +27,7 @@ class Watchlist_test(Watchlist):
                 self.click_on_plus_btn()
                 self.enter_watchlist_name(f'test{i}')
             self.validate_pop_message()
-            self.go_back()
+            #self.go_back()
             self.click_on_cross_btn()
             for i in range(9):
                 self.click_on_delete()
@@ -35,11 +35,11 @@ class Watchlist_test(Watchlist):
                 self.sleep(1)
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
-            self.save_screenshot('test_verify_redirect_to_welcome_after_open_app', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_validate_user_able_to_add_maximum_10_watchlist', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
-            self.save_screenshot('test_verify_redirect_to_welcome_after_open_app', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_validate_user_able_to_add_maximum_10_watchlist', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
@@ -54,7 +54,7 @@ class Watchlist_test(Watchlist):
     def test_user_able_to_create_duplicate_name_watchlist_and_able_to_add_stock(self):
         try:
             self.execute_script('lambda-name=test_user_able_to_create_duplicate_name_watchlist_and_able_to_add_stock')
-            self.go_to_watchlist_option_after_login(user_data['reg_no'])
+            self.go_to_watchlist_option_after_login(user_data['reg_no_3'])
             self.click_on_defaults_btn()
             self.click_on_plus_btn()
             self.enter_watchlist_name('Default')
@@ -92,7 +92,7 @@ class Watchlist_test(Watchlist):
     def test_validate_selected_watchlist_visible_after_reopen_app_and_sdp_open_after_click_stock(self):
         try:
             self.execute_script('lambda-name=Wat_SMMA_024_028')
-            self.go_to_watchlist_option_after_login(user_data['reg_no'])
+            self.go_to_watchlist_option_after_login(user_data['reg_no_4'])
             self.click_on_defaults_btn()
             self.click_on_plus_btn()
             self.enter_watchlist_name('test')
@@ -124,7 +124,7 @@ class Watchlist_test(Watchlist):
     def test_validate_maximum_watchlist_test_cases(self):
         try:
             self.execute_script('lambda-name=test_validate_maximum_watchlist_test_cases')
-            self.go_to_watchlist_option_after_login(user_data['reg_no'])
+            self.go_to_watchlist_option_after_login(user_data['reg_no_3'])
             self.scroll_up()
             self.click_on_defaults_btn()
             self.validate_only_default_watchlist_for_a_user()
@@ -187,7 +187,7 @@ class Watchlist_test(Watchlist):
     def test_user_not_able_to_add_more_then_15_stock_in_watchlist(self):
         try:
             self.execute_script('lambda-name=test_user_not_able_to_add_more_then_15_stock_in_watchlist')
-            self.go_to_watchlist_option_after_login(user_data['reg_no'])
+            self.go_to_watchlist_option_after_login(user_data['reg_no_4'])
             self.click_on_defaults_btn()
             self.click_on_plus_btn()
             self.enter_watchlist_name('test')
@@ -215,7 +215,7 @@ class Watchlist_test(Watchlist):
     def test_validate_same_stock_will_be_added_to_many_watchlist(self):
         try:
             self.execute_script('lambda-name=test_validate_same_stock_will_be_added_to_many_watchlist')
-            self.go_to_watchlist_option_after_login(user_data['reg_no'])
+            self.go_to_watchlist_option_after_login(user_data['reg_no_2'])
             self.scroll_up()
             self.click_on_defaults_btn()
             for i in range(9):

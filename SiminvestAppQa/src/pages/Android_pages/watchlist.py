@@ -67,7 +67,7 @@ jumlah_on_confirm = 'FastBSConfJumlahValue'
 watchlist_header = 'WatchListHeader'
 watchlist_activation= 'WatchListActiveBtn0'
 homepage_stock = 'HomepageTFStock0'
-star_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
+star_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView'
 stock_added_marker = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
 
 class Watchlist(HomePage):
@@ -97,9 +97,9 @@ class Watchlist(HomePage):
 
     @allure.step("Enter watchlist name")
     def enter_watchlist_name(self, name):
-        self.update_text(watchlist_name_edit, name)
-        #self.tap_by_coordinates(x=1070, y=2018)
-        self.tap_by_coordinates(x=1281, y=2609)
+        self.set_text(watchlist_name_edit, name)
+        self.tap_by_coordinates(x=1070, y=2018)
+        #self.tap_by_coordinates(x=1281, y=2609)
 
     @allure.step("Validate watchlist Entry")
     def validate_watchlist_entry(self, name):
@@ -397,17 +397,17 @@ class Watchlist(HomePage):
     def add_stock_in_watchlist(self):
         self.sleep(1)
         self.go_back()
-        for i in range(0,9):
+        for i in range(0,6):
             self.click(f'StockAddPageEntryToAdd{i}Image')
             self.sleep(1)
-        self.long_scroll_up()
-        for i in range(9,15):
+        self.scroll_up()
+        """for i in range(7,12):
             self.click(f'StockAddPageEntryToAdd{i}Image')
             self.sleep(1)
-        self.long_scroll_up()
+        self.scroll_up()
         for i in range(15, 18):
             self.click(f'StockAddPageEntryToAdd{i}Image')
-            self.sleep(1)
+            self.sleep(1)"""
 
     @allure.step("Verify watchlist activation")
     def verify_watchlist_activation(self):
@@ -428,7 +428,7 @@ class Watchlist(HomePage):
         self.click(homepage_stock)
         self.sleep(4)
         for i in range(0,6):
-            self.assert_equal(self.is_element_visible())
+            #self.assert_equal(self.is_element_visible())
             self.sleep(3)
             self.click(star_btn)
             self.sleep(2)
