@@ -65,7 +65,7 @@ whatsaap_btn = 'WhatsappBtn'
 otp_verfiy = 'EnterNumText2'
 otp_verify_text = 'Kami akan mengirimkan 4 digit kode verifikasi'
 wrong_number_text = 'WrongNumText'
-wrong_otp_msg = 'wrongOtpMsg'
+wrong_otp_msg = "//android.widget.TextView[@text='OTP Salah. Silahkan ulangi lagi']"
 wrong_otp_msg_text ='OTP Salah. Silahkan ulangi lagi'
 ignore_btn = "//android.widget.Button[@text= 'IGNORE']"
 kirim_otp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
@@ -82,7 +82,7 @@ class LoginPage(BaseCase):
     @allure.step("click mulai sekarang")
     def click_mulai_sekarang(self):
         self.sleep(5)
-        self.tap(ignore_btn)
+        #self.tap(ignore_btn)
         #self.sleep(1)
         self.click(mulai_sekarang)
 
@@ -240,7 +240,7 @@ class LoginPage(BaseCase):
     @allure.step("verify starting page")
     def verify_starting_page(self):
         self.sleep(3)
-        self.tap(ignore_btn)
+        #self.tap(ignore_btn)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(mulai_sekarang), True)
 
@@ -429,10 +429,11 @@ class LoginPage(BaseCase):
 
     @allure.step("Click by position")
     def click_by_position(self):
-        self.tap_by_coordinates(x=622, y=1607)
+        self.tap_by_coordinates(x=506, y=1046)
 
     @allure.step("Verify kirim otp via sms/whatsapp btn")
     def verify_kirim_otp_via_sms_otp(self):
+        self.sleep(1)
         self.assert_equal(self.is_element_visible(kirim_otp), True)
 
     @allure.step("Click to kirim otp buttun")

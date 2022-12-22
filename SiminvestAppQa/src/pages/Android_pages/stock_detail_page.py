@@ -8,7 +8,7 @@ from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 from datetime import datetime
 
 request_utilities = RequestsUtilities()
-star_without_click = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
+star_without_click = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView'
 search_btn = 'SDPSearchBtn'
 search_box = '//android.widget.EditText[@text="Cari Saham"]'
 searched_stock = '//android.widget.TextView[@text="Ace Hardware Indonesia Tbk"]'
@@ -91,6 +91,7 @@ notation_text = '//android.view.TextView[@text="!"]'
 notation_after_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]'
 notation_after_chart ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[6]'
 suspend_image = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ImageView'
+watchlist_card = '//*[@text="Default"]'
 
 class StockDetailPage(Watchlist):
 
@@ -573,6 +574,47 @@ class StockDetailPage(Watchlist):
         self.click(suspend_image)
         self.verify_sdp_page_after_back()
         self.assert_equal(self.get_attribute(suspend_image, 'bounds'), '[843,452][1027,510]')
+
+    @allure.step("Verify star mark on sdp")
+    def verify_star_mark_on_sdp(self):
+        self.assert_equal(self.is_element_visible(star_without_click), True)
+        self.click(star_without_click)
+        self.assert_equal(self.is_element_visible(watchlist_card), True)
+        self.go_back()
+        self.assert_equal(self.is_element_visible(watchlist_card), False)
+        self.click(star_without_click)
+        self.click(watchlist_card)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(star_without_click), True)
+        self.launch_app_again()
+        self.login_and_verify_homepage_for_reg_user(user_data['reg_no_3'])
+        self.scroll_up()
+        self.sleep(1)
+        self.scroll_up()
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible('//*[@text = "ACES"]'), True)
+        self.scroll_down()
+        self.sleep(1)
+        self.scroll_down()
+        self.click_global_search_btn_and_saerch_stock('ACES')
+        self.sleep(3)
+        self.click_on_stock_code()
+        self.verify_sdp_page_after_back()
+        self.assert_equal(self.is_element_visible(star_without_click), True)
+        self.click(star_without_click)
+        self.click(watchlist_card)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(star_without_click), True)
+        self.assert_equal(self.get_attribute(star_without_click, 'bounds'), '[953,525][1010,583]')
+        self.go_back()
+        self.sleep(1)
+        self.go_back()
+        self.scroll_up()
+        self.sleep(1)
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible('//*[@text = "ACES"]'), False)
+
+
 
 
         """self.scroll_up_screen()      

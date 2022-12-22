@@ -36,7 +36,7 @@ batan_btn = '//android.widget.TextView[@text="Batal"]'
 batan_btn1 = '//android.widget.TextView[@text="BATAL"]'
 camera_option = '//android.widget.TextView[@text="Camera"]'
 take_pic_allow = '//android.widget.Button[@text="Allow"]'
-location_allow = '//android.widget.Button[@text="Allow only while using the app"]'
+location_allow = '//android.widget.Button[@text="Allow"]'
 take_pic = 'Shutter'
 done_btn = 'Done'
 crop_btn = 'Crop'
@@ -440,11 +440,12 @@ class UserProfile(HomePage):
 
     @allure.step("verify limit msg on tarik dana page")
     def verify_limit_msg_on_tarik_dana_page(self):
-        self.set_text(tarik_dana_nominal, '1000')
+        self.update_text(tarik_dana_nominal, '1000')
         self.click(tarik_page_btn)
         self.assert_equal(self.get_attribute(pop_up_msg_rquired_fund,'text'),pop_up_msg_rquired_fund_text)
         self.click_on_ok_btn()
-        self.set_text(tarik_dana_nominal, '100000')
+        self.update_text(tarik_dana_nominal, '100000')
+        self.sleep(2)
         self.click(tarik_page_btn)
         self.assert_equal(self.get_attribute(pop_up_msg_11,'text'),pop_up_msg_11_text)
         self.click_on_ok_btn()
