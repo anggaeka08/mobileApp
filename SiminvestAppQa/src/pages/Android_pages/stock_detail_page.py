@@ -1,3 +1,5 @@
+import pytest
+
 from SiminvestAppQa.src.data.userData import user_data
 from datetime import datetime
 import allure
@@ -92,6 +94,19 @@ notation_after_name = '/hierarchy/android.widget.FrameLayout/android.widget.Line
 notation_after_chart ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[6]'
 suspend_image = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ImageView'
 watchlist_card = '//*[@text="Default"]'
+#chart_btn
+D1 = "//android.widget.Button[@text = '1D']"
+M1 = "//android.widget.Button[@text = '1M']"
+M3 = "//android.widget.Button[@text = '3M']"
+YTD = "//android.widget.Button[@text = 'YTD']"
+Y1 = "//android.widget.Button[@text = '1Y']"
+Y3 = "//android.widget.Button[@text = '3Y']"
+Y5 = "//android.widget.Button[@text = '5Y']"
+chart_view = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[8]/android.view.View/android.widget.Image/android.view.View[1]'
+time_on_chart = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[8]/android.view.View/android.view.View/android.widget.TextView[1]'
+stock_code_on_chart = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[8]/android.view.View/android.view.View/android.widget.TextView[2]'
+y_axis_value = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[8]/android.view.View/android.widget.Image/android.widget.TextView[2]'
+candlestick_chart = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.ImageView'
 
 class StockDetailPage(Watchlist):
 
@@ -614,7 +629,102 @@ class StockDetailPage(Watchlist):
         self.scroll_up()
         self.assert_equal(self.is_element_visible('//*[@text = "ACES"]'), False)
 
+    @allure.step("validate response price")
+    def validate_response_price(self):
+        self.sleep(4)
+        pl = self.get_attribute(stock_pl, 'text')
+        c = ')'
+        index = pl.find(c)
+        time_dur = pl[index + 3:]
+        logger.info(time_dur)
+        return time_dur
 
+    @allure.step("Validate on chart value")
+    def validate_on_chart_values(self):
+        self.click(chart_view)
+        self.sleep(2)
+        time = self.get_attribute(time_on_chart, 'text')
+        format_value = time.find('20')
+        if format_value == 0:
+            pytest.fail("Not in date format")
+        self.assert_equal(self.is_element_visible(stock_code_on_chart), True)
+
+    @allure.step("Validate sdp chart")
+    def validate_sdp_chart(self):
+        full_pl = self.validate_response_price()
+        self.assert_equal(full_pl, 'Past One Day')
+        self.sleep(2)
+        self.click(chart_view)
+        self.sleep(2)
+        time = self.get_attribute(time_on_chart, 'text')
+        format_value = time.find(':')
+        if format_value == 0:
+            pytest.fail("Not in time format")
+        self.assert_equal(self.is_element_visible(stock_code_on_chart), True)
+        d1_y_value = self.get_attribute(y_axis_value, 'text')
+        self.click(M1)
+        self.assert_equal(self.is_element_visible(chart_view), False)
+        full_pl = self.validate_response_price()
+        self.assert_equal(full_pl, 'Past One Month')
+        self.validate_on_chart_values()
+        m1_y_value = self.get_attribute(y_axis_value, 'text')
+        self.assert_not_equal(d1_y_value, m1_y_value)
+        self.click(M3)
+        self.assert_equal(self.is_element_visible(chart_view), False)
+        full_pl = self.validate_response_price()
+        self.assert_equal(full_pl, 'Past Three Months')
+        self.validate_on_chart_values()
+        m3_y_value = self.get_attribute(y_axis_value, 'text')
+        self.assert_not_equal(m1_y_value, m3_y_value)
+        #ytd value
+        self.click(YTD)
+        self.assert_equal(self.is_element_visible(chart_view), False)
+        full_pl = self.validate_response_price()
+        self.assert_equal(full_pl, 'Year To Date')
+        self.validate_on_chart_values()
+        ytd_y_value = self.get_attribute(y_axis_value, 'text')
+        self.assert_not_equal(ytd_y_value, m3_y_value)
+        # 1Y value
+        self.click(Y1)
+        self.assert_equal(self.is_element_visible(chart_view), False)
+        self.sleep(3)
+        full_pl = self.validate_response_price()
+        self.assert_equal(full_pl, 'Past One Year')
+        self.validate_on_chart_values()
+        y1_y_value = self.get_attribute(y_axis_value, 'text')
+        if y1_y_value == ytd_y_value :
+            pass
+        else :
+            self.assert_not_equal(y1_y_value, ytd_y_value)
+        # 3Y value
+        self.click(Y3)
+        self.assert_equal(self.is_element_visible(chart_view), False)
+        self.sleep(3)
+        full_pl = self.validate_response_price()
+        self.assert_equal(full_pl, 'Past Three Year')
+        self.validate_on_chart_values()
+        y3_y_value = self.get_attribute(y_axis_value, 'text')
+        if y1_y_value == y3_y_value:
+            pass
+        else :
+            self.assert_not_equal(y1_y_value, y3_y_value)
+        # 3Y value
+        self.click(Y5)
+        self.assert_equal(self.is_element_visible(chart_view), False)
+        self.sleep(3)
+        full_pl = self.validate_response_price()
+        self.assert_equal(full_pl, 'Past Five Year')
+        self.validate_on_chart_values()
+        y5_y_value = self.get_attribute(y_axis_value, 'text')
+        if y5_y_value == y3_y_value:
+            pass
+        else :
+            self.assert_not_equal(y5_y_value, y3_y_value)
+        self.click(candlestick_chart)
+        self.sleep(3)
+        self.go_back()
+        self.verify_sdp_page_after_back()
+        self.assert_equal(self.get_attribute(y_axis_value, 'bounds'), '[973,906][1028,944]')
 
 
         """self.scroll_up_screen()      
