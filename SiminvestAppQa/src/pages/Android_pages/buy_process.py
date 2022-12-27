@@ -39,7 +39,7 @@ price_minus_btn = 'SellPageHargaMinus'
 price_plus_btn = 'SellPageHargaPlus'
 price_space = 'SellPageHargaValue'
 buy_power_exceed_msg = '//android.widget.TextView[@text="Nilai pembelian kamu melebihi trading limit."]'
-total_beli_amount = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[6]'
+total_beli_amount = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[6]'
 status_on_trasction_page = 'OrderListEntry0Status'
 lot_count_on_buy_conf_page = 'BuyConfLotValue'
 hagra_on_buy_conf_page = 'BuyConfHargaValue'
@@ -50,6 +50,7 @@ Buying_Power_homepage='HomepagebuyPower'
 buying_power_buy_page = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[4]'
 bid_amount = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextBid0"]/android.widget.TextView'
 ask_amount = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextAsk0"]/android.widget.TextView'
+confirmation_page_header = 'Konfirmasi PembelianHeader'
 
 class BuyProcess(HomePage):
 
@@ -294,6 +295,13 @@ class BuyProcess(HomePage):
         ask_amount_text = self.get_attribute(ask_amount, "text")
         self.assert_equal(self.add_thousand_seprator(int(beli_da_hagra)), ask_amount_text)
 
+    @allure.step("Verify ask value reflect in beli de harga")
+    def verify_ask_value_reflect_in_beli_de_harga(self):
+        ask_amount_text = self.get_attribute(ask_amount, "text")
+        self.click(ask_amount)
+        beli_da_hagra = self.get_attribute(price_space, "text")
+        self.assert_equal(self.add_thousand_seprator(int(beli_da_hagra)), ask_amount_text)
+
     @allure.step("message after buy again stock on same price")
     def message_after_buy_again_on_same_price(self):
         pass
@@ -301,6 +309,10 @@ class BuyProcess(HomePage):
     @allure.step("click disabled buy btn")
     def click_disabled_buy_btn(self):
         self.click(disable_buy_btn)
+
+    @allure.step("Verify redirection to confirmation page")
+    def verify_redirection_to_confirmation_page(self):
+        self.assert_equal(self.is_element_visible(confirmation_page_header), True)
 
 
 

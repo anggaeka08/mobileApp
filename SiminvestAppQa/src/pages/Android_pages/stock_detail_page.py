@@ -393,7 +393,7 @@ class StockDetailPage(Watchlist):
         support_url_text = self.get_attribute(chrome_url,'text')
         index = support_url_text.find('.com')
         domain_name = support_url_text[:index]
-        self.assert_equal(domain_name[8:], 'sinarmassekuritas.zendesk')
+        self.assert_equal(domain_name[8:], 'invest.i')
 
     @allure.step("Verify stock company address")
     def verify_stock_company_address(self):
