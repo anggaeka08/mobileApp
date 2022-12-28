@@ -203,6 +203,49 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    # Validate sdp chart.
+    @pytest.mark.SBP_UI_Functional
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_validate_sbp_ui_function(self):
+        try:
+            self.execute_script('lambda-name=test_validate_sbp_ui_function')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_4'], 'ACES')
+            self.click_on_buy_btn()
+            self.go_back()
+            self.sleep(2)
+            self.verify_sdp_page_after_back()
+            self.click_on_buy_btn()
+            self.verify_buy_page()
+            self.verify_lot_count("1")
+            self.click_on_lot_increase_no()
+            self.verify_lot_count("2")
+            self.click_on_lot_decrease_btn()
+            self.verify_lot_count("1")
+            self.verify_plus_minus_btn_beli()
+            self.tap_on_gtc_option()
+            self.click_on_date()
+            self.go_back()
+            self.verify_buy_page()
+            self.verify_total_beli_amount()
+            self.verify_lot_harga_jumlah_value()
+            self.go_back()
+            self.verify_ask_value_reflect_in_beli_de_harga()
+            self.scroll_up()
+           # self.verify_redirection_after_click_on_support_btn()
+            #self.go_back()
+            self.click_on_buy_btn_on_buy_page()
+            self.verify_redirection_to_confirmation_page()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_sbp_ui_function', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_sbp_ui_function', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
     # Validate search option on sdp page
     @pytest.mark.SDP_SMMA_003_004
     @pytest.mark.Android
