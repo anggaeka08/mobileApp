@@ -246,7 +246,32 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
-    # Validate search option on sdp page
+    # Validate sdp chart.
+    @pytest.mark.SBP_GTC_Validation
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_SBP_GTC_Validation(self):
+        try:
+            self.execute_script('lambda-name=test_SBP_GTC_Validation')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+            self.check_for_buy_btn()
+            self.click_on_buy_btn()
+            self.verify_buy_page()
+            self.tap_on_gtc_option()
+            self.verify_default_date_after_tap_on_gtc_option()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_SBP_GTC_Validation', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_SBP_GTC_Validation', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+
+
+"""    # Validate search option on sdp page
     @pytest.mark.SDP_SMMA_003_004
     @pytest.mark.Android
     def test_validate_search_option_on_sdp(self):
@@ -336,3 +361,4 @@ class SDP_test(StockDetailPage, BuyProcess):
         self.scroll_up()
         self.verify_details_of_profile()
 
+"""

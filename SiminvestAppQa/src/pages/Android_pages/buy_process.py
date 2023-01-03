@@ -1,8 +1,12 @@
+from selenium.common.exceptions import InvalidElementStateException
+
 from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.login_page import LoginPage
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
 import time
 import allure
+from datetime import timedelta
+from datetime import date
 import logging as logger
 
 #buy process locators
@@ -25,7 +29,14 @@ gtc_on_off_btn = 'SellPageGTCEnableBtn'
 date_option = 'BuyPageGTCCalender'
 date_value = '//android.view.ViewGroup[@content-desc="BuyPageGTCCalender"]/android.view.ViewGroup/android.widget.TextView'
 date_selection = '30 June 2022'
-ok_btn_on_calender = '//*[@text="OK"]'
+ok_btn_on_calender = "//*[@text='OK']"
+cancel_btn_on_calender = "//*[@text='CANCEL']"
+next_arrow = '//android.widget.ImageButton[@content-desc="Next month"]'
+provious_arrow = '//android.widget.ImageButton[@content-desc="Previous month"]'
+#year_selection = "//android.widget.TextView[@resource-id='android:id/date_picker_header_year']"
+year_selection = "/hierarchy/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.DatePicker/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.TextView[1]"
+year_list = "//*[@text='2026']"
+date_pick="//*[@resource-id='android:id/date_picker_header_date']"
 confirm_btn = 'BuySellConfSetujuBtn'
 ok_btn = 'BuyTransactionMarketOpenButton'
 ok_btn_close = 'BuyTransactionMarketCloseButton'
@@ -314,12 +325,74 @@ class BuyProcess(HomePage):
     def verify_redirection_to_confirmation_page(self):
         self.assert_equal(self.is_element_visible(confirmation_page_header), True)
 
+    @allure.step("Scroll right to left")
+    def scroll_right_to_left(self):
+        self.scroll_screen(start_x=870, start_y=1114, end_x=203, end_y=1114, duration=10000)
+        self.sleep(2)
+
+    @allure.step("Scroll left to right")
+    def scroll_left_to_right(self):
+        self.scroll_screen(start_x=203, start_y=1114, end_x=870, end_y=1114, duration=10000)
+        self.sleep(2)
 
 
-
-
-
-
-
-
-
+    @allure.step("verify default date after tap on gtc option")
+    def verify_default_date_after_tap_on_gtc_option(self):
+        today = date.today()
+        d4_locator = today.strftime("%d %B %Y")
+        d4 = today.strftime("%d %b %Y")
+        date_on_gtc = self.get_attribute(date_value, 'text')
+        self.assert_equal(date_on_gtc, d4)
+        self.click(date_value)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(d4_locator), True)
+        self.click(next_arrow)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(d4_locator), False)
+        self.click(provious_arrow)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(d4_locator), True)
+        self.click(year_selection)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(year_list), True)
+        self.click(cancel_btn_on_calender)
+        self.sleep(1)
+        self.verify_buy_page()
+        self.click(date_value)
+        self.sleep(1)
+        self.click(year_selection)
+        self.sleep(1)
+        self.click(ok_btn_on_calender)
+        self.sleep(1)
+        self.verify_buy_page()
+        self.click(date_value)
+        self.sleep(1)
+        self.click(year_selection)
+        self.sleep(1)
+        self.click("//*[@text='2027']")
+        self.sleep(1)
+        d5 = today.strftime("%d %b 2027")
+        d5_locator = today.strftime("%d %B 2027")
+        self.click(ok_btn_on_calender)
+        self.sleep(1)
+        date_on_gtc_2 = self.get_attribute(date_value, 'text')
+        self.assert_equal(date_on_gtc_2, d5)
+        self.click(date_value)
+        self.sleep(1)
+        self.click(cancel_btn_on_calender)
+        self.sleep(1)
+        self.verify_buy_page()
+        self.click(date_value)
+        self.scroll_right_to_left()
+        self.scroll_left_to_right()
+        self.assert_equal(self.is_element_visible(d5_locator), True)
+        yesterday = today - timedelta(days=2)
+        yesterday_date = yesterday.strftime("%d %B 2027")
+        self.click(yesterday_date)
+        self.assert_equal(self.is_element_visible(date_value), False)
+        try:
+            self.tap_by_coordinates(x=635, y=1860)
+        except InvalidElementStateException as E:
+            pass
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(date_value), True)
