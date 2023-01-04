@@ -62,6 +62,26 @@ buying_power_buy_page = '/hierarchy/android.widget.FrameLayout/android.widget.Li
 bid_amount = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextBid0"]/android.widget.TextView'
 ask_amount = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextAsk0"]/android.widget.TextView'
 confirmation_page_header = 'Konfirmasi PembelianHeader'
+confirmation_page_sell_header = 'Konfirmasi PenjualanHeader'
+stock_code_on_buy = 'SellPageStockCode'
+stock_code_on_cnf = 'BuySellConfSahamValue'
+stock_code_text = 'BuySellConfSahamText'
+lot_text = 'BuyConfLotText'
+harga_text = 'BuyConfHargaText'
+jumlah_text = 'BuyConfJumlahText'
+fee_msg = 'FeeDeductionMsgText'
+fee_msg_text = '*Fee akan dipotong dari trading balance kamu di akhir hari bursa'
+total_jumlah_sell = 'SellPageTotalJualValue'
+sell_pl = 'SellPagePLValue'
+lot_value_sell_cnf= 'SellConfLotValue'
+harga_value_sell_cnf ='SellConfHargaValue'
+jumlah_value_sell_cnf = 'SellConfJumlahValue'
+pl_on_cnf = 'SellConfPLTextValue'
+gtc_sell_cnf = 'SellConfGoodTillDate'
+fee_msg_sell_cnf = 'SellFeeDeductionMsgText'
+
+
+
 
 class BuyProcess(HomePage):
 
@@ -396,3 +416,107 @@ class BuyProcess(HomePage):
             pass
         self.sleep(2)
         self.assert_equal(self.is_element_visible(date_value), True)
+
+    @allure.step("Validate order confirmation page for buy")
+    def validate_order_confirmation_page_for_buy(self):
+        stock_code_buy = self.get_attribute(stock_code_on_buy, 'text')
+        harga_value_buy = self.get_attribute(price_space, 'text')
+        lot_value_buy = self.get_attribute(lot_area, 'text')
+        amount_with_rp = self.get_attribute(total_beli_amount, "text")
+        amount_without_rp_buy = amount_with_rp[3:]
+        self.click(gtc_on_off_btn)
+        gtc_date_buy = self.get_attribute(gtc_date_on_buy_page, 'text')
+        self.click(buy_btn_on_buy_page)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(confirmation_page_header), True)
+        stock_code_cnf = self.get_attribute(stock_code_on_cnf, 'text')
+        lot_cnf = self.get_attribute(lot_count_on_buy_conf_page, 'text')
+        harga_cnf = self.get_attribute(hagra_on_buy_conf_page, 'text')
+        jumlah_conf_page = self.get_attribute(jumlah_on_buy_conf_page, 'text')
+        gtc_on_cnf = self.get_attribute(date_on_buy_conf_page, 'text')
+        self.assert_equal(stock_code_buy, stock_code_cnf)
+        self.assert_equal(harga_value_buy, harga_cnf)
+        self.assert_equal(lot_value_buy, lot_cnf)
+        self.assert_equal(amount_without_rp_buy, jumlah_conf_page)
+        self.assert_equal(self.is_element_visible(stock_code_text), True)
+        self.assert_equal(self.is_element_visible(lot_text), True)
+        self.assert_equal(self.is_element_visible(harga_text), True)
+        self.assert_equal(self.is_element_visible(jumlah_text), True)
+        self.assert_equal(self.get_attribute(fee_msg, 'text'), fee_msg_text)
+        self.assert_equal(gtc_on_cnf, gtc_date_buy)
+        self.click(cancel_btn)
+        self.verify_buy_page()
+        self.click(gtc_on_off_btn)
+        self.click(buy_btn_on_buy_page)
+        try:
+            self.tap_by_coordinates(x=635, y=1860)
+        except InvalidElementStateException as E:
+            pass
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(stock_code_text), True)
+        self.click(confirm_btn)
+        self.sleep(5)
+        if self.is_element_visible(ok_btn_close) == True:
+            self.go_back()
+        else :
+            self.assert_equal(self.is_element_visible(ok_btn), True)
+            self.go_back()
+        self.sleep(2)
+        self.verify_buy_page()
+        self.go_back()
+        #self.click(sell_btn)
+
+    @allure.step("Validate order confirmation page for sell")
+    def validate_order_confirmation_page_for_sell(self):
+        self.click(sell_btn)
+        stock_code_buy = self.get_attribute(stock_code_on_buy, 'text')
+        harga_value_buy = self.get_attribute(price_space, 'text')
+        lot_value_buy = self.get_attribute(lot_area, 'text')
+        total_jumlah_value_Sell_with_rp = self.get_attribute(total_jumlah_sell, "text")
+        total_jumlah_value_Sell=total_jumlah_value_Sell_with_rp[3:]
+        pl_value_sell = self.get_attribute(sell_pl, 'text')
+        self.click(gtc_on_off_btn)
+        gtc_date_buy = self.get_attribute(gtc_date_on_buy_page, 'text')
+        self.click(buy_btn_on_buy_page)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(confirmation_page_sell_header), True)
+        stock_code_cnf = self.get_attribute(stock_code_on_cnf, 'text')
+        lot_cnf = self.get_attribute(lot_value_sell_cnf, 'text')
+        harga_cnf = self.get_attribute(harga_value_sell_cnf, 'text')
+        jumlah_conf_page = self.get_attribute(jumlah_value_sell_cnf, 'text')
+        gtc_on_cnf = self.get_attribute(gtc_sell_cnf, 'text')
+        pl_value_cnf = self.get_attribute(pl_on_cnf, 'text')
+        self.assert_equal(stock_code_buy, stock_code_cnf)
+        self.assert_equal(harga_value_buy, harga_cnf)
+        self.assert_equal(lot_value_buy, lot_cnf)
+        self.assert_equal(pl_value_cnf, pl_value_sell)
+        self.assert_equal(total_jumlah_value_Sell, jumlah_conf_page)
+        self.assert_equal(self.is_element_visible(stock_code_text), True)
+        self.assert_equal(self.get_attribute(fee_msg_sell_cnf, 'text'), fee_msg_text)
+        self.assert_equal(gtc_on_cnf, gtc_date_buy)
+        self.click(cancel_btn)
+        self.click(gtc_on_off_btn)
+        self.click(buy_btn_on_buy_page)
+        try:
+            self.tap_by_coordinates(x=635, y=1860)
+        except InvalidElementStateException as E:
+            pass
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(stock_code_text), True)
+        self.click(confirm_btn)
+        self.sleep(5)
+        if self.is_element_visible(ok_btn_close) == True:
+            pass
+        else :
+            self.assert_equal(self.is_element_visible(ok_btn), True)
+
+
+
+
+
+
+
+
+
+
+
