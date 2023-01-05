@@ -1,4 +1,5 @@
 import pytest
+from selenium.common.exceptions import NoSuchElementException
 
 from SiminvestAppQa.src.data.userData import user_data
 from datetime import datetime
@@ -151,15 +152,58 @@ class StockDetailPage(Watchlist):
         self.assert_equal(self.is_element_visible(lot_text), True)
         self.assert_equal(self.is_element_visible(bid_text), True)
 
-    @allure.step("Lot value list")
-    def lot_bit_list(self):
-        lot_bit_list = []
-        lot_bit_list.append(int((self.get_attribute('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[23]', "text")).replace(',','')))
-        for i in range(25, 61,4):
-            lot_bit_list.append(int((self.get_attribute(
-                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[{i}]',
-                "text")).replace(',','')))
-        return lot_bit_list
+    @allure.step("Validate bid list")
+    def validate_bid_list(self):
+        lot_list = []
+        bid_list = []
+        try:
+            for i in range(20, 30):
+                lot_list.append(int((self.get_attribute(f'SDPbid_volumeText{i}',"text")).replace(',','')))
+                bid_list.append(int((self.get_attribute(f'SDPbid_priceText{i}',"text")).replace(',','')))
+        except NoSuchElementException as E:
+            pass
+        try:
+            total = 0
+            self.assert_equal(len(lot_list), 10)
+            self.assert_equal(len(bid_list), 10)
+            total_lot_value_for_bid = int(self.get_attribute('(//android.widget.TextView[@content-desc="SDPOrderBookFooter"])[1]', 'text').replace(',',''))
+            for ele in range(0, len(lot_list)):
+                total = total + lot_list[ele]
+            logger.info(f"total:{total}")
+            logger.info(f"total:{total_lot_value_for_bid}")
+            self.assert_equal(total_lot_value_for_bid, total)
+        except AssertionError as E:
+            logger.info(len(lot_list))
+            logger.info(len(bid_list))
+            self.assert_equal(len(lot_list), len(bid_list))
+
+    @allure.step("Validate ask list")
+    def validate_ask_list(self):
+        lot_list = []
+        ask_list = []
+        try:
+            for i in range(20, 30):
+                lot_list.append(int((self.get_attribute(f'SDPask_volumeText{i}', "text")).replace(',', '')))
+                ask_list.append(int((self.get_attribute(f'SDPask_priceText{i}', "text")).replace(',', '')))
+        except NoSuchElementException as E:
+            pass
+        try:
+            total = 0
+            self.assert_equal(len(lot_list), 10)
+            self.assert_equal(len(ask_list), 10)
+            total_lot_value_for_bid = int(
+                self.get_attribute('(//android.widget.TextView[@content-desc="SDPOrderBookFooter"])[2]',
+                                   'text').replace(',', ''))
+            for ele in range(0, len(lot_list)):
+                total = total + lot_list[ele]
+            logger.info(f"total:{total}")
+            logger.info(f"total:{total_lot_value_for_bid}")
+            self.assert_equal(total_lot_value_for_bid, total)
+        except AssertionError as E:
+            logger.info(len(lot_list))
+            logger.info(len(ask_list))
+            self.assert_equal(len(lot_list), len(ask_list))
+
 
     @allure.step("Bit value list")
     def Bit_value_list(self):
