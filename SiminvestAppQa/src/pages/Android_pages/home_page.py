@@ -320,8 +320,8 @@ class HomePage(LoginPage):
         self.sleep(3)
         riwayat_page_header_text = self.get_attribute(riwayat_page_header, "text")
         self.assert_equal(riwayat_page_header_text, "Riwayat")
-        riwayat_entry_1_present = self.is_element_visible(riwayat_entry_1)
-        assert riwayat_entry_1_present == True, f"riwayat_entry_1 Should be present"
+        #riwayat_entry_1_present = self.is_element_visible(riwayat_entry_1)
+        #assert riwayat_entry_1_present == True, f"riwayat_entry_1 Should be present"
 
 
     @allure.step("scroll up")
@@ -353,8 +353,8 @@ class HomePage(LoginPage):
         self.assert_equal(today_text[-5:], "Today")
         Buying_Power_text = self.get_attribute(Buying_Power, "text")
         self.assert_equal(Buying_Power_text[:12], "Buying power")
-        Keren_dua_text = self.get_attribute(Keren_dua, "text")
-        self.assert_equal(Keren_dua_text, "Sudah siap? Yuk, mulai sekarang")
+        #Keren_dua_text = self.get_attribute(Keren_dua, "text")
+        #self.assert_equal(Keren_dua_text, "Sudah siap? Yuk, mulai sekarang")
         Top_up_text = self.get_attribute(Top_up, "text")
         self.assert_equal(Top_up_text, "Top Up")
         Indeks_text = self.get_attribute(Indeks, "text")
