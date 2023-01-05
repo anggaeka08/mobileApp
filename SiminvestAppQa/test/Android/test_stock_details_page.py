@@ -269,6 +269,28 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    # Validate sdp chart.
+    @pytest.mark.Stock_buy_conf_page
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    def test_Stock_buy_conf_page(self):
+        try:
+            self.execute_script('lambda-name=test_Stock_buy_conf_page')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ASII')
+            self.click_on_buy_btn()
+            self.validate_order_confirmation_page_for_buy()
+            self.validate_order_confirmation_page_for_sell()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_Stock_buy_conf_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_Stock_buy_conf_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+
 
 
 """    # Validate search option on sdp page
