@@ -72,6 +72,7 @@ kirim_otp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/a
 selanjutnya_otp_sel = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
 back_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 navigate_up = 'Navigate up'
+bio_on_off = "//android.widget.TextView[@text = 'Nanti Saja']"
 
 class LoginPage(BaseCase):
 
@@ -161,6 +162,7 @@ class LoginPage(BaseCase):
         self.click(click_5)
         self.click(click_6)
         self.sleep(2)
+        self.click(bio_on_off)
 
     @allure.step("enter wrong pin")
     def enter_wrong_pin(self):
