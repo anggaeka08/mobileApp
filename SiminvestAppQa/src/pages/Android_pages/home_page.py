@@ -176,6 +176,7 @@ marker = 'UrutkanSelectMark'
 top_gainer = 'ScreenHomeTop gainers'
 top_gainer_on_homepage = "//android.widget.TextView[@text='Top gainers']"
 mover_stock_code = 'MoverPageEntry0Code'
+mover_stock_code_1 = 'MoverPageEntry1Code'
 search_btn_mover = 'MoverPageSearchBtn'
 
 class HomePage(LoginPage):
@@ -916,7 +917,7 @@ class HomePage(LoginPage):
         self.click(top_frequency_down_arrow)
         self.click(top_gainer)
         self.sleep(2)
-        top_gainer_stock = self.get_attribute(mover_stock_code, 'text')
+        top_gainer_stock = self.get_attribute(mover_stock_code_1, 'text')
         self.assert_not_equal(top_frequency_code, top_gainer_stock)
         self.go_back()
         self.verify_top_frequency_presention()
