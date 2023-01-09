@@ -536,11 +536,15 @@ class UserProfile(HomePage):
 
     @allure.step("Click and verify to FAQs tab")
     def click_and_verify_to_FAQs_tab(self):
+        self.scroll_up()
+        self.sleep(1)
         self.click(FAQs_tab)
         self.sleep(3)
         self.assert_equal(self.is_element_visible(FAQ_header), True)
         self.sleep(2)
         self.go_back()
+        self.sleep(2)
+        self.scroll_down()
         self.sleep(2)
         self.verify_phone_number_available_on_profile_page()
 

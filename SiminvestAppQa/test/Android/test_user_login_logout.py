@@ -184,12 +184,13 @@ class Login_test(LoginPage):
     def test_verify_redirect_to_home_when_login_with_same_no_second_time(self):
         try:
             self.execute_script('lambda-name=test_verify_redirect_to_home_when_login_with_same_no_second_time')
-            number = generate_random_integer(length=7, prefix='844')
+            number = generate_random_integer(length=6, prefix='8449')
             self.click_mulai_sekarang()
             self.type_mobile_no(number)
             self.click_selanjutnya()
             self.enter_otp(user_data['valid_otp'])
             self.set_pin(user_data['setup_pin_value'])
+            self.enter_confirm_pin(user_data['setup_pin_value'])
             #LoginPage.verify_risk_profile_page()
             #LoginPage.click_agresif_profile()
             self.close_home_page_banner()
@@ -389,13 +390,15 @@ class Login_test(LoginPage):
             self.execute_script('lambda-name=test_validate_login_after_resend_otp')
             #number = generate_random_integer(length=7, prefix='844')
             self.click_mulai_sekarang()
-            self.type_mobile_no('8447767107')
+            self.type_mobile_no('8447767110')
             self.click_selanjutnya()
             self.sleep(25)
             self.click_Kirim_Ulang()
             self.sleep(2)
             self.enter_otp(user_data['valid_otp'])
             self.set_pin(user_data['setup_pin_value'])
+            self.enter_confirm_pin(user_data['setup_pin_value'])
+            self.click_on_bio_off()
             self.verify_home_page()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
@@ -466,7 +469,7 @@ class Login_test(LoginPage):
             self.set_pin('123456')
             self.enter_confirm_pin('123456')
             self.click_on_ok_btn()
-            self.enter_pin()
+            self.enter_pin_without_bio()
             self.click_on_profile_btn()
             self.click_on_pengaturan_btn()
             self.click_on_ganti_pin_password_btn()
@@ -558,7 +561,7 @@ class Login_test(LoginPage):
     def test_validate_user_is_receiving_OTP_on_WhatsApp_SMS(self):
         try:
             self.execute_script('lambda-name=test_validate_user_is_receiving_OTP_on_WhatsApp_SMS')
-            number = generate_random_integer(length=7, prefix='844')
+            number = '8447687103'
             self.click_mulai_sekarang()
             self.type_mobile_no(number)
             self.click_selanjutnya()
@@ -704,10 +707,10 @@ class Login_test(LoginPage):
             #self.verify_wrong_otp_msg()
             self.enter_otp('1234')
             self.set_pin('123456')
-            self.enter_confirm_pin('123456')
+            self.enter_confirm_pin_without_bio('123456')
             self.sleep(5)
             self.verify_redirect_to_pin_page()
-            self.enter_pin()
+            self.enter_pin_without_bio()
             self.verify_home_page_reg_user()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
@@ -728,7 +731,7 @@ class Login_test(LoginPage):
         try:
             self.execute_script('lambda-name=test_Validate_another_method_if_user_got_blocked_for_whatsApp_OTP')
             self.click_mulai_sekarang()
-            self.type_mobile_no(user_data['unkyc_reg_no'])
+            self.type_mobile_no(user_data['unkyc_reg_no_2'])
             self.click_on_whatsapp_btn()
             self.click_selanjutnya()
             #self.verify_timer_for_given_time(29)

@@ -72,6 +72,7 @@ kirim_otp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/a
 selanjutnya_otp_sel = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
 back_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 navigate_up = 'Navigate up'
+bio_on_off = "//android.widget.TextView[@text = 'Nanti Saja']"
 
 class LoginPage(BaseCase):
 
@@ -107,6 +108,10 @@ class LoginPage(BaseCase):
     @allure.step("click selanjutnya")
     def click_selanjutnya(self):
         self.click(selanjutnya)
+
+    @allure.step("click_on_bio_off")
+    def click_on_bio_off(self):
+        self.click(bio_on_off)
 
 
     @allure.step("enter otp")
@@ -153,6 +158,18 @@ class LoginPage(BaseCase):
 
     @allure.step("enter pin")
     def enter_pin(self):
+        self.sleep(2)
+        self.click(click_1)
+        self.click(click_2)
+        self.click(click_3)
+        self.click(click_4)
+        self.click(click_5)
+        self.click(click_6)
+        self.sleep(2)
+        self.click(bio_on_off)
+
+    @allure.step("enter pin")
+    def enter_pin_without_bio(self):
         self.sleep(2)
         self.click(click_1)
         self.click(click_2)
@@ -240,7 +257,7 @@ class LoginPage(BaseCase):
     @allure.step("verify starting page")
     def verify_starting_page(self):
         self.sleep(3)
-        #self.tap(ignore_btn)
+        self.tap(ignore_btn)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(mulai_sekarang), True)
 
@@ -321,6 +338,10 @@ class LoginPage(BaseCase):
 
     @allure.step("Enter confirm Pin")
     def enter_confirm_pin(self, pin):
+        self.set_text(confirm_pin, pin)
+        self.click(bio_on_off)
+    @allure.step("Enter confirm Pin")
+    def enter_confirm_pin_without_bio(self, pin):
         self.set_text(confirm_pin, pin)
 
     @allure.step("Validate error msg on confirm pin page")
@@ -433,7 +454,7 @@ class LoginPage(BaseCase):
 
     @allure.step("Verify kirim otp via sms/whatsapp btn")
     def verify_kirim_otp_via_sms_otp(self):
-        self.sleep(1)
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(kirim_otp), True)
 
     @allure.step("Click to kirim otp buttun")

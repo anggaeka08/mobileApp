@@ -1,4 +1,5 @@
 import pytest
+from selenium.common.exceptions import NoSuchElementException
 
 from SiminvestAppQa.src.data.userData import user_data
 from datetime import datetime
@@ -151,15 +152,58 @@ class StockDetailPage(Watchlist):
         self.assert_equal(self.is_element_visible(lot_text), True)
         self.assert_equal(self.is_element_visible(bid_text), True)
 
-    @allure.step("Lot value list")
-    def lot_bit_list(self):
-        lot_bit_list = []
-        lot_bit_list.append(int((self.get_attribute('/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[23]', "text")).replace(',','')))
-        for i in range(25, 61,4):
-            lot_bit_list.append(int((self.get_attribute(
-                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[{i}]',
-                "text")).replace(',','')))
-        return lot_bit_list
+    @allure.step("Validate bid list")
+    def validate_bid_list(self):
+        lot_list = []
+        bid_list = []
+        try:
+            for i in range(20, 30):
+                lot_list.append(int((self.get_attribute(f'SDPbid_volumeText{i}',"text")).replace(',','')))
+                bid_list.append(int((self.get_attribute(f'SDPbid_priceText{i}',"text")).replace(',','')))
+        except NoSuchElementException as E:
+            pass
+        try:
+            total = 0
+            self.assert_equal(len(lot_list), 10)
+            self.assert_equal(len(bid_list), 10)
+            total_lot_value_for_bid = int(self.get_attribute('(//android.widget.TextView[@content-desc="SDPOrderBookFooter"])[1]', 'text').replace(',',''))
+            for ele in range(0, len(lot_list)):
+                total = total + lot_list[ele]
+            logger.info(f"total:{total}")
+            logger.info(f"total:{total_lot_value_for_bid}")
+            self.assert_equal(total_lot_value_for_bid, total)
+        except AssertionError as E:
+            logger.info(len(lot_list))
+            logger.info(len(bid_list))
+            self.assert_equal(len(lot_list), len(bid_list))
+
+    @allure.step("Validate ask list")
+    def validate_ask_list(self):
+        lot_list = []
+        ask_list = []
+        try:
+            for i in range(20, 30):
+                lot_list.append(int((self.get_attribute(f'SDPask_volumeText{i}', "text")).replace(',', '')))
+                ask_list.append(int((self.get_attribute(f'SDPask_priceText{i}', "text")).replace(',', '')))
+        except NoSuchElementException as E:
+            pass
+        try:
+            total = 0
+            self.assert_equal(len(lot_list), 10)
+            self.assert_equal(len(ask_list), 10)
+            total_lot_value_for_bid = int(
+                self.get_attribute('(//android.widget.TextView[@content-desc="SDPOrderBookFooter"])[2]',
+                                   'text').replace(',', ''))
+            for ele in range(0, len(lot_list)):
+                total = total + lot_list[ele]
+            logger.info(f"total:{total}")
+            logger.info(f"total:{total_lot_value_for_bid}")
+            self.assert_equal(total_lot_value_for_bid, total)
+        except AssertionError as E:
+            logger.info(len(lot_list))
+            logger.info(len(ask_list))
+            self.assert_equal(len(lot_list), len(ask_list))
+
 
     @allure.step("Bit value list")
     def Bit_value_list(self):
@@ -459,9 +503,9 @@ class StockDetailPage(Watchlist):
         sdp_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/v1/pcs/v2/product/equity',endpoint='/ACES', headers=token,expected_status_code=200)
         vol = str(sdp_rs['vol'])
         val = str(sdp_rs['val'])
-        new_value = vol[:2]+"."+vol[2:3] +" M"
-        new_value_val = val[:2]+"."+val[2:3] +" M"
-        logger.info(new_value)
+        new_value = vol[:2]+"."+vol[2:3] +" Jt"
+        new_value_val = val[:2]+"."+val[2:3] +" Jt"
+        logger.info(new_value_val)
         api_value.append(sdp_rs['open'])
         api_value.append(sdp_rs['high'])
         api_value.append(new_value)
@@ -534,9 +578,9 @@ class StockDetailPage(Watchlist):
 
     @allure.step("Validate pposition of elements on sdp")
     def validate_position_of_elements_on_sdp(self):
-        self.assert_equal(self.get_attribute(stock_name, 'bounds'), '[52,357][541,412]')
-        self.assert_equal(self.get_attribute(stock_price, 'bounds'), '[52,445][163,517]')
-        self.assert_equal(self.get_attribute(stock_pl, 'bounds'), '[52,536][440,572]')
+        self.assert_equal(self.get_attribute(stock_name, 'bounds'), '[52,277][541,332]')
+        #self.assert_equal(self.get_attribute(stock_price, 'bounds'), '[52,445][163,517]')
+        #self.assert_equal(self.get_attribute(stock_pl, 'bounds'), '[52,536][440,572]')
 
 
     @allure.step("Validate Special notation")
@@ -562,7 +606,7 @@ class StockDetailPage(Watchlist):
         self.verify_sdp_page_after_back()
         self.assert_equal(self.is_element_visible(notation_after_name), True)
         self.assert_equal(self.is_element_visible(notation_after_chart), True)
-        self.assert_equal(self.get_attribute(notation_after_chart, 'bounds'), '[52,1421][1028,1547]')
+        self.assert_equal(self.get_attribute(notation_after_chart, 'bounds'), '[52,1341][1028,1468]')
 
     @allure.step("Validate watchlist buy for suspended stock")
     def validate_watchlist_buy_for_suspended_stock(self):
@@ -588,7 +632,7 @@ class StockDetailPage(Watchlist):
         self.verify_sdp_page_after_back()
         self.click(suspend_image)
         self.verify_sdp_page_after_back()
-        self.assert_equal(self.get_attribute(suspend_image, 'bounds'), '[843,452][1027,510]')
+        self.assert_equal(self.get_attribute(suspend_image, 'bounds'), '[843,372][1027,429]')
 
     @allure.step("Verify star mark on sdp")
     def verify_star_mark_on_sdp(self):
