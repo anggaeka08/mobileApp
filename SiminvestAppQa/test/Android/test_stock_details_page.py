@@ -40,8 +40,8 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.open_sdp_page_with_kyc_user(user_data['reg_no_2'], 'ACES')
             UI_data = self.collect_all_data_from_ui()
             API_data =self.validate_all_api_data()
-            """ for i in range(9):
-                self.assert_equal(UI_data[i] , str(API_data[i]))"""
+            for i in range(9):
+                self.assert_equal(UI_data[i] , str(API_data[i]))
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('SDP_Data_with_api', 'SiminvestAppQa/src/data/ScreenShots')
@@ -302,13 +302,13 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
-    @pytest.mark.Stock_orderbook_news
+    @pytest.mark.Stock_orderbook
     @pytest.mark.Android
     @pytest.mark.SDP
     @allure.story("F-7:SDP Feature")
-    def test_Stock_orderbook_and_news(self):
+    def test_Stock_orderbook_tab(self):
         try:
-            self.execute_script('lambda-name=test_Stock_orderbook_and_news')
+            self.execute_script('lambda-name=test_Stock_orderbook_tab')
             self.open_sdp_page_with_kyc_user(user_data['reg_no_2'], 'ACES')
             self.scroll_up()
             self.sleep(2)
@@ -316,14 +316,35 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.validate_ask_list()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
-            self.save_screenshot('test_Stock_orderbook_and_news', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_Stock_orderbook_tab', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
-            self.save_screenshot('test_Stock_orderbook_and_news', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_Stock_orderbook_tab', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    #Validate news tab on SDP page and news page details
+    @pytest.mark.SDP_News_tab
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    @allure.story("F-7:SDP Feature")
+    def test_Validate_news_tab_on_SDP_pages(self):
+        try:
+            self.execute_script('lambda-name=test_Validate_news_tab_on_SDP_pages')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_3'], 'ACES')
+            self.verify_news_availability_on_sdp()
+            self.click_on_news()
+            self.verify_news_tab()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_Validate_news_tab_on_SDP_pages', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_Validate_news_tab_on_SDP_pages', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
 
 
 """    # Validate search option on sdp page
