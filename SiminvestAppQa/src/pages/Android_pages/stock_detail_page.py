@@ -56,8 +56,8 @@ Financials = '//*[@text="Financials"]'
 Profile = '//*[@text="Profile"]'
 beli_btn = 'SDPBeliBtn'
 #list of news date and domain
-news_1= '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[13]/android.widget.TextView[2]'
-news_url_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[13]/android.widget.TextView[1]'
+news_1= '//android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[2]'
+news_url_1 = '//android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]'
 browser_url = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.EditText'
 Hubungi = '//*[@text="Hubungi Customer Care"]'
 chrome_url = 'com.android.chrome:id/url_bar'
@@ -324,17 +324,37 @@ class StockDetailPage(Watchlist):
         self.sleep(2)
 
     @allure.step("Verify news date list is shorted")
-    def verify_news_dates_list(self):
+    def verify_news_tab(self):
         date_list = []
+        title_lst = []
         sorted_date_list = []
-        news_1_string = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]',"text")
+        news_1_string = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]',"text")
+        news_title_1 = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[2]',"text")
+        title_lst.append(news_title_1)
+        logger.info(news_1_string)
+        logger.info(title_lst)
         date_1 = news_1_string[-11:]
         date_list.append(date_1)
+        news_2_string = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView',"text")
+        logger.info(news_2_string)
+        news_title_2 = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[1]',"text")
+        title_lst.append(news_title_2)
+        date_2 = news_2_string[-11:]
+        date_list.append(date_2)
+        logger.info(date_list)
+        logger.info(title_lst)
         self.scroll_up_screen()
-        for i in range(3, 20, 2):
-            news_1_string = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]', "text")
+        self.sleep(1)
+        self.scroll_up_screen()
+        self.validate_domain_name_for_one_news()
+        for i in range(3, 18, 2):
+            news_1_string = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]', "text")
+            news_1_title = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]', "text")
             date_1 = news_1_string[-11:]
             date_list.append(date_1)
+            title_lst.append(news_1_title)
+            logger.info(title_lst)
+            logger.info(date_list)
         logger.info(date_list)
         fetched_date_lst = date_list
         date_list.sort(key=lambda date: datetime.strptime(date, '%d %b %Y'))
@@ -342,15 +362,6 @@ class StockDetailPage(Watchlist):
         sorted_date_list = date_list
         logger.info(sorted_date_list)
         self.assert_equal(fetched_date_lst, sorted_date_list)
-
-    @allure.step("Verify news title")
-    def verify_news_title(self):
-        title_lst = []
-        for i in range(3, 20, 2):
-            news_title = self.get_attribute(
-                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]',
-                "text")
-            title_lst.append(news_title)
         for i in range(len(title_lst)):
             if len(title_lst[i]) > 80:
                 a = title_lst[i]
@@ -359,75 +370,22 @@ class StockDetailPage(Watchlist):
             else:
                 logger.info("String length is not greater then 80")
         logger.info(title_lst)
-
-    @allure.step("Validate domain name for one news")
-    def validate_domain_name_for_one_news(self):
-        news_url_text = self.get_attribute(news_url_1, 'text')
-        c = 'id'
-        #d = 'com'
-        index = news_url_text.find(c)
-        news_url = news_url_text[4:index+2]
-        logger.info(news_url)
-        self.click(news_1)
-        self.sleep(3)
-        browser_full_url = self.get_attribute(browser_url, 'text')
-        d = '/2'
-        index = browser_full_url.find(d)
-        browser_url_text = browser_full_url[:index]
-        logger.info(browser_url_text)
-        self.assert_equal(news_url, browser_url_text[12:])
-
-    @allure.step("Validate maximum available news")
-    def validate_maximum_available_news(self):
-        try:
-            date_list = []
-            news_1_string = self.get_attribute(
-                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]',
-                "text")
-            date_1 = news_1_string[-11:]
-            date_list.append(date_1)
-            self.scroll_up_screen()
-            for i in range(3, 23, 2):
-                news_1_string = self.get_attribute(
-                    f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]',
-                    "text")
-                date_1 = news_1_string[-11:]
-                date_list.append(date_1)
-            logger.info(date_list)
-        except:
-            logger.info("News not available more then 10")
-            self.scroll_down()
-            date_list = []
-            news_1_string = self.get_attribute(
-                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]',
-                "text")
-            date_1 = news_1_string[-11:]
-            date_list.append(date_1)
-            self.scroll_up_screen()
-            for i in range(3, 20, 2):
-                news_1_string = self.get_attribute(
-                    f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]',
-                    "text")
-                date_1 = news_1_string[-11:]
-                date_list.append(date_1)
-            self.assert_equal(len(date_list), 10)
-
-
-    @allure.step("Validate all news are separated")
-    def validate_all_news_are_separated(self):
-        self.scroll_up_screen()
-        title_lst = []
-        for i in range(3, 20, 2):
-
-            news_title = self.get_attribute(
-                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]',
-                "text")
-            title_lst.append(news_title)
+        self.assert_equal(len(title_lst), 10)
         for i in range(len(title_lst) - 1):
             if title_lst[i] == title_lst[i + 1]:
                 logger.info("News are same")
             else:
                 logger.info("News are not same")
+
+        self.go_back()
+
+
+    @allure.step("Verify keystat tab")
+    def verify_keystat_tab(self):
+        self.click_on_stock_code()
+        self.sleep(3)
+        self.click(Keystats)
+        self.sleep(1)
 
 
     @allure.step('verify redirection after click on Hubungi Customer')
