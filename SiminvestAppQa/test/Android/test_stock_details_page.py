@@ -336,6 +336,7 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.verify_news_availability_on_sdp()
             self.click_on_news()
             self.verify_news_tab()
+            self.verify_keystat_tab()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_Validate_news_tab_on_SDP_pages', 'SiminvestAppQa/src/data/ScreenShots')

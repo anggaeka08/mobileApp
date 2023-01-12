@@ -346,7 +346,7 @@ class StockDetailPage(Watchlist):
         self.scroll_up_screen()
         self.sleep(1)
         self.scroll_up_screen()
-        self.validate_domain_name_for_one_news()
+        #self.validate_domain_name_for_one_news()
         for i in range(3, 18, 2):
             news_1_string = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]', "text")
             news_1_title = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]', "text")
@@ -379,14 +379,37 @@ class StockDetailPage(Watchlist):
 
         self.go_back()
 
+    @allure.step("Validate domain name for one news")
+    def validate_domain_name_for_one_news(self):
+        news_url_text = self.get_attribute(news_url_1, 'text')
+        c = 'id'
+        #d = 'com'
+        index = news_url_text.find(c)
+        news_url = news_url_text[4:index+2]
+        logger.info(news_url)
+        self.click(news_1)
+        self.sleep(3)
+        # browser_full_url = self.get_attribute(browser_url, 'text')
+        # d = '/2'
+        # index = browser_full_url.find(d)
+        # browser_url_text = browser_full_url[:index]
+        # logger.info(browser_url_text)
+        # self.assert_equal(news_url, browser_url_text[12:])
+
 
     @allure.step("Verify keystat tab")
     def verify_keystat_tab(self):
         self.click_on_stock_code()
         self.sleep(3)
         self.click(Keystats)
-        self.sleep(1)
-
+        self.scroll_up_screen()
+        for i in range(1, 25, 1):
+            self.assert_equal(self.is_element_visible(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.widget.TextView[{i}]'), True)
+        self.scroll_up_screen()
+        for i in range(1, 30, 1):
+            self.assert_equal(self.is_element_visible(
+                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.widget.TextView[{i}]'),
+                              True)
 
     @allure.step('verify redirection after click on Hubungi Customer')
     def verify_redirection_after_click_on_support_btn(self):
@@ -534,7 +557,7 @@ class StockDetailPage(Watchlist):
             self.sleep(2)
             self.assert_equal(self.is_element_visible(market_close_msg), True)
 
-    @allure.step("Validate pposition of elements on sdp")
+    @allure.step("Validate position of elements on sdp")
     def validate_position_of_elements_on_sdp(self):
         self.assert_equal(self.get_attribute(stock_name, 'bounds'), '[52,277][541,332]')
         #self.assert_equal(self.get_attribute(stock_price, 'bounds'), '[52,445][163,517]')
