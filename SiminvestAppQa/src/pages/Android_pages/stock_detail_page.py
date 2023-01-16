@@ -30,25 +30,6 @@ bid_text = '//android.widget.TextView[@text="Bid"]'
 ask_text = '//android.widget.TextView[@text="Ask"]'
 lot_text = '//android.widget.TextView[@text="Lot"]'
 profile_btn = '//android.widget.TextView[@text="Profile"]'
-pemegang = '//android.widget.TextView[@text="Pemegang Saham"]'
-direksi = '//android.widget.TextView[@text="Direksi"]'
-komisaris = '//android.widget.TextView[@text="Komisaris"]'
-alamat = '//android.widget.TextView[@text="Alamat"]'
-share_holder_1 = '//android.widget.TextView[@index="1"]'
-share_holder_1_details = '//android.widget.TextView[@index="2"]'
-share_holder_2 = '//android.widget.TextView[@index="3"]'
-share_holder_2_details = '//android.widget.TextView[@index="4"]'
-director_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.widget.TextView[17]'
-director_1_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.widget.TextView[18]'
-director_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.widget.TextView[19]'
-director_2_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.widget.TextView[20]'
-Commissioner_1 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.widget.TextView[19]'
-Commissioner_1_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.widget.TextView[20]'
-Commissioner_2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.widget.TextView[21]'
-Commissioner_2_name = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.widget.TextView[21]'
-address = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.widget.TextView[27]'
-#address_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[39]'
-address_text = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.widget.TextView[28]'
 Order_Book = '//*[@text="Order Book"]'
 News = '//*[@text="News"]'
 Keystats = '//*[@text="Keystats"]'
@@ -56,8 +37,8 @@ Financials = '//*[@text="Financials"]'
 Profile = '//*[@text="Profile"]'
 beli_btn = 'SDPBeliBtn'
 #list of news date and domain
-news_1= '//android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[2]'
-news_url_1 = '//android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]'
+news_1= 'news_link_3'
+news_url_1 = 'news_title_3'
 browser_url = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.EditText'
 Hubungi = '//*[@text="Hubungi Customer Care"]'
 chrome_url = 'com.android.chrome:id/url_bar'
@@ -108,6 +89,12 @@ time_on_chart = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayo
 stock_code_on_chart = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[8]/android.view.View/android.view.View/android.widget.TextView[2]'
 y_axis_value = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[8]/android.view.View/android.widget.Image/android.widget.TextView[2]'
 candlestick_chart = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.ImageView'
+#financial tab
+Kuartal = '//android.widget.TextView[@text="Kuartal"]'
+Tahunan = '//android.widget.TextView[@text="Tahunan"]'
+Income_Statement = '//android.widget.TextView[@text="Income Statement"]'
+Balance_Sheet = '//android.widget.TextView[@text="Balance Sheet"]'
+Cash_Flow = '//android.widget.TextView[@text="Cash Flow"]'
 
 class StockDetailPage(Watchlist):
 
@@ -272,43 +259,45 @@ class StockDetailPage(Watchlist):
 
     @allure.step("Verify details of profile tab")
     def verify_details_of_profile_tab(self):
-        self.assert_equal(self.is_element_visible(pemegang), True)
-        self.assert_equal(self.is_element_visible(direksi), True)
-        self.assert_equal(self.is_element_visible(share_holder_1), True)
-        self.assert_equal(self.is_element_visible(share_holder_1_details), True)
-        self.assert_equal(self.is_element_visible(share_holder_2), True)
-        self.assert_equal(self.is_element_visible(share_holder_2_details), True)
-        self.assert_equal(self.is_element_visible(director_1), True)
-        self.assert_equal(self.is_element_visible(director_1_name), True)
-        self.assert_equal(self.is_element_visible(director_2), True)
-        self.assert_equal(self.is_element_visible(director_2_name), True)
-        self.assert_equal(self.is_element_visible(Commissioner_1), True)
-        self.assert_equal(self.is_element_visible(Commissioner_1_name), True)
-        self.assert_equal(self.is_element_visible(Commissioner_2), True)
-        self.assert_equal(self.is_element_visible(Commissioner_2_name), True)
+        self.click(profile_btn)
+        self.assert_equal(self.get_attribute('profile_entry_1', 'text'), 'Keterangan Perusahaan')
+        self.assert_equal(self.is_element_visible('profile_entry_1_value'), True)
         self.scroll_up_screen()
-        self.assert_equal(self.is_element_visible(komisaris), True)
-        self.assert_equal(self.is_element_visible(alamat), True)
+        self.sleep(1)
+        self.scroll_up_screen()
+        #verify stackholder entries
+        self.assert_equal(self.get_attribute('profile_entry_2', 'text'), 'Pemegang Saham')
+        pemegang_lst = ['PT Kawan Lama Sejahtera', 'Kuncoro Wibowo', 'Dewi Triana Saleh', 'Suharno', 'Gregory Sugyono Widjaja', 'Public', 'Treasury Stock']
+        for i in range(0, 7,1):
+            self.assert_equal(self.get_attribute(f'shareholder_entry_{i}', 'text'), pemegang_lst[i])
+            self.assert_not_equal(self.get_attribute(f'shareholder_entry_value{i}', 'text'), '-')
+        #verify director entries
+        self.assert_equal(self.get_attribute('profile_entry_3', 'text'), 'Direksi')
+        director_lst = ['President Director', 'Director','Director','Director','Director','Director']
+        for i in range(0,6,1):
+            self.assert_equal(self.get_attribute(f'director_entry{i}','text'), director_lst[i])
+            self.assert_not_equal(self.get_attribute(f'director_entry_value{i}', 'text'), '-')
+        self.scroll_up_screen()
+        #verify_commissioner_entry
+        self.assert_equal(self.get_attribute('profile_entry_4', 'text'), 'Komisaris')
+        commissioner_lst = ['President Commissioner', 'Commissioner', 'Commissioner', 'Independent Commissioner', 'Independent Commissioner', 'Director']
+        for i in range(0, 5, 1):
+            self.assert_equal(self.get_attribute(f'commissioners_entry{i}', 'text'), commissioner_lst[i])
+            self.assert_not_equal(self.get_attribute(f'commissioners_entry_value{i}', 'text'), '-')
+        #verify address entry
+        self.assert_equal(self.get_attribute('profile_entry_5', 'text'), 'Alamat')
+        self.assert_not_equal(self.get_attribute('profile_entry_5_value', 'text'), '-')
+        self.assert_equal(self.get_attribute('profile_entry_6', 'text'), 'Sejarah Perusahaan')
+        self.assert_equal(self.get_attribute('profile_entry_7', 'text'), 'Listing Date')
+        self.assert_not_equal(self.get_attribute('profile_entry_7_value', 'text'), '-')
+        self.assert_equal(self.get_attribute('profile_entry_8', 'text'), 'IPO Price')
+        self.assert_not_equal(self.get_attribute('profile_entry_8_value', 'text'), '-')
+        self.assert_equal(self.get_attribute('profile_entry_9', 'text'), 'IPO Shares')
+        self.assert_not_equal(self.get_attribute('profile_entry_9_value', 'text'), '-')
+        self.assert_equal(self.get_attribute('profile_entry_10', 'text'), 'IPO Amount')
+        self.assert_not_equal(self.get_attribute('profile_entry_10_value', 'text'), '-')
 
-    @allure.step("Verify profile details")
-    def verify_details_of_profile(self):
-        self.assert_not_equal(self.get_attribute(pemegang, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(direksi, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(share_holder_1, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(share_holder_1_details, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(share_holder_2, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(share_holder_2_details, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(director_1, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(director_1_name, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(director_2, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(director_2_name, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(Commissioner_1, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(Commissioner_1_name, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(Commissioner_2, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(Commissioner_2_name, 'text'), '-')
-        self.scroll_up_screen()
-        self.assert_not_equal(self.get_attribute(komisaris, 'text'), '-')
-        self.assert_not_equal(self.get_attribute(alamat, 'text'), '-')
+
 
     @allure.step("Verify News section available on SDP")
     def verify_news_availability_on_sdp(self):
@@ -328,28 +317,20 @@ class StockDetailPage(Watchlist):
         date_list = []
         title_lst = []
         sorted_date_list = []
-        news_1_string = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]',"text")
-        news_title_1 = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[2]',"text")
+        news_1_string = self.get_attribute(f'news_link_0',"text")
+        news_title_1 = self.get_attribute(f'news_title_0',"text")
         title_lst.append(news_title_1)
         logger.info(news_1_string)
         logger.info(title_lst)
         date_1 = news_1_string[-11:]
         date_list.append(date_1)
-        news_2_string = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView',"text")
-        logger.info(news_2_string)
-        news_title_2 = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[1]',"text")
-        title_lst.append(news_title_2)
-        date_2 = news_2_string[-11:]
-        date_list.append(date_2)
-        logger.info(date_list)
-        logger.info(title_lst)
         self.scroll_up_screen()
         self.sleep(1)
         self.scroll_up_screen()
-        #self.validate_domain_name_for_one_news()
-        for i in range(3, 18, 2):
-            news_1_string = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]', "text")
-            news_1_title = self.get_attribute(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]', "text")
+        self.validate_domain_name_for_one_news()
+        for i in range(1, 10, 1):
+            news_1_string = self.get_attribute(f'news_link_{i}', "text")
+            news_1_title = self.get_attribute(f'news_title_{i}', "text")
             date_1 = news_1_string[-11:]
             date_list.append(date_1)
             title_lst.append(news_1_title)
@@ -376,7 +357,6 @@ class StockDetailPage(Watchlist):
                 logger.info("News are same")
             else:
                 logger.info("News are not same")
-
         self.go_back()
 
     @allure.step("Validate domain name for one news")
@@ -395,6 +375,7 @@ class StockDetailPage(Watchlist):
         # browser_url_text = browser_full_url[:index]
         # logger.info(browser_url_text)
         # self.assert_equal(news_url, browser_url_text[12:])
+        self.go_back()
 
 
     @allure.step("Verify keystat tab")
@@ -402,14 +383,42 @@ class StockDetailPage(Watchlist):
         self.click_on_stock_code()
         self.sleep(3)
         self.click(Keystats)
+        #Verify earnings entries
+        self.assert_equal(self.is_element_visible('Earnings_entry'), True)
         self.scroll_up_screen()
-        for i in range(1, 25, 1):
-            self.assert_equal(self.is_element_visible(f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.widget.TextView[{i}]'), True)
+        for i in range(0,7, 1):
+            self.assert_equal(self.is_element_visible(f'Earnings_label_{i}'), True)
+            self.assert_equal(self.is_element_visible(f'Earnings_label_{i}_value'), True)
+        #verify entries for valuation
+        self.assert_equal(self.is_element_visible('Valuation_entry'), True)
         self.scroll_up_screen()
-        for i in range(1, 30, 1):
-            self.assert_equal(self.is_element_visible(
-                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.widget.TextView[{i}]'),
-                              True)
+        for i in range(0, 2, 1):
+            self.assert_equal(self.is_element_visible(f'Valuation_label_{i}'), True)
+            self.assert_equal(self.is_element_visible(f'Valuation_label_{i}_value'), True)
+        #verify entries for profitability
+        self.assert_equal(self.is_element_visible('Profitability_entry'), True)
+        self.scroll_up_screen()
+        for i in range(0, 6, 1):
+            self.assert_equal(self.is_element_visible(f'Profitability_label_{i}'), True)
+            self.assert_equal(self.is_element_visible(f'Profitability_label_{i}_value'), True)
+        #verify entries for Liquidity
+        self.assert_equal(self.is_element_visible('Liquidity_entry'), True)
+        self.scroll_up_screen()
+        for i in range(0, 2, 1):
+            self.assert_equal(self.is_element_visible(f'Liquidity_label_{i}'), True)
+            self.assert_equal(self.is_element_visible(f'Liquidity_label_{i}_value'), True)
+
+    @allure.step("verify financial tab")
+    def verify_Financials_tab(self):
+        self.click(Financials)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(Kuartal), True)
+        self.assert_equal(self.is_element_visible(Tahunan), True)
+        self.scroll_up_screen()
+        self.assert_equal(self.is_element_visible(Income_Statement), True)
+        self.assert_equal(self.is_element_visible(Balance_Sheet), True)
+        self.scroll_up_screen()
+        self.assert_equal(self.is_element_visible(Cash_Flow), True)
 
     @allure.step('verify redirection after click on Hubungi Customer')
     def verify_redirection_after_click_on_support_btn(self):

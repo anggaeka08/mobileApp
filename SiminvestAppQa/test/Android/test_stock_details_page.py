@@ -325,11 +325,11 @@ class SDP_test(StockDetailPage, BuyProcess):
             pytest.fail(E.msg, pytrace=True)
 
     #Validate news tab on SDP page and news page details
-    @pytest.mark.SDP_News_tab
+    @pytest.mark.SDP_tab
     @pytest.mark.Android
     @pytest.mark.SDP
     @allure.story("F-7:SDP Feature")
-    def test_Validate_news_tab_on_SDP_pages(self):
+    def test_Validate_tab_on_SDP_pages(self):
         try:
             self.execute_script('lambda-name=test_Validate_news_tab_on_SDP_pages')
             self.open_sdp_page_with_kyc_user(user_data['reg_no_3'], 'ACES')
@@ -337,6 +337,14 @@ class SDP_test(StockDetailPage, BuyProcess):
             self.click_on_news()
             self.verify_news_tab()
             self.verify_keystat_tab()
+            self.go_back()
+            self.click_on_stock_code()
+            self.sleep(3)
+            self.verify_Financials_tab()
+            self.go_back()
+            self.click_on_stock_code()
+            self.sleep(3)
+            self.verify_details_of_profile_tab()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_Validate_news_tab_on_SDP_pages', 'SiminvestAppQa/src/data/ScreenShots')
