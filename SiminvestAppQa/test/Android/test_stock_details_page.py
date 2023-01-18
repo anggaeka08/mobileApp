@@ -7,7 +7,7 @@ import logging as logger
 from selenium.common.exceptions import NoSuchElementException
 
 
-class SDP_test(StockDetailPage, BuyProcess):
+class SDP_test(StockDetailPage):
 
 
     @pytest.mark.SDP_Grammar
@@ -352,6 +352,28 @@ class SDP_test(StockDetailPage, BuyProcess):
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
             self.save_screenshot('test_Validate_news_tab_on_SDP_pages', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    #Validate sbp page numerical and mathematical values
+    @pytest.mark.SBP_NUM_MAT
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    @allure.story("F-7:SDP Feature")
+    def test_Validate_numeric_and_mathematical_value(self):
+        try:
+            self.execute_script('lambda-name=test_Validate_numeric_and_mathematical_value')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
+            self.verify_sbp_numerical_and_mathematical_values()
+            self.validate_bid_lot_list_on_sbp()
+            self.validate_ask_list_lot_on_sbp()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_Validate_numeric_and_mathematical_value', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_Validate_numeric_and_mathematical_value', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 

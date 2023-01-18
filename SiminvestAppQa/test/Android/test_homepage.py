@@ -90,6 +90,7 @@ class homePage_test(HomePage,LoginPage):
             self.click_on_event_btn()
             self.verify_event_page()
             self.go_back()
+            self.sleep(2)
             self.scroll_up()
             self.click_on_eipo_btn()
             self.verify_eipo_page()
