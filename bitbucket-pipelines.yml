@@ -24,6 +24,8 @@ pipelines:
             - pip
           script:
             - apt-get clean
+            - apt-get update
+            - apt-get install --fix-missing
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             - pytest -v -m Research -n 2 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
@@ -38,6 +40,8 @@ pipelines:
             - pip
           script:
             - apt-get clean
+            - apt-get update
+            - apt-get install --fix-missing
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             - pytest -v -m userProfile -n 2 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
@@ -52,6 +56,8 @@ pipelines:
             - pip
           script:
             - apt-get clean
+            - apt-get update
+            - apt-get install --fix-missing
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             - pytest -v -m Login_Logout -n 2 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
@@ -66,6 +72,8 @@ pipelines:
             - pip
           script:
             - apt-get clean
+            - apt-get update
+            - apt-get install --fix-missing
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             - pytest -v -m watchlist -n 2 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
@@ -81,6 +89,8 @@ pipelines:
             - pip
           script:
             - apt-get clean
+            - apt-get update
+            - apt-get install --fix-missing
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             - pytest -v -m MoverPage -n 2 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
@@ -97,6 +107,8 @@ pipelines:
             - pip
           script:
             - apt-get clean
+            - apt-get update
+            - apt-get install --fix-missing
             - apt-get install -y unzip git
             - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
             - pytest -v -m SDP -n 2 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
