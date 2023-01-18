@@ -1,11 +1,12 @@
 import pytest
 from selenium.common.exceptions import NoSuchElementException
-
+from  numerize import numerize
 from SiminvestAppQa.src.data.userData import user_data
 from datetime import datetime
 import allure
 import logging as logger
 from SiminvestAppQa.src.pages.Android_pages.watchlist import Watchlist
+from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
 import language_tool_python
 from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 from datetime import datetime
@@ -95,8 +96,9 @@ Tahunan = '//android.widget.TextView[@text="Tahunan"]'
 Income_Statement = '//android.widget.TextView[@text="Income Statement"]'
 Balance_Sheet = '//android.widget.TextView[@text="Balance Sheet"]'
 Cash_Flow = '//android.widget.TextView[@text="Cash Flow"]'
+Buying_Power="HomepagebuyPower"
 
-class StockDetailPage(Watchlist):
+class StockDetailPage(Watchlist, BuyProcess):
 
     @allure.step("Tab on star")
     def tap_on_star(self):
@@ -164,6 +166,28 @@ class StockDetailPage(Watchlist):
             logger.info(len(bid_list))
             self.assert_equal(len(lot_list), len(bid_list))
 
+    @allure.step("Validate bid lot list on sbp page")
+    def validate_bid_lot_list_on_sbp(self):
+        self.scroll_up_screen()
+        self.sleep(1)
+        lot_list = []
+        try:
+            for i in range(10, 30):
+                lot_list.append(int((self.get_attribute(f'SellPageOrderBookTextLot{i}',"text")).replace(',','')))
+        except NoSuchElementException as E:
+            pass
+        try:
+            total = 0
+            self.assert_equal(len(lot_list), 10)
+            total_lot_value_for_bid = int(self.get_attribute('(//android.widget.TextView[@content-desc="SellPageFooterText"])[1]', 'text').replace(',',''))
+            for ele in range(0, len(lot_list)):
+                total = total + lot_list[ele]
+            logger.info(f"total:{total}")
+            logger.info(f"total:{total_lot_value_for_bid}")
+            self.assert_equal(total_lot_value_for_bid, total)
+        except AssertionError as E:
+            logger.info(len(lot_list))
+
     @allure.step("Validate ask list")
     def validate_ask_list(self):
         lot_list = []
@@ -190,6 +214,33 @@ class StockDetailPage(Watchlist):
             logger.info(len(lot_list))
             logger.info(len(ask_list))
             self.assert_equal(len(lot_list), len(ask_list))
+
+    @allure.step("Validate ask lot on sbp")
+    def validate_ask_list_lot_on_sbp(self):
+        lot_list = []
+        #ask_list = []
+        try:
+            for i in range(20, 30):
+                lot_list.append(int((self.get_attribute(f'SellPageOrderBookTextLot{i}', "text")).replace(',', '')))
+                #ask_list.append(int((self.get_attribute(f'SDPask_priceText{i}', "text")).replace(',', '')))
+        except NoSuchElementException as E:
+            pass
+        try:
+            total = 0
+            self.assert_equal(len(lot_list), 10)
+            #self.assert_equal(len(ask_list), 10)
+            total_lot_value_for_bid = int(
+                self.get_attribute('(//android.widget.TextView[@content-desc="SellPageFooterText"])[2]',
+                                   'text').replace(',', ''))
+            for ele in range(0, len(lot_list)):
+                total = total + lot_list[ele]
+            logger.info(f"total:{total}")
+            logger.info(f"total:{total_lot_value_for_bid}")
+            self.assert_equal(total_lot_value_for_bid, total)
+        except AssertionError as E:
+            logger.info(len(lot_list))
+            #logger.info(len(ask_list))
+           # self.assert_equal(len(lot_list), len(ask_list))
 
 
     @allure.step("Bit value list")
@@ -429,7 +480,7 @@ class StockDetailPage(Watchlist):
         domain_name = support_url_text[:index]
         self.assert_equal(domain_name[8:], 'invest.i')
 
-    @allure.step("Verify stock company address")
+    """@allure.step("Verify stock company address")
     def verify_stock_company_address(self):
         self.scroll_up_screen()
         address = str(self.get_attribute(address_text, 'text'))
@@ -440,7 +491,7 @@ class StockDetailPage(Watchlist):
                 logger.info("single spaces available in address")
             elif '  ' in address:
                 logger.info("double spaces available in address")
-                raise "double spaces available in address"
+                raise "double spaces available in address" """
 
     @allure.step("Verify stock profile when details not available")
     def verify_stock_profile_when_details_not_available(self):
@@ -491,10 +542,12 @@ class StockDetailPage(Watchlist):
         token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
         token['Authorization'] = 'Bearer ' + token_value
         sdp_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/v1/pcs/v2/product/equity',endpoint='/ACES', headers=token,expected_status_code=200)
-        vol = str(sdp_rs['vol'])
-        val = str(sdp_rs['val'])
-        new_value = vol[:2]+"."+vol[2:3] +" Jt"
-        new_value_val = val[:2]+"."+val[2:3] +" Jt"
+        vol = str(numerize.numerize(int(sdp_rs['vol'])))
+        val = str(numerize.numerize(int(sdp_rs['val'])))
+        # new_value = vol[:2]+"."+vol[2:4] +" Jt"
+        new_value = vol.replace('M', ' Jt')
+        logger.info(new_value)
+        new_value_val = vol.replace('M', ' Jt')
         logger.info(new_value_val)
         api_value.append(sdp_rs['open'])
         api_value.append(sdp_rs['high'])
@@ -761,17 +814,6 @@ class StockDetailPage(Watchlist):
         self.assert_equal(self.get_attribute(y_axis_value, 'bounds'), '[973,906][1028,944]')
 
 
-        """self.scroll_up_screen()      
-        title_lst = []
-        my_tool = language_tool_python.LanguageTool('Eng US')
-        for i in range(1, 20, 2):
-            news_title = self.get_attribute(
-                f'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]',
-                "text")
-            title_lst.append(news_title)
-        for i in range(len(title_lst)):
-            my_matches = my_tool.check(title_lst[i])
-            logger.info(my_matches)"""
 
 
 

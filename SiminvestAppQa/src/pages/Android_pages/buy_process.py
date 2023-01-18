@@ -1,5 +1,7 @@
 from selenium.common.exceptions import InvalidElementStateException
-
+from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
+from datetime import datetime
+request_utilities = RequestsUtilities()
 from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.login_page import LoginPage
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
@@ -8,6 +10,7 @@ import allure
 from datetime import timedelta
 from datetime import date
 import logging as logger
+from  numerize import numerize
 
 #buy process locators
 sell_btn = 'SDPPageSellBtn'
@@ -50,7 +53,7 @@ price_minus_btn = 'SellPageHargaMinus'
 price_plus_btn = 'SellPageHargaPlus'
 price_space = 'SellPageHargaValue'
 buy_power_exceed_msg = '//android.widget.TextView[@text="Nilai pembelian kamu melebihi trading limit."]'
-total_beli_amount = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[6]'
+total_beli_amount = '//android.view.ViewGroup[2]/android.widget.TextView[6]'
 status_on_trasction_page = 'OrderListEntry0Status'
 lot_count_on_buy_conf_page = 'BuyConfLotValue'
 hagra_on_buy_conf_page = 'BuyConfHargaValue'
@@ -58,7 +61,7 @@ jumlah_on_buy_conf_page = 'BuyConfJumlahValue'
 date_on_buy_conf_page = 'BuyConfGoodTillDate'
 gtc_date_on_buy_page = '//android.view.ViewGroup[@content-desc="BuyPageGTCCalender"]/android.view.ViewGroup/android.widget.TextView'
 Buying_Power_homepage='HomepagebuyPower'
-buying_power_buy_page = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[4]'
+buying_power_buy_page = '//android.view.ViewGroup[2]/android.widget.TextView[4]'
 bid_amount = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextBid0"]/android.widget.TextView'
 ask_amount = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextAsk0"]/android.widget.TextView'
 confirmation_page_header = 'Konfirmasi PembelianHeader'
@@ -79,8 +82,9 @@ jumlah_value_sell_cnf = 'SellConfJumlahValue'
 pl_on_cnf = 'SellConfPLTextValue'
 gtc_sell_cnf = 'SellConfGoodTillDate'
 fee_msg_sell_cnf = 'SellFeeDeductionMsgText'
-
-
+Buying_Power="HomepagebuyPower"
+stock_price_ele = 'SellPageStockPrice'
+total_beli_amount
 
 
 class BuyProcess(HomePage):
@@ -510,6 +514,55 @@ class BuyProcess(HomePage):
         else :
             self.assert_equal(self.is_element_visible(ok_btn), True)
 
+    @allure.step("Validate all api data")
+    def validate_all_api_data(self):
+        api_value=[]
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        sdp_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/v1/pcs/v2/product/equity',endpoint='/ACES', headers=token,expected_status_code=200)
+        vol = str(numerize.numerize(int(sdp_rs['vol'])))
+        val = str(numerize.numerize(int(sdp_rs['val'])))
+        #new_value = vol[:2]+"."+vol[2:4] +" Jt"
+        new_value = vol.replace('M', ' Jt')
+        logger.info(new_value)
+        new_value_val = vol.replace('M', ' Jt')
+        logger.info(new_value_val)
+        api_value.append(sdp_rs['open'])
+        api_value.append(sdp_rs['high'])
+        api_value.append(new_value)
+        api_value.append(sdp_rs['close'])
+        api_value.append(sdp_rs['low'])
+        api_value.append(new_value_val)
+        api_value.append(sdp_rs['avg'])
+        api_value.append(sdp_rs['buy_f_vol'])
+        api_value.append(sdp_rs['sell_f_vol'])
+        return api_value
+
+
+    @allure.step("Verify sbp numerical and mathematical values")
+    def verify_sbp_numerical_and_mathematical_values(self):
+        buying_power_with_buy = self.get_attribute(Buying_Power, 'text')
+        buying_power = (buying_power_with_buy[13:]).replace(',', '')
+        self.click_global_search_btn_and_saerch_stock('ACES')
+        self.sleep(3)
+        self.click_on_stock_code()
+        self.click_on_buy_btn()
+        stock_price = self.get_attribute(stock_price_ele, 'text')
+        price_beli = self.get_attribute(price_space, 'text')
+        self.assert_equal(stock_price, price_beli)
+        buying_power_on_buy_page = (self.buy_power_on_buy_page()).replace(',','')
+        self.assert_equal(buying_power, buying_power_on_buy_page)
+        lot_value_buy = self.get_attribute(lot_area, 'text')
+        self.assert_equal(int(lot_value_buy), 1)
+        self.verify_total_beli_amount()
+        """value_on_sbp = []
+        for i in range(2,20,2):
+            value = self.get_attribute(f'SDPPageText{i}', 'text')
+            value_on_sbp.append(value)
+        API_data = self.validate_all_api_data()
+        for i in range(9):
+            self.assert_equal(value_on_sbp[i], str(API_data[i]))"""
 
 
 
