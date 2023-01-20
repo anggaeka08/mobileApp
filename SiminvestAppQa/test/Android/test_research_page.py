@@ -73,7 +73,7 @@ class Research_test(Research):
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
             self.click_on_research_btn()
             self.verify_10_entries_on_news_section()
-            #self.click_to_lastreport_and_verify_entry()
+            self.click_to_lastreport_and_verify_entry()
             self.click_to_daily_search_verify_redirection()
             self.go_back()
             self.click_on_stock_signal()
