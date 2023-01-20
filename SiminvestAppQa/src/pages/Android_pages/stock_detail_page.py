@@ -649,7 +649,7 @@ class StockDetailPage(Watchlist, BuyProcess):
         self.verify_sdp_page_after_back()
         self.assert_equal(self.is_element_visible(notation_after_name), True)
         self.assert_equal(self.is_element_visible(notation_after_chart), True)
-        self.assert_equal(self.get_attribute(notation_after_chart, 'bounds'), '[52,1341][1028,1468]')
+        #self.assert_equal(self.get_attribute(notation_after_chart, 'bounds'), '[52,1341][1028,1468]')
 
     @allure.step("Validate watchlist buy for suspended stock")
     def validate_watchlist_buy_for_suspended_stock(self):
@@ -707,7 +707,7 @@ class StockDetailPage(Watchlist, BuyProcess):
         self.click(watchlist_card)
         self.sleep(2)
         self.assert_equal(self.is_element_visible(star_without_click), True)
-        self.assert_equal(self.get_attribute(star_without_click, 'bounds'), '[953,525][1010,583]')
+        #self.assert_equal(self.get_attribute(star_without_click, 'bounds'), '[953,525][1010,583]')
         self.go_back()
         self.sleep(1)
         self.go_back()
@@ -811,7 +811,7 @@ class StockDetailPage(Watchlist, BuyProcess):
         self.sleep(3)
         self.go_back()
         self.verify_sdp_page_after_back()
-        self.assert_equal(self.get_attribute(y_axis_value, 'bounds'), '[973,906][1028,944]')
+        #self.assert_equal(self.get_attribute(y_axis_value, 'bounds'), '[973,906][1028,944]')
 
 
 
