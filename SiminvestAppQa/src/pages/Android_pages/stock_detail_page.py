@@ -813,6 +813,27 @@ class StockDetailPage(Watchlist, BuyProcess):
         self.verify_sdp_page_after_back()
         #self.assert_equal(self.get_attribute(y_axis_value, 'bounds'), '[973,906][1028,944]')
 
+    @allure.step("Validate Mathematical Calculation")
+    def validate_mathematical_cal(self):
+        stock_current_price = int(self.get_attribute(stock_price, 'text'))
+        stock_response_extra = self.get_attribute(stock_pl,'text')
+        c = '('
+        index = stock_response_extra.find(c)
+        resposnePrice = int(stock_response_extra[:index])
+        d = stock_response_extra.find('%')
+        response_percentage = float(stock_response_extra[index + 1:d])
+        logger.info(stock_response_extra)
+        close_price = int(self.get_attribute('SDPText8','text'))
+        cal_pecent = float(numerize.numerize(((stock_current_price - close_price) / close_price)*100))
+        cal_response_price = stock_current_price -close_price
+        logger.info(f'resposnePrice {resposnePrice}')
+        logger.info(f'response_percentage {response_percentage}')
+        logger.info(f'cal_pecent {cal_pecent}')
+        logger.info(f'cal_response_price {cal_response_price}')
+        self.assert_equal(cal_pecent, response_percentage)
+        self.assert_equal(cal_response_price, resposnePrice)
+
+
 
 
 
