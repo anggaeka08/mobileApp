@@ -390,7 +390,6 @@ class SDP_test(StockDetailPage):
             self.verify_buy_page()
             self.verify_buying_power_exceed_msg()
             self.verify_default_lot_value_stock_code_and_name_on_sbp()
-
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_sbp_function_validation', 'SiminvestAppQa/src/data/ScreenShots')
@@ -400,6 +399,27 @@ class SDP_test(StockDetailPage):
             self.save_screenshot('test_sbp_function_validation', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    #SBP functional validation
+    @pytest.mark.SDP_NUM_MAT
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    @allure.story("F-7:SDP Feature")
+    def test_sdp_numerical_and_mathematical(self):
+        try:
+            self.execute_script('lambda-name=test_sdp_numerical_and_mathematical')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_4'], 'ACES')
+            self.validate_mathematical_cal()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_sdp_numerical_and_mathematical', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_sdp_numerical_and_mathematical', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
 
 
 
