@@ -1,10 +1,34 @@
+import allure
 import pytest
+from selenium.common.exceptions import NoSuchElementException
+
 from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.transaction import Transaction
 
 
 @pytest.mark.usefixtures("_unittest_setUpClass_fixture_Transaction_test")
 class Transaction_test(Transaction):
+
+    # SBP functional validation
+    @pytest.mark.tran_order_list_ui
+    @pytest.mark.Android
+    @pytest.mark.Transaction
+    @allure.story("F-8:Transaction Page")
+    def test_ui_functionality_of_orderlist_tab(self):
+        try:
+            self.execute_script('lambda-name=test_ui_functionality_of_orderlist_tab')
+            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            self.verify_common_details_for_all_tabs()
+            self.verify_entries_details_on_transaction_tab()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_ui_functionality_of_orderlist_tab', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_ui_functionality_of_orderlist_tab', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
 
     # Cover all 5 test cases in single test
     @pytest.mark.T_SMMA_001_to_005

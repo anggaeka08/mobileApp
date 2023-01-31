@@ -1,16 +1,19 @@
+import datetime
+from datetime import datetime
 from SiminvestAppQa.src.pages.Android_pages.amend_page import AmendProcess
 from SiminvestAppQa.src.data.userData import user_data
 import allure
 import logging as logger
-from datetime import date
+import time
+
 
 
 GTC_list ='TransactionPageSahamHeader3'
 search_oderlist = 'TransactionSahamOrderListSearchBox'
 date_last_trans='AmendPageTanggalValue'
-rekshadana_tab ='(//android.widget.TextView[@content-desc="TranasactionPageSahamText"])[2]'
+rekshadana_tab ='Reksadana_tab'
 order_kamu = '//android.widget.TextView[@text="Order kamu kosong"]'
-saham_tab = '(//android.widget.TextView[@content-desc="TransactionPageReksadanaText"])[1]'
+saham_tab = 'Saham_tab'
 All_types = 'TransactionSahamOrderListDropDown'
 buy_all = '//android.widget.CheckedTextView[@text="Buy"]'
 sell_all ='//android.widget.CheckedTextView[@text="Sell"]'
@@ -46,8 +49,16 @@ GTCODP_lot_jumlah_value = '//android.widget.TextView[@index="19"]'
 GTCODP_customer_btn = '//android.widget.TextView[@text="Hubungi Customer Care"]'
 GTCODP_BATAL_btn = '//android.widget.TextView[@text="BATAL"]'
 chrome_xpath ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.EditText'
+order_list = 'Order List_tab'
+trade_list = 'Trade List_tab'
+history_tab = 'History_tab'
+gtc_tab = 'GTC List_tab'
+#search_sign = "//android.view.ViewGroup[2]/android.widget.ImageView[@index='0']"
+filter = 'TransactionSahamOrderListDropDown'
+entries_loc = '//android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup'
 
-today = date.today()
+
+today = datetime.today()
 
 class Transaction(AmendProcess):
 
@@ -257,5 +268,43 @@ class Transaction(AmendProcess):
     @allure.step("Verify redirection after click on customer support")
     def verify_redirection_after_click_on_customer_support(self):
         self.assert_equal(self.is_element_visible(chrome_xpath), True)
+
+    @allure.step("Verify common details for all tabs")
+    def verify_common_details_for_all_tabs(self):
+        self.assert_equal(self.get_attribute(saham_tab, 'text'), 'Saham')
+        self.assert_equal(self.get_attribute(rekshadana_tab, 'text'), 'Reksadana')
+        self.assert_equal(self.get_attribute(order_list, 'text'), 'Order List')
+        self.assert_equal(self.get_attribute(trade_list, 'text'), 'Trade List')
+        self.assert_equal(self.get_attribute(history_tab, 'text'), 'History')
+        self.assert_equal(self.get_attribute(gtc_tab, 'text'), 'GTC List')
+        #self.assert_equal(self.is_element_visible(search_sign), True)
+        self.assert_equal(self.is_element_visible(filter), True)
+        self.assert_equal(self.get_attribute(search_oderlist, 'text'), 'Cari Saham')
+
+    def verify_entries_details_on_transaction_tab(self):
+        try :
+            for i in range(0, 4):
+                time_in_entry = self.get_attribute(f'orderTime_{i}', 'text')
+                in_time = datetime.strptime(time_in_entry, "%H:%M")
+                out_time = datetime.strftime(in_time, "%H:%M")
+                self.assert_equal(time_in_entry, str(out_time))
+                transaction_type = self.get_attribute(f'transactionType_{i}', 'text')
+                assert transaction_type in ['BELI', 'JUAL'] , f'Invalid transaction type'
+                self.assert_equal(self.is_element_visible(f'stockCode_{i}'), True)
+                self.assert_equal(self.is_element_visible(f'lot_{i}'), True)
+                self.assert_equal(self.is_element_visible(f'price_{i}'), True)
+                self.assert_equal(self.is_element_visible(f'total_{i}'), True)
+                transaction_status = self.get_attribute(f'status_label_{i}', 'text')
+                assert transaction_status in ['OPEN', 'MATCHED', 'WITHDRAW', 'REJECTED', 'PARTIAL', 'EXPIRED','AMEND', 'SENDING'], f'Invalid transaction type'
+
+
+
+        except:
+            pass
+
+
+
+
+
 
 

@@ -1,6 +1,6 @@
 cp = [
 {
-    "app":"lt://APP10160531401673851573602260",
+    "app":"lt://APP10160202521675145141833829",
     "platformName": "Android",
     "deviceName": "Google Pixel 4",
     "platformVersion": "10",
@@ -11,7 +11,7 @@ cp = [
     "accessKey": "nrVDKFpgRayhZV7Y9KGQh6J7MuJ4M4rWbNZV4Y0eYZzmJ3sTlj"
     },
 {
-    "app":"lt://APP10160531401673851573602260",
+    "app":"lt://APP10160202521675145141833829",
     "platformName": "Android",
     "deviceName": "Google Pixel 3",
     "platformVersion": "9",
