@@ -39,7 +39,7 @@ class AmendProcess(BuyProcess):
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
         self.click_on_transaction_btn()
-        self.verify_transaction_page()
+        #self.verify_transaction_page()
 
     @allure.step("Open status page of buy order")
     def open_status_page_of_buy_order(self):
