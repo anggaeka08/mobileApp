@@ -16,9 +16,10 @@ from  numerize import numerize
 sell_btn = 'SDPPageSellBtn'
 buy_btn_with_sell='SDPPageBuyBtn'
 buy_btn_without_sell='SDPBeliBtn'
+stock_name_buy_page= 'SellPageStockName'
 #refferal page locators
 refferal_page_heading = '//android.widget.TextView[@index="1"]'
-refferal_page_heading_value = 'Punya Kode Referral?\nBanyak teman semakin untung!?'
+refferal_page_heading_valstock_name_buy_pageue = 'Punya Kode Referral?\nBanyak teman semakin untung!?'
 refferal_code_edit_box = '//android.widget.EditText[@text="Kode Referral"]'
 selanjutnya = '//android.widget.TextView[@text="Selanjutnya"]'
 #buy page locators
@@ -268,9 +269,13 @@ class BuyProcess(HomePage):
     def verify_buying_power_exceed_msg(self):
         self.set_text(price_space, '1299090988')
         buy_power_exceed_msg_presence = self.is_element_visible(buy_power_exceed_msg)
-        assert buy_power_exceed_msg_presence == True, f"price_exceed_msg_presence not visible "
+        assert buy_power_exceed_msg_presence == True, f"price_exceed_msg_presence visible "
         buy_power_exceed_msg_text = self.get_attribute(buy_power_exceed_msg, "text")
         self.assert_equal(buy_power_exceed_msg_text, "Nilai pembelian kamu melebihi trading limit.")
+        self.click_disabled_buy_btn()
+        buy_page_header_present = self.is_element_visible(buy_page_header)
+        assert buy_page_header_present == True, f"buy_page_header Should be present"
+
 
     def add_thousand_seprator(self, number):
         sep_number = f"{number :,}"
@@ -538,6 +543,13 @@ class BuyProcess(HomePage):
         api_value.append(sdp_rs['buy_f_vol'])
         api_value.append(sdp_rs['sell_f_vol'])
         return api_value
+
+    @allure.step("Verify default lot value stock code and name on sbp page")
+    def verify_default_lot_value_stock_code_and_name_on_sbp(self):
+        lot_value_buy = self.get_attribute(lot_area, 'text')
+        self.assert_equal(int(lot_value_buy), 1)
+        self.assert_equal(self.is_element_visible(stock_code_on_buy), True)
+        self.assert_equal(self.is_element_visible(stock_name_buy_page), True)
 
 
     @allure.step("Verify sbp numerical and mathematical values")
