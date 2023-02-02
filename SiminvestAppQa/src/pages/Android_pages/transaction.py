@@ -30,7 +30,7 @@ all_types_trade_lst='TransactionSahamTradeListDropDown'
 all_types_order_lst='TransactionSahamOrderListDropDown'
 all_types_History_lst = 'TransactionSahamHistoryListDropDown'
 all_types_gtc_lst = 'TransactionSahamGTCListDropDown'
-orderlist_entry = 'OrderListEntry0'
+orderlist_entry = 'order_list_entry_0'
 GTC_tab = 'TransactionPageSahamHeader3'
 gtc_entry = 'GTCListEntry0'
 batal_btn = '//android.widget.TextView[@text ="BATAL"]'
@@ -56,8 +56,30 @@ gtc_tab = 'GTC List_tab'
 #search_sign = "//android.view.ViewGroup[2]/android.widget.ImageView[@index='0']"
 filter = 'TransactionSahamOrderListDropDown'
 entries_loc = '//android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup'
-
-
+oder_details_header = "//android.widget.TextView[@text = 'BELI' and 'JUAL']"
+od_stock_code = '//android.view.ViewGroup[3]/android.widget.TextView[1]'
+od_stock_name = '//android.view.ViewGroup[3]/android.widget.TextView[2]'
+od_arrow = '//android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.ImageView'
+od_status = "//android.widget.TextView[@text = 'Status']"
+od_order_id = "//android.widget.TextView[@text = 'Order ID']"
+od_tanPem = "//android.widget.TextView[@text = 'Tanggal Pembelian']"
+od_produk = "//android.widget.TextView[@text = 'Produk']"
+od_harga = "//android.widget.TextView[@text = 'Harga']"
+od_lotDip = "//android.widget.TextView[@text = 'Lot Dipesan']"
+od_lotSel = "//android.widget.TextView[@text = 'Lot Selesai']"
+od_jumDip = "//android.widget.TextView[@text = 'Jumlah Dipesan']"
+od_jumSel = "//android.widget.TextView[@text = 'Jumlah Selesai']"
+od_status_text ='//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
+od_order_id_text = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[3]"
+od_tanPem_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[5]"
+od_produk_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[7]"
+od_harga_text = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[9]"
+od_lotDip_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[11]"
+od_lotSel_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[13]"
+od_jumDip_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[15]"
+od_jumSel_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[17]"
+batalkan_btn = '//android.widget.TextView[@text ="BATALKAN"]'
+amend_btn = '//android.widget.TextView[@text ="AMEND"]'
 today = datetime.today()
 
 class Transaction(AmendProcess):
@@ -296,11 +318,46 @@ class Transaction(AmendProcess):
                 self.assert_equal(self.is_element_visible(f'total_{i}'), True)
                 transaction_status = self.get_attribute(f'status_label_{i}', 'text')
                 assert transaction_status in ['OPEN', 'MATCHED', 'WITHDRAW', 'REJECTED', 'PARTIAL', 'EXPIRED','AMEND', 'SENDING'], f'Invalid transaction type'
-
-
-
         except:
             pass
+
+    def verify_order_details_page(self):
+        self.click(orderlist_entry)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(oder_details_header), True)
+        self.assert_equal(self.is_element_visible(od_stock_code), True)
+        self.assert_equal(self.is_element_visible(od_stock_name), True)
+        self.assert_equal(self.is_element_visible(od_arrow), True)
+        self.assert_equal(self.is_element_visible(od_status), True)
+        self.assert_equal(self.is_element_visible(od_order_id), True)
+        self.assert_equal(self.is_element_visible(od_tanPem), True)
+        self.assert_equal(self.is_element_visible(od_produk), True)
+        self.assert_equal(self.is_element_visible(od_harga), True)
+        self.assert_equal(self.is_element_visible(od_lotDip), True)
+        self.assert_equal(self.is_element_visible(od_lotSel), True)
+        self.assert_equal(self.is_element_visible(od_jumDip), True)
+        self.assert_equal(self.is_element_visible(od_jumSel), True)
+        self.assert_equal(self.is_element_visible(od_status_text), True)
+        self.assert_equal(self.is_element_visible(od_order_id_text), True)
+        self.assert_equal(self.is_element_visible(od_tanPem_text), True)
+        self.assert_equal(self.is_element_visible(od_produk_text), True)
+        self.assert_equal(self.is_element_visible(od_harga_text), True)
+        self.assert_equal(self.is_element_visible(od_lotDip_text), True)
+        self.assert_equal(self.is_element_visible(od_lotSel_text), True)
+        self.assert_equal(self.is_element_visible(od_jumDip_text), True)
+        self.assert_equal(self.is_element_visible(od_jumSel_text), True)
+        if self.get_attribute(od_status_text, 'text') in ['OPEN', 'SENDING']:
+            self.assert_equal(self.is_element_visible(batalkan_btn), True)
+            self.assert_equal(self.is_element_visible(amend_btn), True)
+        else :
+            self.assert_equal(self.is_element_visible(batalkan_btn), False)
+            self.assert_equal(self.is_element_visible(amend_btn), False)
+        self.go_back()
+        self.sleep(1)
+        self.verify_transaction_page()
+
+
+
 
 
 
