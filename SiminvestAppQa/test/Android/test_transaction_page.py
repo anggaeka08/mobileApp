@@ -14,12 +14,12 @@ class Transaction_test(Transaction):
     @pytest.mark.Android
     @pytest.mark.Transaction
     @allure.story("F-8:Transaction Page")
-    def test_ui_functionality_of_orderlist_tab(self):
+    def test_ui_functionality_of_order_list_tab(self):
         try:
             self.execute_script('lambda-name=test_ui_functionality_of_orderlist_tab')
             self.open_trans_page_with_reg_user(user_data['reg_no'])
             self.verify_common_details_for_all_tabs()
-            self.verify_entries_details_on_transaction_tab()
+            self.verify_entries_details_on_transaction_tab_for_order_list()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_ui_functionality_of_orderlist_tab', 'SiminvestAppQa/src/data/ScreenShots')
@@ -31,7 +31,29 @@ class Transaction_test(Transaction):
             pytest.fail(E.msg, pytrace=True)
 
     # Transaction page for order list
-    @pytest.mark.trans_order_details
+    @pytest.mark.trans_history_list_ui
+    @pytest.mark.Android
+    @pytest.mark.Transaction
+    @allure.story("F-8:Transaction Page")
+    def test_ui_functionality_of_history_list_tab(self):
+        try:
+            self.execute_script('lambda-name=test_ui_functionality_of_history_list_tab')
+            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            self.verify_common_details_for_all_tabs()
+            self.verify_entries_details_on_transaction_tab_for_history_list()
+            self.verify_filter_option_for_history_list()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_ui_functionality_of_history_list_tab', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_ui_functionality_of_history_list_tab', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    # Transaction page for order list
+    @pytest.mark.tran_order_list_details
     @pytest.mark.Android
     @pytest.mark.Transaction
     @allure.story("F-8:Transaction Page")
@@ -52,17 +74,16 @@ class Transaction_test(Transaction):
             pytest.fail(E.msg, pytrace=True)
 
 
+
     # Cover all 5 test cases in single test
     @pytest.mark.T_SMMA_001_to_005
     @pytest.mark.Android
-    @pytest.mark.transaction
     def test_validate_transaction_btn_redirection_saham_reksadana_tab(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.verify_last_transaction_orderlist()
 
     @pytest.mark.T_SMMA_008
     @pytest.mark.Android
-    @pytest.mark.transaction
     def test_GTC_tab_contain_gtc_transactions(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.click_on_gtc_tab()
@@ -70,7 +91,6 @@ class Transaction_test(Transaction):
 
     @pytest.mark.T_SMMA_010_to_017
     @pytest.mark.Android
-    @pytest.mark.transaction
     def test_verify_all_type_btn_feature(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.verify_search_bar()
@@ -91,7 +111,6 @@ class Transaction_test(Transaction):
 
     @pytest.mark.T_SMMA_019_to_026
     @pytest.mark.Android
-    @pytest.mark.transaction
     def test_verify_reksadana_transactions(self):
         self.open_trans_page_with_reg_user(user_data['mf_user'])
         self.click_to_reksadana()
@@ -113,7 +132,6 @@ class Transaction_test(Transaction):
 
     @pytest.mark.T_SMMA_028_29_30_34
     @pytest.mark.Android
-    @pytest.mark.transaction
     def test_verify_left_right_swipe_and_search_options(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.swipe_right()
@@ -139,7 +157,6 @@ class Transaction_test(Transaction):
 
     @pytest.mark.T_SMMA_039_040
     @pytest.mark.Android
-    @pytest.mark.transaction
     def test_verify_gtc_order_page_and_help_option(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.click_on_gtc_tab()
@@ -152,7 +169,6 @@ class Transaction_test(Transaction):
 
     @pytest.mark.T_SMMA_035
     @pytest.mark.Android
-    @pytest.mark.transaction
     def test_verify_gtc_order_page_redirection(self):
         self.open_trans_page_with_reg_user(user_data['reg_no'])
         self.click_on_gtc_tab()

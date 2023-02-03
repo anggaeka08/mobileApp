@@ -80,6 +80,15 @@ od_jumDip_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.
 od_jumSel_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[17]"
 batalkan_btn = '//android.widget.TextView[@text ="BATALKAN"]'
 amend_btn = '//android.widget.TextView[@text ="AMEND"]'
+Filter_header = '//android.widget.TextView[1][@text="Filter"]'
+Transaksi_text='//android.widget.TextView[@text="Transaksi"]'
+Semua_text='//android.widget.TextView[@text="Semua"]'
+Beli_text='//android.widget.TextView[@text="Beli"]'
+Jual_text='//android.widget.TextView[@text="Jual"]'
+Minggu_ini_text='//android.widget.TextView[@text="Minggu ini"]'
+Bulan_ini_text='//android.widget.TextView[@text="Bulan ini"]'
+history_tab_filter='TransactionHistoryListDropDown'
+history_tab_search = 'TransactionHistoryListSearchBox'
 today = datetime.today()
 
 class Transaction(AmendProcess):
@@ -303,7 +312,8 @@ class Transaction(AmendProcess):
         self.assert_equal(self.is_element_visible(filter), True)
         self.assert_equal(self.get_attribute(search_oderlist, 'text'), 'Cari Saham')
 
-    def verify_entries_details_on_transaction_tab(self):
+    @allure.step("Verify entries details on transaction tab for orderlist")
+    def verify_entries_details_on_transaction_tab_for_order_list(self):
         try :
             for i in range(0, 4):
                 time_in_entry = self.get_attribute(f'orderTime_{i}', 'text')
@@ -320,6 +330,45 @@ class Transaction(AmendProcess):
                 assert transaction_status in ['OPEN', 'MATCHED', 'WITHDRAW', 'REJECTED', 'PARTIAL', 'EXPIRED','AMEND', 'SENDING'], f'Invalid transaction type'
         except:
             pass
+
+    def verify_entries_details_on_transaction_tab_for_history_list(self):
+        self.click(history_tab)
+        self.sleep(1)
+        try:
+            self.assert_equal(self.is_element_visible(history_tab_filter), True)
+            self.assert_equal(self.is_element_visible(history_tab_search), True)
+            for i in range(0, 4):
+                time_in_entry = self.get_attribute(f'time_{i}', 'text')
+                in_time = datetime.strptime(time_in_entry, "%H:%M")
+                out_time = datetime.strftime(in_time, "%H:%M")
+                self.assert_equal(time_in_entry, str(out_time))
+                date_in_entry = self.get_attribute(f'date_{i}', 'text')
+                in_date = datetime.strptime(date_in_entry, '%d %b %Y')
+                out_date = datetime.strftime(in_time, '%d %b %Y')
+                self.assert_equal(in_date, str(out_date))
+                transaction_type = self.get_attribute(f'transactionType_{i}', 'text')
+                assert transaction_type in ['BELI', 'JUAL'] , f'Invalid transaction type'
+                self.assert_equal(self.is_element_visible(f'stockCode_{i}'), True)
+                self.assert_equal(self.is_element_visible(f'lot_{i}'), True)
+                self.assert_equal(self.is_element_visible(f'price_{i}'), True)
+                self.assert_equal(self.is_element_visible(f'total_{i}'), True)
+                transaction_status = self.get_attribute(f'status_label_{i}', 'text')
+                assert transaction_status == 'MATCHED' , f'Invalid transaction type'
+        except:
+            pass
+
+    @allure.step("Verify filter option for history list")
+    def verify_filter_option_for_history_list(self):
+        self.click(history_tab_filter)
+        self.assert_equal(self.is_element_visible(Filter_header), True)
+        self.assert_equal(self.is_element_visible(Transaksi_text), True)
+        self.assert_equal(self.is_element_visible(Beli_text), True)
+        self.assert_equal(self.is_element_visible(Jual_text), True)
+        self.assert_equal(self.is_element_visible(Minggu_ini_text), True)
+        self.assert_equal(self.is_element_visible(Bulan_ini_text), True)
+        lst = self.find_elements(Semua_text)
+        self.assert_equal(len(lst), 2)
+
 
     def verify_order_details_page(self):
         self.click(orderlist_entry)
