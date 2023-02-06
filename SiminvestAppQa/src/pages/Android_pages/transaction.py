@@ -91,6 +91,7 @@ history_tab_filter='TransactionHistoryListDropDown'
 history_tab_search = 'TransactionHistoryListSearchBox'
 today = datetime.today()
 history_list_entry = 'history_list_entry_0'
+hod_back_button="//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup"
 hod_header = "//android.widget.TextView[@text = 'BELI' and 'JUAL']"
 hod_stock_code = '//android.view.ViewGroup[3]/android.widget.TextView[1]'
 hod_stock_name = '//android.view.ViewGroup[3]/android.widget.TextView[2]'
@@ -428,6 +429,7 @@ class Transaction(AmendProcess):
         self.sleep(1)
         self.click(history_list_entry)
         self.sleep(1)
+        self.assert_equal(self.is_element_visible(hod_back_button), True)
         self.assert_equal(self.is_element_visible(hod_header), True)
         self.assert_equal(self.is_element_visible(hod_stock_code), True)
         self.assert_equal(self.is_element_visible(hod_stock_name), True)
@@ -435,13 +437,18 @@ class Transaction(AmendProcess):
         self.assert_equal(self.is_element_visible(hod_order_id), True)
         self.assert_equal(self.is_element_visible(hod_order_id), True)
         self.assert_equal(self.is_element_visible(hod_tanPem), True)
-        self.assert_equal(self.is_element_visible(hod_tanPem), True)
         self.assert_equal(self.is_element_visible(hod_produk), True)
         self.assert_equal(self.is_element_visible(hod_harga), True)
         self.assert_equal(self.is_element_visible(hod_lot), True)
         self.assert_equal(self.is_element_visible(hod_jumlah), True)
         self.assert_equal(self.is_element_visible(hod_order_id_text), True)
         self.assert_equal(self.is_element_visible(hod_tanPem_text), True)
+
+        date_in_entry = self.get_attribute(hod_tanPem_text, 'text')
+        in_date = datetime.strptime(date_in_entry, '%d %b %Y,%H:%M')
+        out_date = datetime.strftime(in_date, '%d %b %Y,%H:%M')
+        self.assert_equal(date_in_entry, str(out_date))
+
         self.assert_equal(self.is_element_visible(hod_produk_text), True)
         self.assert_equal(self.is_element_visible(hod_harga_text), True)
         self.assert_equal(self.is_element_visible(hod_lot_text), True)
@@ -449,9 +456,3 @@ class Transaction(AmendProcess):
         self.go_back()
         self.sleep(1)
         self.assert_equal(self.is_element_visible(history_list_entry), True)
-
-
-
-
-
-
