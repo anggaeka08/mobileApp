@@ -31,8 +31,8 @@ all_types_order_lst='TransactionSahamOrderListDropDown'
 all_types_History_lst = 'TransactionSahamHistoryListDropDown'
 all_types_gtc_lst = 'TransactionSahamGTCListDropDown'
 orderlist_entry = 'order_list_entry_0'
-GTC_tab = 'TransactionPageSahamHeader3'
-gtc_entry = 'GTCListEntry0'
+GTC_tab = 'GTC List_tab'
+gtc_entry = 'gtc_list_entry_0'
 batal_btn = '//android.widget.TextView[@text ="BATAL"]'
 YA_btn = '//android.widget.TextView[@text ="Ya"]'
 ok_btn = '//android.widget.TextView[@text ="OK"]'
@@ -85,6 +85,7 @@ Transaksi_text='//android.widget.TextView[@text="Transaksi"]'
 Semua_text='//android.widget.TextView[@text="Semua"]'
 Beli_text='//android.widget.TextView[@text="Beli"]'
 Jual_text='//android.widget.TextView[@text="Jual"]'
+Terapkan_text='//android.widget.TextView[@text="Terapkan"]'
 Minggu_ini_text='//android.widget.TextView[@text="Minggu ini"]'
 Bulan_ini_text='//android.widget.TextView[@text="Bulan ini"]'
 history_tab_filter='TransactionHistoryListDropDown'
@@ -108,6 +109,17 @@ hod_produk_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget
 hod_harga_text = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[8]"
 hod_lot_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[10]"
 hod_jumlah_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[12]"
+gtc_tab_filter='TransactionSahamGTCListDropDown'
+gtc_tab_search = 'TransactionSahamGTCListSearchBox'
+gtc_tab_binocular= "//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView"
+gtc_tab_label= "gtc_label_0"
+gtc_tab_date= "gtc_time_0"
+gtc_trans_type= "transaction_type_0"
+gtc_tab_stock_code= "stockCode_0"
+gtc_tab_status= "status_label_0"
+gtc_tab_lot= "lot_0"
+gtc_tab_harga= "price_0"
+gtc_tab_jumlah= "amount_0"
 
 
 class Transaction(AmendProcess):
@@ -350,6 +362,8 @@ class Transaction(AmendProcess):
         except:
             pass
 
+
+    @allure.step("Verify entries details on transaction tab for history list")
     def verify_entries_details_on_transaction_tab_for_history_list(self):
         self.click(history_tab)
         self.sleep(1)
@@ -389,6 +403,7 @@ class Transaction(AmendProcess):
         self.assert_equal(len(lst), 2)
 
 
+    @allure.step("Verify order details page")
     def verify_order_details_page(self):
         self.click(orderlist_entry)
         self.sleep(1)
@@ -424,6 +439,7 @@ class Transaction(AmendProcess):
         self.sleep(1)
         self.verify_transaction_page()
 
+    @allure.step("Verify order details of history list")
     def verify_order_details_of_history_list(self):
         self.click(history_tab)
         self.sleep(1)
@@ -443,12 +459,10 @@ class Transaction(AmendProcess):
         self.assert_equal(self.is_element_visible(hod_jumlah), True)
         self.assert_equal(self.is_element_visible(hod_order_id_text), True)
         self.assert_equal(self.is_element_visible(hod_tanPem_text), True)
-
         date_in_entry = self.get_attribute(hod_tanPem_text, 'text')
         in_date = datetime.strptime(date_in_entry, '%d %b %Y,%H:%M')
         out_date = datetime.strftime(in_date, '%d %b %Y,%H:%M')
         self.assert_equal(date_in_entry, str(out_date))
-
         self.assert_equal(self.is_element_visible(hod_produk_text), True)
         self.assert_equal(self.is_element_visible(hod_harga_text), True)
         self.assert_equal(self.is_element_visible(hod_lot_text), True)
@@ -456,3 +470,35 @@ class Transaction(AmendProcess):
         self.go_back()
         self.sleep(1)
         self.assert_equal(self.is_element_visible(history_list_entry), True)
+
+    @allure.step("Verify ui functionality of GTC list tab")
+    def verify_ui_functionality_of_GTC_list_tab(self):
+        self.click(gtc_tab)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gtc_entry), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_binocular), True)
+        self.assert_equal((self.get_attribute(gtc_tab_search, 'text')), "Cari Saham")
+        self.assert_equal(self.is_element_visible(gtc_tab_filter), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_label), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_date), True)
+        date_in_entry = self.get_attribute(gtc_tab_date, 'text')
+        in_date = datetime.strptime(date_in_entry, '%d %B %Y')
+        out_date = datetime.strftime(in_date, '%d %B %Y')
+        self.assert_equal(date_in_entry, str(out_date))
+        self.assert_equal(self.is_element_visible(gtc_trans_type), True)
+        self.assert_equal((self.get_attribute(gtc_trans_type, 'text')), "BELI" or "JUAL")
+        self.assert_equal(self.is_element_visible(gtc_tab_stock_code), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_status), True)
+        self.assert_equal((self.get_attribute(gtc_tab_status, 'text')), "WORKING")
+        self.assert_equal(self.is_element_visible(gtc_tab_lot), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_harga), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_jumlah), True)
+        self.click(gtc_tab_filter)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(Semua_text), True)
+        self.assert_equal(self.is_element_visible(Beli_text), True)
+        self.assert_equal(self.is_element_visible(Jual_text), True)
+        self.assert_equal(self.is_element_visible(Terapkan_text), True)
+
+
+
