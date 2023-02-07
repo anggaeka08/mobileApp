@@ -480,6 +480,7 @@ class Transaction(AmendProcess):
         self.assert_equal((self.get_attribute(gtc_tab_search, 'text')), "Cari Saham")
         self.assert_equal(self.is_element_visible(gtc_tab_filter), True)
         self.assert_equal(self.is_element_visible(gtc_tab_label), True)
+        self.assert_equal(self.get_attribute(gtc_tab_label, 'text'), 'Good Til')
         self.assert_equal(self.is_element_visible(gtc_tab_date), True)
         date_in_entry = self.get_attribute(gtc_tab_date, 'text')
         in_date = datetime.strptime(date_in_entry, '%d %B %Y')
