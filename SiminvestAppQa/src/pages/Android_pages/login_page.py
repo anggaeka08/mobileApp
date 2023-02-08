@@ -73,6 +73,7 @@ selanjutnya_otp_sel = '/hierarchy/android.widget.FrameLayout/android.widget.Line
 back_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 navigate_up = 'Navigate up'
 bio_on_off = "//android.widget.TextView[@text = 'Nanti Saja']"
+close_banner = '//android.view.ViewGroup[2]/android.widget.ImageView'
 
 class LoginPage(BaseCase):
 
@@ -147,13 +148,17 @@ class LoginPage(BaseCase):
     @allure.step("verify home page")
     def verify_home_page(self):
         self.sleep(2)
+        self.click(close_banner)
+        self.sleep(2)
         self.click('//*[@text="Lewati"]')
         Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
         self.assert_equal(Home_page_locator_text, Home_page_text)
 
     @allure.step("verify home page reg user")
     def verify_home_page_reg_user(self):
-        self.sleep(4)
+        self.sleep(3)
+        self.click(close_banner)
+        self.sleep(2)
         #self.click('//*[@text="Lewati"]')
         Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
         self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
