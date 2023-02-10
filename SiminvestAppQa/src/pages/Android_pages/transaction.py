@@ -38,16 +38,32 @@ YA_btn = '//android.widget.TextView[@text ="Ya"]'
 ok_btn = '//android.widget.TextView[@text ="OK"]'
 status_of_gtc_first_entry = 'GTCListEntry0Status'
 #GTCODP = GTC order details Page
-GTCODP_status = "AmendPageStatusValue"
-GTCODP_till_date = '//android.widget.TextView[@index="6"]'
-GTCODP_purchase_date = '//android.widget.TextView[@index="8"]'
-GTCODP_stock_code = '//android.widget.TextView[@index="11"]'
-GTCODP_harga_value = '//android.widget.TextView[@index="13"]'
-GTCODP_lot_dipesan_value = '//android.widget.TextView[@index="15"]'
-GTCODP_lot_selesia_value = '//android.widget.TextView[@index="17"]'
+GTCODP_header = "//android.widget.TextView[@text = 'BELI' and 'JUAL']"
+GTCODP_status= "//android.widget.TextView[@text = 'Status']"
+GTCODP_status_value = "//android.view.ViewGroup[4]/android.widget.TextView"
+GTCODP_arrow = "//android.view.ViewGroup[3]/android.widget.ImageView"
+GTCODP_good_till ="//android.widget.TextView[@text = 'Good Til']"
+GTCODP_till_date = '//android.widget.TextView[3]'
+GTCODP_tanggal_order ="//android.widget.TextView[@text = 'Tanggal Order']"
+GTCODP_purchase_date = '//android.widget.TextView[5]'
+GTCODP_stock_code = '//android.widget.TextView[1]'
+GTCODP_stock_name = '//android.widget.TextView[2]'
+GTCODP_produc ="//android.widget.TextView[@text = 'Tanggal Order']"
+GTCODP_produc_value = '//android.widget.TextView[7]'
+GTCODP_harga ="//android.widget.TextView[@text = 'Harga']"
+GTCODP_harga_value = '//android.widget.TextView[9]'
+GTCODP_lot_dipesan = "//android.widget.TextView[@text = 'Lot Dipesan']"
+GTCODP_lot_dipesan_value = '//android.widget.TextView[11]'
+GTCODP_lot_selesia = "//android.widget.TextView[@text = 'Lot Selesai']"
+GTCODP_lot_selesia_value = '//android.widget.TextView[13]'
 GTCODP_lot_jumlah_value = '//android.widget.TextView[@index="19"]'
+GTCODP_jumlah_dipesan = "//android.widget.TextView[@text = 'Jumlah Dipesan']"
+GTCODP_jumlah_dipesan_value = '//android.widget.TextView[15]'
+GTCODP_jumlah_selesai= "//android.widget.TextView[@text = 'Jumlah Selesai']"
+GTCODP_jumlah_selesai_value = '//android.widget.TextView[17]'
 GTCODP_customer_btn = '//android.widget.TextView[@text="Hubungi Customer Care"]'
 GTCODP_BATAL_btn = '//android.widget.TextView[@text="BATAL"]'
+GTCODP_back_btn = '//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 chrome_xpath ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.EditText'
 order_list = 'Order List_tab'
 trade_list = 'Trade List_tab'
@@ -501,5 +517,42 @@ class Transaction(AmendProcess):
         self.assert_equal(self.is_element_visible(Jual_text), True)
         self.assert_equal(self.is_element_visible(Terapkan_text), True)
 
-
+    @allure.step("Verify order details of gtc list")
+    def verify_order_details_of_gtc_list(self):
+        self.click(gtc_tab)
+        self.sleep(1)
+        self.click(gtc_entry)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(GTCODP_back_btn), True)
+        self.assert_equal(self.is_element_visible(GTCODP_header), True)
+        self.assert_equal(self.is_element_visible(GTCODP_stock_code), True)
+        self.assert_equal(self.is_element_visible(GTCODP_stock_name), True)
+        self.assert_equal(self.is_element_visible(GTCODP_arrow), True)
+        self.assert_equal(self.is_element_visible(GTCODP_status), True)
+        self.assert_equal(self.is_element_visible(GTCODP_status_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_good_till), True)
+        self.assert_equal(self.is_element_visible(GTCODP_till_date), True)
+        date_in_entry = self.get_attribute(GTCODP_till_date, 'text')
+        in_date = datetime.strptime(date_in_entry, '%d %b %Y')
+        out_date = datetime.strftime(in_date, '%d %b %Y')
+        self.assert_equal(date_in_entry, str(out_date))
+        self.assert_equal(self.is_element_visible(GTCODP_tanggal_order), True)
+        self.assert_equal(self.is_element_visible(GTCODP_purchase_date), True)
+        date_in_entry = self.get_attribute(GTCODP_purchase_date, 'text')
+        in_date = datetime.strptime(date_in_entry, '%d %b %Y')
+        out_date = datetime.strftime(in_date, '%d %b %Y')
+        self.assert_equal(date_in_entry, str(out_date))
+        self.assert_equal(self.is_element_visible(GTCODP_produc), True)
+        self.assert_equal(self.is_element_visible(GTCODP_produc_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_harga), True)
+        self.assert_equal(self.is_element_visible(GTCODP_harga_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_dipesan), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_dipesan_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_selesia), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_selesia_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_jumlah_dipesan), True)
+        self.assert_equal(self.is_element_visible(GTCODP_jumlah_dipesan_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_jumlah_selesai), True)
+        self.assert_equal(self.is_element_visible(GTCODP_jumlah_selesai_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_BATAL_btn), True)
 
