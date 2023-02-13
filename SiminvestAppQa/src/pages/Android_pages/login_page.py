@@ -73,6 +73,7 @@ selanjutnya_otp_sel = '/hierarchy/android.widget.FrameLayout/android.widget.Line
 back_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 navigate_up = 'Navigate up'
 bio_on_off = "//android.widget.TextView[@text = 'Nanti Saja']"
+close_banner = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView'
 
 class LoginPage(BaseCase):
 
@@ -83,9 +84,12 @@ class LoginPage(BaseCase):
     @allure.step("click mulai sekarang")
     def click_mulai_sekarang(self):
         self.sleep(5)
-        self.tap(ignore_btn)
-        self.sleep(1)
-        self.click(mulai_sekarang)
+        if self.is_element_visible(ignore_btn) == True:
+            self.tap(ignore_btn)
+            self.sleep(1)
+            self.click(mulai_sekarang)
+        else:
+            self.click(mulai_sekarang)
 
     @allure.step("verify mobile no page")
     def verify_mobile_no_page(self):
@@ -144,17 +148,39 @@ class LoginPage(BaseCase):
     @allure.step("verify home page")
     def verify_home_page(self):
         self.sleep(2)
-        self.click('//*[@text="Lewati"]')
-        Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
-        self.assert_equal(Home_page_locator_text, Home_page_text)
+        if self.is_element_visible(close_banner) == True:
+            self.click(close_banner)
+            self.sleep(2)
+            if self.is_element_visible('//*[@text="Lewati"]') == True :
+                self.click('//*[@text="Lewati"]')
+            Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_text)
+        else :
+            self.sleep(2)
+            if self.is_element_visible('//*[@text="Lewati"]') == True :
+                self.click('//*[@text="Lewati"]')
+            Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_text)
 
     @allure.step("verify home page reg user")
     def verify_home_page_reg_user(self):
-        self.sleep(4)
-        #self.click('//*[@text="Lewati"]')
+        self.sleep(3)
+        if self.is_element_visible(close_banner) == True:
+            self.click(close_banner)
+            self.sleep(2)
+            Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
+        else:
+            self.click(close_banner)
+            self.sleep(2)
+            Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
+    @allure.step("verify home page reg user without banner")
+    def verify_home_page_reg_user_without_banner(self):
+        self.sleep(3)
         Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
         self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
-        #self.tearDown()
+
 
     @allure.step("enter pin")
     def enter_pin(self):

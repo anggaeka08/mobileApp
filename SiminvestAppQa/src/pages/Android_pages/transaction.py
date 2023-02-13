@@ -30,24 +30,40 @@ all_types_trade_lst='TransactionSahamTradeListDropDown'
 all_types_order_lst='TransactionSahamOrderListDropDown'
 all_types_History_lst = 'TransactionSahamHistoryListDropDown'
 all_types_gtc_lst = 'TransactionSahamGTCListDropDown'
-orderlist_entry = 'OrderListEntry0'
-GTC_tab = 'TransactionPageSahamHeader3'
-gtc_entry = 'GTCListEntry0'
+orderlist_entry = 'order_list_entry_0'
+GTC_tab = 'GTC List_tab'
+gtc_entry = 'gtc_list_entry_0'
 batal_btn = '//android.widget.TextView[@text ="BATAL"]'
 YA_btn = '//android.widget.TextView[@text ="Ya"]'
 ok_btn = '//android.widget.TextView[@text ="OK"]'
 status_of_gtc_first_entry = 'GTCListEntry0Status'
 #GTCODP = GTC order details Page
-GTCODP_status = "AmendPageStatusValue"
-GTCODP_till_date = '//android.widget.TextView[@index="6"]'
-GTCODP_purchase_date = '//android.widget.TextView[@index="8"]'
-GTCODP_stock_code = '//android.widget.TextView[@index="11"]'
-GTCODP_harga_value = '//android.widget.TextView[@index="13"]'
-GTCODP_lot_dipesan_value = '//android.widget.TextView[@index="15"]'
-GTCODP_lot_selesia_value = '//android.widget.TextView[@index="17"]'
+GTCODP_header = "//android.widget.TextView[@text = 'BELI' and 'JUAL']"
+GTCODP_status= "//android.widget.TextView[@text = 'Status']"
+GTCODP_status_value = "//android.view.ViewGroup[4]/android.widget.TextView"
+GTCODP_arrow = "//android.view.ViewGroup[3]/android.widget.ImageView"
+GTCODP_good_till ="//android.widget.TextView[@text = 'Good Til']"
+GTCODP_till_date = '//android.widget.TextView[3]'
+GTCODP_tanggal_order ="//android.widget.TextView[@text = 'Tanggal Order']"
+GTCODP_purchase_date = '//android.widget.TextView[5]'
+GTCODP_stock_code = '//android.widget.TextView[1]'
+GTCODP_stock_name = '//android.widget.TextView[2]'
+GTCODP_produc ="//android.widget.TextView[@text = 'Tanggal Order']"
+GTCODP_produc_value = '//android.widget.TextView[7]'
+GTCODP_harga ="//android.widget.TextView[@text = 'Harga']"
+GTCODP_harga_value = '//android.widget.TextView[9]'
+GTCODP_lot_dipesan = "//android.widget.TextView[@text = 'Lot Dipesan']"
+GTCODP_lot_dipesan_value = '//android.widget.TextView[11]'
+GTCODP_lot_selesia = "//android.widget.TextView[@text = 'Lot Selesai']"
+GTCODP_lot_selesia_value = '//android.widget.TextView[13]'
 GTCODP_lot_jumlah_value = '//android.widget.TextView[@index="19"]'
+GTCODP_jumlah_dipesan = "//android.widget.TextView[@text = 'Jumlah Dipesan']"
+GTCODP_jumlah_dipesan_value = '//android.widget.TextView[15]'
+GTCODP_jumlah_selesai= "//android.widget.TextView[@text = 'Jumlah Selesai']"
+GTCODP_jumlah_selesai_value = '//android.widget.TextView[17]'
 GTCODP_customer_btn = '//android.widget.TextView[@text="Hubungi Customer Care"]'
 GTCODP_BATAL_btn = '//android.widget.TextView[@text="BATAL"]'
+GTCODP_back_btn = '//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 chrome_xpath ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.EditText'
 order_list = 'Order List_tab'
 trade_list = 'Trade List_tab'
@@ -56,9 +72,71 @@ gtc_tab = 'GTC List_tab'
 #search_sign = "//android.view.ViewGroup[2]/android.widget.ImageView[@index='0']"
 filter = 'TransactionSahamOrderListDropDown'
 entries_loc = '//android.view.ViewGroup/android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup'
-
-
+oder_details_header = "//android.widget.TextView[@text = 'BELI' and 'JUAL']"
+od_stock_code = '//android.view.ViewGroup[3]/android.widget.TextView[1]'
+od_stock_name = '//android.view.ViewGroup[3]/android.widget.TextView[2]'
+od_arrow = '//android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.ImageView'
+od_status = "//android.widget.TextView[@text = 'Status']"
+od_order_id = "//android.widget.TextView[@text = 'Order ID']"
+od_tanPem = "//android.widget.TextView[@text = 'Tanggal Pembelian']"
+od_produk = "//android.widget.TextView[@text = 'Produk']"
+od_harga = "//android.widget.TextView[@text = 'Harga']"
+od_lotDip = "//android.widget.TextView[@text = 'Lot Dipesan']"
+od_lotSel = "//android.widget.TextView[@text = 'Lot Selesai']"
+od_jumDip = "//android.widget.TextView[@text = 'Jumlah Dipesan']"
+od_jumSel = "//android.widget.TextView[@text = 'Jumlah Selesai']"
+od_status_text ='//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
+od_order_id_text = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[3]"
+od_tanPem_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[5]"
+od_produk_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[7]"
+od_harga_text = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[9]"
+od_lotDip_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[11]"
+od_lotSel_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[13]"
+od_jumDip_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[15]"
+od_jumSel_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[17]"
+batalkan_btn = '//android.widget.TextView[@text ="BATALKAN"]'
+amend_btn = '//android.widget.TextView[@text ="AMEND"]'
+Filter_header = '//android.widget.TextView[1][@text="Filter"]'
+Transaksi_text='//android.widget.TextView[@text="Transaksi"]'
+Semua_text='//android.widget.TextView[@text="Semua"]'
+Beli_text='//android.widget.TextView[@text="Beli"]'
+Jual_text='//android.widget.TextView[@text="Jual"]'
+Terapkan_text='//android.widget.TextView[@text="Terapkan"]'
+Minggu_ini_text='//android.widget.TextView[@text="Minggu ini"]'
+Bulan_ini_text='//android.widget.TextView[@text="Bulan ini"]'
+history_tab_filter='TransactionHistoryListDropDown'
+history_tab_search = 'TransactionHistoryListSearchBox'
 today = datetime.today()
+history_list_entry = 'history_list_entry_0'
+hod_back_button="//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup"
+hod_header = "//android.widget.TextView[@text = 'BELI' and 'JUAL']"
+hod_stock_code = '//android.view.ViewGroup[3]/android.widget.TextView[1]'
+hod_stock_name = '//android.view.ViewGroup[3]/android.widget.TextView[2]'
+hod_arrow = '//android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.ImageView'
+hod_order_id = "//android.widget.TextView[@text = 'Order ID']"
+hod_tanPem = "//android.widget.TextView[@text = 'Tanggal Pembelian']"
+hod_produk = "//android.widget.TextView[@text = 'Produk']"
+hod_harga = "//android.widget.TextView[@text = 'Harga']"
+hod_lot= "//android.widget.TextView[@text = 'Total Lot']"
+hod_jumlah = "//android.widget.TextView[@text = 'Total Jumlah']"
+hod_order_id_text = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]"
+hod_tanPem_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[4]"
+hod_produk_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[6]"
+hod_harga_text = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[8]"
+hod_lot_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[10]"
+hod_jumlah_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[12]"
+gtc_tab_filter='TransactionSahamGTCListDropDown'
+gtc_tab_search = 'TransactionSahamGTCListSearchBox'
+gtc_tab_binocular= "//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView"
+gtc_tab_label= "gtc_label_0"
+gtc_tab_date= "gtc_time_0"
+gtc_trans_type= "transaction_type_0"
+gtc_tab_stock_code= "stockCode_0"
+gtc_tab_status= "status_label_0"
+gtc_tab_lot= "lot_0"
+gtc_tab_harga= "price_0"
+gtc_tab_jumlah= "amount_0"
+
 
 class Transaction(AmendProcess):
 
@@ -281,7 +359,8 @@ class Transaction(AmendProcess):
         self.assert_equal(self.is_element_visible(filter), True)
         self.assert_equal(self.get_attribute(search_oderlist, 'text'), 'Cari Saham')
 
-    def verify_entries_details_on_transaction_tab(self):
+    @allure.step("Verify entries details on transaction tab for orderlist")
+    def verify_entries_details_on_transaction_tab_for_order_list(self):
         try :
             for i in range(0, 4):
                 time_in_entry = self.get_attribute(f'orderTime_{i}', 'text')
@@ -296,15 +375,184 @@ class Transaction(AmendProcess):
                 self.assert_equal(self.is_element_visible(f'total_{i}'), True)
                 transaction_status = self.get_attribute(f'status_label_{i}', 'text')
                 assert transaction_status in ['OPEN', 'MATCHED', 'WITHDRAW', 'REJECTED', 'PARTIAL', 'EXPIRED','AMEND', 'SENDING'], f'Invalid transaction type'
-
-
-
         except:
             pass
 
 
+    @allure.step("Verify entries details on transaction tab for history list")
+    def verify_entries_details_on_transaction_tab_for_history_list(self):
+        self.click(history_tab)
+        self.sleep(1)
+        try:
+            self.assert_equal(self.is_element_visible(history_tab_filter), True)
+            self.assert_equal(self.is_element_visible(history_tab_search), True)
+            for i in range(0, 4):
+                time_in_entry = self.get_attribute(f'time_{i}', 'text')
+                in_time = datetime.strptime(time_in_entry, "%H:%M")
+                out_time = datetime.strftime(in_time, "%H:%M")
+                self.assert_equal(time_in_entry, str(out_time))
+                date_in_entry = self.get_attribute(f'date_{i}', 'text')
+                in_date = datetime.strptime(date_in_entry, '%d %b %Y')
+                out_date = datetime.strftime(in_time, '%d %b %Y')
+                self.assert_equal(in_date, str(out_date))
+                transaction_type = self.get_attribute(f'transactionType_{i}', 'text')
+                assert transaction_type in ['BELI', 'JUAL'] , f'Invalid transaction type'
+                self.assert_equal(self.is_element_visible(f'stockCode_{i}'), True)
+                self.assert_equal(self.is_element_visible(f'lot_{i}'), True)
+                self.assert_equal(self.is_element_visible(f'price_{i}'), True)
+                self.assert_equal(self.is_element_visible(f'total_{i}'), True)
+                transaction_status = self.get_attribute(f'status_label_{i}', 'text')
+                assert transaction_status == 'MATCHED' , f'Invalid transaction type'
+        except:
+            pass
+
+    @allure.step("Verify filter option for history list")
+    def verify_filter_option_for_history_list(self):
+        self.click(history_tab_filter)
+        self.assert_equal(self.is_element_visible(Filter_header), True)
+        self.assert_equal(self.is_element_visible(Transaksi_text), True)
+        self.assert_equal(self.is_element_visible(Beli_text), True)
+        self.assert_equal(self.is_element_visible(Jual_text), True)
+        self.assert_equal(self.is_element_visible(Minggu_ini_text), True)
+        self.assert_equal(self.is_element_visible(Bulan_ini_text), True)
+        lst = self.find_elements(Semua_text)
+        self.assert_equal(len(lst), 2)
 
 
+    @allure.step("Verify order details page")
+    def verify_order_details_page(self):
+        self.click(orderlist_entry)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(oder_details_header), True)
+        self.assert_equal(self.is_element_visible(od_stock_code), True)
+        self.assert_equal(self.is_element_visible(od_stock_name), True)
+        self.assert_equal(self.is_element_visible(od_arrow), True)
+        self.assert_equal(self.is_element_visible(od_status), True)
+        self.assert_equal(self.is_element_visible(od_order_id), True)
+        self.assert_equal(self.is_element_visible(od_tanPem), True)
+        self.assert_equal(self.is_element_visible(od_produk), True)
+        self.assert_equal(self.is_element_visible(od_harga), True)
+        self.assert_equal(self.is_element_visible(od_lotDip), True)
+        self.assert_equal(self.is_element_visible(od_lotSel), True)
+        self.assert_equal(self.is_element_visible(od_jumDip), True)
+        self.assert_equal(self.is_element_visible(od_jumSel), True)
+        self.assert_equal(self.is_element_visible(od_status_text), True)
+        self.assert_equal(self.is_element_visible(od_order_id_text), True)
+        self.assert_equal(self.is_element_visible(od_tanPem_text), True)
+        self.assert_equal(self.is_element_visible(od_produk_text), True)
+        self.assert_equal(self.is_element_visible(od_harga_text), True)
+        self.assert_equal(self.is_element_visible(od_lotDip_text), True)
+        self.assert_equal(self.is_element_visible(od_lotSel_text), True)
+        self.assert_equal(self.is_element_visible(od_jumDip_text), True)
+        self.assert_equal(self.is_element_visible(od_jumSel_text), True)
+        if self.get_attribute(od_status_text, 'text') in ['OPEN', 'SENDING']:
+            self.assert_equal(self.is_element_visible(batalkan_btn), True)
+            self.assert_equal(self.is_element_visible(amend_btn), True)
+        else :
+            self.assert_equal(self.is_element_visible(batalkan_btn), False)
+            self.assert_equal(self.is_element_visible(amend_btn), False)
+        self.go_back()
+        self.sleep(1)
+        self.verify_transaction_page()
 
+    @allure.step("Verify order details of history list")
+    def verify_order_details_of_history_list(self):
+        self.click(history_tab)
+        self.sleep(1)
+        self.click(history_list_entry)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(hod_back_button), True)
+        self.assert_equal(self.is_element_visible(hod_header), True)
+        self.assert_equal(self.is_element_visible(hod_stock_code), True)
+        self.assert_equal(self.is_element_visible(hod_stock_name), True)
+        self.assert_equal(self.is_element_visible(hod_arrow), True)
+        self.assert_equal(self.is_element_visible(hod_order_id), True)
+        self.assert_equal(self.is_element_visible(hod_order_id), True)
+        self.assert_equal(self.is_element_visible(hod_tanPem), True)
+        self.assert_equal(self.is_element_visible(hod_produk), True)
+        self.assert_equal(self.is_element_visible(hod_harga), True)
+        self.assert_equal(self.is_element_visible(hod_lot), True)
+        self.assert_equal(self.is_element_visible(hod_jumlah), True)
+        self.assert_equal(self.is_element_visible(hod_order_id_text), True)
+        self.assert_equal(self.is_element_visible(hod_tanPem_text), True)
+        date_in_entry = self.get_attribute(hod_tanPem_text, 'text')
+        in_date = datetime.strptime(date_in_entry, '%d %b %Y,%H:%M')
+        out_date = datetime.strftime(in_date, '%d %b %Y,%H:%M')
+        self.assert_equal(date_in_entry, str(out_date))
+        self.assert_equal(self.is_element_visible(hod_produk_text), True)
+        self.assert_equal(self.is_element_visible(hod_harga_text), True)
+        self.assert_equal(self.is_element_visible(hod_lot_text), True)
+        self.assert_equal(self.is_element_visible(hod_jumlah_text), True)
+        self.go_back()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(history_list_entry), True)
 
+    @allure.step("Verify ui functionality of GTC list tab")
+    def verify_ui_functionality_of_GTC_list_tab(self):
+        self.click(gtc_tab)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gtc_entry), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_binocular), True)
+        self.assert_equal((self.get_attribute(gtc_tab_search, 'text')), "Cari Saham")
+        self.assert_equal(self.is_element_visible(gtc_tab_filter), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_label), True)
+        self.assert_equal(self.get_attribute(gtc_tab_label, 'text'), 'Good Til')
+        self.assert_equal(self.is_element_visible(gtc_tab_date), True)
+        date_in_entry = self.get_attribute(gtc_tab_date, 'text')
+        in_date = datetime.strptime(date_in_entry, '%d %B %Y')
+        out_date = datetime.strftime(in_date, '%d %B %Y')
+        self.assert_equal(date_in_entry, str(out_date))
+        self.assert_equal(self.is_element_visible(gtc_trans_type), True)
+        self.assert_equal((self.get_attribute(gtc_trans_type, 'text')), "BELI" or "JUAL")
+        self.assert_equal(self.is_element_visible(gtc_tab_stock_code), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_status), True)
+        self.assert_equal((self.get_attribute(gtc_tab_status, 'text')), "WORKING")
+        self.assert_equal(self.is_element_visible(gtc_tab_lot), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_harga), True)
+        self.assert_equal(self.is_element_visible(gtc_tab_jumlah), True)
+        self.click(gtc_tab_filter)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(Semua_text), True)
+        self.assert_equal(self.is_element_visible(Beli_text), True)
+        self.assert_equal(self.is_element_visible(Jual_text), True)
+        self.assert_equal(self.is_element_visible(Terapkan_text), True)
+
+    @allure.step("Verify order details of gtc list")
+    def verify_order_details_of_gtc_list(self):
+        self.click(gtc_tab)
+        self.sleep(1)
+        self.click(gtc_entry)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(GTCODP_back_btn), True)
+        self.assert_equal(self.is_element_visible(GTCODP_header), True)
+        self.assert_equal(self.is_element_visible(GTCODP_stock_code), True)
+        self.assert_equal(self.is_element_visible(GTCODP_stock_name), True)
+        self.assert_equal(self.is_element_visible(GTCODP_arrow), True)
+        self.assert_equal(self.is_element_visible(GTCODP_status), True)
+        self.assert_equal(self.is_element_visible(GTCODP_status_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_good_till), True)
+        self.assert_equal(self.is_element_visible(GTCODP_till_date), True)
+        date_in_entry = self.get_attribute(GTCODP_till_date, 'text')
+        in_date = datetime.strptime(date_in_entry, '%d %b %Y')
+        out_date = datetime.strftime(in_date, '%d %b %Y')
+        self.assert_equal(date_in_entry, str(out_date))
+        self.assert_equal(self.is_element_visible(GTCODP_tanggal_order), True)
+        self.assert_equal(self.is_element_visible(GTCODP_purchase_date), True)
+        date_in_entry = self.get_attribute(GTCODP_purchase_date, 'text')
+        in_date = datetime.strptime(date_in_entry, '%d %b %Y')
+        out_date = datetime.strftime(in_date, '%d %b %Y')
+        self.assert_equal(date_in_entry, str(out_date))
+        self.assert_equal(self.is_element_visible(GTCODP_produc), True)
+        self.assert_equal(self.is_element_visible(GTCODP_produc_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_harga), True)
+        self.assert_equal(self.is_element_visible(GTCODP_harga_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_dipesan), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_dipesan_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_selesia), True)
+        self.assert_equal(self.is_element_visible(GTCODP_lot_selesia_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_jumlah_dipesan), True)
+        self.assert_equal(self.is_element_visible(GTCODP_jumlah_dipesan_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_jumlah_selesai), True)
+        self.assert_equal(self.is_element_visible(GTCODP_jumlah_selesai_value), True)
+        self.assert_equal(self.is_element_visible(GTCODP_BATAL_btn), True)
 

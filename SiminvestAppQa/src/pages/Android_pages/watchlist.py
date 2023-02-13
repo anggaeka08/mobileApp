@@ -3,6 +3,7 @@ from SiminvestAppQa.src.data.userData import user_data
 import allure
 import logging as logger
 
+close_banner = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView'
 default = '//*[@text="Default"]'
 plus_btn = 'WatchListAddBtn'
 watchlist_name_edit = 'WatchListNewAddNameInput'
@@ -81,6 +82,9 @@ class Watchlist(HomePage):
         self.enter_pin()
         self.close_home_page_banner()
         self.sleep(5)
+        if self.is_element_visible(close_banner) == True:
+            self.click(close_banner)
+            self.sleep(2)
         self.scroll_up()
 
     @allure.step("Click on plus btn")

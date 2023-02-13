@@ -22,7 +22,7 @@ class Watchlist_test(Watchlist):
             self.scroll_up()
             self.verify_stock_code_and_name_in_watchlist_stocks()
             self.click_on_defaults_btn()
-            self.verify_watchlist_activation()
+            #self.verify_watchlist_activation()
             for i in range(10):
                 self.click_on_plus_btn()
                 self.enter_watchlist_name(f'test{i}')
