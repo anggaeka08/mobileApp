@@ -76,7 +76,7 @@ class SDP_test(StockDetailPage):
             self.verify_sdp_page_after_back()
             self.go_back()
             self.go_back()
-            self.verify_home_page_reg_user()
+            self.verify_home_page_reg_user_without_banner()
             self.scroll_up()
             self.click_stock_1_from_top_frequency_list()
             self.sleep(2)
