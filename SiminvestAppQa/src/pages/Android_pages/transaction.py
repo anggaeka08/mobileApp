@@ -1,13 +1,15 @@
 import datetime
 from datetime import datetime
 from SiminvestAppQa.src.pages.Android_pages.amend_page import AmendProcess
+from  numerize import numerize
 from SiminvestAppQa.src.data.userData import user_data
 import allure
 import logging as logger
 import time
+from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 
 
-
+request_utilities = RequestsUtilities()
 GTC_list ='TransactionPageSahamHeader3'
 search_oderlist = 'TransactionSahamOrderListSearchBox'
 date_last_trans='AmendPageTanggalValue'
@@ -31,6 +33,10 @@ all_types_order_lst='TransactionSahamOrderListDropDown'
 all_types_History_lst = 'TransactionSahamHistoryListDropDown'
 all_types_gtc_lst = 'TransactionSahamGTCListDropDown'
 orderlist_entry = 'order_list_entry_0'
+orderlist_entry_1 = 'order_list_entry_1'
+orderlist_entry_2 = 'order_list_entry_2'
+orderlist_stock_code= "stockCode_0"
+orderlist_ordertime= "orderTime_0"
 GTC_tab = 'GTC List_tab'
 gtc_entry = 'gtc_list_entry_0'
 batal_btn = '//android.widget.TextView[@text ="BATAL"]'
@@ -136,6 +142,8 @@ gtc_tab_status= "status_label_0"
 gtc_tab_lot= "lot_0"
 gtc_tab_harga= "price_0"
 gtc_tab_jumlah= "amount_0"
+Home = '//android.widget.TextView[@text="Home"]'
+Transaction="//android.widget.TextView[@text='Transaction']"
 
 
 class Transaction(AmendProcess):
@@ -258,12 +266,14 @@ class Transaction(AmendProcess):
 
     @allure.step("Swipe right")
     def swipe_right(self):
-        self.scroll_screen(start_x=1190, start_y=1724, end_x=225, end_y=1715, duration=10000)
+        self.sleep(2)
+        self.scroll_screen(start_x=1160, start_y=1380, end_x=150, end_y=1380, duration=10000)
         self.sleep(2)
 
     @allure.step("Swipe Left")
     def swipe_left(self):
-        self.scroll_screen(start_x=225, start_y=1715, end_x=1190, end_y=1724, duration=10000)
+        self.sleep(2)
+        self.scroll_screen(start_x=150, start_y=1380, end_x=1160, end_y=1380, duration=10000)
         self.sleep(2)
 
     @allure.step("Verify all_types btn for trade list")
@@ -555,4 +565,91 @@ class Transaction(AmendProcess):
         self.assert_equal(self.is_element_visible(GTCODP_jumlah_selesai), True)
         self.assert_equal(self.is_element_visible(GTCODP_jumlah_selesai_value), True)
         self.assert_equal(self.is_element_visible(GTCODP_BATAL_btn), True)
+
+    @allure.step("verify search bar functionality")
+    def verify_search_bar_functionality(self):
+        #invalid stock name
+        self.set_text(search_oderlist, 'ABCDE')
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(order_kamu), True)
+        #tab switch
+        self.click(trade_list)
+        self.sleep(1)
+        self.click(order_list)
+        self.sleep(1)
+        self.assert_equal((self.get_attribute(search_oderlist, 'text')), "Cari Saham")
+        #First Letter
+        self.set_text(search_oderlist, 'A')
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(orderlist_entry), True)
+        self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
+        self.assert_equal(self.is_element_visible(orderlist_entry_2), True)
+        #valid_stock_code
+        input='ADMR'
+        self.set_text(search_oderlist, input)
+        self.sleep(1)
+        self.assert_equal((self.get_attribute(orderlist_stock_code, 'text')), input)
+        #blank
+        self.update_text(search_oderlist,'')
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(orderlist_entry), True)
+        self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
+        self.assert_equal(self.is_element_visible(orderlist_entry_2), True)
+        #KEYBOARD VISIBLITY
+        self.click(search_oderlist)
+        self.assert_equal(self.check_keyboard_shown(), True)
+        self.click(orderlist_stock_code)
+        self.assert_equal(self.check_keyboard_shown(), False)
+
+
+    @allure.step("Validate all api data")
+    def validate_all_api_data(self):
+        token_value = self.login()
+        token={"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        orderlist__rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='api/v1/oms/equities/orders/45997', headers=token, expected_status_code=200)
+        logger.info(orderlist__rs)
+        code_api = []
+        exectime_api = []
+        for i in range(len(orderlist__rs['data'])):
+            code_api.append(orderlist__rs['data'][i]['code'])
+            exect_full_time = orderlist__rs['data'][i]['exectime']
+            c = ','
+            index = exect_full_time.find(c)
+            exectime_api.append(exect_full_time[index+1::])
+        return code_api , exectime_api
+
+    @allure.step("Collect data from order list ui")
+    def collect_all_data_from_order_list_ui(self):
+        code_ui = []
+        exectime_ui = []
+        for i in range(0,4):
+            code_value = self.get_attribute(f'stockCode_{i}', 'text')
+            code_ui.append(code_value)
+            time_value = self.get_attribute(f'orderTime_{i}', 'text')
+            exectime_ui.append(time_value)
+        return code_ui , exectime_ui
+
+    @allure.step("verify swiping functionality")
+    def verify_swiping_functionality(self):
+        #scroll down
+        self.scroll_down()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(orderlist_entry), True)
+        self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
+        # tab change in transaction
+        self.scroll_screen(start_x=902, start_y=1364, end_x=101, end_y=1364, duration=5000)
+        self.sleep(2)
+        self.scroll_screen(start_x=101, start_y=1364, end_x=902, end_y=1364, duration=5000)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(orderlist_entry), True)
+        self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
+        #tab change in application tray
+        self.click(Home)
+        self.sleep(1)
+        self.click_on_transaction_btn()
+        self.assert_equal(self.is_element_visible(orderlist_entry), True)
+        self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
+
+
 

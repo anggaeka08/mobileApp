@@ -1,7 +1,7 @@
 import allure
 import pytest
 from selenium.common.exceptions import NoSuchElementException
-
+import logging as logger
 from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.transaction import Transaction
 
@@ -129,6 +129,54 @@ class Transaction_test(Transaction):
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
             self.save_screenshot('test_ui_for_order_details_of_gtc_list', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.functional_feature_of_order_list
+    @pytest.mark.Android
+    @pytest.mark.Transaction
+    @allure.story("F-8:Transaction Page")
+    def test_functional_feature_of__order_list(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of__order_list')
+            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            self.verify_search_bar_functionality()
+            self.verify_swiping_functionality()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of__order_list', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of__order_list', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.order_list_Data_with_api
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    @allure.story("F-7:SDP Feature")
+    def test_order_list_Data_with_api(self):
+        try:
+            self.execute_script('lambda-name=test_order_list_Data_with_api')
+            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            code_ui,exectime_ui = self.collect_all_data_from_order_list_ui()
+            code_api , exectime_api  = self.validate_all_api_data()
+            logger.info(f'code_ui {code_ui}')
+            logger.info(f'exectime_ui {exectime_ui}')
+            logger.info(f'code_api {code_api}')
+            logger.info(f'exectime_api {exectime_api}')
+            for i in code_ui:
+                assert i in code_api
+            for i in exectime_ui:
+                assert i in exectime_api
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_order_list_Data_with_api', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_order_list_Data_with_api', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
