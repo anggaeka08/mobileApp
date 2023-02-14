@@ -9,16 +9,18 @@ from SiminvestAppQa.src.pages.Android_pages.fast_order_process import FastOrder
 class FastOrder_test(FastOrder):
 
     # BuyProcess UI  validation
-    @pytest.mark.buyProcess_UI
+    @pytest.mark.UI_buy_fo_Verification
     @pytest.mark.Android
     @pytest.mark.fastOrder
     @allure.story("F-9:FastOrderProcess")
-    def test_ui_for_buy_process(self):
+    def test_verify_displayed_ui_for_buy_fastorder(self):
         try:
             self.execute_script('lambda-name=test_ui_for_buy_process')
-            self.open_trans_page_with_reg_user(user_data['reg_no'])
-            self.verify_common_details_for_all_tabs()
-            self.verify_entries_details_on_transaction_tab()
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
+            self.scroll_up()
+            self.scroll_to_open_fastOrder_buy()
+            self.sleep(1)
+            self.verify_ui_data_for_fastOrder_buy()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_ui_for_buy_process', 'SiminvestAppQa/src/data/ScreenShots')
