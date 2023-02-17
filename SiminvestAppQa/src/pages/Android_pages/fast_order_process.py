@@ -31,6 +31,7 @@ fo_cash = '//android.widget.TextView[@text = "Cash"]'
 fo_total_beli_text = 'FastBSTotalText'
 fo_total_beli_value = 'FastBSTotalValue'
 fo_btn = 'FastBSButtonText'
+fo_jual_semua = '//android.widget.TextView[@text = "Jual Semua"]'
 
 class FastOrder(BuyProcess):
 
@@ -38,6 +39,22 @@ class FastOrder(BuyProcess):
     def scroll_to_open_fastOrder_buy(self):
         self.sleep(2)
         self.scroll_screen(start_x=72, start_y=1656, end_x=887, end_y=1656, duration=5000)
+        self.sleep(2)
+
+    @allure.step("Scroll to open fastOrder")
+    def scroll_to_open_fastOrder_sell(self):
+        self.sleep(2)
+        second_coordinate= self.get_attribute('HomepageWLStockPrice1', 'bounds')
+        lst_1 = second_coordinate.split(',')
+        fist_x = int(lst_1[0][1:])
+        fist_y = int(lst_1[1][0:4])
+        fist_coordinate= self.get_attribute('HomepageWLStockCode1', 'bounds')
+        lst_2 = fist_coordinate.split(',')
+        sec_x = int(lst_2[0][1:])
+        sec_y = int(lst_2[1][0:4])
+        logger.info(f'{second_coordinate} {type(second_coordinate)} {second_coordinate[1]}')
+        logger.info(f'{fist_coordinate} {type(fist_coordinate)} {fist_coordinate[1]}')
+        self.scroll_screen(start_x=fist_x, start_y=fist_y, end_x=sec_x, end_y=sec_y, duration=5000)
         self.sleep(2)
 
     @allure.step("Verify UI data for fastOrder buy")
@@ -51,6 +68,18 @@ class FastOrder(BuyProcess):
         self.assert_equal(self.get_attribute(fo_total_beli_text, 'text'), 'Total Beli')
         total_beli_rp = self.get_attribute(fo_total_beli_value, 'text')
         total_beli = int((total_beli_rp[3:]).replace(',',''))
+        #self.assert_equal(type(total_beli), int)
+
+    @allure.step("Verify UI data for fastOrder sell")
+    def verify_ui_data_for_fastOrder_sell(self):
+        self.assert_equal(self.get_attribute(fo_header, 'text'), ' ORDER JUAL')
+        self.assert_equal(self.get_attribute(fo_harga_text, 'text'), 'Jual di Harga')
+        self.assert_equal(self.get_attribute(fo_lot_text, 'text'), 'Jumlah Lot')
+        self.assert_equal(self.get_attribute(fo_max_buy_text, 'text'), 'Max Sell')
+        self.assert_equal(self.get_attribute(fo_jual_semua, 'text'), 'Jual Semua')
+        self.assert_equal(self.get_attribute(fo_total_beli_text, 'text'), 'Total Jual')
+        total_jual_rp = self.get_attribute(fo_total_beli_value, 'text')
+        total_jual = int((total_jual_rp[3:]).replace(',',''))
         #self.assert_equal(type(total_beli), int)
 
 
