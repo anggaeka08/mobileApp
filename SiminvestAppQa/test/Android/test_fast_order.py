@@ -30,3 +30,26 @@ class FastOrder_test(FastOrder):
             self.save_screenshot('test_ui_for_buy_process', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    # BuyProcess UI  validation
+    @pytest.mark.UI_sell_fo_Verification
+    @pytest.mark.Android
+    @pytest.mark.fastOrder
+    @allure.story("F-9:FastOrderProcess")
+    def test_verify_displayed_ui_for_sell_fastorder(self):
+        try:
+            self.execute_script('lambda-name=test_verify_displayed_ui_for_sell_fastorder')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.scroll_up()
+            self.scroll_to_open_fastOrder_sell()
+            self.sleep(1)
+            self.verify_ui_data_for_fastOrder_sell()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_verify_displayed_ui_for_sell_fastorder', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_verify_displayed_ui_for_sell_fastorder', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
