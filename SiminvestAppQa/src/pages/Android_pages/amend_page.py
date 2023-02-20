@@ -7,7 +7,7 @@ import logging as logger
 trans_entry_1 = 'OrderListEntry0'
 order_status = 'AmendPageStatusValue'
 order_id = 'AmendPageOderID'
-amend_btn = 'AmendPageAmendBtn'
+amend_btn = '//android.widget.TextView[@text="AMEND"]'
 cancel_btn = 'AmendPageBatakan'
 amend_btn_on_buy_page = 'SellPageSellBtn'
 buy_page_header = 'SellPageHeader'

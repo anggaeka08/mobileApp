@@ -41,6 +41,7 @@ GTC_tab = 'GTC List_tab'
 gtc_entry = 'gtc_list_entry_0'
 batal_btn = '//android.widget.TextView[@text ="BATAL"]'
 YA_btn = '//android.widget.TextView[@text ="Ya"]'
+Tidak_btn = '//android.widget.TextView[@text ="Tidak"]'
 ok_btn = '//android.widget.TextView[@text ="OK"]'
 status_of_gtc_first_entry = 'GTCListEntry0Status'
 #GTCODP = GTC order details Page
@@ -69,7 +70,7 @@ GTCODP_jumlah_selesai= "//android.widget.TextView[@text = 'Jumlah Selesai']"
 GTCODP_jumlah_selesai_value = '//android.widget.TextView[17]'
 GTCODP_customer_btn = '//android.widget.TextView[@text="Hubungi Customer Care"]'
 GTCODP_BATAL_btn = '//android.widget.TextView[@text="BATAL"]'
-GTCODP_back_btn = '//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
+ODP_back_btn = '//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 chrome_xpath ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[2]/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.EditText'
 order_list = 'Order List_tab'
 trade_list = 'Trade List_tab'
@@ -102,6 +103,7 @@ od_jumDip_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.
 od_jumSel_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[17]"
 batalkan_btn = '//android.widget.TextView[@text ="BATALKAN"]'
 amend_btn = '//android.widget.TextView[@text ="AMEND"]'
+batalkan_confirmation_ok= '//android.widget.TextView[@text="OK"]'
 Filter_header = '//android.widget.TextView[1][@text="Filter"]'
 Transaksi_text='//android.widget.TextView[@text="Transaksi"]'
 Semua_text='//android.widget.TextView[@text="Semua"]'
@@ -141,9 +143,18 @@ gtc_tab_stock_code= "stockCode_0"
 gtc_tab_status= "status_label_0"
 gtc_tab_lot= "lot_0"
 gtc_tab_harga= "price_0"
+gtc_tab_harga_2= "price_2"
+
 gtc_tab_jumlah= "amount_0"
 Home = '//android.widget.TextView[@text="Home"]'
 Transaction="//android.widget.TextView[@text='Transaction']"
+sdp_header = 'SDPStockCode'
+price_space = 'SellPageHargaValue'
+price_plus_btn = 'SellPageHargaPlus'
+price_minus_btn = 'SellPageHargaMinus'
+lot_count = 'SellPageLotValue'
+setuju_btn = '//android.widget.TextView[@text ="Setuju"]'
+market_closed_error= '//*[@text ="Bursa Tidak Beroperasi"]'
 
 
 class Transaction(AmendProcess):
@@ -533,7 +544,7 @@ class Transaction(AmendProcess):
         self.sleep(1)
         self.click(gtc_entry)
         self.sleep(1)
-        self.assert_equal(self.is_element_visible(GTCODP_back_btn), True)
+        self.assert_equal(self.is_element_visible(ODP_back_btn), True)
         self.assert_equal(self.is_element_visible(GTCODP_header), True)
         self.assert_equal(self.is_element_visible(GTCODP_stock_code), True)
         self.assert_equal(self.is_element_visible(GTCODP_stock_name), True)
@@ -651,5 +662,54 @@ class Transaction(AmendProcess):
         self.assert_equal(self.is_element_visible(orderlist_entry), True)
         self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
 
+    @allure.step("verify functional features of order detail page")
+    def verify_functional_features_of_order_detail_page(self):
+        self.click(orderlist_entry)
+        self.assert_equal(self.is_element_visible(oder_details_header), True)
+        self.click(ODP_back_btn)
+        self.assert_equal(self.is_element_visible(orderlist_entry), True)
+        self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
+        self.click(orderlist_entry_2)
+        self.click(od_stock_code)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(sdp_header), True)
+        self.click(ODP_back_btn)
+        self.assert_equal(self.is_element_visible(oder_details_header), True)
+        self.sleep(1)
 
+    @allure.step("verify amend process from odp")
+    def verify_amend_process_from_odp(self):
+        self.click_on_amend_btn()
+        self.click_on_price_increase()
+        increased_price = self.get_attribute(price_space, "text")
+        self.click_amend_btn_amend_page()
+        self.sleep(2)
+        self.click(setuju_btn)
+        self.sleep(2)
+        self.click_on_ok()
+        harga= self.get_attribute(gtc_tab_harga_2, "text")
+        c = ':'
+        index = harga.find(c)
+        updated_price_ol=harga[index + 2::]
+        logger.info(increased_price)
+        logger.info(updated_price_ol)
+        #self.assert_equal(increased_price, updated_price_ol)
 
+    @allure.step("verify withdraw process from odp")
+    def verify_withdraw_process_from_odp(self):
+        #cancel
+        self.click(batalkan_btn)
+        self.click(Tidak_btn)
+        self.assert_equal(self.is_element_visible(oder_details_header), True)
+        """#withdraw
+        self.click(batalkan_btn)
+        self.click(YA_btn)
+        self.sleep(2)
+        if self.is_element_visible(market_closed_error) == False:
+            self.click_on_ok()
+            self.assert_equal(self.is_element_visible(orderlist_entry), True)
+            self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
+        else:
+            self.click_on_ok()
+            self.assert_equal(self.is_element_visible(oder_details_header), True)
+            self.click(ODP_back_btn)"""
