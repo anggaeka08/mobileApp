@@ -32,7 +32,7 @@ fo_total_beli_text = 'FastBSTotalText'
 fo_total_beli_value = 'FastBSTotalValue'
 fo_btn = 'FastBSButtonText'
 fo_jual_semua = '//android.widget.TextView[@text = "Jual Semua"]'
-#confirm page loactors
+#confirm page loactors for buy
 fo_conf_header = 'FastBSConfHeader'
 fo_saham_text  = 'FastBSConfSaham'
 fo_saham_value = 'FastBSConfSahamValue'
@@ -45,6 +45,16 @@ fo_conf_jumlah_value = 'FastBSConfJumlahValue'
 fo_conf_error_msg =  'FastBSConfFeeMsg'
 fo_conf_batal_btn = 'FastBSConfBatal'
 fo_conf_setuju = 'FastBSConfSetuju'
+
+#confirma page locator for sell
+fo_conf_lot_text_s = 'FastBSConfLot1'
+fo_conf_lot_value_s ='FastBSConfLotValue1'
+fo_conf_harga_text_s = 'FastBSConfHarga1'
+fo_conf_harga_value_s = 'FastBSConfHargaValue1'
+fo_conf_jumlah_text_S = 'FastBSConfJumlah1'
+fo_conf_jumlah_value_s = 'FastBSConfJumlahValue1'
+fo_pl_text = '(//android.widget.TextView[@content-desc="FastBSConfProfitLoss1"])[1]'
+fo_pl_value = '(//android.widget.TextView[@content-desc="FastBSConfProfitLoss1"])[2]'
 
 class FastOrder(BuyProcess):
 
@@ -113,6 +123,28 @@ class FastOrder(BuyProcess):
         total_jual_rp = self.get_attribute(fo_total_beli_value, 'text')
         total_jual = int((total_jual_rp[3:]).replace(',',''))
         #self.assert_equal(type(total_beli), int)
+        code_buy = self.get_attribute(fo_stock_code, 'text')
+        lot_buy = self.get_attribute(fo_lot_value, 'text')
+        harga_buy = self.get_attribute(fo_hagra_value, 'text')
+        jumlah_buy = (int(harga_buy.replace(',', ''))) * 100
+        self.click(fo_btn)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(fo_conf_header, 'text'), 'Konfirmasi Penjualan')
+        self.assert_equal(self.get_attribute(fo_saham_text, 'text'), 'Saham')
+        self.assert_equal(self.get_attribute(fo_saham_value, 'text'), code_buy)
+        self.assert_equal(self.get_attribute(fo_conf_lot_text_s, 'text'), 'Lot')
+        self.assert_equal(self.get_attribute(fo_conf_lot_value_s, 'text'), lot_buy)
+        self.assert_equal(self.get_attribute(fo_conf_harga_text_s, 'text'), 'Harga')
+        self.assert_equal(self.get_attribute(fo_conf_harga_value_s, 'text'), harga_buy)
+        self.assert_equal(self.get_attribute(fo_conf_jumlah_text_S, 'text'), 'Jumlah')
+        self.assert_equal(self.get_attribute(fo_pl_text, 'text'), 'Profit Loss')
+        self.assert_equal(self.is_element_visible(fo_pl_value), True)
+        self.assert_equal(int(self.get_attribute(fo_conf_jumlah_value_s, 'text').replace(',', '')), jumlah_buy)
+        self.assert_equal(self.get_attribute(fo_conf_error_msg, 'text'),'*Fee akan dipotong dari trading balance kamu di akhir hari bursa')
+        self.assert_equal(self.is_element_visible(fo_conf_setuju), True)
+        self.assert_equal(self.is_element_visible(fo_conf_batal_btn), True)
+
+
 
 
 
