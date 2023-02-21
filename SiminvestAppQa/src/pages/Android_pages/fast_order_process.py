@@ -32,6 +32,19 @@ fo_total_beli_text = 'FastBSTotalText'
 fo_total_beli_value = 'FastBSTotalValue'
 fo_btn = 'FastBSButtonText'
 fo_jual_semua = '//android.widget.TextView[@text = "Jual Semua"]'
+#confirm page loactors
+fo_conf_header = 'FastBSConfHeader'
+fo_saham_text  = 'FastBSConfSaham'
+fo_saham_value = 'FastBSConfSahamValue'
+fo_conf_lot_text = 'FastBSConfLot'
+fo_conf_lot_value ='FastBSConfLotValue'
+fo_conf_harga_text = 'FastBSConfHarga'
+fo_conf_harga_value = 'FastBSConfHargaValue'
+fo_conf_jumlah_text = 'FastBSConfJumlah'
+fo_conf_jumlah_value = 'FastBSConfJumlahValue'
+fo_conf_error_msg =  'FastBSConfFeeMsg'
+fo_conf_batal_btn = 'FastBSConfBatal'
+fo_conf_setuju = 'FastBSConfSetuju'
 
 class FastOrder(BuyProcess):
 
@@ -69,6 +82,25 @@ class FastOrder(BuyProcess):
         total_beli_rp = self.get_attribute(fo_total_beli_value, 'text')
         total_beli = int((total_beli_rp[3:]).replace(',',''))
         #self.assert_equal(type(total_beli), int)
+        #confirmation page validation
+        code_buy= self.get_attribute(fo_stock_code, 'text')
+        lot_buy= self.get_attribute(fo_lot_value, 'text')
+        harga_buy= self.get_attribute(fo_hagra_value, 'text')
+        jumlah_buy= (int(harga_buy.replace(',', '')))*100
+        self.click(fo_btn)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(fo_conf_header, 'text'), 'Konfirmasi Pembelian')
+        self.assert_equal(self.get_attribute(fo_saham_text, 'text'), 'Saham')
+        self.assert_equal(self.get_attribute(fo_saham_value, 'text'), code_buy)
+        self.assert_equal(self.get_attribute(fo_conf_lot_text, 'text'), 'Lot')
+        self.assert_equal(self.get_attribute(fo_conf_lot_value, 'text'), lot_buy)
+        self.assert_equal(self.get_attribute(fo_conf_harga_text, 'text'), 'Harga')
+        self.assert_equal(self.get_attribute(fo_conf_harga_value, 'text'), harga_buy)
+        self.assert_equal(self.get_attribute(fo_conf_jumlah_text, 'text'), 'Jumlah')
+        self.assert_equal(int(self.get_attribute(fo_conf_jumlah_value, 'text').replace(',','')), jumlah_buy)
+        self.assert_equal(self.get_attribute(fo_conf_error_msg, 'text'), '*Fee akan dipotong dari trading balance kamu di akhir hari bursa')
+        self.assert_equal(self.is_element_visible(fo_conf_setuju), True)
+        self.assert_equal(self.is_element_visible(fo_conf_batal_btn), True)
 
     @allure.step("Verify UI data for fastOrder sell")
     def verify_ui_data_for_fastOrder_sell(self):

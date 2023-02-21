@@ -16,7 +16,7 @@ class FastOrder_test(FastOrder):
     def test_verify_displayed_ui_for_buy_fastorder(self):
         try:
             self.execute_script('lambda-name=test_ui_for_buy_process')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
             self.scroll_up()
             self.scroll_to_open_fastOrder_buy()
             self.sleep(1)
