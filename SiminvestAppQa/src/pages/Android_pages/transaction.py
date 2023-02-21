@@ -155,6 +155,22 @@ price_minus_btn = 'SellPageHargaMinus'
 lot_count = 'SellPageLotValue'
 setuju_btn = '//android.widget.TextView[@text ="Setuju"]'
 market_closed_error= '//*[@text ="Bursa Tidak Beroperasi"]'
+filter_text= "filter"
+filter_close= "filter_close"
+filter_close= "filter_close"
+transaksi_text= "transaksi"
+transaksi_Semua= "transaksi_Semua"
+transaksi_Beli="transaksi_Beli"
+transaksi_Jual= "transaksi_Jual"
+status_text= "status"
+status_Semua= "status_Semua"
+status_Open= "status_Open"
+status_Matched= "status_Matched"
+status_Withdraw= "status_Withdraw"
+status_Rejected= "status_Rejected"
+status_Amend= "status_Amend"
+terapkan_btn= "terapkan"
+filter_no='//android.view.ViewGroup[@content-desc="TransactionSahamOrderListDropDown"]/android.widget.TextView'
 
 
 class Transaction(AmendProcess):
@@ -713,3 +729,166 @@ class Transaction(AmendProcess):
             self.click_on_ok()
             self.assert_equal(self.is_element_visible(oder_details_header), True)
             self.click(ODP_back_btn)"""
+
+    @allure.step("verify filter in order list")
+    def verify_filter_in_order_list(self):
+        self.click(filter)
+        self.assert_equal(self.is_element_visible(filter_text), True)
+        self.click(filter_close)
+        self.assert_equal(self.is_element_visible(filter_text), False)
+        self.click(filter)
+        self.click(terapkan_btn)
+        self.assert_equal(self.is_element_visible(orderlist_entry), True)
+        self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
+        self.click(filter)
+        self.click(status_Rejected)
+        self.click(terapkan_btn)
+        self.assert_equal(self.is_element_visible(order_kamu), True)
+        number = self.get_attribute(filter_no, "text")
+        c = '('
+        index = number.find(c)
+        filter_count = number[index+1:-1:]
+        self.assert_equal(filter_count, "1")
+        logger.info(number)
+        #semua-open
+        self.click(filter)
+        self.click(status_Open)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu)== True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "OPEN")
+        #semua-matched
+        self.click(filter)
+        self.click(status_Matched)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "MATCHED")
+        #semua-withdraw
+        self.click(filter)
+        self.click(status_Withdraw)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "WITHDRAW")
+        #semua-reject
+        self.click(filter)
+        self.click(status_Rejected)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "REJECTED")
+        #semua-amend
+        self.click(filter)
+        self.click(status_Amend)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "AMEND")
+        #Beli-Semua
+        self.click(filter)
+        self.click(transaksi_Beli)
+        self.click(status_Semua)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.sleep(2)
+            self.assert_equal(self.is_element_visible(orderlist_entry), True)
+            self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
+        #Beli-Open
+        self.click(filter)
+        self.click(status_Open)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "OPEN")
+        #Beli_Matched
+        self.click(filter)
+        self.click(status_Matched)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "Matched")
+        # Beli-withdraw
+        self.click(filter)
+        self.click(status_Withdraw)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "WITHDRAW")
+        # Beli-reject
+        self.click(filter)
+        self.click(status_Rejected)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "REJECTED")
+        # Beli-amend
+        self.click(filter)
+        self.click(status_Amend)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "AMEND")
+        #Jual-Semua
+        self.click(filter)
+        self.click(transaksi_Jual)
+        self.click(status_Semua)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.sleep(2)
+            self.assert_equal(self.is_element_visible(orderlist_entry), True)
+            self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
+        # Jual-Open
+        self.click(filter)
+        self.click(status_Open)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "OPEN")
+        # Jual_Matched
+        self.click(filter)
+        self.click(status_Matched)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "Matched")
+        # Jual-withdraw
+        self.click(filter)
+        self.click(status_Withdraw)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "WITHDRAW")
+        # Jual-reject
+        self.click(filter)
+        self.click(status_Rejected)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "REJECTED")
+        # Jual-amend
+        self.click(filter)
+        self.click(status_Amend)
+        self.click(terapkan_btn)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "AMEND")
