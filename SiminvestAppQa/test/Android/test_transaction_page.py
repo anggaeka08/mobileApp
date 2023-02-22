@@ -220,6 +220,54 @@ class Transaction_test(Transaction):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.functional_feature_of_history_list
+    @pytest.mark.Android
+    @pytest.mark.Transaction
+    @allure.story("F-8:Transaction Page")
+    def test_functional_feature_of_history_list(self):
+        try:
+            self.execute_script('lambda-name=functional_feature_of_history_list')
+            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            self.verify_search_bar_functionality_of_history_list()
+            self.verify_swiping_functionality_of_history_list()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('functional_feature_of_history_list', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('functional_feature_of_history_list', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.history_list_Data_with_api
+    @pytest.mark.Android
+    @pytest.mark.SDP
+    @allure.story("F-7:SDP Feature")
+    def test_history_list_Data_with_api(self):
+        try:
+            self.execute_script('lambda-name=test_history_list_Data_with_api')
+            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            code_ui, trade_date_ui = self.collect_all_data_from_history_list_ui()
+            code_api, trade_date_api = self.validate_history_list_api_data()
+            logger.info(f'code_ui {code_ui}')
+            logger.info(f'trade_date_ui {trade_date_ui}')
+            logger.info(f'code_api {code_api}')
+            logger.info(f'trade_date_api {trade_date_api}')
+            for i in code_ui:
+                assert i in code_api
+            for i in trade_date_ui:
+                assert i in trade_date_api
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_history_list_Data_with_api', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_history_list_Data_with_api', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
 
     # Cover all 5 test cases in single test
     @pytest.mark.T_SMMA_001_to_005
