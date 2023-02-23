@@ -1,5 +1,5 @@
 import datetime
-from datetime import datetime
+from datetime import datetime,date
 from SiminvestAppQa.src.pages.Android_pages.amend_page import AmendProcess
 from  numerize import numerize
 from SiminvestAppQa.src.data.userData import user_data
@@ -15,6 +15,7 @@ search_oderlist = 'TransactionSahamOrderListSearchBox'
 date_last_trans='AmendPageTanggalValue'
 rekshadana_tab ='Reksadana_tab'
 order_kamu = '//android.widget.TextView[@text="Order kamu kosong"]'
+riwayat_kamu='//android.widget.TextView[@text="Riwayat kamu kosong"]'
 saham_tab = 'Saham_tab'
 All_types = 'TransactionSahamOrderListDropDown'
 buy_all = '//android.widget.CheckedTextView[@text="Buy"]'
@@ -171,6 +172,7 @@ status_Rejected= "status_Rejected"
 status_Amend= "status_Amend"
 terapkan_btn= "terapkan"
 filter_no='//android.view.ViewGroup[@content-desc="TransactionSahamOrderListDropDown"]/android.widget.TextView'
+hl_date="date_0"
 
 
 class Transaction(AmendProcess):
@@ -892,3 +894,86 @@ class Transaction(AmendProcess):
             self.assert_equal(self.is_element_visible(order_kamu), True)
         else:
             self.assert_equal(self.get_attribute(gtc_tab_status, "text"), "AMEND")
+
+    @allure.step("verify search bar functionality of history list")
+    def verify_search_bar_functionality_of_history_list(self):
+        self.click(history_tab)
+        # invalid stock name
+        self.set_text(history_tab_search, 'ABCDE')
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(riwayat_kamu), True)
+        # tab switch
+        self.click(trade_list)
+        self.sleep(1)
+        self.click(history_tab)
+        self.sleep(1)
+        self.assert_equal((self.get_attribute(history_tab_search, 'text')), "Cari Saham")
+        # First Letter
+        self.set_text(history_tab_search, 'I')
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(history_list_entry), True)
+        # valid_stock_code
+        input = 'INDY'
+        self.set_text(history_tab_search, input)
+        self.sleep(1)
+        self.assert_equal((self.get_attribute(orderlist_stock_code, 'text')), input)
+        # blank
+        self.update_text(history_tab_search, '')
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(history_list_entry), True)
+        # KEYBOARD VISIBLITY
+        self.click(history_tab_search)
+        self.assert_equal(self.check_keyboard_shown(), True)
+        self.click(history_list_entry)
+        self.assert_equal(self.check_keyboard_shown(), False)
+
+    @allure.step("verify swiping functionality of history list")
+    def verify_swiping_functionality_of_history_list(self):
+        # scroll down
+        self.scroll_down()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(history_list_entry), True)
+        # tab change in transaction
+        self.scroll_screen(start_x=902, start_y=1364, end_x=101, end_y=1364, duration=5000)
+        self.sleep(2)
+        self.scroll_screen(start_x=101, start_y=1364, end_x=902, end_y=1364, duration=5000)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(history_list_entry), True)
+        # tab change in application tray
+        self.click(Home)
+        self.sleep(1)
+        self.click_on_transaction_btn()
+        self.assert_equal(self.is_element_visible(history_list_entry), True)
+        today_date= date.today().strftime("%d %b %Y")
+        for i in range(0, 4):
+            date_value = self.get_attribute(f'date_{i}', 'text')
+            self.assert_not_equal(date_value, str(today_date))
+
+    @allure.step("Validate history list api data")
+    def validate_history_list_api_data(self):
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        historylist_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',
+                                              endpoint='api/v1/oms/equities/history/45997', headers=token,
+                                              expected_status_code=200)
+        logger.info(historylist_rs)
+        code_api = []
+        trade_date_api = []
+        for i in range(len(historylist_rs)):
+            code_api.append(historylist_rs[i]['code'])
+            trade_date_api.append(historylist_rs[i]['trade_date_month_year'])
+        return code_api, trade_date_api
+
+    @allure.step("Collect data from history list ui")
+    def collect_all_data_from_history_list_ui(self):
+        self.click(history_tab)
+        code_ui = []
+        trade_date_ui = []
+        for i in range(0, 4):
+            code_value = self.get_attribute(f'stockCode_{i}', 'text')
+            code_ui.append(code_value)
+            date_value = self.get_attribute(f'date_{i}', 'text')
+            trade_date_ui.append(date_value)
+        return code_ui, trade_date_ui
+
