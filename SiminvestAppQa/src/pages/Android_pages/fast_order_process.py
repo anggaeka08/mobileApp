@@ -27,7 +27,10 @@ fo_lot_increase = 'FastBSLotIncreaseImg'
 fo_lot_value = 'FastBSLotValue'
 fo_max_buy_text = 'FastBSMaxText'
 fo_limit = '//android.widget.TextView[@text = "Limit"]'
+fo_limit_btn = '//android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ImageView'
 fo_cash = '//android.widget.TextView[@text = "Cash"]'
+fo_cash_btn_enable = '//android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]/android.widget.ImageView'
+fo_cash_btn_disable = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[6]/android.widget.ImageView'
 fo_total_beli_text = 'FastBSTotalText'
 fo_total_beli_value = 'FastBSTotalValue'
 fo_btn = 'FastBSButtonText'
@@ -45,7 +48,6 @@ fo_conf_jumlah_value = 'FastBSConfJumlahValue'
 fo_conf_error_msg =  'FastBSConfFeeMsg'
 fo_conf_batal_btn = 'FastBSConfBatal'
 fo_conf_setuju = 'FastBSConfSetuju'
-
 #confirma page locator for sell
 fo_conf_lot_text_s = 'FastBSConfLot1'
 fo_conf_lot_value_s ='FastBSConfLotValue1'
@@ -55,6 +57,11 @@ fo_conf_jumlah_text_S = 'FastBSConfJumlah1'
 fo_conf_jumlah_value_s = 'FastBSConfJumlahValue1'
 fo_pl_text = '(//android.widget.TextView[@content-desc="FastBSConfProfitLoss1"])[1]'
 fo_pl_value = '(//android.widget.TextView[@content-desc="FastBSConfProfitLoss1"])[2]'
+outside_halfcard = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
+saham_tab = 'Saham_tab'
+transaction_type = 'transactionType_0'
+stock_code_l='stockCode_0'
+
 
 class FastOrder(BuyProcess):
 
@@ -144,9 +151,58 @@ class FastOrder(BuyProcess):
         self.assert_equal(self.is_element_visible(fo_conf_setuju), True)
         self.assert_equal(self.is_element_visible(fo_conf_batal_btn), True)
 
+    @allure.step("Verify buttons for buy process on fastOrder")
+    def verify_buttons_for_buy_on_fastOrder(self):
+        stock_code = self.get_attribute(fo_stock_code, 'text')
+        self.click(outside_halfcard)
+        self.verify_home_page_reg_user_after_back_from_watchlist_new()
+        self.scroll_to_open_fastOrder_buy()
+        self.go_back()
+        self.verify_home_page_reg_user_after_back_from_watchlist_new()
+        self.scroll_to_open_fastOrder_buy()
+        harga_value = self.get_attribute(fo_hagra_value, 'text')
+        self.click(fo_harga_increase)
+        self.click(fo_hagra_decrease)
+        self.assert_equal(self.get_attribute(fo_hagra_value, 'text'), harga_value)
+        lot_value= self.get_attribute(fo_lot_value, 'text')
+        self.click(fo_lot_increase)
+        self.click(fo_lot_decrease)
+        self.assert_equal(self.get_attribute(fo_lot_value, 'text'), lot_value)
+        self.click(fo_limit_btn)
+        lot_value = self.get_attribute(fo_lot_value, 'text')
+        self.click(fo_lot_increase)
+        self.assert_equal(self.get_attribute(fo_lot_value, 'text'), lot_value)
+        self.click(fo_cash_btn_enable)
+        lot_value = self.get_attribute(fo_lot_value, 'text')
+        self.click(fo_lot_increase)
+        self.assert_equal(self.get_attribute(fo_lot_value, 'text'), lot_value)
+        self.click(fo_cash_btn_disable)
+        self.clear_text(fo_lot_value)
+        self.set_text(fo_lot_value, '1')
+        self.assert_equal(self.get_attribute(fo_lot_value, 'text'), '1')
+        self.scroll_to_close_halfCard()
+        self.assert_equal(self.is_element_visible(fo_header), True)
+        self.click(fo_btn)
+        self.sleep(2)
+        self.go_back()
+        self.click(fo_conf_setuju)
+        self.sleep(5)
+        self.assert_equal(self.is_element_visible(saham_tab), True)
+        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
 
 
-
-
-
-
+    @allure.step("Scroll to close halfCard")
+    def scroll_to_close_halfCard(self):
+        self.sleep(2)
+        second_coordinate= self.get_attribute(fo_header, 'bounds')
+        lst_1 = second_coordinate.split(',')
+        fist_x = int(lst_1[0][1:])
+        fist_y = int(lst_1[1][0:4])
+        fist_coordinate= self.get_attribute(fo_total_beli_text, 'bounds')
+        lst_2 = fist_coordinate.split(',')
+        sec_x = int(lst_2[0][1:])
+        sec_y = int(lst_2[1][0:3])
+        logger.info(f'{second_coordinate} {type(second_coordinate)} {second_coordinate[1]}')
+        logger.info(f'{fist_coordinate} {type(fist_coordinate)} {fist_coordinate[1]}')
+        self.scroll_screen(start_x=fist_x, start_y=fist_y, end_x=sec_x, end_y=sec_y, duration=5000)
