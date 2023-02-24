@@ -106,15 +106,18 @@ batalkan_btn = '//android.widget.TextView[@text ="BATALKAN"]'
 amend_btn = '//android.widget.TextView[@text ="AMEND"]'
 batalkan_confirmation_ok= '//android.widget.TextView[@text="OK"]'
 Filter_header = '//android.widget.TextView[1][@text="Filter"]'
+hl_filter_close= "//android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView"
 Transaksi_text='//android.widget.TextView[@text="Transaksi"]'
 Semua_text='//android.widget.TextView[@text="Semua"]'
 Beli_text='//android.widget.TextView[@text="Beli"]'
 Jual_text='//android.widget.TextView[@text="Jual"]'
 Terapkan_text='//android.widget.TextView[@text="Terapkan"]'
+hl_periode_semua= "//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]"
 Minggu_ini_text='//android.widget.TextView[@text="Minggu ini"]'
 Bulan_ini_text='//android.widget.TextView[@text="Bulan ini"]'
 history_tab_filter='TransactionHistoryListDropDown'
 history_tab_search = 'TransactionHistoryListSearchBox'
+hl_filter_no= '//android.view.ViewGroup[@content-desc="TransactionHistoryListDropDown"]/android.widget.TextView'
 today = datetime.today()
 history_list_entry = 'history_list_entry_0'
 hod_back_button="//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup"
@@ -976,4 +979,67 @@ class Transaction(AmendProcess):
             date_value = self.get_attribute(f'date_{i}', 'text')
             trade_date_ui.append(date_value)
         return code_ui, trade_date_ui
+
+    @allure.step("verify filter in history list")
+    def verify_filter_in_history_list(self):
+        self.click(history_tab)
+        self.click(history_tab_filter)
+        self.assert_equal(self.is_element_visible(Semua_text), True)
+        self.click(hl_filter_close)
+        self.assert_equal(self.is_element_visible(Semua_text), False)
+        self.click(history_tab_filter)
+        self.click(Jual_text)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(riwayat_kamu), True)
+        number = self.get_attribute(hl_filter_no, "text")
+        c = '('
+        index = number.find(c)
+        filter_count = number[index + 1:-1:]
+        self.assert_equal(filter_count, "1")
+        #beli-semua
+        self.click(history_tab_filter)
+        self.click(Beli_text)
+        self.click(hl_periode_semua)
+        self.click(Terapkan_text)
+        for i in range(0, 4):
+            type_value = self.get_attribute(f'transaction_type_{i}', 'text')
+            self.assert_not_equal(type_value, "BELI")
+        # beli-minggu
+        self.click(history_tab_filter)
+        self.click(Minggu_ini_text)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(riwayat_kamu), True)
+        #beli-bulani
+        self.click(history_tab_filter)
+        self.click(Bulan_ini_text)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(riwayat_kamu), True)
+        #semua-minggu
+        self.click(history_tab_filter)
+        self.click(Semua_text)
+        self.click(Minggu_ini_text)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(riwayat_kamu), True)
+        # Semua-bulani
+        self.click(history_tab_filter)
+        self.click(Bulan_ini_text)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(riwayat_kamu), True)
+        #Jual-Semua
+        self.click(history_tab_filter)
+        self.click(Jual_text)
+        self.click(hl_periode_semua)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(riwayat_kamu), True)
+        #Jual-minggu
+        self.click(history_tab_filter)
+        self.click(Minggu_ini_text)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(riwayat_kamu), True)
+        # Jual-bulani
+        self.click(history_tab_filter)
+        self.click(Bulan_ini_text)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(riwayat_kamu), True)
+
 
