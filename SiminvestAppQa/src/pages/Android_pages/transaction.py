@@ -120,7 +120,7 @@ history_tab_search = 'TransactionHistoryListSearchBox'
 hl_filter_no= '//android.view.ViewGroup[@content-desc="TransactionHistoryListDropDown"]/android.widget.TextView'
 today = datetime.today()
 history_list_entry = 'history_list_entry_0'
-hod_back_button="//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup"
+hod_back_button="//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView[@index='0']"
 hod_header = "//android.widget.TextView[@text = 'BELI' and 'JUAL']"
 hod_stock_code = '//android.view.ViewGroup[3]/android.widget.TextView[1]'
 hod_stock_name = '//android.view.ViewGroup[3]/android.widget.TextView[2]'
@@ -1041,5 +1041,21 @@ class Transaction(AmendProcess):
         self.click(Bulan_ini_text)
         self.click(Terapkan_text)
         self.assert_equal(self.is_element_visible(riwayat_kamu), True)
+
+    @allure.step("verify functional features of history detail page")
+    def verify_functional_features_of_history_detail_page(self):
+        self.click(history_tab)
+        self.click(history_list_entry)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(hod_header), True)
+        self.click(hod_stock_name)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(sdp_header), True)
+        self.click(hod_back_button)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(hod_header), True)
+        self.click(hod_back_button)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(history_list_entry), True)
 
 

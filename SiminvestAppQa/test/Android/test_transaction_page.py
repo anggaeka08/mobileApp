@@ -289,7 +289,6 @@ class Transaction_test(Transaction):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
-
     # Cover all 5 test cases in single test
     @pytest.mark.T_SMMA_001_to_005
     @pytest.mark.Android
