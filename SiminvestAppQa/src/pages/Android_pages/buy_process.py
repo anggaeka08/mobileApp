@@ -514,6 +514,7 @@ class BuyProcess(HomePage):
         self.assert_equal(self.is_element_visible(stock_code_text), True)
         self.click(confirm_btn)
         self.sleep(5)
+        #self.assert_equal(self.is_element_visible('//*[@text="OK"]'), True)
         if self.is_element_visible(ok_btn_close) == True:
             pass
         else :

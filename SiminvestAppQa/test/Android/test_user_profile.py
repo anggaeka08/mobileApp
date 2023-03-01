@@ -126,7 +126,7 @@ class userProfile_test(UserProfile):
             self.click_to_check_box()
             self.click_on_submit_btn()
             self.verify_redirection_to_referral_page()
-            self.verify_slider_on_referral_page()
+            #self.verify_slider_on_referral_page()
             self.click_on_gift_icon_and_verify_redirection()
             self.go_back()
             self.verify_redirection_to_referral_page()

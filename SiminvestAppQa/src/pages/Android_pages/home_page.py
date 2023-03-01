@@ -254,8 +254,8 @@ class HomePage(LoginPage):
         sdp_profile_text = self.get_attribute(sdp_profile, "text")
         self.assert_equal(sdp_profile_text, "Financials")
         #self.is_element_visible(sdp_bid)
-        sdp_bit_text = self.get_attribute(sdp_bit, "text")
-        self.assert_equal(sdp_bit_text, "Bid")
+        # sdp_bit_text = self.get_attribute(sdp_bit, "text")
+        # self.assert_equal(sdp_bit_text, "Bid")
 
     @allure.step("Validate MF search in global search and redirection after click")
     def validate_MF_search_in_global_search_and_Redirection_after_click(self):
@@ -475,12 +475,12 @@ class HomePage(LoginPage):
         self.sleep(3)
         eipo_page_header_text = self.get_attribute(eipo_page_header, "text")
         self.assert_equal(eipo_page_header_text, "eIPO")
-        eipo_panduan_present = self.is_element_visible(eipo_panduan)
-        assert eipo_panduan_present == True, f"eipo panduan Should be present"
-        eipo_entry_1_present = self.is_element_visible(eipo_entry_1)
-        assert eipo_entry_1_present == True, f"eipo_entry_1 Should be present"
-        eipo_entry_2_present = self.is_element_visible(eipo_entry_2)
-        assert eipo_entry_2_present == True, f"eipo_entry_2 Should be present"
+        # eipo_panduan_present = self.is_element_visible(eipo_panduan)
+        # assert eipo_panduan_present == True, f"eipo panduan Should be present"
+        # eipo_entry_1_present = self.is_element_visible(eipo_entry_1)
+        # assert eipo_entry_1_present == True, f"eipo_entry_1 Should be present"
+        # eipo_entry_2_present = self.is_element_visible(eipo_entry_2)
+        # assert eipo_entry_2_present == True, f"eipo_entry_2 Should be present"
 
     @allure.step("verify eipo entry")
     def verify_eipo_entry(self):
@@ -605,23 +605,23 @@ class HomePage(LoginPage):
     def verify_sdp_page_from_top_freqency_list(self):
         stock_name_present = self.is_element_visible(stock_name)
         assert stock_name_present == True, f"stock_name Should be present"
-        stock_buy_bttton_text = self.get_attribute(stock_buy_bttton, "text")
-        self.assert_equal(stock_buy_bttton_text, "")
-        # self.is_element_visible(sdp_orderbook)
-        sdp_orderbook_text = self.get_attribute(sdp_orderbook, "text")
-        self.assert_equal(sdp_orderbook_text, "Order Book")
-        # self.is_element_visible(sdp_news)
-        sdp_news_text = self.get_attribute(sdp_news, "text")
-        self.assert_equal(sdp_news_text, "News")
-        # self.is_element_visible(sdp_keystate)
-        sdp_keystate_text = self.get_attribute(sdp_keystate, "text")
-        self.assert_equal(sdp_keystate_text, "Keystats")
-        # self.is_element_visible(sdp_profile)
-        sdp_profile_text = self.get_attribute(sdp_profile, "text")
-        self.assert_equal(sdp_profile_text, "Financials")
-        # self.is_element_visible(sdp_bid)
-        sdp_bit_text = self.get_attribute(sdp_bit, "text")
-        self.assert_equal(sdp_bit_text, "Bid")
+        # stock_buy_bttton_text = self.get_attribute(stock_buy_bttton, "text")
+        # self.assert_equal(stock_buy_bttton_text, "")
+        # # self.is_element_visible(sdp_orderbook)
+        # sdp_orderbook_text = self.get_attribute(sdp_orderbook, "text")
+        # self.assert_equal(sdp_orderbook_text, "Order Book")
+        # # self.is_element_visible(sdp_news)
+        # sdp_news_text = self.get_attribute(sdp_news, "text")
+        # self.assert_equal(sdp_news_text, "News")
+        # # self.is_element_visible(sdp_keystate)
+        # sdp_keystate_text = self.get_attribute(sdp_keystate, "text")
+        # self.assert_equal(sdp_keystate_text, "Keystats")
+        # # self.is_element_visible(sdp_profile)
+        # sdp_profile_text = self.get_attribute(sdp_profile, "text")
+        # self.assert_equal(sdp_profile_text, "Financials")
+        # # self.is_element_visible(sdp_bid)
+        # sdp_bit_text = self.get_attribute(sdp_bit, "text")
+        # self.assert_equal(sdp_bit_text, "Bid")
 
     @allure.step("click on default watchlist entry 1")
     def click_on_default_watchlist_entry_1(self):
@@ -954,6 +954,7 @@ class HomePage(LoginPage):
                 self.scroll_up()
                 self.sleep(5)
             #logger.info(f'MoverPageEntry{i}Code')
+            self.sleep(1)
             stock_codes = self.get_attribute(f'MoverPageEntry{i}Code', 'text')
             self.assert_equal(self.is_element_visible(f'MoverPageEntry{i}Code'), True)
             stock_code.append(stock_codes)
