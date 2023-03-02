@@ -100,7 +100,7 @@ class BuyProcess(HomePage):
         self.close_home_page_banner()
         self.verify_home_page_reg_user()
         self.click_global_search_btn_and_saerch_stock(stock_code)
-        self.sleep(3)
+        self.sleep(4)
         self.click_on_stock_code()
         #self.verify_sdp_page()
 

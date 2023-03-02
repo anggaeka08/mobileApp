@@ -1,5 +1,5 @@
 import datetime
-from datetime import datetime,date
+from datetime import datetime,date,timedelta
 from SiminvestAppQa.src.pages.Android_pages.amend_page import AmendProcess
 from  numerize import numerize
 from SiminvestAppQa.src.data.userData import user_data
@@ -138,6 +138,7 @@ hod_harga_text = "//android.view.ViewGroup/android.view.ViewGroup/android.widget
 hod_lot_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[10]"
 hod_jumlah_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[12]"
 gtc_tab_filter='TransactionSahamGTCListDropDown'
+gtc_filter_no= '//android.view.ViewGroup[@content-desc="TransactionSahamGTCListDropDown"]/android.widget.TextView'
 gtc_tab_search = 'TransactionSahamGTCListSearchBox'
 gtc_tab_binocular= "//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView"
 gtc_tab_label= "gtc_label_0"
@@ -148,7 +149,6 @@ gtc_tab_status= "status_label_0"
 gtc_tab_lot= "lot_0"
 gtc_tab_harga= "price_0"
 gtc_tab_harga_2= "price_2"
-
 gtc_tab_jumlah= "amount_0"
 Home = '//android.widget.TextView[@text="Home"]'
 Transaction="//android.widget.TextView[@text='Transaction']"
@@ -176,6 +176,10 @@ status_Amend= "status_Amend"
 terapkan_btn= "terapkan"
 filter_no='//android.view.ViewGroup[@content-desc="TransactionSahamOrderListDropDown"]/android.widget.TextView'
 hl_date="date_0"
+gtc_tris_stock= "//android.widget.TextView[@text='TRIS-W']"
+gtc_ACES_stock= "//android.widget.TextView[@text='ACES']"
+gtc_ADMR_stock= "//android.widget.TextView[@text='ADMR']"
+ok_btn_on_calender = "//*[@text='OK']"
 
 
 class Transaction(AmendProcess):
@@ -1058,4 +1062,91 @@ class Transaction(AmendProcess):
         self.sleep(1)
         self.assert_equal(self.is_element_visible(history_list_entry), True)
 
+    @allure.step("verify search bar functionality of gtc list")
+    def verify_search_bar_functionality_of_gtc_list(self):
+        self.click(gtc_tab)
+        # invalid stock name
+        self.set_text(gtc_tab_search, 'ABCDE')
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(order_kamu), True)
+        # tab switch
+        self.click(history_tab)
+        self.sleep(1)
+        self.click(gtc_tab)
+        self.sleep(1)
+        self.assert_equal((self.get_attribute(gtc_tab_search, 'text')), "Cari Saham")
+        # First Letter
+        self.set_text(gtc_tab_search, 'A')
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gtc_entry), True)
+        # valid_stock_code
+        input = 'ADMR'
+        self.set_text(gtc_tab_search, input)
+        self.sleep(1)
+        self.assert_equal((self.get_attribute(orderlist_stock_code, 'text')), input)
+        # blank
+        self.update_text(gtc_tab_search, '')
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gtc_entry), True)
+        # KEYBOARD VISIBLITY
+        self.click(gtc_tab_search)
+        self.assert_equal(self.check_keyboard_shown(), True)
+        self.click(gtc_entry)
+        self.assert_equal(self.check_keyboard_shown(), False)
 
+    @allure.step("verify swiping functionality of gtc list")
+    def verify_swiping_functionality_of_gtc_list(self):
+        # scroll down
+        self.scroll_down()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gtc_entry), True)
+        # tab change in transaction
+        self.scroll_screen(start_x=101, start_y=1364, end_x=902, end_y=1364, duration=5000)
+        self.sleep(1)
+        self.scroll_screen(start_x=902, start_y=1364, end_x=101, end_y=1364, duration=5000)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(gtc_entry), True)
+        # tab change in application tray
+        self.click(Home)
+        self.sleep(1)
+        self.click_on_transaction_btn()
+        self.assert_equal(self.is_element_visible(gtc_entry), True)
+        self.assert_equal(self.is_element_visible(gtc_ADMR_stock), True)
+        self.click(order_list)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gtc_ADMR_stock), True)
+        self.click(gtc_tab)
+        self.sleep(1)
+        today_date = date.today()
+        for i in range(0, 3):
+            date_value_str = self.get_attribute(f'gtc_time_{i}', 'text')
+            date_value= datetime.strptime(date_value_str, '%d %B %Y')
+            assert date_value.date() >= today_date
+
+    @allure.step("Validate gtc list api data")
+    def validate_gtc_list_api_data(self):
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        gtclist_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',
+                                           endpoint='api/v1/oms/equities/gtc-orderlist', headers=token,
+                                           expected_status_code=200)
+        logger.info(gtclist_rs)
+        code_api = []
+        gtc_date_api = []
+        for i in range(len(gtclist_rs)):
+            code_api.append(gtclist_rs[i]['stock'])
+            gtc_date_api.append(gtclist_rs[i]['gtctime'])
+        return code_api, gtc_date_api
+
+    @allure.step("Collect data from gtc list ui")
+    def collect_all_data_from_gtc_list_ui(self):
+        self.click(gtc_tab)
+        code_ui = []
+        gtc_date_ui = []
+        for i in range(0, 3):
+            code_value = self.get_attribute(f'stockCode_{i}', 'text')
+            code_ui.append(code_value)
+            date_value = self.get_attribute(f'gtc_time_{i}', 'text')
+            gtc_date_ui.append(date_value)
+        return code_ui, gtc_date_ui
