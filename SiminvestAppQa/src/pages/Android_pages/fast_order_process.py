@@ -61,6 +61,10 @@ outside_halfcard = '//android.view.ViewGroup/android.view.ViewGroup/android.view
 saham_tab = 'Saham_tab'
 transaction_type = 'transactionType_0'
 stock_code_l='stockCode_0'
+trading_limit = 'FastBSErrorText'
+trading_limit_text = 'Nilai pembelian kamu melebihi trading limit.'
+homepage_tab = '//android.widget.TextView[@text = "Home"]'
+
 
 
 class FastOrder(BuyProcess):
@@ -244,3 +248,48 @@ class FastOrder(BuyProcess):
         self.assert_equal(self.is_element_visible(saham_tab), True)
         self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
         self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+
+    @allure.step("Validate trading limit and buy process")
+    def validate_trading_limit_and_buy_process(self):
+        self.assert_equal(self.get_attribute(fo_header, 'text'), ' ORDER BELI')
+        self.clear_text(fo_hagra_value)
+        self.set_text(fo_hagra_value, '100000000000000')
+        self.assert_equal(self.get_attribute(trading_limit, 'text'), trading_limit_text)
+        self.click(fo_close)
+        self.scroll_to_open_fastOrder_buy()
+        self.sleep(1)
+        stock_code = self.get_attribute(fo_stock_code, 'text')
+        self.click(fo_btn)
+        self.click(fo_conf_setuju)
+        self.sleep(5)
+        self.assert_equal(self.is_element_visible(saham_tab), True)
+        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        self.click(homepage_tab)
+        self.sleep(2)
+        self.scroll_up()
+        self.scroll_to_open_fastOrder_buy()
+        stock_code = self.get_attribute(fo_stock_code, 'text')
+        self.click(fo_cash_btn_disable)
+        self.click(fo_btn)
+        self.click(fo_conf_setuju)
+        self.sleep(5)
+        self.assert_equal(self.is_element_visible(saham_tab), True)
+        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        self.click(homepage_tab)
+        self.sleep(2)
+        self.scroll_up()
+        self.scroll_to_open_fastOrder_buy()
+        stock_code = self.get_attribute(fo_stock_code, 'text')
+        self.click(fo_limit_btn)
+        self.click(fo_btn)
+        self.click(fo_conf_setuju)
+        self.sleep(5)
+        self.assert_equal(self.is_element_visible(saham_tab), True)
+        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+
+
+
+

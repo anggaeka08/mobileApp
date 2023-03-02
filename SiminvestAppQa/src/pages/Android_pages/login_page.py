@@ -171,7 +171,7 @@ class LoginPage(BaseCase):
             Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
             self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
         else:
-            self.click(close_banner)
+           # self.click(close_banner)
             self.sleep(2)
             Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
             self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
