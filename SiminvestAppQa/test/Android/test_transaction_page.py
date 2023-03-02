@@ -154,8 +154,8 @@ class Transaction_test(Transaction):
 
     @pytest.mark.order_list_Data_with_api
     @pytest.mark.Android
-    @pytest.mark.SDP
-    @allure.story("F-7:SDP Feature")
+    @pytest.mark.Transaction
+    @allure.story("F-8:Transaction Page")
     def test_order_list_Data_with_api(self):
         try:
             self.execute_script('lambda-name=test_order_list_Data_with_api')
@@ -242,8 +242,8 @@ class Transaction_test(Transaction):
 
     @pytest.mark.history_list_Data_with_api
     @pytest.mark.Android
-    @pytest.mark.SDP
-    @allure.story("F-7:SDP Feature")
+    @pytest.mark.Transaction
+    @allure.story("F-8:Transaction Page")
     def test_history_list_Data_with_api(self):
         try:
             self.execute_script('lambda-name=test_history_list_Data_with_api')
@@ -307,6 +307,52 @@ class Transaction_test(Transaction):
         except NoSuchElementException as E:
             self.save_screenshot('test_functional_feature_of_history_detail_page',
                                  'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.functional_feature_of_gtc_list
+    @pytest.mark.Android
+    @pytest.mark.Transaction
+    @allure.story("F-8:Transaction Page")
+    def test_functional_feature_of_gtc_list(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_gtc_list')
+            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            self.verify_search_bar_functionality_of_gtc_list()
+            self.verify_swiping_functionality_of_gtc_list()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_gtc_list', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_gtc_list', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.gtc_list_Data_with_api
+    @pytest.mark.Android
+    @pytest.mark.Transaction
+    @allure.story("F-8:Transaction Page")
+    def test_gtc_list_Data_with_api(self):
+        try:
+            self.execute_script('lambda-name=test_gtc_list_Data_with_api')
+            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            code_ui, gtc_date_ui = self.collect_all_data_from_gtc_list_ui()
+            code_api, gtc_date_api = self.validate_gtc_list_api_data()
+            logger.info(f'trade_date_ui {gtc_date_ui}')
+            logger.info(f'trade_date_api {gtc_date_api}')
+            for i in code_ui:
+                assert i in code_api
+            for i in gtc_date_ui:
+                assert i in gtc_date_api
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_gtc_list_Data_with_api', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_gtc_list_Data_with_api', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
