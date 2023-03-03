@@ -91,6 +91,22 @@ class FastOrder(BuyProcess):
         self.scroll_screen(start_x=fist_x, start_y=fist_y, end_x=sec_x, end_y=sec_y, duration=5000)
         self.sleep(2)
 
+    @allure.step("Scroll to open fastOrder")
+    def scroll_to_open_fastOrder_sell_without_portfolio(self):
+        self.sleep(2)
+        second_coordinate= self.get_attribute('HomepageWLStockPrice3', 'bounds')
+        lst_1 = second_coordinate.split(',')
+        fist_x = int(lst_1[0][1:])
+        fist_y = int(lst_1[1][0:4])
+        fist_coordinate= self.get_attribute('HomepageWLStockCode3', 'bounds')
+        lst_2 = fist_coordinate.split(',')
+        sec_x = int(lst_2[0][1:])
+        sec_y = int(lst_2[1][0:4])
+        #logger.info(f'{second_coordinate} {type(second_coordinate)} {second_coordinate[1]}')
+        #logger.info(f'{fist_coordinate} {type(fist_coordinate)} {fist_coordinate[1]}')
+        self.scroll_screen(start_x=fist_x, start_y=fist_y, end_x=sec_x, end_y=sec_y, duration=5000)
+        self.sleep(2)
+
     @allure.step("Verify UI data for fastOrder buy")
     def verify_ui_data_for_fastOrder_buy(self):
         self.assert_equal(self.get_attribute(fo_header, 'text'), ' ORDER BELI')
@@ -289,6 +305,36 @@ class FastOrder(BuyProcess):
         self.assert_equal(self.is_element_visible(saham_tab), True)
         self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
         self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+
+
+    @allure.step("Validate max sell and sell process")
+    def validate_max_sell_and_sell_process(self):
+        self.assert_equal(self.get_attribute(fo_header, 'text'), ' ORDER JUAL')
+        self.sleep(1)
+        stock_code = self.get_attribute(fo_stock_code, 'text')
+        self.click(fo_btn)
+        self.click(fo_conf_setuju)
+        self.sleep(5)
+        self.assert_equal(self.is_element_visible(saham_tab), True)
+        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
+        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        self.click(homepage_tab)
+        self.sleep(2)
+        self.scroll_up()
+        self.scroll_to_open_fastOrder_sell()
+        stock_code = self.get_attribute(fo_stock_code, 'text')
+        self.click(fo_max_buy_text)
+        self.click(fo_btn)
+        self.click(fo_conf_setuju)
+        self.sleep(5)
+        self.assert_equal(self.is_element_visible(saham_tab), True)
+        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
+        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        self.click(homepage_tab)
+        self.sleep(2)
+        self.scroll_up()
+        self.scroll_to_open_fastOrder_sell_without_portfolio()
+        self.assert_equal(self.is_element_visible(fo_header, 'text'), False)
 
 
 
