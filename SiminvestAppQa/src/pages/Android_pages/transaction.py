@@ -180,6 +180,8 @@ gtc_tris_stock= "//android.widget.TextView[@text='TRIS-W']"
 gtc_ACES_stock= "//android.widget.TextView[@text='ACES']"
 gtc_ADMR_stock= "//android.widget.TextView[@text='ADMR']"
 ok_btn_on_calender = "//*[@text='OK']"
+trade_list_search= "//android.view.ViewGroup[1]/android.widget.EditText"
+trade_list_filter= "//android.widget.HorizontalScrollView[2]/android.view.ViewGroup/android.view.ViewGroup[2]"
 
 
 class Transaction(AmendProcess):
@@ -1150,3 +1152,46 @@ class Transaction(AmendProcess):
             date_value = self.get_attribute(f'gtc_time_{i}', 'text')
             gtc_date_ui.append(date_value)
         return code_ui, gtc_date_ui
+
+    @allure.step("verify filter in GTC list")
+    def verify_filter_in_GTC_list(self):
+        self.click(gtc_tab)
+        self.click(gtc_tab_filter)
+        self.assert_equal(self.is_element_visible(Semua_text), True)
+        self.click(hl_filter_close)
+        self.assert_equal(self.is_element_visible(Semua_text), False)
+        self.click(gtc_tab_filter)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(gtc_entry), True)
+        self.click(gtc_tab_filter)
+        self.click(Jual_text)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(order_kamu), True)
+        number = self.get_attribute(gtc_filter_no, "text")
+        c = '('
+        index = number.find(c)
+        filter_count = number[index + 1:-1:]
+        self.assert_equal(filter_count, "1")
+        # semua
+        self.click(gtc_tab_filter)
+        self.click(Semua_text)
+        self.click(Terapkan_text)
+        self.assert_equal(self.is_element_visible(gtc_entry), True)
+        # beli
+        self.click(gtc_tab_filter)
+        self.click(Beli_text)
+        self.click(Terapkan_text)
+        for i in range(0, 2):
+            type_value = self.get_attribute(f'transaction_type_{i}', 'text')
+            self.assert_equal(type_value, "BELI")
+        # Jual
+        self.click(gtc_tab_filter)
+        self.click(Jual_text)
+        self.click(Terapkan_text)
+        if self.is_element_visible(order_kamu) == True:
+            self.assert_equal(self.is_element_visible(order_kamu), True)
+        else:
+            for i in range(0, 2):
+                type_value = self.get_attribute(f'transaction_type_{i}', 'text')
+                self.assert_equal(type_value, "JUAL")
+

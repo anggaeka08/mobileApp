@@ -356,6 +356,27 @@ class Transaction_test(Transaction):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.functional_feature_of_filter_in_GTC_list
+    @pytest.mark.Android
+    @pytest.mark.Transaction
+    @allure.story("F-8:Transaction Page")
+    def test_functional_feature_of_filter_in_GTC_list(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_filter_in_GTC_list')
+            self.open_trans_page_with_reg_user(user_data['reg_no_3'])
+            self.verify_filter_in_GTC_list()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_filter_in_GTC_list',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_filter_in_GTC_list',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
     # Cover all 5 test cases in single test
     @pytest.mark.T_SMMA_001_to_005
     @pytest.mark.Android
@@ -456,22 +477,3 @@ class Transaction_test(Transaction):
         self.click_on_gtc_first_entry()
         self.go_back()
         self.verify_gtc_first_entry_available()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

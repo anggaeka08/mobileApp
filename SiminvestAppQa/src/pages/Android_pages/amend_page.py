@@ -140,3 +140,13 @@ class AmendProcess(BuyProcess):
     @allure.step("Verify redirection after click on customer support")
     def verify_redirection_after_click_on_customer_support(self):
         self.assert_equal(self.is_element_visible(chrome_xpath), True)
+
+    @allure.step('Open transaction page with nonKYC user ')
+    def open_trans_page_with_nonKYC_user(self, phone_number):
+        self.click_mulai_sekarang()
+        self.type_mobile_no(phone_number)
+        self.click_selanjutnya()
+        self.enter_otp(user_data['valid_otp'])
+        self.enter_pin()
+        self.verify_home_page()
+        self.click_on_transaction_btn()
