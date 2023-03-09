@@ -64,6 +64,8 @@ stock_code_l='stockCode_0'
 trading_limit = 'FastBSErrorText'
 trading_limit_text = 'Nilai pembelian kamu melebihi trading limit.'
 homepage_tab = '//android.widget.TextView[@text = "Home"]'
+home_rdn = 'HomePageRdnValue'
+home_buying_power = 'HomepagebuyPower'
 
 
 
@@ -335,6 +337,74 @@ class FastOrder(BuyProcess):
         self.scroll_up()
         self.scroll_to_open_fastOrder_sell_without_portfolio()
         self.assert_equal(self.is_element_visible(fo_header, 'text'), False)
+
+    @allure.step("Functional validation in fast order")
+    def function_validation_in_fast_order(self):
+        rdn_with_rp = self.get_attribute(home_rdn, 'text')
+        rdn_balance = int((rdn_with_rp[3:]).replace(',', ''))
+        buy_power_with_text = self.get_attribute(home_buying_power, 'text')
+        buying_power = int((buy_power_with_text[13:]).replace(',', ''))
+        self.scroll_up()
+        stock_price_h = self.get_attribute('HomepageWLStockPrice2', 'text')
+        response_price_h = self.get_attribute('HomepageWLStockPL2', 'text')
+        self.scroll_to_open_fastOrder_with_specific_stock_for_buy()
+        self.sleep(2)
+        lot_value_default = self.get_attribute(fo_lot_value, 'text')
+        harga_default_value = (self.get_attribute(fo_hagra_value, 'text')).replace(',','')
+        self.assert_equal(harga_default_value,stock_price_h.replace(',',''))
+        stock_price_fo = self.get_attribute(fo_price, 'text')
+        stock_response_price_fo = self.get_attribute(fo_pl, 'text')
+        self.assert_equal(stock_price_fo, stock_price_h)
+        self.assert_equal(stock_response_price_fo, response_price_h)
+        self.click(fo_hagra_value)
+        self.verify_keyboard_on_off(True)
+        self.clear_text(fo_hagra_value)
+        self.update_text(fo_hagra_value, '10000000000')
+        self.assert_equal(self.is_element_visible(trading_limit), True)
+        self.click(fo_btn)
+        self.assert_equal(self.is_element_visible(fo_header), True)
+        self.clear_text(fo_hagra_value)
+        self.update_text(fo_hagra_value, harga_default_value)
+        self.assert_equal(self.is_element_visible(trading_limit), False)
+        self.assert_equal(self.is_element_visible(fo_limit_btn), True)
+        self.assert_equal(self.is_element_visible(fo_cash_btn_enable), True)
+        self.click(fo_cash_btn_enable)
+        self.assert_equal(self.is_element_visible(fo_limit_btn), True)
+        harga_value = self.get_attribute(fo_hagra_value, 'text')
+        self.click(fo_harga_increase)
+        self.click(fo_hagra_decrease)
+        self.assert_equal(self.get_attribute(fo_hagra_value, 'text'), harga_value)
+        lot_value_after_cash = self.get_attribute(fo_lot_value, 'text')
+        self.assert_not_equal(lot_value_after_cash, lot_value_default)
+        total_beli_amount_text = self.get_attribute(fo_total_beli_value, 'text')
+        total_beli_amount = int((total_beli_amount_text[3:]).replace(',', ''))
+        self.assertGreater(buying_power, total_beli_amount)
+        self.click(fo_limit_btn)
+        self.assert_equal(self.is_element_visible(fo_cash_btn_disable), True)
+        lot_value_after_limit = self.get_attribute(fo_lot_value, 'text')
+        self.assert_not_equal(lot_value_after_cash, lot_value_after_limit)
+        total_beli_amount_text = self.get_attribute(fo_total_beli_value, 'text')
+        total_beli_amount = int((total_beli_amount_text[3:]).replace(',', ''))
+        self.assertGreater(buying_power, total_beli_amount)
+        self.click(fo_lot_value)
+        self.verify_keyboard_on_off(True)
+
+
+    @allure.step("Scroll to open fastOrder with specific stock for buy")
+    def scroll_to_open_fastOrder_with_specific_stock_for_buy(self):
+        self.sleep(2)
+        second_coordinate= self.get_attribute('HomepageWLStockPrice2', 'bounds')
+        lst_1 = second_coordinate.split(',')
+        fist_x = int(lst_1[0][1:])
+        fist_y = int(lst_1[1][0:4])
+        fist_coordinate= self.get_attribute('HomepageWLStockCode2', 'bounds')
+        lst_2 = fist_coordinate.split(',')
+        sec_x = int(lst_2[0][1:])
+        sec_y = int(lst_2[1][0:4])
+        #logger.info(f'{second_coordinate} {type(second_coordinate)} {second_coordinate[1]}')
+        #logger.info(f'{fist_coordinate} {type(fist_coordinate)} {fist_coordinate[1]}')
+        self.scroll_screen(start_x=sec_x, start_y=sec_y, end_x=fist_x, end_y=fist_y, duration=5000)
+        self.sleep(2)
 
 
 
