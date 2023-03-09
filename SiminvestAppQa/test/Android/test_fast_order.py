@@ -144,3 +144,4 @@ class FastOrder_test(FastOrder):
             self.save_screenshot('test_validate_sell_functionality_in_fo', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
