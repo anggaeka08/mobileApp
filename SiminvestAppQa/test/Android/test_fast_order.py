@@ -145,3 +145,24 @@ class FastOrder_test(FastOrder):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    # FastOrder functionality test cases
+    @pytest.mark.fo_functional_feature
+    @pytest.mark.Android
+    @pytest.mark.fastOrder
+    @allure.story("F-9:FastOrderProcess")
+    def test_validate_functional_feature_of_fast_order(self):
+        try:
+            self.execute_script('lambda-name=test_validate_functional_feature_of_fast_order')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
+            self.function_validation_in_fast_order()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_functional_feature_of_fast_order',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_functional_feature_of_fast_order',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
