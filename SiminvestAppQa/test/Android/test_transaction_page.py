@@ -418,6 +418,27 @@ class Transaction_test(Transaction):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.validate_UI_and_functional_feature_for_Non_KYC_user
+    @pytest.mark.Android
+    @pytest.mark.Transaction
+    @allure.story("F-8:Transaction Page")
+    def test_UI_and_functional_feature_for_Non_KYC_user(self):
+        try:
+            self.execute_script('lambda-name=test_UI_and_functional_feature_for_Non_KYC_user')
+            self.open_trans_page_with_nonKYC_user(user_data['unkyc_reg_no'])
+            self.Validate_UI_and_functional_feature_for_Non_KYC_user()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_UI_and_functional_feature_for_Non_KYC_user',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_UI_and_functional_feature_for_Non_KYC_user',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
     # Cover all 5 test cases in single test
     @pytest.mark.T_SMMA_001_to_005
     @pytest.mark.Android
