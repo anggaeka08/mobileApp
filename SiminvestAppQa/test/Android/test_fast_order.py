@@ -166,3 +166,24 @@ class FastOrder_test(FastOrder):
                                  'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    # FastOrder functionality test cases
+    @pytest.mark.fo_non_kyc_user
+    @pytest.mark.Android
+    @pytest.mark.fastOrder
+    @allure.story("F-9:FastOrderProcess")
+    def test_validate_fast_order_for_non_kyc_user(self):
+        try:
+            self.execute_script('lambda-name=test_validate_fast_order_for_non_kyc_user')
+            self.login_and_verify_homepage_for_non_kyc_user((user_data['unkyc_reg_no']))
+            self.scroll_up()
+            self.validate_fast_order_with_non_kyc_user()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_fast_order_for_non_kyc_user','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_fast_order_for_non_kyc_user','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)

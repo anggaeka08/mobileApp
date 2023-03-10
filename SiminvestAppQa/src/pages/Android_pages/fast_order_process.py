@@ -406,6 +406,19 @@ class FastOrder(BuyProcess):
         self.scroll_screen(start_x=sec_x, start_y=sec_y, end_x=fist_x, end_y=fist_y, duration=5000)
         self.sleep(2)
 
+    @allure.step("validate fast order with non kyc user")
+    def validate_fast_order_with_non_kyc_user(self):
+        self.scroll_to_open_fastOrder_with_specific_stock_for_buy()
+        self.sleep(5)
+        self.verify_sdp_page()
+        self.go_back()
+        self.sleep(3)
+        self.scroll_up()
+        self.scroll_to_open_fastOrder_sell()
+        self.sleep(5)
+        #self.verify_sdp_page()
+
+
 
 
 
