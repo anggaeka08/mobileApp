@@ -1,3 +1,4 @@
+import pytest
 from selenium.common.exceptions import InvalidElementStateException
 from datetime import datetime
 from SiminvestAppQa.src.data.userData import user_data
@@ -45,7 +46,7 @@ fo_conf_harga_text = 'FastBSConfHarga'
 fo_conf_harga_value = 'FastBSConfHargaValue'
 fo_conf_jumlah_text = 'FastBSConfJumlah'
 fo_conf_jumlah_value = 'FastBSConfJumlahValue'
-fo_conf_error_msg =  'FastBSConfFeeMsg'
+fo_conf_fee_msg =  'FastBSConfFeeMsg'
 fo_conf_batal_btn = 'FastBSConfBatal'
 fo_conf_setuju = 'FastBSConfSetuju'
 #confirma page locator for sell
@@ -137,7 +138,7 @@ class FastOrder(BuyProcess):
         self.assert_equal(self.get_attribute(fo_conf_harga_value, 'text'), harga_buy)
         self.assert_equal(self.get_attribute(fo_conf_jumlah_text, 'text'), 'Jumlah')
         self.assert_equal(int(self.get_attribute(fo_conf_jumlah_value, 'text').replace(',','')), jumlah_buy)
-        self.assert_equal(self.get_attribute(fo_conf_error_msg, 'text'), '*Fee akan dipotong dari trading balance kamu di akhir hari bursa')
+        self.assert_equal(self.get_attribute(fo_conf_fee_msg, 'text'), '*Fee akan dipotong dari trading balance kamu di akhir hari bursa')
         self.assert_equal(self.is_element_visible(fo_conf_setuju), True)
         self.assert_equal(self.is_element_visible(fo_conf_batal_btn), True)
 
@@ -169,7 +170,7 @@ class FastOrder(BuyProcess):
         self.assert_equal(self.get_attribute(fo_pl_text, 'text'), 'Profit Loss')
         self.assert_equal(self.is_element_visible(fo_pl_value), True)
         self.assert_equal(int(self.get_attribute(fo_conf_jumlah_value_s, 'text').replace(',', '')), jumlah_buy)
-        self.assert_equal(self.get_attribute(fo_conf_error_msg, 'text'),'*Fee akan dipotong dari trading balance kamu di akhir hari bursa')
+        self.assert_equal(self.get_attribute(fo_conf_fee_msg, 'text'),'*Fee akan dipotong dari trading balance kamu di akhir hari bursa')
         self.assert_equal(self.is_element_visible(fo_conf_setuju), True)
         self.assert_equal(self.is_element_visible(fo_conf_batal_btn), True)
 
@@ -417,6 +418,49 @@ class FastOrder(BuyProcess):
         self.scroll_to_open_fastOrder_sell()
         self.sleep(5)
         #self.verify_sdp_page()
+
+    @allure.step("validate confirmation page functionality")
+    def validate_confirmation_page_functionality(self):
+        stock_code_fp = self.get_attribute(fo_stock_code, 'text')
+        lot_fp = self.get_attribute(fo_lot_value, 'text')
+        harga_fp = (self.get_attribute(fo_hagra_value, 'text')).replace(',','')
+        total_jual_rp = self.get_attribute(fo_total_beli_value, 'text')
+        total_jual = (total_jual_rp[3:]).replace(',', '')
+        self.click(fo_btn)
+        stock_code_cnf = self.get_attribute(fo_saham_value, 'text')
+        lot_cnf = self.get_attribute(fo_conf_lot_value, 'text')
+        harga_cnf = (self.get_attribute(fo_conf_harga_value, 'text')).replace(',','')
+        jual_cnf = self.get_attribute(fo_conf_jumlah_value, 'text').replace(',','')
+        self.assert_equal(stock_code_fp, stock_code_cnf)
+        self.assert_equal(harga_fp, harga_cnf)
+        self.assert_equal(lot_fp, lot_cnf)
+        self.assert_equal(total_jual, jual_cnf)
+        self.assert_equal(self.get_attribute(fo_conf_fee_msg, 'text') , '*Fee akan dipotong dari trading balance kamu di akhir hari bursa')
+        self.click(fo_conf_batal_btn)
+        # for sell confirmation page
+        self.scroll_to_open_fastOrder_sell()
+        stock_code_fp = self.get_attribute(fo_stock_code, 'text')
+        lot_fp = self.get_attribute(fo_lot_value, 'text')
+        harga_fp = (self.get_attribute(fo_hagra_value, 'text')).replace(',', '')
+        total_jual_rp = self.get_attribute(fo_total_beli_value, 'text')
+        total_jual = (total_jual_rp[3:]).replace(',', '')
+        self.click(fo_btn)
+        stock_code_cnf = self.get_attribute(fo_saham_value, 'text')
+        lot_cnf = self.get_attribute(fo_conf_lot_value_s, 'text')
+        harga_cnf = (self.get_attribute(fo_conf_harga_value_s, 'text')).replace(',', '')
+        jual_cnf = self.get_attribute(fo_conf_jumlah_value_s, 'text').replace(',', '')
+        self.assert_equal(stock_code_fp, stock_code_cnf)
+        self.assert_equal(harga_fp, harga_cnf)
+        self.assert_equal(lot_fp, lot_cnf)
+        self.assert_equal(total_jual, jual_cnf)
+        self.assert_equal(self.get_attribute(fo_conf_fee_msg, 'text') , '*Fee akan dipotong dari trading balance kamu di akhir hari bursa')
+        pl_value = self.get_attribute(fo_pl_value, 'text')
+        if pl_value.find('%') !=-1:
+            logger.info("PL Format is correct")
+        else :
+            pytest.fail('PL Format not correct', pytrace=True)
+        self.click(fo_conf_batal_btn)
+
 
 
 
