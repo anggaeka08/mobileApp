@@ -155,6 +155,7 @@ class FastOrder_test(FastOrder):
             self.execute_script('lambda-name=test_validate_functional_feature_of_fast_order')
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
             self.function_validation_in_fast_order()
+            self.self.scroll_to_open_fastOrder_with_specific_stock_for_buy()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_validate_functional_feature_of_fast_order',
@@ -167,7 +168,7 @@ class FastOrder_test(FastOrder):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
-    # FastOrder functionality test cases
+    # FastOrder test cases for non kyc user
     @pytest.mark.fo_non_kyc_user
     @pytest.mark.Android
     @pytest.mark.fastOrder
@@ -185,5 +186,27 @@ class FastOrder_test(FastOrder):
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
             self.save_screenshot('test_validate_fast_order_for_non_kyc_user','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    # FastOrder test cases for functionality of confirmation page
+    @pytest.mark.fo_confirm_page
+    @pytest.mark.Android
+    @pytest.mark.fastOrder
+    @allure.story("F-9:FastOrderProcess")
+    def test_validate_functionality_of_confirmation_page_for_fastOrder(self):
+        try:
+            self.execute_script('lambda-name=test_validate_functionality_of_confirmation_page_for_fastOrder')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.scroll_up()
+            self.scroll_to_open_fastOrder_with_specific_stock_for_buy()
+            self.validate_confirmation_page_functionality()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_functionality_of_confirmation_page_for_fastOrder','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_functionality_of_confirmation_page_for_fastOrder','SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
