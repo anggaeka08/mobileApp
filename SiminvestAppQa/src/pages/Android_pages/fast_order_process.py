@@ -67,6 +67,8 @@ trading_limit_text = 'Nilai pembelian kamu melebihi trading limit.'
 homepage_tab = '//android.widget.TextView[@text = "Home"]'
 home_rdn = 'HomePageRdnValue'
 home_buying_power = 'HomepagebuyPower'
+portfolio_tab = '//android.widget.TextView[@text="Portfolio"]'
+portfolio_saham = 'PortPagePorfilioText'
 
 
 
@@ -461,6 +463,137 @@ class FastOrder(BuyProcess):
             pytest.fail('PL Format not correct', pytrace=True)
         self.click(fo_conf_batal_btn)
 
+    #open portfolio tab
+    @allure.step("Open Portfolio page")
+    def open_portfolio_page(self):
+        self.click(portfolio_tab)
+        self.sleep(2)
+
+    #scroll for open buy in portfolio
+    @allure.step("Scroll for open fastOrder Buy from portfolio")
+    def scroll_for_open_fastOrder_buy_from_portfolio(self):
+        self.sleep(2)
+        second_coordinate = self.get_attribute('PortPageEntry0Invested', 'bounds')
+        lst_1 = second_coordinate.split(',')
+        fist_x = int(lst_1[0][1:])
+        fist_y = int(lst_1[1][0:4])
+        fist_coordinate = self.get_attribute('PortPageEntry0Code', 'bounds')
+        lst_2 = fist_coordinate.split(',')
+        sec_x = int(lst_2[0][1:])
+        sec_y = int(lst_2[1][0:4])
+        # logger.info(f'{second_coordinate} {type(second_coordinate)} {second_coordinate[1]}')
+        # logger.info(f'{fist_coordinate} {type(fist_coordinate)} {fist_coordinate[1]}')
+        self.scroll_screen(start_x=sec_x, start_y=sec_y, end_x=fist_x, end_y=fist_y, duration=5000)
+        self.sleep(2)
+
+
+    #scroll for open sell in portfolio
+    @allure.step("Scroll for open fastOrder Sell from portfolio")
+    def scroll_for_open_fastOrder_sell_from_portfolio(self):
+        self.sleep(2)
+        second_coordinate = self.get_attribute('PortPageEntry0Code', 'bounds')
+        lst_1 = second_coordinate.split(',')
+        fist_x = int(lst_1[0][1:])
+        fist_y = int(lst_1[1][0:4])
+        fist_coordinate = self.get_attribute('PortPageEntry0Invested', 'bounds')
+        lst_2 = fist_coordinate.split(',')
+        sec_x = int(lst_2[0][1:])
+        sec_y = int(lst_2[1][0:4])
+        # logger.info(f'{second_coordinate} {type(second_coordinate)} {second_coordinate[1]}')
+        # logger.info(f'{fist_coordinate} {type(fist_coordinate)} {fist_coordinate[1]}')
+        self.scroll_screen(start_x=sec_x, start_y=sec_y, end_x=fist_x, end_y=fist_y, duration=5000)
+        self.sleep(2)
+
+    @allure.step("Click on Batal Btn")
+    def click_on_batal_btn(self):
+        self.click(fo_conf_batal_btn)
+        self.sleep(1)
+
+    @allure.step("Verify portfolio page")
+    def verify_portfolio_page(self):
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(portfolio_saham), True)
+
+    @allure.step("Verify buttons for buy process on fastOrder from portfolio")
+    def verify_buttons_for_buy_on_fastOrder_from_portfolio(self):
+        stock_code = self.get_attribute(fo_stock_code, 'text')
+        self.click(outside_halfcard)
+        self.verify_portfolio_page()
+        self.scroll_for_open_fastOrder_buy_from_portfolio()
+        self.go_back()
+        self.verify_portfolio_page()
+        self.scroll_for_open_fastOrder_buy_from_portfolio()
+        harga_value = self.get_attribute(fo_hagra_value, 'text')
+        self.click(fo_harga_increase)
+        self.click(fo_hagra_decrease)
+        self.assert_equal(self.get_attribute(fo_hagra_value, 'text'), harga_value)
+        lot_value= self.get_attribute(fo_lot_value, 'text')
+        self.click(fo_lot_increase)
+        self.click(fo_lot_decrease)
+        self.assert_equal(self.get_attribute(fo_lot_value, 'text'), lot_value)
+        self.click(fo_limit_btn)
+        lot_value = self.get_attribute(fo_lot_value, 'text')
+        self.click(fo_lot_increase)
+        self.assert_equal(self.get_attribute(fo_lot_value, 'text'), lot_value)
+        self.click(fo_cash_btn_enable)
+        lot_value = self.get_attribute(fo_lot_value, 'text')
+        self.click(fo_lot_increase)
+        self.assert_equal(self.get_attribute(fo_lot_value, 'text'), lot_value)
+        self.click(fo_cash_btn_disable)
+        self.clear_text(fo_lot_value)
+        self.set_text(fo_lot_value, '1')
+        self.assert_equal(self.get_attribute(fo_lot_value, 'text'), '1')
+        self.scroll_to_close_halfCard()
+        self.assert_equal(self.is_element_visible(fo_header), True)
+        self.click(fo_btn)
+        self.sleep(2)
+        self.go_back()
+        self.click(fo_conf_batal_btn)
+        self.verify_portfolio_page()
+        self.scroll_for_open_fastOrder_buy_from_portfolio()
+        self.click(fo_btn)
+        self.click(fo_conf_setuju)
+        self.sleep(5)
+        self.assert_equal(self.is_element_visible(saham_tab), True)
+        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+
+    @allure.step("Verify buttons for sell process on fastOrder from portfolio")
+    def verify_buttons_for_sell_on_fastOrder_from_portfolio(self):
+        stock_code = self.get_attribute(fo_stock_code, 'text')
+        self.click(outside_halfcard)
+        self.verify_portfolio_page()
+        self.scroll_for_open_fastOrder_sell_from_portfolio()
+        self.go_back()
+        self.verify_portfolio_page()
+        self.scroll_for_open_fastOrder_sell_from_portfolio()
+        harga_value = self.get_attribute(fo_hagra_value, 'text')
+        self.click(fo_harga_increase)
+        self.click(fo_hagra_decrease)
+        self.assert_equal(self.get_attribute(fo_hagra_value, 'text'), harga_value)
+        lot_value= self.get_attribute(fo_lot_value, 'text')
+        self.click(fo_lot_increase)
+        self.click(fo_lot_decrease)
+        self.assert_equal(self.get_attribute(fo_lot_value, 'text'), lot_value)
+        self.clear_text(fo_lot_value)
+        self.set_text(fo_lot_value, '1')
+        self.scroll_to_close_halfCard()
+        self.assert_equal(self.is_element_visible(fo_header), True)
+        self.click(fo_btn)
+        self.sleep(2)
+        self.go_back()
+        self.click(fo_conf_batal_btn)
+        self.verify_portfolio_page()
+        self.scroll_for_open_fastOrder_sell_from_portfolio()
+        self.click(fo_btn)
+        self.click(fo_conf_setuju)
+        self.sleep(5)
+        if self.is_element_visible('//*[@text ="OK"]') == True:
+            self.click('//*[@text ="OK"]')
+        else:
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
 
 
 
