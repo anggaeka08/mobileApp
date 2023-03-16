@@ -267,3 +267,48 @@ class FastOrder_test(FastOrder):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    # BuyProcess functionality test cases from portfolio
+    @pytest.mark.fo_buy_sell_functionality_from_portfolio
+    @pytest.mark.Android
+    @pytest.mark.fastOrder
+    @allure.story("F-9:FastOrderProcess")
+    def test_validate_buy_sell_functionality_in_fo_from_portfolio(self):
+        try:
+            self.execute_script('lambda-name=test_validate_buy_sell_functionality_in_fo_from_portfolio')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
+            self.open_portfolio_page()
+            self.scroll_for_open_fastOrder_buy_from_portfolio()
+            self.validate_trading_limit_and_buy_process_from_portfolio()
+            self.validate_max_sell_and_sell_process_from_portfolio()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_buy_sell_functionality_in_fo_from_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_buy_sell_functionality_in_fo_from_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    # FastOrder test cases for functionality of confirmation page
+    @pytest.mark.fo_confirm_page_from_portfolio
+    @pytest.mark.Android
+    @pytest.mark.fastOrder
+    @allure.story("F-9:FastOrderProcess")
+    def test_validate_functionality_of_confirmation_page_for_fastOrder_from_portfolio(self):
+        try:
+            self.execute_script('lambda-name=test_validate_functionality_of_confirmation_page_for_fastOrder_from_portfolio')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_3'])
+            self.open_portfolio_page()
+            self.scroll_for_open_fastOrder_buy_from_portfolio()
+            self.validate_confirmation_page_functionality_from_portfolio()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_functionality_of_confirmation_page_for_fastOrder_from_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_functionality_of_confirmation_page_for_fastOrder_from_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
