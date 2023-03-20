@@ -69,6 +69,8 @@ home_rdn = 'HomePageRdnValue'
 home_buying_power = 'HomepagebuyPower'
 portfolio_tab = '//android.widget.TextView[@text="Portfolio"]'
 portfolio_saham = 'PortPagePorfilioText'
+exchange_notification= '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.TextView'
+ok_btn = '//*[@text="OK"]'
 
 
 
@@ -216,10 +218,19 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
-
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
 
     @allure.step("Scroll to close halfCard")
     def scroll_to_close_halfCard(self):
@@ -266,9 +277,19 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
 
     @allure.step("Validate trading limit and buy process")
     def validate_trading_limit_and_buy_process(self):
@@ -283,9 +304,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
         self.click(homepage_tab)
         self.sleep(2)
         self.scroll_up()
@@ -295,9 +327,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
         self.click(homepage_tab)
         self.sleep(2)
         self.scroll_up()
@@ -307,9 +350,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
 
 
     @allure.step("Validate max sell and sell process")
@@ -320,9 +374,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
         self.click(homepage_tab)
         self.sleep(2)
         self.scroll_up()
@@ -332,9 +397,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
         self.click(homepage_tab)
         self.sleep(2)
         self.scroll_up()
@@ -554,9 +630,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
 
     @allure.step("Verify buttons for sell process on fastOrder from portfolio")
     def verify_buttons_for_sell_on_fastOrder_from_portfolio(self):
@@ -591,9 +678,20 @@ class FastOrder(BuyProcess):
         if self.is_element_visible('//*[@text ="OK"]') == True:
             self.click('//*[@text ="OK"]')
         else:
-            self.assert_equal(self.is_element_visible(saham_tab), True)
-            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
-            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+            now = datetime.now()
+            current_time = now.strftime("%H:%M")
+            logger.info(f"Current Time = {current_time}")
+            if (current_time >= '7:30' and current_time <= '10:00') or (
+                    current_time >= '12:00' and current_time <= '13:15'):
+                self.assert_equal(self.is_element_visible(exchange_notification), False)
+                logger.info("within time")
+                self.assert_equal(self.is_element_visible(saham_tab), True)
+                self.assert_equal(self.get_attribute(transaction_type, 'text'), 'Jual')
+                self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+            else:
+                logger.info("Out of time")
+                self.assert_equal(self.is_element_visible(exchange_notification), True)
+                self.click(ok_btn)
 
     @allure.step("Validate trading limit and buy process from portfolio")
     def validate_trading_limit_and_buy_process_from_portfolio(self):
@@ -608,9 +706,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
         self.open_portfolio_page()
         self.sleep(2)
         self.scroll_for_open_fastOrder_buy_from_portfolio()
@@ -619,9 +728,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
         self.open_portfolio_page()
         self.sleep(2)
         self.scroll_for_open_fastOrder_buy_from_portfolio()
@@ -630,9 +750,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
 
     @allure.step("Validate max sell and sell process from portfolio")
     def validate_max_sell_and_sell_process_from_portfolio(self):
@@ -644,9 +775,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
         self.open_portfolio_page()
         self.sleep(2)
         self.scroll_for_open_fastOrder_sell_from_portfolio()
@@ -655,9 +797,20 @@ class FastOrder(BuyProcess):
         self.click(fo_btn)
         self.click(fo_conf_setuju)
         self.sleep(5)
-        self.assert_equal(self.is_element_visible(saham_tab), True)
-        self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
-        self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click(ok_btn)
 
 
     @allure.step("validate confirmation page functionality from portfolio")
