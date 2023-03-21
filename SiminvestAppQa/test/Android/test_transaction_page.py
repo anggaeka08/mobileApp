@@ -6,7 +6,7 @@ from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.transaction import Transaction
 
 
-@pytest.mark.usefixtures("unittest_setUpClass_fixture_Transaction_test")
+@pytest.mark.usefixtures("_unittest_setUpClass_fixture_Transaction_test")
 class Transaction_test(Transaction):
 
     # Transaction page for order list
