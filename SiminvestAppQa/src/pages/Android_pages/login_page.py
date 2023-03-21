@@ -283,7 +283,7 @@ class LoginPage(BaseCase):
     @allure.step("verify starting page")
     def verify_starting_page(self):
         self.sleep(3)
-        self.tap(ignore_btn)
+        #self.tap(ignore_btn)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(mulai_sekarang), True)
 

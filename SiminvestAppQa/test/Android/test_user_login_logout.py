@@ -561,7 +561,7 @@ class Login_test(LoginPage):
     def test_validate_user_is_receiving_OTP_on_WhatsApp_SMS(self):
         try:
             self.execute_script('lambda-name=test_validate_user_is_receiving_OTP_on_WhatsApp_SMS')
-            number = '8447687103'
+            number = '8447687189'
             self.click_mulai_sekarang()
             self.type_mobile_no(number)
             self.click_selanjutnya()
@@ -577,6 +577,7 @@ class Login_test(LoginPage):
             self.verify_otp_page_with_whatsapp_phone_no(number)
             self.sleep(25)
             self.click_Kirim_Ulang()
+            self.sleep(5)
             self.verify_keyboard_on_off(True)
             self.enter_otp('1456')
             #self.verify_wrong_otp_msg()

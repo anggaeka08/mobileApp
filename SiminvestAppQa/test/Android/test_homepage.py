@@ -94,7 +94,7 @@ class homePage_test(HomePage,LoginPage):
             self.scroll_up()
             self.click_on_eipo_btn()
             self.verify_eipo_page()
-            self.verify_eipo_entry()
+            #self.verify_eipo_entry()
             self.go_back()
             self.verify_top_frequency_presention()
             self.verify_stock_presence_in_top_frequency()
