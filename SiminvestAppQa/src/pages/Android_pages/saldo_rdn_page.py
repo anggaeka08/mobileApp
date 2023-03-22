@@ -47,18 +47,36 @@ class SaldoRdn(HomePage):
 
     @allure.step("Swipe down to close top up page")
     def swipe_down_to_close_top_up_page(self):
-        first_coordinate = self.get_attribute(up_head_sign, 'bounds')
+        first_coordinate = self.get_attribute(top_up_header, 'bounds')
         lst_1 = first_coordinate.split(',')
         first_x = int(lst_1[0][1:])
-        first_y = int(lst_1[1][0:4])
-        second_coordinate = self.get_attribute(bank_title, 'bounds')
+        first_y = int(lst_1[1][0:3])
+        second_coordinate = self.get_attribute('TopupPageBankImage', 'bounds')
         lst_2 = second_coordinate.split(',')
         sec_x = int(lst_2[0][1:])
         sec_y = int(lst_2[1][0:4])
         # logger.info(f'{second_coordinate} {type(second_coordinate)} {second_coordinate[1]}')
         # logger.info(f'{fist_coordinate} {type(fist_coordinate)} {fist_coordinate[1]}')
-        self.scroll_screen(start_x=first_x, start_y=first_y, end_x=sec_x, end_y=sec_y, duration=5000)
+        self.scroll_screen(start_x=first_x, start_y=first_y, end_x=sec_x, end_y=sec_y, duration=10000)
         self.sleep(2)
+
+    @allure.step("Tap outside of half card")
+    def tap_out_side_of_half_acrd(self):
+        first_coordinate = self.get_attribute(up_head_sign, 'bounds')
+        lst_1 = first_coordinate.split(',')
+        first_x = int(lst_1[0][1:])
+        first_y = (int(lst_1[1][0:3])) - 37
+        self.tap_by_coordinates(first_x,first_y)
+
+    @allure.step("Verify arrow btn on top up page")
+    def verify_arrow_btn_on_top_up_page(self):
+        self.assert_equal(self.is_element_visible(simobi_text_1), True)
+        self.click(simobi_arrow)
+        self.assert_equal(self.is_element_visible(simobi_text_1), False)
+        self.click(bank_arrow)
+        self.assert_equal(self.is_element_visible(bank_text_1), True)
+        self.click(bank_arrow)
+        self.assert_equal(self.is_element_visible(bank_text_1), False)
 
     @allure.step("validate all btn on rdn balance page")
     def validate_all_btn_on_rdn_balance_page(self):
@@ -79,9 +97,26 @@ class SaldoRdn(HomePage):
         self.verify_topup_page()
         self.swipe_down_to_close_top_up_page()
         self.verify_rdn_homePage()
-
-
-
+        self.click(top_up_btn)
+        self.verify_topup_page()
+        self.verify_arrow_btn_on_top_up_page()
+        self.tap_out_side_of_half_acrd()
+        self.verify_rdn_homePage()
+        self.click(tarik_dana_btn)
+        self.verify_tarik_dana_page()
+        self.go_back()
+        self.verify_rdn_homePage()
+        self.click(tarik_dana_btn)
+        self.verify_tarik_dana_page()
+        self.click(tarik_page_back_btn)
+        self.verify_rdn_homePage()
+        self.click(riwayat_btn)
+        self.verify_riwayat_page()
+        self.go_back()
+        self.verify_rdn_homePage()
+        self.click(riwayat_btn)
+        self.click(riwayat_page_back_btn)
+        self.verify_rdn_homePage()
 
 
 
