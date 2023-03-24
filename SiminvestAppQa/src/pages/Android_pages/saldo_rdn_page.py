@@ -18,6 +18,12 @@ rdn_back_btn = "//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.
 top_up_btn = "RdnBalanceTopIcon"
 tarik_dana_btn = 'RdnBalanceTarikIcon'
 riwayat_btn = 'RdnBalanceRiwayatIcon'
+rdn_fund_account_text = 'RdnBalanceFundAccNumber'
+rdn_update_msg = 'RdnBalanceUpdateMsg'
+homepage_rdn_balance_l = 'HomePageRdnValue'
+bank_name = 'RdnBalanceBankName'
+account_owner_name = 'RdnBalanceBankOwner'
+bank_acc_number = 'RdnBalanceAccNumber'
 #Top up page locators
 top_up_header = "TopupPageHeader"
 simobi_arrow = "TopupPageSimobiOpenIcon"
@@ -117,6 +123,38 @@ class SaldoRdn(HomePage):
         self.click(riwayat_btn)
         self.click(riwayat_page_back_btn)
         self.verify_rdn_homePage()
+
+    @allure.step("Scroll down rdn page")
+    def scroll_down_rdn_page(self):
+        first_coordinate = self.get_attribute(rdn_balance, 'bounds')
+        lst_1 = first_coordinate.split(',')
+        first_x = int(lst_1[0][1:])
+        first_y = int(lst_1[1][0:3])
+        second_coordinate = self.get_attribute(rdn_fund_account_text, 'bounds')
+        lst_2 = second_coordinate.split(',')
+        sec_x = int(lst_2[0][1:])
+        sec_y = int(lst_2[1][0:4])
+        # logger.info(f'{second_coordinate} {type(second_coordinate)} {second_coordinate[1]}')
+        # logger.info(f'{fist_coordinate} {type(fist_coordinate)} {fist_coordinate[1]}')
+        self.scroll_screen(start_x=first_x, start_y=first_y, end_x=sec_x, end_y=sec_y, duration=10000)
+        self.sleep(2)
+
+    @allure.step("Functional validation of rdn page")
+    def functional_validation_of_rdn_page(self):
+        self.assert_equal(self.get_attribute(rdn_update_msg, 'text'), 'Last updated a few seconds ago')
+        self.scroll_down_rdn_page()
+        self.assert_equal(self.get_attribute(rdn_update_msg, 'text'), 'Last updated a few seconds ago')
+        self.assert_equal(self.is_element_visible(rdn_balance), True)
+        self.go_back()
+        self.verify_home_page_reg_user()
+        rdn_balance_homepage = self.get_attribute(homepage_rdn_balance_l, 'text')
+        self.click(saldo_rdn_btn)
+        rdn_balance_rdn_page = self.get_attribute(rdn_balance, 'text')
+        self.assert_equal(rdn_balance_homepage,rdn_balance_rdn_page)
+        self.assert_equal(self.get_attribute(bank_name, 'text'), 'SINARMAS')
+        self.assert_equal(self.get_attribute(account_owner_name, 'text'), 'Testing Siminvest 1')
+        self.assert_equal(self.get_attribute(bank_acc_number, 'text'), '0016428639')
+
 
 
 
