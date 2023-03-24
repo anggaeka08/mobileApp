@@ -24,6 +24,15 @@ homepage_rdn_balance_l = 'HomePageRdnValue'
 bank_name = 'RdnBalanceBankName'
 account_owner_name = 'RdnBalanceBankOwner'
 bank_acc_number = 'RdnBalanceAccNumber'
+saldo_efektif = '//android.widget.TextView[@text="Saldo efektif"]'
+top_up_text = 'RdnBalanceTopBtn'
+tarik_dana_text = 'RdnBalanceTarikBtn'
+riwyat_text = 'RdnBalanceRiwayatBtn'
+informasi_saldo_text = 'RdnBalanceSaldo'
+informasi_rekening = 'RdnBalanceRekening'
+bank_name_text = 'RdnBalanceIssuingBank'
+bank_acc_owner_text = 'RdnBalanceAccOwner'
+bank_acc_number_text ='RdnBalanceFundAccNumber'
 #Top up page locators
 top_up_header = "TopupPageHeader"
 simobi_arrow = "TopupPageSimobiOpenIcon"
@@ -154,6 +163,23 @@ class SaldoRdn(HomePage):
         self.assert_equal(self.get_attribute(bank_name, 'text'), 'SINARMAS')
         self.assert_equal(self.get_attribute(account_owner_name, 'text'), 'Testing Siminvest 1')
         self.assert_equal(self.get_attribute(bank_acc_number, 'text'), '0016428639')
+
+    @allure.step("ui validation for rdn page")
+    def ui_validation_for_rdn_page(self):
+        self.assert_equal(self.get_attribute(rdn_header, 'text'), 'RDN Balance')
+        self.assert_equal(self.get_attribute(saldo_efektif, 'text'), 'Saldo efektif')
+        self.assert_equal(self.get_attribute(top_up_text, 'text'), 'Top up')
+        self.assert_equal(self.get_attribute(riwyat_text, 'text'), 'Riwayat')
+        self.assert_equal(self.get_attribute(tarik_dana_text, 'text'), 'Tarik dana')
+        self.assert_equal(self.get_attribute(informasi_saldo_text, 'text'), 'Informasi saldo')
+        for i in range(0,5):
+            self.assert_equal(self.get_attribute(f'RdnBalanceText{i}', 'text'), f'Dana T+{i}')
+            self.assert_equal(self.get_attribute(f'RdnBalanceText{i}Amount', 'text'), 'Rp 0')
+        self.assert_equal(self.get_attribute(informasi_rekening, 'text'), 'Informasi rekening')
+        self.assert_equal(self.get_attribute(bank_name_text, 'text'), 'Bank Penerbit')
+        self.assert_equal(self.get_attribute(bank_acc_owner_text, 'text'), 'Nama Pemilik Akun')
+        self.assert_equal(self.get_attribute(bank_acc_number_text, 'text'), 'Nomor Rekening Dana \nNasabah')
+
 
 
 
