@@ -48,6 +48,12 @@ bank_title = 'TopupPageBankTitle'
 #Tarik dana page locators
 tarik_dana_header = "Tarik DanaHeader"
 tarik_page_back_btn = "//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView[@index = '0']"
+dana_tersedia_text = "//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[1]"
+TarikPagePenarikan_text = 'TarikPagePenarikan'
+TarikPageTransfer_text = 'TarikPageTransfer'
+tariK_msg_text = 'TarikPageText1'
+TarikPageNominal_text = 'TarikPageNominal'
+tarik_dana_btn_tarik = '//android.view.ViewGroup[@content-desc="TarikPageBtn"]/android.widget.TextView'
 #Riwayat page locators
 riwayat_header = 'RiwayatHeader'
 riwayat_page_back_btn = "//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView[@index = '0']"
@@ -208,6 +214,16 @@ class SaldoRdn(HomePage):
         self.assert_equal(bank_name_profile, bank_name_rdn)
         self.assert_equal(account_owner_name_profile, account_owner_name_rdn)
         self.assert_equal(bank_acc_number_profile, bank_acc_number_rdn)
+
+    @allure.step("validate ui for tarikDana page")
+    def validate_ui_for_tarikDana_page(self):
+        self.assert_equal(self.get_attribute(tarik_dana_header, 'text'), 'Tarik Dana')
+        self.assert_equal(self.get_attribute(dana_tersedia_text, 'text'), 'Dana tersedia')
+        self.assert_equal(self.get_attribute(TarikPagePenarikan_text, 'text'), 'Penarikan dari RDN')
+        self.assert_equal(self.get_attribute(TarikPageTransfer_text, 'text'), 'Transfer Ke Rekening')
+        self.assert_equal(self.get_attribute(tariK_msg_text, 'text'), 'Permintaan penarikkan dana diatas pukul 11.00 WIB akan di proses di hari kerja bursa berikutnya.')
+        self.assert_equal(self.get_attribute(TarikPageNominal_text, 'text'), 'Nominal Penarikan (Min. Rp 100.000)')
+        self.assert_equal(self.get_attribute(tarik_dana_btn_tarik, 'text'), 'Tarik Dana')
 
 
 
