@@ -33,6 +33,10 @@ informasi_rekening = 'RdnBalanceRekening'
 bank_name_text = 'RdnBalanceIssuingBank'
 bank_acc_owner_text = 'RdnBalanceAccOwner'
 bank_acc_number_text ='RdnBalanceFundAccNumber'
+profile_btn = '//android.widget.TextView[@text="Profile"]'
+informasi_profile = 'ProfilePageEntry2'
+profile_name = 'ScreenProfilePageName'
+homepage_btn = '//android.widget.TextView[@text="Home"]'
 #Top up page locators
 top_up_header = "TopupPageHeader"
 simobi_arrow = "TopupPageSimobiOpenIcon"
@@ -180,7 +184,30 @@ class SaldoRdn(HomePage):
         self.assert_equal(self.get_attribute(bank_acc_owner_text, 'text'), 'Nama Pemilik Akun')
         self.assert_equal(self.get_attribute(bank_acc_number_text, 'text'), 'Nomor Rekening Dana \nNasabah')
 
-
+    @allure.step("Data comparison between homepage , profile page and rdn page")
+    def data_comparison_btw_homepage_profile_and_rdn_page(self):
+        rp_homepage = self.get_attribute(homepage_rdn_balance_l, 'text')
+        self.click(profile_btn)
+        self.sleep(2)
+        self.click(informasi_profile)
+        rp_profile_page = self.get_attribute(rdn_balance, 'text')
+        bank_name_profile = self.get_attribute(bank_name, 'text')
+        account_owner_name_profile = self.get_attribute(account_owner_name, 'text')
+        bank_acc_number_profile = self.get_attribute(bank_acc_number, 'text')
+        self.go_back()
+        self.assert_equal(self.is_element_visible(profile_name), True)
+        self.click(homepage_btn)
+        self.sleep(2)
+        self.click_on_saldo_rdn_btn()
+        rp_rdn = self.get_attribute(rdn_balance, 'text')
+        bank_name_rdn = self.get_attribute(bank_name, 'text')
+        account_owner_name_rdn = self.get_attribute(account_owner_name, 'text')
+        bank_acc_number_rdn = self.get_attribute(bank_acc_number, 'text')
+        self.assert_equal(rp_homepage, rp_profile_page)
+        self.assert_equal(rp_homepage, rp_rdn)
+        self.assert_equal(bank_name_profile, bank_name_rdn)
+        self.assert_equal(account_owner_name_profile, account_owner_name_rdn)
+        self.assert_equal(bank_acc_number_profile, bank_acc_number_rdn)
 
 
 
