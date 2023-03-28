@@ -33,6 +33,10 @@ informasi_rekening = 'RdnBalanceRekening'
 bank_name_text = 'RdnBalanceIssuingBank'
 bank_acc_owner_text = 'RdnBalanceAccOwner'
 bank_acc_number_text ='RdnBalanceFundAccNumber'
+profile_btn = '//android.widget.TextView[@text="Profile"]'
+informasi_profile = 'ProfilePageEntry2'
+profile_name = 'ScreenProfilePageName'
+homepage_btn = '//android.widget.TextView[@text="Home"]'
 #Top up page locators
 top_up_header = "TopupPageHeader"
 simobi_arrow = "TopupPageSimobiOpenIcon"
@@ -44,6 +48,12 @@ bank_title = 'TopupPageBankTitle'
 #Tarik dana page locators
 tarik_dana_header = "Tarik DanaHeader"
 tarik_page_back_btn = "//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView[@index = '0']"
+dana_tersedia_text = "//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[1]"
+TarikPagePenarikan_text = 'TarikPagePenarikan'
+TarikPageTransfer_text = 'TarikPageTransfer'
+tariK_msg_text = 'TarikPageText1'
+TarikPageNominal_text = 'TarikPageNominal'
+tarik_dana_btn_tarik = '//android.view.ViewGroup[@content-desc="TarikPageBtn"]/android.widget.TextView'
 #Riwayat page locators
 riwayat_header = 'RiwayatHeader'
 riwayat_page_back_btn = "//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView[@index = '0']"
@@ -180,7 +190,40 @@ class SaldoRdn(HomePage):
         self.assert_equal(self.get_attribute(bank_acc_owner_text, 'text'), 'Nama Pemilik Akun')
         self.assert_equal(self.get_attribute(bank_acc_number_text, 'text'), 'Nomor Rekening Dana \nNasabah')
 
+    @allure.step("Data comparison between homepage , profile page and rdn page")
+    def data_comparison_btw_homepage_profile_and_rdn_page(self):
+        rp_homepage = self.get_attribute(homepage_rdn_balance_l, 'text')
+        self.click(profile_btn)
+        self.sleep(2)
+        self.click(informasi_profile)
+        rp_profile_page = self.get_attribute(rdn_balance, 'text')
+        bank_name_profile = self.get_attribute(bank_name, 'text')
+        account_owner_name_profile = self.get_attribute(account_owner_name, 'text')
+        bank_acc_number_profile = self.get_attribute(bank_acc_number, 'text')
+        self.go_back()
+        self.assert_equal(self.is_element_visible(profile_name), True)
+        self.click(homepage_btn)
+        self.sleep(2)
+        self.click_on_saldo_rdn_btn()
+        rp_rdn = self.get_attribute(rdn_balance, 'text')
+        bank_name_rdn = self.get_attribute(bank_name, 'text')
+        account_owner_name_rdn = self.get_attribute(account_owner_name, 'text')
+        bank_acc_number_rdn = self.get_attribute(bank_acc_number, 'text')
+        self.assert_equal(rp_homepage, rp_profile_page)
+        self.assert_equal(rp_homepage, rp_rdn)
+        self.assert_equal(bank_name_profile, bank_name_rdn)
+        self.assert_equal(account_owner_name_profile, account_owner_name_rdn)
+        self.assert_equal(bank_acc_number_profile, bank_acc_number_rdn)
 
+    @allure.step("validate ui for tarikDana page")
+    def validate_ui_for_tarikDana_page(self):
+        self.assert_equal(self.get_attribute(tarik_dana_header, 'text'), 'Tarik Dana')
+        self.assert_equal(self.get_attribute(dana_tersedia_text, 'text'), 'Dana tersedia')
+        self.assert_equal(self.get_attribute(TarikPagePenarikan_text, 'text'), 'Penarikan dari RDN')
+        self.assert_equal(self.get_attribute(TarikPageTransfer_text, 'text'), 'Transfer Ke Rekening')
+        self.assert_equal(self.get_attribute(tariK_msg_text, 'text'), 'Permintaan penarikkan dana diatas pukul 11.00 WIB akan di proses di hari kerja bursa berikutnya.')
+        self.assert_equal(self.get_attribute(TarikPageNominal_text, 'text'), 'Nominal Penarikan (Min. Rp 100.000)')
+        self.assert_equal(self.get_attribute(tarik_dana_btn_tarik, 'text'), 'Tarik Dana')
 
 
 

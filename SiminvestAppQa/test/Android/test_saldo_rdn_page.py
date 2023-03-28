@@ -50,7 +50,7 @@ class saldoRdn_test(SaldoRdn):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
-    #all btns related test case
+    #UI Validation test case
     @pytest.mark.ui_validation_RDN_page
     @pytest.mark.Android
     @pytest.mark.saldoRdn
@@ -68,5 +68,47 @@ class saldoRdn_test(SaldoRdn):
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
             self.save_screenshot('test_ui_validation_RDN_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    #data comparision test case
+    @pytest.mark.data_comparison_on_rdn_page
+    @pytest.mark.Android
+    @pytest.mark.saldoRdn
+    @allure.story("F-10:SaldoRdnPage")
+    def test_data_comparison_on_rdn_page(self):
+        try:
+            self.execute_script('lambda-name=test_data_comparision_on_rdn_page')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_3'])
+            self.data_comparison_btw_homepage_profile_and_rdn_page()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_data_comparision_on_rdn_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_data_comparision_on_rdn_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    #UI functionality of Withdrawal page.
+    @pytest.mark.ui_functionality_of_withdrawal_page
+    @pytest.mark.Android
+    @pytest.mark.saldoRdn
+    @allure.story("F-10:SaldoRdnPage")
+    def test_ui_functionality_of_withdrawal_page(self):
+        try:
+            self.execute_script('lambda-name=ui_functionality_of_withdrawal_page')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
+            self.click_on_saldo_rdn_btn()
+            self.click_on_tarik_dana_btn()
+            self.validate_ui_for_tarikDana_page()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('ui_functionality_of_withdrawal_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('ui_functionality_of_withdrawal_page', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
