@@ -112,3 +112,24 @@ class saldoRdn_test(SaldoRdn):
             self.save_screenshot('ui_functionality_of_withdrawal_page', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    #UI functionality of Withdrawal page.
+    @pytest.mark.functional_feature_of_withdrawal_page
+    @pytest.mark.Android
+    @pytest.mark.saldoRdn
+    @allure.story("F-10:SaldoRdnPage")
+    def test_functional_feature_of_withdrawal_page(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_withdrawal_page')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
+            self.click_on_saldo_rdn_btn()
+            self.validate_functional_feature_of_tarikDana_page()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_withdrawal_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_withdrawal_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)

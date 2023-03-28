@@ -13,7 +13,7 @@ cp = [
 {
     "app":"lt://APP1016046941679313939999330",
     "platformName": "Android",
-    "deviceName": "Pixel 3 XL",
+    "deviceName": "Google Pixel 3",
     "platformVersion": "10",
     "build": "Testing 1.77.1 (361)",
     "name": "Testing Test Cases",
