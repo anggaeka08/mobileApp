@@ -54,6 +54,11 @@ TarikPageTransfer_text = 'TarikPageTransfer'
 tariK_msg_text = 'TarikPageText1'
 TarikPageNominal_text = 'TarikPageNominal'
 tarik_dana_btn_tarik = '//android.view.ViewGroup[@content-desc="TarikPageBtn"]/android.widget.TextView'
+tarik_dana_rdn = 'TarikPageRpValue'
+nominal_msg_after_click = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView'
+rp_sign_after_value = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[2]'
+tarik_dana_page_btn = 'TarikPageBtn'
+ok_btn = "//*[@text='OK']"
 #Riwayat page locators
 riwayat_header = 'RiwayatHeader'
 riwayat_page_back_btn = "//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView[@index = '0']"
@@ -224,6 +229,37 @@ class SaldoRdn(HomePage):
         self.assert_equal(self.get_attribute(tariK_msg_text, 'text'), 'Permintaan penarikkan dana diatas pukul 11.00 WIB akan di proses di hari kerja bursa berikutnya.')
         self.assert_equal(self.get_attribute(TarikPageNominal_text, 'text'), 'Nominal Penarikan (Min. Rp 100.000)')
         self.assert_equal(self.get_attribute(tarik_dana_btn_tarik, 'text'), 'Tarik Dana')
+
+    @allure.step("validate functional feature of tarikDana page")
+    def validate_functional_feature_of_tarikDana_page(self):
+        rdn_homepage = self.get_attribute(rdn_balance, 'text')
+        rdn_balance_without_rp = int((rdn_homepage[3:]).replace(',', ''))
+        self.click(tarik_dana_btn)
+        rdn_tarik = self.get_attribute(tarik_dana_rdn, 'text')
+        rdn_tarik_without_rp = int((rdn_tarik[3:]).replace(',', ''))
+        self.assert_equal(rdn_tarik_without_rp, rdn_balance_without_rp-1)
+        limit_msg = self.get_attribute(TarikPageNominal_text, 'text')
+        self.assert_equal(limit_msg , 'Nominal Penarikan (Min. Rp 100.000)')
+        self.click(TarikPageNominal_text)
+        self.assert_equal(self.get_attribute(nominal_msg_after_click, 'text') , 'Nominal Penarikan (Min. Rp 100.000)')
+        self.set_text(TarikPageNominal_text,'100')
+        self.assert_equal(self.get_attribute(nominal_msg_after_click, 'text') , 'Nominal Penarikan (Min. Rp 100.000)')
+        self.assert_not_equal(self.get_attribute(TarikPageNominal_text, 'text') , 'Nominal Penarikan (Min. Rp 100.000)')
+        self.assert_equal(self.get_attribute(rp_sign_after_value, 'text'), 'Rp')
+        self.click(tariK_msg_text)
+        self.click(tarik_dana_page_btn)
+        self.verify_tarik_dana_page()
+        self.clear_text(TarikPageNominal_text)
+        self.assert_equal(self.get_attribute(nominal_msg_after_click, 'text') , 'Nominal Penarikan (Min. Rp 100.000)')
+        self.set_text(TarikPageNominal_text, '100000')
+        self.click(tariK_msg_text)
+        self.click(tarik_dana_page_btn)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(ok_btn), True)
+        self.click(ok_btn)
+        self.sleep(2)
+        self.verify_riwayat_page()
+
 
 
 
