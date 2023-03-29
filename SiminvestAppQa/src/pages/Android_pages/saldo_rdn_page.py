@@ -260,6 +260,25 @@ class SaldoRdn(HomePage):
         self.sleep(2)
         self.verify_riwayat_page()
 
+    @allure.step("Btn validation on tarikDana Page")
+    def btn_validation_on_tarikDana_page(self):
+        self.click_on_tarik_dana_btn()
+        self.verify_tarik_dana_page()
+        self.click(rdn_back_btn)
+        self.verify_rdn_homePage()
+        self.click_on_tarik_dana_btn()
+        self.verify_tarik_dana_page()
+        self.click(TarikPageNominal_text)
+        self.set_text(TarikPageNominal_text, '100')
+        self.assert_equal(self.get_attribute(nominal_msg_after_click, 'text') , 'Nominal Penarikan (Min. Rp 100.000)')
+        self.verify_keyboard_on_off(True)
+        self.click(tariK_msg_text)
+        self.verify_keyboard_on_off(False)
+        self.assert_equal(self.get_attribute(nominal_msg_after_click, 'text'), 'Nominal Penarikan (Min. Rp 100.000)')
+        self.click(TarikPageNominal_text)
+        self.verify_keyboard_on_off(True)
+
+
 
 
 
