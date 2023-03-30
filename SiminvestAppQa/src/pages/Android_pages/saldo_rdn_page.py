@@ -1,15 +1,10 @@
-import pytest
-from selenium.common.exceptions import InvalidElementStateException
-from datetime import datetime
-from SiminvestAppQa.src.data.userData import user_data
+from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
 import time
+from SiminvestAppQa.src.data.userData import user_data
 import allure
-from datetime import timedelta
-from datetime import date
-import logging as logger
-from  numerize import numerize
 
+request_utilities = RequestsUtilities()
 #locators
 saldo_rdn_btn = "HomePageRDN"
 rdn_balance = 'RdnBalanceValue'
@@ -59,9 +54,12 @@ nominal_msg_after_click = '//android.view.ViewGroup/android.view.ViewGroup/andro
 rp_sign_after_value = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[2]'
 tarik_dana_page_btn = 'TarikPageBtn'
 ok_btn = "//*[@text='OK']"
+fund_transfer_bank = 'FundBankTextStr'
 #Riwayat page locators
 riwayat_header = 'RiwayatHeader'
 riwayat_page_back_btn = "//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView[@index = '0']"
+riwayat_entry_1 = 'RiwayatPageEntry0'
+riwayat_entry_1_amount = 'RiwayatPageRpValue0'
 
 class SaldoRdn(HomePage):
 
@@ -277,6 +275,48 @@ class SaldoRdn(HomePage):
         self.assert_equal(self.get_attribute(nominal_msg_after_click, 'text'), 'Nominal Penarikan (Min. Rp 100.000)')
         self.click(TarikPageNominal_text)
         self.verify_keyboard_on_off(True)
+
+    @allure.step("API data validation")
+    def api_data_validation(self):
+        rdn_value_all = self.get_attribute(rdn_balance, 'text')
+        rdn_value = int((rdn_value_all[3:]).replace(',',''))
+        bank_account_name = self.get_attribute(account_owner_name, 'text')
+        bank_name_rdn = self.get_attribute(bank_name, 'text')
+        bank_account__number_rdn = self.get_attribute(bank_acc_number, 'text')
+        self.click(tarik_dana_btn)
+        name_of_bank_in_rekeraing_all = self.get_attribute(fund_transfer_bank, 'text')
+        name_of_bank_in_rekeraing= name_of_bank_in_rekeraing_all[:3]
+        number_of_bank_in_rekeraing= name_of_bank_in_rekeraing_all[6:]
+        self.go_back()
+        self.click(riwayat_btn)
+        if self.is_element_visible(riwayat_entry_1) == True:
+            riwayat_amount_rp = self.get_attribute(riwayat_entry_1_amount, 'text')
+            riwayat_amount = int((riwayat_amount_rp[3:]).replace(',', ''))
+
+        token_value = self.login_with_a_number(user_data['reg_no_3'])
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        portfolio_equity_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='api/v1/users/portfolios/equities/53617', headers=token,expected_status_code=202)
+        rdn_balance_api = portfolio_equity_rs['data']['cash_balance']
+        user_account_res = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint=f"api/v1/users/account/{user_data['reg_no_3']}", headers=token,expected_status_code=200)
+        user_name = user_account_res['full_name']
+        rdn_user_account_res = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint="api/v1/users/rdn?account_id=45997", headers=token,expected_status_code=200)
+        bank_name_api=rdn_user_account_res['data']['rdn_bank']
+        bank_account_name_api = rdn_user_account_res['data']['bank_account_name']
+        rekening_bank_name = rdn_user_account_res['data']['bank_name']
+        rekening_bank_number = rdn_user_account_res['data']['bank_account_number']
+        rdn_account_number = rdn_user_account_res['data']['rdn_account']
+        withdraw_history_res = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint=f"api/v1/users/rdn/history?page=1", headers=token,expected_status_code=200)
+        withdraw_history_account = withdraw_history_res['data']['statements'][0]['amount']
+        self.assert_equal(rdn_value, rdn_balance_api)
+        self.assert_equal(bank_name_rdn, bank_name_api)
+        self.assert_equal(bank_account_name, bank_account_name_api)
+        self.assert_equal(bank_account__number_rdn, rdn_account_number)
+        self.assert_equal(name_of_bank_in_rekeraing, rekening_bank_name)
+        self.assert_equal(number_of_bank_in_rekeraing, rekening_bank_number)
+        #self.assert_equal(withdraw_history_account, riwayat_amount)
+
+
 
 
 
