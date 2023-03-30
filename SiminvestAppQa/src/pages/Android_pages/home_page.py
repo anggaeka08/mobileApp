@@ -25,7 +25,7 @@ sdp_keystate = "//android.widget.TextView[@text='Keystats']"
 sdp_profile = "//android.widget.TextView[@text='Financials']"
 sdp_bit = "//android.widget.TextView[@text='Bid']"
 mf_saerched_entry = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup'
-mf_header = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
+mf_header = '//android.widget.TextView[@text="Simas Saham Bertumbuh"]'
 #RDN Balance page locators
 saldo_rdn_btn = 'HomePageRDN'
 rdn_balance_page_header = 'RdnBalanceHeader'
