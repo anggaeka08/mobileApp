@@ -13,7 +13,7 @@ cp = [
 {
     "app":"lt://APP1016046941680173474501548",
     "platformName": "Android",
-    "deviceName": "Pixel [3*]",
+    "deviceName": "Pixel.*",
     "platformVersion": "10",
     "build": "Regression 1.78.0 (363)",
     "name": "Regression Test Cases",
