@@ -2,7 +2,7 @@ cp = [
 {
     "app":"lt://APP1016046941680173474501548",
     "platformName": "Android",
-    "deviceName": "Google Pixel 3",
+    "deviceName": "Pixel [3*]",
     "platformVersion": "9",
     "build": "Regression 1.78.0 (363)",
     "name": "Regression Test Cases",
@@ -13,7 +13,7 @@ cp = [
 {
     "app":"lt://APP1016046941680173474501548",
     "platformName": "Android",
-    "deviceName": "Google Pixel 3",
+    "deviceName": "Pixel [3*]",
     "platformVersion": "10",
     "build": "Regression 1.78.0 (363)",
     "name": "Regression Test Cases",
