@@ -771,7 +771,7 @@ class HomePage(LoginPage):
         homepage_rp_with_rp = self.get_attribute(homepage_rp, 'text')
         homepage_rp_value = homepage_rp_with_rp[3:]
         buying_power_with_buy = self.get_attribute(Buying_Power, 'text')
-        buying_power = (buying_power_with_buy[13:]).replace(',', '')
+        buying_power = (buying_power_with_buy[16:]).replace(',', '')
         IHSG_value = (self.get_attribute(homepage_stock_value, 'text')).replace(',', '')
         token_value = self.login()
         token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}

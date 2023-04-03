@@ -5,7 +5,7 @@ from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.saldo_rdn_page import SaldoRdn
 
 
-@pytest.mark.usefixtures("_unittest_setUpClass_fixture_saldoRdn_test")
+
 class saldoRdn_test(SaldoRdn):
 
     #all btns related test case

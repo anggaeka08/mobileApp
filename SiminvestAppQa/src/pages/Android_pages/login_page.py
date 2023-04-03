@@ -68,9 +68,9 @@ wrong_number_text = 'WrongNumText'
 wrong_otp_msg = "//android.widget.TextView[@text='OTP Salah. Silahkan ulangi lagi']"
 wrong_otp_msg_text ='OTP Salah. Silahkan ulangi lagi'
 ignore_btn = "//android.widget.Button[@text= 'IGNORE']"
-kirim_otp = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
-selanjutnya_otp_sel = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
-back_btn = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
+kirim_otp = "//android.widget.TextView[contains(@text, 'Kirim OTP via')]"
+selanjutnya_otp_sel = '//android.widget.TextView[contains(@text = "SELANJUTNYA")]'
+back_btn = "//android.view.ViewGroup/android.widget.ImageView[@index ='0']"
 navigate_up = 'Navigate up'
 bio_on_off = "//android.widget.TextView[@text = 'Nanti Saja']"
 close_banner = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView'
@@ -283,7 +283,7 @@ class LoginPage(BaseCase):
     @allure.step("verify starting page")
     def verify_starting_page(self):
         self.sleep(3)
-        #self.tap(ignore_btn)
+        self.tap(ignore_btn)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(mulai_sekarang), True)
 
