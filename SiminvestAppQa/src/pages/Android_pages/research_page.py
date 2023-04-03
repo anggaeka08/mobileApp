@@ -9,15 +9,15 @@ search_btn ='ResearchPageSearchBtn'
 search_option = 'StockSearch'
 last_report_search = '//android.widget.TextView[@text="Last Report"]'
 news_search = '//android.widget.TextView[@text="News"]'
-news_entry = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView'
-last_reports_entry = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]'
+news_entry = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView'
+last_reports_entry = 'ResearchPageReportEntry0'
 stock_signal = 'ResearchPageTabHeader0'
 last_report='ResearchPageTabHeader1'
 news='ResearchPageTabHeader2'
 media = 'ResearchPageTabHeader3'
 news_entry_research = 'ResearchPageNewsEnrty0'
 media_entry_title='ResearchPageMediaTitle0'
-search_entry = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView'
+search_entry = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView'
 daily_search= 'ResearchPageReportDailySearchText'
 daily_search_header='//android.widget.TextView[@text = "Daily Research"]'
 red_dont0_SS = 'ResearchPageSignalEntry0UnreadMark'
@@ -110,7 +110,7 @@ class Research(HomePage):
         self.click(news)
         self.sleep(2)
         for i in range(9):
-            self.assert_equal(self.is_element_visible(f'ResearchPageNewsEnrty{i}'), True)
+            self.assert_equal(self.is_element_visible(f'ResearchPageNewsEnrty{i}Title'), True)
             if i == 5:
                 self.scroll_up()
 

@@ -5,7 +5,7 @@ from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.saldo_rdn_page import SaldoRdn
 
 
-@pytest.mark.usefixtures("_unittest_setUpClass_fixture_saldoRdn_test")
+
 class saldoRdn_test(SaldoRdn):
 
     #all btns related test case
@@ -152,5 +152,26 @@ class saldoRdn_test(SaldoRdn):
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
             self.save_screenshot('test_btn_test_on_tarikDana', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    #api data validation for saldo rdn.
+    @pytest.mark.api_data_validation
+    @pytest.mark.Android
+    @pytest.mark.saldoRdn
+    @allure.story("F-10:SaldoRdnPage")
+    def test_api_data_validation(self):
+        try:
+            self.execute_script('lambda-name=test_api_data_validation')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_3'])
+            self.click_on_saldo_rdn_btn()
+            self.api_data_validation()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_api_data_validation', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_api_data_validation', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)

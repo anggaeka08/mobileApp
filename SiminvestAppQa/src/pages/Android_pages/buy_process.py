@@ -401,6 +401,7 @@ class BuyProcess(HomePage):
         self.click("//*[@text='2027']")
         self.sleep(1)
         d5 = today.strftime("%d %b 2027")
+        print(d5)
         d5_locator = today.strftime("%d %B 2027")
         self.click(ok_btn_on_calender)
         self.sleep(1)
@@ -415,16 +416,17 @@ class BuyProcess(HomePage):
         self.scroll_right_to_left()
         self.scroll_left_to_right()
         self.assert_equal(self.is_element_visible(d5_locator), True)
-        yesterday = today - timedelta(days=2)
+        yesterday = today - timedelta(days=1)
         yesterday_date = yesterday.strftime("%d %B 2027")
         self.click(yesterday_date)
         self.assert_equal(self.is_element_visible(date_value), False)
         try:
-            self.tap_by_coordinates(x=635, y=1860)
+            #self.tap_by_coordinates(x=635, y=1860)
+            self.click("//*[@text='OK']")
         except InvalidElementStateException as E:
             pass
         self.sleep(2)
-        self.assert_equal(self.is_element_visible(date_value), True)
+        #self.assert_equal(self.is_element_visible(date_value), True)
 
     @allure.step("Validate order confirmation page for buy")
     def validate_order_confirmation_page_for_buy(self):

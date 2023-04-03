@@ -20,7 +20,7 @@ class mover_page_test(HomePage, LoginPage):
     @allure.story("F-6:MoverPage Feature")
     def test_validate_stock_mover_stock_on_homepage_KYC(self):
         try:
-            self.execute_script('lambda-name=test_validate_mover_stock_on_homepage')
+            self.execute_script('lambda-name=test_validate_stock_mover_stock_on_homepage_KYC')
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
             self.scroll_up()
             self.verify_top_frequency_presention()
@@ -29,11 +29,11 @@ class mover_page_test(HomePage, LoginPage):
             self.verify_all_value_on_half_card_and_tick_for_kyc_user(user_data['reg_no'])
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
-            self.save_screenshot('test_validate_mover_stock_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_validate_stock_mover_stock_on_homepage_KYC', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
-            self.save_screenshot('test_validate_mover_stock_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_validate_stock_mover_stock_on_homepage_KYC', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
@@ -45,7 +45,7 @@ class mover_page_test(HomePage, LoginPage):
     @allure.story("F-6:MoverPage Feature")
     def test_validate_mover_stock_on_homepage_Non_KYC(self):
         try:
-            self.execute_script('lambda-name=test_validate_mover_stock_on_homepage')
+            self.execute_script('lambda-name=test_validate_mover_stock_on_homepage_Non_kyc')
             self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no'])
             self.scroll_up()
             self.verify_top_frequency_presention()
@@ -54,11 +54,11 @@ class mover_page_test(HomePage, LoginPage):
             self.verify_all_value_on_half_card_and_tick_for_non_kyc_user(user_data['unkyc_reg_no'])
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
-            self.save_screenshot('test_validate_mover_stock_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_validate_mover_stock_on_homepage_Non_kyc', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
-            self.save_screenshot('test_validate_mover_stock_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_validate_mover_stock_on_homepage_Non_kyc', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
@@ -71,7 +71,7 @@ class mover_page_test(HomePage, LoginPage):
     def test_validate_mover_stock_on_homepage_KYC(self):
         API_RS = self.verify_stock_on_mover_page_with_api_for_top_frequency()
         try:
-            self.execute_script('lambda-name=test_validate_mover_stock_on_homepage')
+            self.execute_script('lambda-name=test_validate_mover_stock_on_homepage_KYC')
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
             self.scroll_up()
             self.compare_the_stock_details_with_mover_page()
@@ -147,11 +147,11 @@ class mover_page_test(HomePage, LoginPage):
             self.assert_equal(check, True)
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
-            self.save_screenshot('test_validate_mover_stock_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_validate_mover_stock_on_homepage_KYC', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
-            self.save_screenshot('test_validate_mover_stock_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_validate_mover_stock_on_homepage_KYC', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 

@@ -19,7 +19,7 @@ class Watchlist_test(Watchlist):
         try:
             self.execute_script('lambda-name=test_validate_user_able_to_add_maximum_10_watchlist')
             self.go_to_watchlist_option_after_login(user_data['reg_no_2'])
-            self.scroll_up()
+            #self.scroll_up()
             self.verify_stock_code_and_name_in_watchlist_stocks()
             self.click_on_defaults_btn()
             #self.verify_watchlist_activation()

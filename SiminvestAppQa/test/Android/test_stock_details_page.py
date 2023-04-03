@@ -81,7 +81,9 @@ class SDP_test(StockDetailPage):
             self.click_stock_1_from_top_frequency_list()
             self.sleep(2)
             self.verify_sdp_page_after_back()
-            self.click_on_back_btn_on_SDP()
+            self.sleep(2)
+            #self.click_on_back_btn_on_SDP()
+            self.go_back()
             self.verify_home_page_reg_user_after_back_from_watchlist_new()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:

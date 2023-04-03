@@ -24,8 +24,8 @@ sdp_news = "//android.widget.TextView[@text='News']"
 sdp_keystate = "//android.widget.TextView[@text='Keystats']"
 sdp_profile = "//android.widget.TextView[@text='Financials']"
 sdp_bit = "//android.widget.TextView[@text='Bid']"
-mf_saerched_entry = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup'
-mf_header = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
+mf_saerched_entry = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup'
+mf_header = '//android.widget.TextView[@text="Simas Saham Bertumbuh"]'
 #RDN Balance page locators
 saldo_rdn_btn = 'HomePageRDN'
 rdn_balance_page_header = 'RdnBalanceHeader'
@@ -263,7 +263,7 @@ class HomePage(LoginPage):
         self.assert_equal(self.get_attribute(search_header, 'text'), 'REKSADANA')
         self.assert_equal(self.is_element_visible(mf_saerched_entry), True)
         self.click(mf_saerched_entry)
-        self.sleep(3)
+        self.sleep(5)
         self.assert_equal(self.is_element_visible(mf_header), True)
         self.go_back()
         self.sleep(3)
@@ -519,7 +519,7 @@ class HomePage(LoginPage):
 
     @allure.step("verify stock presence in top frequency")
     def verify_stock_presence_in_top_frequency(self):
-        self.scroll_up()
+        #self.scroll_up()
         top_frequency_stock_1_present = self.is_element_visible(top_frequency_stock_1)
         assert top_frequency_stock_1_present == True, f"top_frequency_stock_1 Should be present"
         top_frequency_stock_2_present = self.is_element_visible(top_frequency_stock_2)
@@ -725,7 +725,7 @@ class HomePage(LoginPage):
     @allure.step("verify username on homepage")
     def verify_username_on_homepage(self):
         username_on_homepage_text = self.get_attribute(username_on_homepage, "text")
-        self.assert_equal(username_on_homepage_text, "Hi, -")
+        self.assert_equal(username_on_homepage_text, "Hi, Testing")
 
     @allure.step("login and verify homepage for rg user")
     def login_and_verify_homepage_for_reg_user(self, phone_number):
@@ -771,7 +771,7 @@ class HomePage(LoginPage):
         homepage_rp_with_rp = self.get_attribute(homepage_rp, 'text')
         homepage_rp_value = homepage_rp_with_rp[3:]
         buying_power_with_buy = self.get_attribute(Buying_Power, 'text')
-        buying_power = (buying_power_with_buy[13:]).replace(',', '')
+        buying_power = (buying_power_with_buy[16:]).replace(',', '')
         IHSG_value = (self.get_attribute(homepage_stock_value, 'text')).replace(',', '')
         token_value = self.login()
         token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
@@ -807,6 +807,17 @@ class HomePage(LoginPage):
         base_url = 'https://stg-api.siminvest.co.id/'
         endpoint = 'api/v1/users/signin/phone'
         data = {"phone_number": "628445557108","pin": "123456","device_id": "3F4330E5-4F07-4A26-A710-A6552D583FE8"}
+        payload = json.dumps(data)
+        rs_api = request_utilities.post(base_url=base_url,endpoint=endpoint, payload=payload,expected_status_code=201)
+        logger.info(f"Given Endpoint : {endpoint} _______payload : {payload}___________ Response Body = {rs_api}")
+        return rs_api['data']['access_token']
+
+
+    @allure.step("Login with an user ")
+    def login_with_a_number(self, number):
+        base_url = 'https://stg-api.siminvest.co.id/'
+        endpoint = 'api/v1/users/signin/phone'
+        data = {"phone_number": f"62{number}","pin": "123456","device_id": "3F4330E5-4F07-4A26-A710-A6552D583FE8"}
         payload = json.dumps(data)
         rs_api = request_utilities.post(base_url=base_url,endpoint=endpoint, payload=payload,expected_status_code=201)
         logger.info(f"Given Endpoint : {endpoint} _______payload : {payload}___________ Response Body = {rs_api}")
