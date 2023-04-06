@@ -19,6 +19,7 @@ class BuyProcess_test(BuyProcess):
             self.check_for_buy_btn()
             self.click_on_buy_btn()
             self.verify_buy_page()
+            self.verify_lot_limit_in_buy_process()
             self.click_on_buy_btn_on_buy_page()
             self.click_on_confirm_btn()
             self.verify_market_timing(user_data['stock_code'][1], 'BELI')
@@ -81,6 +82,29 @@ class BuyProcess_test(BuyProcess):
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
             self.save_screenshot('test_positive_flow_for_sell', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    #lot limit in buy process
+    @pytest.mark.buy_process_for_non_kyc
+    @pytest.mark.Android
+    @pytest.mark.BuyProcess
+    @allure.story("F-11:BuyProcess")
+    def test_buy_process_for_non_kyc(self):
+        try:
+            self.execute_script('lambda-name=test_buy_process_for_non_kyc')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_3'], user_data['stock_code'][2])
+            self.check_for_buy_btn()
+            self.click_on_buy_btn()
+            self.verify_buy_page()
+            self.data_comparison_between_buy_page_and_OrderDP(user_data['stock_code'][2])
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_buy_process_for_non_kyc', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_buy_process_for_non_kyc', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 

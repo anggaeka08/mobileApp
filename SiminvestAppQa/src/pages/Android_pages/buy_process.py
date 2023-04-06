@@ -92,7 +92,7 @@ transaction_type_tran = 'transactionType_0'
 stock_code_on_portfolio = 'PortPageEntry0Code'
 transaction_entry ='order_list_entry_0'
 stock_code_oder = "//android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[1][@index='0']"
-stock_name_oder = "//android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[2][@index='0']"
+stock_name_oder = "//android.view.ViewGroup[3]/android.widget.TextView[2][@index='1']"
 harga_order = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[9][@index='13']"
 lot_order = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[11][@index='15']"
 
@@ -640,7 +640,7 @@ class BuyProcess(HomePage):
             self.assert_equal(self.get_attribute(transaction_type_tran, 'text'), 'BELI')
             self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
             self.click(transaction_entry)
-            self.sleep(2)
+            self.sleep(3)
             stock_code_o = self.get_attribute(stock_code_oder, 'text')
             stock_full_name_o = self.get_attribute(stock_name_oder, 'text')
             harga_o = self.get_attribute(harga_order, 'text')
@@ -654,6 +654,14 @@ class BuyProcess(HomePage):
             logger.info("Out of time")
             self.assert_equal(self.is_element_visible(exchange_notification), True)
             self.click_on_ok_btn_after_market_close()
+
+    @allure.step("verify lot limit in buy process")
+    def verify_lot_limit_in_buy_process(self):
+        self.update_text(lot_count, '5000000')
+        self.sleep(2)
+        lot_value = self.get_attribute(lot_count, 'text')
+        self.assert_equal(lot_value, '50,000')
+        self.update_text(lot_count, '1')
 
 
 
