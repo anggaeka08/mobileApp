@@ -723,14 +723,3 @@ class BuyProcess(HomePage):
             logger.info("Out of time")
             self.assert_equal(self.is_element_visible(exchange_notification), True)
             self.click_on_ok_btn_after_market_close()
-
-
-
-
-
-
-
-
-
-
-
