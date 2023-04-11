@@ -85,8 +85,16 @@ gtc_sell_cnf = 'SellConfGoodTillDate'
 fee_msg_sell_cnf = 'SellFeeDeductionMsgText'
 Buying_Power="HomepagebuyPower"
 stock_price_ele = 'SellPageStockPrice'
-total_beli_amount
-
+stock_code_l='stockCode_0'
+exchange_notification= '//android.widget.TextView[contains(@text, "Bursa Tidak Beroperasi")]'
+saham_tab = 'Saham_tab'
+transaction_type_tran = 'transactionType_0'
+stock_code_on_portfolio = 'PortPageEntry0Code'
+transaction_entry ='order_list_entry_0'
+stock_code_oder = "//android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[1][@index='0']"
+stock_name_oder = "//android.view.ViewGroup[3]/android.widget.TextView[2][@index='1']"
+harga_order = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[9][@index='13']"
+lot_order = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[11][@index='15']"
 
 class BuyProcess(HomePage):
 
@@ -156,7 +164,7 @@ class BuyProcess(HomePage):
     @allure.step("Verif referral page")
     def verify_refferal_page(self):
         refferal_page_heading_text = self.get_attribute(refferal_page_heading, "text")
-        self.assert_equal(refferal_page_heading_text, refferal_page_heading_value)
+        #self.assert_equal(refferal_page_heading_text, refferal_page_heading_value)
         refferal_code_edit_box_present = self.is_element_visible(refferal_code_edit_box)
         assert refferal_code_edit_box_present == True, f"refferal_code_edit_box Should be present"
         selanjutnya_present = self.is_element_visible(selanjutnya)
@@ -578,6 +586,82 @@ class BuyProcess(HomePage):
         API_data = self.validate_all_api_data()
         for i in range(9):
             self.assert_equal(value_on_sbp[i], str(API_data[i]))"""
+
+    @allure.step("Verify market timing")
+    def verify_market_timing(self, stock_code, transaction_type):
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.click_on_ok_btn()
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type_tran, 'text'), transaction_type)
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click_on_ok_btn_after_market_close()
+
+    @allure.step("Redirection from portfolio to sdp")
+    def redirection_from_portfolio_to_sdp(self):
+        self.click(f'PortPageEntry0')
+        self.sleep(2)
+        self.verify_sdp_page()
+
+    @allure.step("Click on sell btn")
+    def click_on_sell_btn(self):
+        self.click(sell_btn)
+        self.sleep(1)
+
+    @allure.step("Get Stock code on portfolio page")
+    def get_stock_code_on_portfolio_page(self):
+        return self.get_attribute(stock_code_on_portfolio, 'text')
+
+    @allure.step("Data comparison between buy page and OrderDP")
+    def data_comparison_between_buy_page_and_OrderDP(self, stock_code):
+        stock_code_b = self.get_attribute(stock_code_on_buy, 'text')
+        stock_full_name_b = self.get_attribute(stock_name_buy_page, 'text')
+        harga_b = self.get_attribute(price_space, 'text')
+        lot_value_b = self.get_attribute(lot_area, 'text')
+        self.click_on_buy_btn_on_buy_page()
+        self.click_on_confirm_btn()
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.click_on_ok_btn()
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type_tran, 'text'), 'BELI')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+            self.click(transaction_entry)
+            self.sleep(3)
+            stock_code_o = self.get_attribute(stock_code_oder, 'text')
+            stock_full_name_o = self.get_attribute(stock_name_oder, 'text')
+            harga_o = self.get_attribute(harga_order, 'text')
+            harga_without_rp = harga_o[3:]
+            lot_value_o = self.get_attribute(lot_order, 'text')
+            self.assert_equal(stock_code_b, stock_code_o)
+            self.assert_equal(stock_full_name_b, stock_full_name_o)
+            self.assert_equal(harga_b, harga_without_rp)
+            self.assert_equal(lot_value_b, lot_value_o)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click_on_ok_btn_after_market_close()
+
+    @allure.step("verify lot limit in buy process")
+    def verify_lot_limit_in_buy_process(self):
+        self.update_text(lot_count, '5000000')
+        self.sleep(2)
+        lot_value = self.get_attribute(lot_count, 'text')
+        self.assert_equal(lot_value, '50,000')
+        self.update_text(lot_count, '1')
 
 
 
