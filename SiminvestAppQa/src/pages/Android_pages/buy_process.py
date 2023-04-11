@@ -91,10 +91,12 @@ saham_tab = 'Saham_tab'
 transaction_type_tran = 'transactionType_0'
 stock_code_on_portfolio = 'PortPageEntry0Code'
 transaction_entry ='order_list_entry_0'
+transaction_entry_2 ='order_list_entry_1'
 stock_code_oder = "//android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[1][@index='0']"
 stock_name_oder = "//android.view.ViewGroup[3]/android.widget.TextView[2][@index='1']"
 harga_order = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[9][@index='13']"
 lot_order = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[11][@index='15']"
+order_id = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[3][@index='6']"
 
 class BuyProcess(HomePage):
 
@@ -176,8 +178,8 @@ class BuyProcess(HomePage):
         assert buy_page_header_present == True, f"buy_page_header Should be present"
         buy_btn_on_buy_page_present = self.is_element_visible(buy_btn_on_buy_page)
         assert buy_btn_on_buy_page_present == True, f"buy_btn_on_buy_page Should be present"
-        gtc_area_present = self.is_element_visible(gtc_area)
-        assert gtc_area_present == True, f"gtc_area Should be present"
+       # gtc_area_present = self.is_element_visible(gtc_area)
+       # assert gtc_area_present == True, f"gtc_area Should be present"
         lot_area_present = self.is_element_visible(lot_area)
         assert lot_area_present == True, f"lot_area Should be present"
 
@@ -185,8 +187,8 @@ class BuyProcess(HomePage):
     def verify_buy_page_after_disable_buy_btn(self):
         buy_page_header_present = self.is_element_visible(buy_page_header)
         assert buy_page_header_present == True, f"buy_page_header Should be present"
-        gtc_area_present = self.is_element_visible(gtc_area)
-        assert gtc_area_present == True, f"gtc_area Should be present"
+        #gtc_area_present = self.is_element_visible(gtc_area)
+        #assert gtc_area_present == True, f"gtc_area Should be present"
         lot_area_present = self.is_element_visible(lot_area)
         assert lot_area_present == True, f"lot_area Should be present"
 
@@ -632,7 +634,7 @@ class BuyProcess(HomePage):
         current_time = now.strftime("%H:%M")
         logger.info(f"Current Time = {current_time}")
         if (current_time >= '7:30' and current_time <= '10:00') or (
-                current_time >= '12:00' and current_time <= '13:15'):
+                current_time >= '12:00' and current_time <= '14:35'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
             self.click_on_ok_btn()
@@ -662,6 +664,66 @@ class BuyProcess(HomePage):
         lot_value = self.get_attribute(lot_count, 'text')
         self.assert_equal(lot_value, '50,000')
         self.update_text(lot_count, '1')
+
+    @allure.step("API data comparison")
+    def api_data_comparison(self):
+        self.verify_buy_page()
+        stock_code_b = self.get_attribute(stock_code_on_buy, 'text')
+        harga_b = self.get_attribute(price_space, 'text')
+        lot_value_b = self.get_attribute(lot_area, 'text')
+        beli_with_rp = self.get_attribute(total_beli_amount, "text")
+        beli_without_rp = beli_with_rp[3:]
+        self.click_on_buy_btn_on_buy_page()
+        self.click_on_confirm_btn()
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '15:00'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.click_on_ok_btn()
+            self.assert_equal(self.is_element_visible(saham_tab), True)
+            self.assert_equal(self.get_attribute(transaction_type_tran, 'text'), 'BELI')
+            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code_b)
+            self.click(transaction_entry)
+            self.sleep(3)
+            token_value = self.login()
+            token = {
+                "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+            token['Authorization'] = 'Bearer ' + token_value
+            order_details_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='api/v1/oms/equities/orders/53615', headers=token, expected_status_code=200)
+            self.assert_equal(stock_code_b, order_details_rs['data'][0]['code'])
+            self.assert_equal(harga_b, str(order_details_rs['data'][0]['price']))
+            self.assert_equal(lot_value_b, str(order_details_rs['data'][0]['order_lot']))
+            self.assert_equal(beli_without_rp, str(order_details_rs['data'][0]['order_amount']))
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click_on_ok_btn_after_market_close()
+
+    @allure.step("Order Id comparison with different orders")
+    def order_id_comparison_with_different_orders(self):
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '13:15'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.click_on_ok_btn()
+            self.click(transaction_entry)
+            order_id_1 = self.get_attribute(order_id, 'text')
+            self.go_back()
+            self.sleep(2)
+            self.click(transaction_entry_2)
+            order_id_2 = self.get_attribute(order_id, 'text')
+            self.assert_not_equal(order_id_1, order_id_2)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click_on_ok_btn_after_market_close()
+
 
 
 

@@ -85,7 +85,7 @@ class BuyProcess_test(BuyProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
-    #lot limit in buy process
+    #refferal page open with non kyc user
     @pytest.mark.buy_process_for_non_kyc
     @pytest.mark.Android
     @pytest.mark.BuyProcess
@@ -93,11 +93,16 @@ class BuyProcess_test(BuyProcess):
     def test_buy_process_for_non_kyc(self):
         try:
             self.execute_script('lambda-name=test_buy_process_for_non_kyc')
-            self.open_sdp_page_with_kyc_user(user_data['reg_no_3'], user_data['stock_code'][2])
+            self.open_sdp_page_with_non_kyc_user(user_data['unkyc_reg_no_2'], user_data['stock_code'][2])
             self.check_for_buy_btn()
             self.click_on_buy_btn()
-            self.verify_buy_page()
-            self.data_comparison_between_buy_page_and_OrderDP(user_data['stock_code'][2])
+            self.verify_refferal_page()
+            self.launch_app_again()
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_3'], user_data['stock_code'][2])
+            self.click_on_buy_btn()
+            self.click_on_buy_btn_on_buy_page()
+            self.click_on_confirm_btn()
+            self.order_id_comparison_with_different_orders()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_buy_process_for_non_kyc', 'SiminvestAppQa/src/data/ScreenShots')
@@ -105,6 +110,28 @@ class BuyProcess_test(BuyProcess):
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
             self.save_screenshot('test_buy_process_for_non_kyc', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    #lot limit in buy process
+    @pytest.mark.buy_process_api_validation
+    @pytest.mark.Android
+    @pytest.mark.BuyProcess
+    @allure.story("F-11:BuyProcess")
+    def test_buy_process_api_validation(self):
+        try:
+            self.execute_script('lambda-name=test_buy_process_api_validation')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_4'], user_data['stock_code'][2])
+            self.check_for_buy_btn()
+            self.click_on_buy_btn()
+            self.api_data_comparison()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_buy_process_api_validation', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_buy_process_api_validation', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
