@@ -18,10 +18,19 @@ bit_amount = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextBid0"
 ask_amount = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextAsk0"]/android.widget.TextView'
 price_space = 'SellPageHargaValue'
 total_beli_amount = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[6]'
+total_jual_amount = 'SellPageTotalJualValue'
 buy_btn_on_buy_page = 'SellPageSellBtn'
 hagra_on_sell_conf_page = 'SellConfHargaValue'
 lot_count_on_sell_conf_page= 'SellConfLotValue'
 jumlah_on_sell_conf_page = 'SellConfJumlahValue'
+sell_page_header= "SellPageHeader"
+sell_page_stock_code= "SellPageStockCode"
+transaction_entry ='order_list_entry_0'
+od_stock_code = '//android.view.ViewGroup[3]/android.widget.TextView[1]'
+od_harga_text = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[9]"
+od_lotDip_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[11]"
+od_status_text ='//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
+
 
 class SellProcess(BuyProcess):
 
@@ -101,3 +110,34 @@ class SellProcess(BuyProcess):
         self.assert_equal(self.add_thousand_seprator(int(hagra_value_on_buy_pg)), self.get_attribute(hagra_on_sell_conf_page, "text"))
         self.assert_equal(lot_value, self.get_attribute(lot_count_on_sell_conf_page, "text"))
         self.assert_equal(beli_without_rp, self.get_attribute(jumlah_on_sell_conf_page, "text"))
+
+    @allure.step("Verify positive flow of sell and data compare from odp")
+    def verify_positive_flow_of_sell_and_data_compare_from_odp(self):
+        self.click_on_portfolio_btn()
+        stock_code = self.get_stock_code_on_portfolio_page()
+        self.redirection_from_portfolio_to_sdp()
+        self.check_for_sell_btn()
+        self.check_for_buy_btn()
+        self.click_on_sell_btn()
+        self.sleep(2)
+        stock_code_sell_page = self.get_attribute(sell_page_stock_code, 'text')
+        hargavalue_sell_page = self.get_attribute( price_space, 'text')
+        lot_value_sell_page = self.get_attribute( lot_count, 'text')
+        assert self.is_element_visible(sell_page_header) == True, f"sell_page_header Should be present"
+        assert self.is_element_visible(jaul_btn_on_sell) == True, f"jual_btn_on_sell_page Should be present"
+        self.verify_lot_value_change_default()
+        self.update_text(lot_count, "1")
+        self.click_on_jual_btn_on_sell_page()
+        self.click_on_setuju()
+        self.verify_market_timing(stock_code, 'JUAL')
+        self.sleep(2)
+        self.click(transaction_entry)
+        stock_code_odp= self.get_attribute(od_stock_code, 'text')
+        harga_odp = self.get_attribute(od_harga_text, 'text')
+        harga_without_rp = harga_odp[3:]
+        lot_value_odp = self.get_attribute(od_lotDip_text, 'text')
+        status= self.get_attribute(od_status_text,'text')
+        self.assert_equal(stock_code_sell_page, stock_code_odp)
+        self.assert_equal(hargavalue_sell_page, harga_without_rp)
+        self.assert_equal(lot_value_sell_page, lot_value_odp)
+        self.assert_equal(status, "SENDING")
