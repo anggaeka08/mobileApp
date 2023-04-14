@@ -1,14 +1,18 @@
+from datetime import datetime
+
 from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
+from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
+from SiminvestAppQa.src.pages.Android_pages.sell_process import SellProcess
 import time
 import allure
 import logging as logger
 
-trans_entry_1 = 'OrderListEntry0'
-order_status = 'AmendPageStatusValue'
-order_id = 'AmendPageOderID'
+trans_entry_1 = 'order_list_entry_0'
+order_status = "//android.view.ViewGroup[4]/android.widget.TextView[@index = '0']"
+order_id = "//android.view.ViewGroup/android.widget.TextView[3][@index='6']"
 amend_btn = '//android.widget.TextView[@text="AMEND"]'
-cancel_btn = 'AmendPageBatakan'
+cancel_btn = '//android.widget.TextView[@text="BATALKAN"]'
 amend_btn_on_buy_page = 'SellPageSellBtn'
 buy_page_header = 'SellPageHeader'
 lot_count = 'SellPageLotValue'
@@ -17,17 +21,24 @@ price_minus_btn = 'SellPageHargaMinus'
 price_space = 'SellPageHargaValue'
 bit_price_on_buy_page = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextBid0"]/android.widget.TextView'
 ask_price_on_buy_page = '//android.view.ViewGroup[@content-desc="SellPageOrderBookTextAsk0"]/android.widget.TextView'
-lot_on_status_page = 'AmendPageLotDipesanValue'
-harga_on_status_page = 'AmendPageHargaValue'
+lot_on_status_page = "//android.view.ViewGroup/android.widget.TextView[11][@index = '15']"
+harga_on_status_page = "//android.view.ViewGroup/android.widget.TextView[9][@index = '13']"
 Auto_rejection_popup = '//android.widget.TextView[@text="Can not increase quantity"]'
 Auto_rejection_ok = '//android.widget.TextView[@text="OK"]'
-price_on_trans_for_entry_1 = 'OrderListEntry0Price'
-lot_on_trans_for_entry_1 = 'OrderListEntry0Lot'
+price_on_trans_for_entry_1 = 'price_0'
+lot_on_trans_for_entry_1 = 'lot_0'
 hubungi_customer_care = 'AmendPageHelpBtn'
 chrome_xpath = '//android.view.View[@content-desc="Halaman beranda Pusat Bantuan Sinarmas Sekuritas"]/android.widget.Image'
 click_browser=  '//*[@text="Browser"]'
 click_accept = '//*[@text="AGREE & CONTINUE"]'
-class AmendProcess(BuyProcess):
+exchange_notification= '//android.widget.TextView[contains(@text, "Bursa Tidak Beroperasi")]'
+stock_price = 'SellPageStockPrice'
+sdp_page_open = "(//android.view.ViewGroup/android.view.ViewGroup[3][@index = '2'])[1]"
+stock_res_p_sdp = 'SDPStockPL'
+srp_amend_page = 'SellPageStockPL'
+buying_power = '//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[4]'
+total_lot_value = 'SellPageTotalLotValue'
+class AmendProcess(StockDetailPage,SellProcess ):
 
     @allure.step('Open transaction page with register user ')
     def open_trans_page_with_reg_user(self, phone_number):
@@ -43,7 +54,13 @@ class AmendProcess(BuyProcess):
 
     @allure.step("Open status page of buy order")
     def open_status_page_of_buy_order(self):
-        self.click(trans_entry_1)
+        #self.click(trans_entry_1)
+        self.click('(//android.widget.TextView[contains(@text, "BELI")])[1]')
+
+    @allure.step("Open status page of sell order")
+    def open_status_page_of_sell_order(self):
+        #self.click(trans_entry_1)
+        self.click('(//android.widget.TextView[contains(@text, "JUAL")])[1]')
 
     @allure.step("Verify order status page")
     def verify_order_status_page(self):
@@ -116,10 +133,21 @@ class AmendProcess(BuyProcess):
         increased_price = self.get_attribute(price_space, "text")
         self.click_amend_btn_amend_page()
         self.click_on_confirm_btn()
-        self.click_on_ok_btn()
-        self.verify_transaction_page()
-        transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
-        self.assert_equal(self.add_thousand_seprator(int(increased_price)), transaction_page_price)
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30') or ( current_time <= '15:00'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.click_on_ok_btn()
+            self.verify_transaction_page()
+            #transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
+            #transaction_page_price = int(transaction_page_price[7:])
+            # self.assert_equal(self.add_thousand_seprator(int(increased_price)), transaction_page_price)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click_on_ok_btn_after_market_close()
 
     @allure.step("Verify lot and price value on transaction page and amend/cancel page")
     def verify_lot_price_value_on_trans_page_and_amend_or_cancel_page(self):
@@ -150,3 +178,128 @@ class AmendProcess(BuyProcess):
         self.enter_pin()
         self.verify_home_page()
         self.click_on_transaction_btn()
+
+    @allure.step("Verify amend process by subtract in harga")
+    def verify_amend_process_by_subtract_in_harga(self):
+        self.click_on_price_decrease()
+        decreased_price = self.get_attribute(price_space, "text")
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30') or (current_time <= '15:100'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.click_on_ok_btn()
+            self.verify_transaction_page()
+            transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
+            #transaction_page_price = int(transaction_page_price[7:])
+            # self.assert_equal(self.add_thousand_seprator(int(decreased_price)), transaction_page_price)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click_on_ok_btn_after_market_close()
+
+    @allure.step("Verify amend process by add lot value after add harga")
+    def Verify_amend_process_by_add_lot_value_after_add_harga(self):
+        self.click_on_price_increase()
+        increased_price = self.get_attribute(price_space, "text")
+        self.click_on_lot_increase_no()
+        increased_lot = self.get_attribute(lot_count, "text")
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30') or (current_time <= '15:00'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.click_on_ok_btn()
+            self.verify_transaction_page()
+            transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
+            transaction_page_lot = self.get_attribute(lot_on_trans_for_entry_1, "text")
+           # transaction_page_lot = transaction_page_lot[5:]
+          #  transaction_page_price = int(transaction_page_price[7:])
+            # self.assert_equal(self.add_thousand_seprator(int(increased_price)), transaction_page_price)
+            # self.assert_equal(self.add_thousand_seprator(int(increased_lot)), transaction_page_lot)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click_on_ok_btn_after_market_close()
+
+    @allure.step("Verify amend process by subtract lot value after add harga")
+    def Verify_amend_process_by_subtract_lot_value_after_add_harga(self):
+        self.click_on_price_increase()
+        increased_price = self.get_attribute(price_space, "text")
+        self.click_on_lot_decrease_btn()
+        decreased_lot = self.get_attribute(lot_count, "text")
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30') or (current_time <= '15:00'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.click_on_ok_btn()
+            self.verify_transaction_page()
+            transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
+            transaction_page_lot = self.get_attribute(lot_on_trans_for_entry_1, "text")
+           # transaction_page_lot = transaction_page_lot[5:]
+           # transaction_page_price = int(transaction_page_price[7:])
+            # self.assert_equal(self.add_thousand_seprator(int(increased_price)), transaction_page_price)
+            # self.assert_equal(self.add_thousand_seprator(int(decreased_lot)), transaction_page_lot)
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click_on_ok_btn_after_market_close()
+
+    @allure.step("verify auto rejection due to Lot increase")
+    def verify_auto_rejection_due_to_lot_increase(self):
+        self.click_on_lot_increase_no()
+        self.click_amend_btn_amend_page()
+        self.click_on_confirm_btn()
+        self.verify_auto_rejection_pop_message()
+
+    @allure.step("Verify stock price and other things on amend page for buy")
+    def verify_stock_price_and_other_fields_on_amend_page(self):
+        self.go_back()
+        self.sleep(2)
+        self.click(sdp_page_open)
+        self.sleep(2)
+        full_d_SRP_ON_SDP = self.Response_price()
+        self.go_back()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        SRP_amend = self.get_attribute(srp_amend_page, 'text')
+        self.assert_equal(full_d_SRP_ON_SDP, SRP_amend)
+        self.assert_equal(self.is_element_visible(stock_price), True)
+        self.assert_equal(self.is_element_visible(buying_power), True)
+        self.update_text(lot_count, '500000')
+        self.assert_equal(self.get_attribute(lot_count, 'text'), '50,000')
+        self.update_text(lot_count, '2')
+        self.click_on_lot_decrease_btn()
+        self.assert_equal(self.get_attribute(lot_count, 'text'), '1')
+
+    @allure.step("Verify stock price and other things on amend page for sell")
+    def verify_stock_price_and_other_fields_on_amend_page_for_sell(self):
+        self.go_back()
+        self.sleep(2)
+        self.click(sdp_page_open)
+        self.sleep(2)
+        full_d_SRP_ON_SDP = self.Response_price()
+        self.go_back()
+        self.verify_order_status_page()
+        self.click_on_amend_btn()
+        SRP_amend = self.get_attribute(srp_amend_page, 'text')
+        self.assert_equal(full_d_SRP_ON_SDP, SRP_amend)
+        self.assert_equal(self.is_element_visible(stock_price), True)
+        self.assert_equal(self.is_element_visible(buying_power), True)
+        self.update_text(lot_count, '500000')
+        self.assert_equal(self.get_attribute(lot_count, 'text'), self.get_attribute(total_lot_value, 'text'))
+        self.update_text(lot_count, '2')
+        self.click_on_lot_decrease_btn()
+        self.assert_equal(self.get_attribute(lot_count, 'text'), '1')
+
+

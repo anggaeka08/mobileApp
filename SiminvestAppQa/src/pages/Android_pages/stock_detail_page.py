@@ -734,6 +734,16 @@ class StockDetailPage(Watchlist, BuyProcess):
         logger.info(time_dur)
         return time_dur
 
+    @allure.step("Response price")
+    def Response_price(self):
+        self.sleep(4)
+        pl = self.get_attribute(stock_pl, 'text')
+        c = ')'
+        index = pl.find(c)
+        price = pl[:index+1]
+        logger.info(price.replace(' ',''))
+        return price.replace(' ','')
+
     @allure.step("Validate on chart value")
     def validate_on_chart_values(self):
         self.click(chart_view)
