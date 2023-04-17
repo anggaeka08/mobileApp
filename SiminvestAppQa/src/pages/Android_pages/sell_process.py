@@ -2,6 +2,10 @@ from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
 import allure
 import logging as logger
+from datetime import timedelta, datetime
+from datetime import date
+from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
+request_utilities = RequestsUtilities()
 
 jaul_btn = 'SDPPageSellBtn'
 jaul_btn_on_sell = 'SellPageSellBtn'
@@ -30,7 +34,13 @@ od_stock_code = '//android.view.ViewGroup[3]/android.widget.TextView[1]'
 od_harga_text = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[9]"
 od_lotDip_text ="//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[11]"
 od_status_text ='//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView'
-
+exchange_notification= '//android.widget.TextView[contains(@text, "Bursa Tidak Beroperasi")]'
+od_header= "//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView"
+od_order_id= "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[3]"
+od_jumlah_dipesan = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[15]"
+od_order_time= "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[5]"
+od_stock_name = '//android.view.ViewGroup[3]/android.widget.TextView[2]'
+transaction_entry_1 ='order_list_entry_1'
 
 class SellProcess(BuyProcess):
 
@@ -141,3 +151,58 @@ class SellProcess(BuyProcess):
         self.assert_equal(hargavalue_sell_page, harga_without_rp)
         self.assert_equal(lot_value_sell_page, lot_value_odp)
         self.assert_equal(status, "SENDING")
+
+    @allure.step("API data comparison for sell")
+    def api_data_comparison_for_sell(self):
+        self.click_on_portfolio_btn()
+        self.redirection_from_portfolio_to_sdp()
+        self.click_on_sell_btn()
+        self.sleep(2)
+        self.click_on_jual_btn_on_sell_page()
+        self.click_on_setuju()
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30') or (current_time <= '15:00'):
+            self.assert_equal(self.is_element_visible(exchange_notification), False)
+            logger.info("within time")
+            self.click_on_ok_btn()
+            self.click(transaction_entry)
+            self.sleep(3)
+            self.assert_equal(self.get_attribute(od_header, 'text'), 'JUAL')
+            stock_code_odp = self.get_attribute(od_stock_code, 'text')
+            stock_name_odp = self.get_attribute(od_stock_name, 'text')
+            status_odp = self.get_attribute(od_status_text, 'text')
+            order_id_odp = self.get_attribute(od_order_id, 'text')
+            order_time_odp= self.get_attribute(od_order_time,'text')
+            harga_odp = (self.get_attribute(od_harga_text, 'text')[3:]).replace(',','')
+            lot_value_odp = self.get_attribute(od_lotDip_text, 'text')
+            order_amount_odp= (self.get_attribute(od_jumlah_dipesan, 'text')[3:]).replace(',','')
+            self.go_back()
+            self.sleep(2)
+            self.click(transaction_entry_1)
+            self.sleep(1)
+            order_id_odp_1 = self.get_attribute(od_order_id, 'text')
+            order_time_odp_1 = self.get_attribute(od_order_time, 'text')
+            date=datetime.strptime(order_time_odp, "%d %b %Y, %H:%M")
+            date_1=datetime.strptime(order_time_odp_1, "%d %b %Y, %H:%M")
+            self.assertGreater(order_id_odp,order_id_odp_1)
+            self.assertGreater(date,date_1)
+            token_value = self.login()
+            token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+            token['Authorization'] = 'Bearer ' + token_value
+            order_details_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',
+                                                     endpoint='api/v1/oms/equities/orders/53617', headers=token,
+                                                     expected_status_code=200)
+            self.assert_equal(stock_code_odp, order_details_rs['data'][0]['code'])
+            self.assert_equal(order_amount_odp, str(order_details_rs['data'][0]['order_amount']))
+            self.assert_equal(order_id_odp, str(order_details_rs['data'][0]['order_id']))
+            self.assert_equal(lot_value_odp, str(order_details_rs['data'][0]['order_lot']))
+            self.assert_equal(harga_odp, str(order_details_rs['data'][0]['price']))
+            self.assert_equal(status_odp, str(order_details_rs['data'][0]['status']))
+            self.assert_equal(order_time_odp, str(order_details_rs['data'][0]['ordertime']))
+            self.assert_equal(stock_name_odp, str(order_details_rs['data'][0]['company_name']))
+        else:
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(exchange_notification), True)
+            self.click_on_ok_btn_after_market_close()

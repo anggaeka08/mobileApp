@@ -26,6 +26,25 @@ class Sell_test(SellProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.sell_process_api_validation
+    @pytest.mark.Android
+    @pytest.mark.SellProcess
+    @allure.story("F-12:SellProcess")
+    def test_sell_process_api_validation(self):
+        try:
+            self.execute_script('lambda-name=test_sell_process_api_validation')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_3'])
+            self.api_data_comparison_for_sell()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_sell_process_api_validation', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_sell_process_api_validation', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
     # Validate user is able to sell stock.
     @pytest.mark.Sell_SMMA_502
     @pytest.mark.Sell_old
