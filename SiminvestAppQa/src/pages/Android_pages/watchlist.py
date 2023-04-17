@@ -317,7 +317,7 @@ class Watchlist(HomePage):
         self.click(jual_btn)
 
     @allure.step("Click on confirm")
-    def click_on_confirm_btn(self):
+    def click_on_confirm_btn_(self):
         self.click(confirm_btn)
 
     @allure.step("verify trasaction page or market close message")
