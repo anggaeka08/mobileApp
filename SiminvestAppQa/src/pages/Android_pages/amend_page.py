@@ -27,8 +27,8 @@ Auto_rejection_popup = '//android.widget.TextView[@text="Can not increase quanti
 Auto_rejection_ok = '//android.widget.TextView[@text="OK"]'
 price_on_trans_for_entry_1 = 'price_0'
 lot_on_trans_for_entry_1 = 'lot_0'
-hubungi_customer_care = 'AmendPageHelpBtn'
-chrome_xpath = '//android.view.View[@content-desc="Halaman beranda Pusat Bantuan Sinarmas Sekuritas"]/android.widget.Image'
+hubungi_customer_care = 'SellPageHelpLink'
+chrome_xpath = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[2]/android.view.View"
 click_browser=  '//*[@text="Browser"]'
 click_accept = '//*[@text="AGREE & CONTINUE"]'
 exchange_notification= '//android.widget.TextView[contains(@text, "Bursa Tidak Beroperasi")]'
@@ -162,12 +162,12 @@ class AmendProcess(StockDetailPage,SellProcess ):
     @allure.step("Click on Customer care support link")
     def click_on_customer_support_link(self):
         self.click(hubungi_customer_care)
-       # self.click(click_browser)
+        #self.click(click_accept)
         self.sleep(2)
 
     @allure.step("Verify redirection after click on customer support")
     def verify_redirection_after_click_on_customer_support(self):
-        self.assert_equal(self.is_element_visible(chrome_xpath), True)
+        self.assert_equal(self.is_element_visible(hubungi_customer_care), False)
 
     @allure.step('Open transaction page with nonKYC user ')
     def open_trans_page_with_nonKYC_user(self, phone_number):
@@ -301,5 +301,15 @@ class AmendProcess(StockDetailPage,SellProcess ):
         self.update_text(lot_count, '2')
         self.click_on_lot_decrease_btn()
         self.assert_equal(self.get_attribute(lot_count, 'text'), '1')
+
+    @allure.step("Lot plus subtract feature")
+    def lot_plus_subtract_feature(self):
+        default_lot = int(self.get_attribute(lot_count, "text"))
+        self.click_on_lot_increase_no()
+        increased_lot = int(self.get_attribute(lot_count, "text"))
+        self.assert_equal(default_lot+1, increased_lot)
+        self.click_on_lot_decrease_btn()
+        decreased_lot = int(self.get_attribute(lot_count, "text"))
+        self.assert_equal(default_lot, decreased_lot)
 
 
