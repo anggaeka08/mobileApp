@@ -80,39 +80,30 @@ class Amend_test(AmendProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
-    @pytest.mark.button_functional_
+    @pytest.mark.button_functional_on_amend
     @pytest.mark.Amend
     @pytest.mark.Android
     @allure.story("F-13: Amend Feature")
-    def test_positive_flow_for_sell_amend(self):
+    def test_button_functional_on_amend(self):
         try:
-            self.execute_script('lambda-name=test_positive_flow_for_sell_amend')
-            self.open_trans_page_with_reg_user(user_data['reg_no_4'])
-            self.open_status_page_of_sell_order()
+            self.execute_script('lambda-name=test_button_functional_on_amend')
+            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            self.open_status_page_of_buy_order()
             self.verify_order_status_page()
             self.click_on_amend_btn()
-            self.verify_transaction_presence_after_amend_success()
-            self.open_status_page_of_sell_order()
-            self.click_on_amend_btn()
-            self.verify_amend_process_by_subtract_in_harga()
-            self.open_status_page_of_sell_order()
-            self.click_on_amend_btn()
-            self.Verify_amend_process_by_add_lot_value_after_add_harga()
-            self.open_status_page_of_sell_order()
-            self.click_on_amend_btn()
-            self.Verify_amend_process_by_subtract_lot_value_after_add_harga()
-            self.open_status_page_of_sell_order()
-            self.click_on_amend_btn()
-            self.verify_auto_rejection_due_to_lot_increase()
-            self.click_on_ok_btn_on_auto_rejection()
-            self.verify_stock_price_and_other_fields_on_amend_page_for_sell()
+            self.verify_plus_minus_btn_beli()
+            self.lot_plus_subtract_feature()
+            self.verify_user_able_to_set_ask_bid_value_in_harga()
+            self.scroll_up()
+            self.click_on_customer_support_link()
+            self.verify_redirection_after_click_on_customer_support()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
-            self.save_screenshot('test_positive_flow_for_sell_amend', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_button_functional_on_amend', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
-            self.save_screenshot('test_positive_flow_for_sell_amend', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_button_functional_on_amend', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
