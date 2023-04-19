@@ -38,6 +38,10 @@ stock_res_p_sdp = 'SDPStockPL'
 srp_amend_page = 'SellPageStockPL'
 buying_power = '//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[4]'
 total_lot_value = 'SellPageTotalLotValue'
+stock_code_amend = 'SellPageStockCode'
+stock_com_name = 'SellPageStockName'
+buy_power_exceed_msg = '//android.widget.TextView[@text="Nilai pembelian kamu melebihi trading limit."]'
+
 class AmendProcess(StockDetailPage,SellProcess ):
 
     @allure.step('Open transaction page with register user ')
@@ -311,5 +315,24 @@ class AmendProcess(StockDetailPage,SellProcess ):
         self.click_on_lot_decrease_btn()
         decreased_lot = int(self.get_attribute(lot_count, "text"))
         self.assert_equal(default_lot, decreased_lot)
+
+    @allure.step("Functional validation for amend")
+    def functional_validation_for_amend(self):
+        self.assert_equal(self.is_element_visible(buy_page_header), True)
+        self.assert_equal(self.is_element_visible(stock_code_amend), True)
+        self.assert_equal(self.is_element_visible(stock_com_name), True)
+        self.assert_equal(self.get_attribute(lot_count, 'text'), '2')
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(hubungi_customer_care) , True)
+        self.scroll_down()
+        self.assert_equal(self.is_element_visible(stock_code_amend), True)
+        self.set_text(price_space, '1299090988')
+        buy_power_exceed_msg_presence = self.is_element_visible(buy_power_exceed_msg)
+        assert buy_power_exceed_msg_presence == True, f"price_exceed_msg_presence visible "
+        buy_power_exceed_msg_text = self.get_attribute(buy_power_exceed_msg, "text")
+        self.assert_equal(buy_power_exceed_msg_text, "Nilai pembelian kamu melebihi trading limit.")
+        self.assert_equal(self.is_element_visible(amend_btn_on_buy_page), False)
+
+
 
 
