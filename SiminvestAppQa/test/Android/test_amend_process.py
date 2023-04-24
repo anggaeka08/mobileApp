@@ -107,6 +107,28 @@ class Amend_test(AmendProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.amend_functional_validation
+    @pytest.mark.Amend
+    @pytest.mark.Android
+    @allure.story("F-13: Amend Feature")
+    def test_amend_functional_validation(self):
+        try:
+            self.execute_script('lambda-name=test_amend_functional_validation')
+            self.open_trans_page_with_reg_user(user_data['reg_no_4'])
+            self.open_status_page_of_buy_order()
+            self.verify_order_status_page()
+            self.click_on_amend_btn()
+            self.functional_validation_for_amend()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_amend_functional_validation', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_amend_functional_validation', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
 
     #Validate user is able to increase and decrease the value of beli di harga and jumlah lot inside amend page of purchased stock.
     @pytest.mark.AMD_SMMA_001
