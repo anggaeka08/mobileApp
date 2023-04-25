@@ -41,7 +41,9 @@ total_lot_value = 'SellPageTotalLotValue'
 stock_code_amend = 'SellPageStockCode'
 stock_com_name = 'SellPageStockName'
 buy_power_exceed_msg = '//android.widget.TextView[@text="Nilai pembelian kamu melebihi trading limit."]'
-
+stock_price_sdp = 'SDPStockPrice'
+stock_pl_sdp = 'SDPStockPL'
+total_beli = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[6]'
 class AmendProcess(StockDetailPage,SellProcess ):
 
     @allure.step('Open transaction page with register user ')
@@ -332,6 +334,52 @@ class AmendProcess(StockDetailPage,SellProcess ):
         buy_power_exceed_msg_text = self.get_attribute(buy_power_exceed_msg, "text")
         self.assert_equal(buy_power_exceed_msg_text, "Nilai pembelian kamu melebihi trading limit.")
         self.assert_equal(self.is_element_visible(amend_btn_on_buy_page), False)
+
+    @allure.step("Validate numeric and mathematical values on amend page")
+    def validate_numeric_and_mathematical_values_on_amend_page(self):
+        transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
+        transaction_page_lot = self.get_attribute(lot_on_trans_for_entry_1, "text")
+        self.open_status_page_of_buy_order()
+        self.click(sdp_page_open)
+        self.sleep(3)
+        stock_current_price_sdp = int((self.get_attribute(stock_price_sdp, 'text')).replace(',',''))
+        stock_response_price_sdp = self.get_attribute(stock_pl_sdp, 'text')
+        c = '('
+        index = stock_response_price_sdp.find(c)
+        reponsePrice_sdp = int(stock_response_price_sdp[:index])
+        d = stock_response_price_sdp.find('%')
+        response_percentage_sdp = float(stock_response_price_sdp[index + 1:d])
+        self.go_back()
+        self.sleep(3)
+        self.click_on_amend_btn()
+        stock_price_amend = int((self.get_attribute(stock_price, 'text')).replace(',',''))
+        stock_response_price_amend = self.get_attribute(srp_amend_page, 'text')
+        c = '('
+        index = stock_response_price_amend.find(c)
+        reponsePrice_amend = int(stock_response_price_amend[:index])
+        d = stock_response_price_amend.find('%')
+        response_percentage_amend = float(stock_response_price_amend[index + 1:d])
+        lot_amend = self.get_attribute(lot_count, 'text')
+        beli_harga_amend = self.get_attribute(price_space, 'text')
+        self.assert_equal(transaction_page_price[8:] , beli_harga_amend)
+        self.assert_equal(transaction_page_lot[6:] , lot_amend)
+        self.assert_equal(stock_current_price_sdp ,stock_price_amend)
+        self.assert_equal(response_percentage_amend , response_percentage_sdp)
+        self.assert_equal(reponsePrice_amend , reponsePrice_sdp)
+        total_beli_amount_txt = self.get_attribute(total_beli, 'text')
+        total_beli_amount = int((total_beli_amount_txt[3:]).replace(",", ""))
+        self.assert_equal(total_beli_amount, (int(beli_harga_amend)) * 100)
+        self.click_on_price_decrease()
+        total_beli_amount_txt = self.get_attribute(total_beli, 'text')
+        total_beli_amount = int((total_beli_amount_txt[3:]).replace(",", ""))
+        beli_harga_amend = self.get_attribute(price_space, 'text')
+        self.assert_equal(total_beli_amount, (int(beli_harga_amend)) * 100)
+        self.click_on_lot_increase_no()
+        beli_harga_amend = self.get_attribute(price_space, 'text')
+        total_beli_amount_txt = self.get_attribute(total_beli, 'text')
+        total_beli_amount = int((total_beli_amount_txt[3:]).replace(",", ""))
+        lot_amend = int(self.get_attribute(lot_count, 'text'))
+        self.assert_equal(total_beli_amount, ((int(beli_harga_amend)) * 100)*lot_amend)
 
 
 
