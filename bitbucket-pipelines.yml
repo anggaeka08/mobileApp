@@ -190,14 +190,6 @@ pipelines:
             - allure-results/**
 
       - step:
-          name: Report
-          image: frankescobar/allure-docker-service
-          script:
-            - allure generate allure-results/
-          artifacts:
-            - allure-report/**
-
-      - step:
           name: Test -12 SellProcess
           caches:
             - pip
@@ -214,14 +206,6 @@ pipelines:
             - cp -r smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/history/ allure-results/history/
           artifacts:
             - allure-results/**
-
-      - step:
-          name: Report
-          image: frankescobar/allure-docker-service
-          script:
-            - allure generate allure-results/
-          artifacts:
-            - allure-report/**
 
       - step:
           name: Test -13 AmendProcess
