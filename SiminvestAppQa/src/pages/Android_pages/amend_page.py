@@ -1,7 +1,10 @@
 from datetime import datetime
 
+from numerize import numerize
+from selenium.common.exceptions import NoSuchElementException
+
 from SiminvestAppQa.src.data.userData import user_data
-from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
+from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess, request_utilities
 from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
 from SiminvestAppQa.src.pages.Android_pages.sell_process import SellProcess
 import time
@@ -44,6 +47,8 @@ buy_power_exceed_msg = '//android.widget.TextView[@text="Nilai pembelian kamu me
 stock_price_sdp = 'SDPStockPrice'
 stock_pl_sdp = 'SDPStockPL'
 total_beli = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[6]'
+total_bit = '(//android.widget.TextView[@content-desc="SellPageFooterText"])[1]'
+total_ask = '(//android.widget.TextView[@content-desc="SellPageFooterText"])[2]'
 class AmendProcess(StockDetailPage,SellProcess ):
 
     @allure.step('Open transaction page with register user ')
@@ -337,11 +342,12 @@ class AmendProcess(StockDetailPage,SellProcess ):
 
     @allure.step("Validate numeric and mathematical values on amend page")
     def validate_numeric_and_mathematical_values_on_amend_page(self):
+        stock_code_trans = self.get_attribute("stockCode_0", "text")
         transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
         transaction_page_lot = self.get_attribute(lot_on_trans_for_entry_1, "text")
         self.open_status_page_of_buy_order()
         self.click(sdp_page_open)
-        self.sleep(3)
+        self.sleep(5)
         stock_current_price_sdp = int((self.get_attribute(stock_price_sdp, 'text')).replace(',',''))
         stock_response_price_sdp = self.get_attribute(stock_pl_sdp, 'text')
         c = '('
@@ -352,6 +358,7 @@ class AmendProcess(StockDetailPage,SellProcess ):
         self.go_back()
         self.sleep(3)
         self.click_on_amend_btn()
+        self.sleep(3)
         stock_price_amend = int((self.get_attribute(stock_price, 'text')).replace(',',''))
         stock_response_price_amend = self.get_attribute(srp_amend_page, 'text')
         c = '('
@@ -360,26 +367,66 @@ class AmendProcess(StockDetailPage,SellProcess ):
         d = stock_response_price_amend.find('%')
         response_percentage_amend = float(stock_response_price_amend[index + 1:d])
         lot_amend = self.get_attribute(lot_count, 'text')
-        beli_harga_amend = self.get_attribute(price_space, 'text')
-        self.assert_equal(transaction_page_price[8:] , beli_harga_amend)
+        beli_harga_amend = (self.get_attribute(price_space, 'text')).replace(',','')
+        self.assert_equal((transaction_page_price[8:]).replace(',','') , beli_harga_amend)
         self.assert_equal(transaction_page_lot[6:] , lot_amend)
         self.assert_equal(stock_current_price_sdp ,stock_price_amend)
         self.assert_equal(response_percentage_amend , response_percentage_sdp)
         self.assert_equal(reponsePrice_amend , reponsePrice_sdp)
         total_beli_amount_txt = self.get_attribute(total_beli, 'text')
         total_beli_amount = int((total_beli_amount_txt[3:]).replace(",", ""))
-        self.assert_equal(total_beli_amount, (int(beli_harga_amend)) * 100)
+        self.assert_equal(total_beli_amount, ((int(beli_harga_amend)) * 100)*int(lot_amend))
         self.click_on_price_decrease()
         total_beli_amount_txt = self.get_attribute(total_beli, 'text')
         total_beli_amount = int((total_beli_amount_txt[3:]).replace(",", ""))
-        beli_harga_amend = self.get_attribute(price_space, 'text')
-        self.assert_equal(total_beli_amount, (int(beli_harga_amend)) * 100)
+        beli_harga_amend = (self.get_attribute(price_space, 'text')).replace(',','')
+        self.assert_equal(total_beli_amount, ((int(beli_harga_amend)) * 100)*int(lot_amend))
         self.click_on_lot_increase_no()
-        beli_harga_amend = self.get_attribute(price_space, 'text')
+        beli_harga_amend = (self.get_attribute(price_space, 'text')).replace(',', '')
         total_beli_amount_txt = self.get_attribute(total_beli, 'text')
         total_beli_amount = int((total_beli_amount_txt[3:]).replace(",", ""))
         lot_amend = int(self.get_attribute(lot_count, 'text'))
         self.assert_equal(total_beli_amount, ((int(beli_harga_amend)) * 100)*lot_amend)
+        self.scroll_up()
+        bit_lot = []
+        ask_lot = []
+        try:
+            for i in range(10, 20):
+                bit_lot.append(int((self.get_attribute(f"SellPageOrderBookTextLot{i}", 'text')).replace(',','')))
+                ask_lot.append(int((self.get_attribute(f"SellPageOrderBookTextLot{i+10}", 'text')).replace(',','')))
+        except NoSuchElementException as E:
+            pass
+        logger.info(sum(bit_lot))
+        logger.info(sum(ask_lot))
+        total_count_bit_lot = int((self.get_attribute(total_bit, 'text')).replace(',',''))
+        total_count_ask_lot =int((self.get_attribute(total_ask, 'text')).replace(',',''))
+        self.assert_equal(sum(bit_lot),total_count_bit_lot)
+        self.assert_equal(sum(ask_lot),total_count_ask_lot)
+        #UI_data = self.collect_all_data_from_ui()
+        api_value=[]
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        sdp_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/v1/pcs/v2/product/equity',endpoint=f'/{stock_code_trans}', headers=token,expected_status_code=200)
+        vol = str(numerize.numerize(int(sdp_rs['vol'])))
+        val = str(numerize.numerize(int(sdp_rs['val'])))
+        # new_value = vol[:2]+"."+vol[2:4] +" Jt"
+        new_value = vol.replace('M', ' Jt')
+        logger.info(new_value)
+        new_value_val = vol.replace('M', ' Jt')
+        logger.info(new_value_val)
+        api_value.append(sdp_rs['open'])
+        api_value.append(sdp_rs['high'])
+        api_value.append(new_value)
+        api_value.append(sdp_rs['close'])
+        api_value.append(sdp_rs['low'])
+        api_value.append(new_value_val)
+        api_value.append(sdp_rs['avg'])
+        api_value.append(sdp_rs['buy_f_vol'])
+        api_value.append(sdp_rs['sell_f_vol'])
+        api_data = api_value
+        # for i in range(9):
+        #  self.assert_equal(UI_data[i] , str(api_data[i]))
 
 
 
