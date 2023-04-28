@@ -49,6 +49,12 @@ stock_pl_sdp = 'SDPStockPL'
 total_beli = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[6]'
 total_bit = '(//android.widget.TextView[@content-desc="SellPageFooterText"])[1]'
 total_ask = '(//android.widget.TextView[@content-desc="SellPageFooterText"])[2]'
+beli_di_harga_text = 'SellPageHargaText'
+lot_text = 'SellPageLotText'
+buying_power_text = '//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[3]'
+click_your_text = 'SellPageTextClickYour'
+total_beli_text = '//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[5]'
+transaction_type = 'transactionType_0'
 class AmendProcess(StockDetailPage,SellProcess ):
 
     @allure.step('Open transaction page with register user ')
@@ -428,6 +434,28 @@ class AmendProcess(StockDetailPage,SellProcess ):
         # for i in range(9):
         #  self.assert_equal(UI_data[i] , str(api_data[i]))
 
+
+    @allure.step("Validate grammar and ui for amend")
+    def validate_grammar_and_ui_for_amend(self):
+        transaction_type_trans = self.get_attribute(transaction_type, 'text')
+        self.open_status_page_of_buy_order()
+        self.sleep(3)
+        self.click_on_amend_btn()
+        header = self.get_attribute(buy_page_header, 'text')
+        if transaction_type_trans == 'BELI':
+            self.assert_in('Buy',header)
+
+        elif transaction_type_trans == 'JUAL':
+            self.assert_in('Sell',header)
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(beli_di_harga_text, 'text'), 'Beli di Harga')
+        self.assert_equal(self.get_attribute(lot_text, 'text'), 'Jumlah Lot')
+        self.assert_equal(self.get_attribute(buying_power_text, 'text'), 'Buying Power')
+        self.assert_equal(self.get_attribute(total_beli_text, 'text'), 'Total Beli')
+        self.assert_equal(self.get_attribute(click_your_text, 'text'), 'Click your buying price below')
+        all_value_lst = ['','Open','','High','','Vol','','Close','','Low','','Val','','Avg','','F.Buy','','F.Sell']
+        for i in range(1, 19,2):
+            self.assert_equal(all_value_lst[i], self.get_attribute(f'SDPPageText{i}', 'text'))
 
 
 

@@ -172,6 +172,60 @@ pipelines:
             - allure-results/**
 
       - step:
+          name: Test -11 BuyProcess
+          caches:
+            - pip
+          script:
+            - apt-get clean
+            - apt-get update
+            - apt-get install --fix-missing
+            - apt-get install -y unzip git
+            - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+            - pytest -v -m BuyProcess -n 2 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
+            - python3 post_test_report.py
+            - python3 post_report_url.py
+            - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
+            - cp -r smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/history/ allure-results/history/
+          artifacts:
+            - allure-results/**
+
+      - step:
+          name: Test -12 SellProcess
+          caches:
+            - pip
+          script:
+            - apt-get clean
+            - apt-get update
+            - apt-get install --fix-missing
+            - apt-get install -y unzip git
+            - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+            - pytest -v -m SellProcess -n 2 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
+            - python3 post_test_report.py
+            - python3 post_report_url.py
+            - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
+            - cp -r smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/history/ allure-results/history/
+          artifacts:
+            - allure-results/**
+
+      - step:
+          name: Test -13 AmendProcess
+          caches:
+            - pip
+          script:
+            - apt-get clean
+            - apt-get update
+            - apt-get install --fix-missing
+            - apt-get install -y unzip git
+            - if [ -f requirements.txt ]; then pip3 install -r requirements.txt; fi
+            - pytest -v -m Amend -n 2 --cap-file=SiminvestAppQa/src/cap_files/lt_cap_file.py --lt --junitxml=test-reports/results.xml  --alluredir=allure-results  > test.log|| true
+            - python3 post_test_report.py
+            - python3 post_report_url.py
+            - git clone git@bitbucket.org:smssekuritas/smssekuritas.bitbucket.io.git
+            - cp -r smssekuritas.bitbucket.io/siminvest-app-qa/allure-report/history/ allure-results/history/
+          artifacts:
+            - allure-results/**
+
+      - step:
           name: Report
           image: frankescobar/allure-docker-service
           script:
