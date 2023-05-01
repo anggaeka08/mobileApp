@@ -6,8 +6,8 @@ import logging as logger
 
 cancel_confirmation ='//*[@text="Ya"]'
 Cancel_btn_Confirmation_pop = '//*[@text="Tidak"]'
-trans_entry_1 = 'OrderListEntry0'
-status_on_trasction_page = 'OrderListEntry0Status'
+trans_entry_1 = 'status_label_0'
+status_on_trasction_page = 'status_label_0'
 order_id = '//*[@text="Order ID"]'
 tanggal = '//*[@text="Tanggal Pembelian"]'
 produk ='//*[@text="Produk"]'
@@ -19,13 +19,22 @@ Biaya = '//*[@text="Biaya"]'
 market_close_message_lct = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[1]'
 market_close_message = 'Bursa Tidak Beroperasi'
 ok_btn_close = '//*[@text="OK"]'
-
+order_update_pop_text = '//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[1]'
+cancel_confirmation_pop = '//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
 class CancelProcess(AmendProcess):
 
     @allure.step("Click on ok btn")
     def click_on_cancel_confirmation_btn(self):
         self.sleep(1)
         self.click(cancel_confirmation)
+
+    @allure.step("validate place order success text")
+    def validate_place_order_success_text(self):
+        self.assert_equal(self.get_attribute(order_update_pop_text, 'Text'), 'Pembatalan Order Terkirim')
+
+    @allure.step("validate place order success text")
+    def validate_place_order_confirmation_pop_up(self):
+        self.assert_equal(self.get_attribute(cancel_confirmation_pop, 'Text'), 'Apakah kamu ingin membatalkan order ini?')
 
     @allure.step("Verify transaction on transaction page after cancel")
     def verify_transaction_on_transaction_page_after_cancel(self):
