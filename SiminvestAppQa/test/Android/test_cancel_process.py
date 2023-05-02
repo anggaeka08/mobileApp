@@ -45,6 +45,47 @@ class Cancel_test(CancelProcess):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.Cancel_process_for_sell
+    @pytest.mark.Cancel
+    @pytest.mark.Android
+    @allure.story("F-14: Cancel Feature")
+    def test_Cancel_process_for_sell(self):
+        try:
+            self.execute_script('lambda-name=test_Cancel_process_for_sell')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_3'])
+            self.click_on_portfolio_btn()
+            self.redirection_from_portfolio_to_sdp()
+            self.check_for_sell_btn()
+            self.check_for_buy_btn()
+            self.click_on_sell_btn()
+            self.click_on_jual_btn_on_sell_page()
+            self.click_on_setuju()
+            self.sleep(2)
+            self.click_on_ok_btn()
+            self.verify_transaction_page()
+            self.verify_status_on_transaction_page()
+            self.open_status_page_of_sell_order()
+            self.click_on_cancel_btn_on_status_page()
+            self.click_on_click_cancel_btn_at_confirmation_pop_up()
+            self.verify_order_status_page()
+            self.click_on_cancel_btn_on_status_page()
+            self.click_by_position()
+            self.validate_place_order_confirmation_pop_up()
+            self.click_on_cancel_confirmation_btn()
+            self.validate_place_order_success_text()
+            self.click_on_ok_btn()
+            self.verify_transaction_on_transaction_page_after_cancel()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_Cancel_process_for_sell', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_Cancel_process_for_sell', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+
     #Validate user should redirected to order page when user click on OK button on cancel confirmation page.
     @pytest.mark.CAN_SMMA_010
     @pytest.mark.Cancel_OLD
