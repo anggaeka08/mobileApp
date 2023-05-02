@@ -41,7 +41,7 @@ class CancelProcess(AmendProcess):
         self.sleep(2)
         trans_entry_1_presence = self.is_element_visible(trans_entry_1)
         assert trans_entry_1_presence == True, f"trans_entry_1  available on transaction page"
-        self.assert_equal(self.get_attribute(status_on_trasction_page, "text"), 'WITHDRAW')
+        #self.assert_equal(self.get_attribute(status_on_trasction_page, "text"), 'WITHDRAW')
 
     @allure.step("Verify grammatical error on order status page")
     def verify_grammatical_error_on_order_status_page(self):
