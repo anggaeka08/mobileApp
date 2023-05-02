@@ -16,7 +16,7 @@ cp = [
     "platformName": "Android",
     "deviceName": "Pixel 3 XL",
     "platformVersion": "10",
-    "build": "Regression Run 1.80.1(384)",
+    "build": "Regression Run-2 1.80.1(384)",
     "name": "Regression Test Cases",
     "isRealMobile": True,
     "user": "pawan@binmile.com",
