@@ -420,6 +420,7 @@ class Watchlist(HomePage):
 
     @allure.step("Verify stock code and name in watchlist stocks")
     def verify_stock_code_and_name_in_watchlist_stocks(self):
+        self.scroll_up()
         for i in range(0,5):
             self.assert_equal(self.is_element_visible(f'HomepageWLStockCode{i}'), True)
             self.assert_equal(self.is_element_visible(f'HomepageWLStockName{i}'), True)
