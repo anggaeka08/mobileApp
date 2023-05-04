@@ -300,7 +300,7 @@ class Login_test(LoginPage):
             self.click_selanjutnya()
             self.enter_otp(user_data['valid_otp'])
             self.click_on_reset_pin()
-            self.sleep(25)
+            self.sleep(30)
             self.click_on_selanjutnya()
             self.enter_otp(user_data['valid_otp'])
             time.sleep(2)

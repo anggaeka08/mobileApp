@@ -4,7 +4,7 @@ from selenium.common.exceptions import NoSuchElementException
 from SiminvestAppQa.src.pages.Android_pages.sell_process import SellProcess
 from SiminvestAppQa.src.data.userData import user_data
 
-@pytest.mark.usefixtures("unittest_setUpClass_fixture_Sell_test")
+
 class Sell_test(SellProcess):
     # positive flow for sell
     @pytest.mark.positive_flow_of_sell_and_data_compare_from_odp

@@ -69,7 +69,7 @@ wrong_otp_msg = "//android.widget.TextView[@text='OTP Salah. Silahkan ulangi lag
 wrong_otp_msg_text ='OTP Salah. Silahkan ulangi lagi'
 ignore_btn = "//android.widget.Button[@text= 'IGNORE']"
 kirim_otp = "//android.widget.TextView[contains(@text, 'Kirim OTP via')]"
-selanjutnya_otp_sel = '//android.widget.TextView[contains(@text = "SELANJUTNYA")]'
+selanjutnya_otp_sel = '//android.widget.TextView[@text="SELANJUTNYA"]'
 back_btn = "//android.view.ViewGroup/android.widget.ImageView[@index ='0']"
 navigate_up = 'Navigate up'
 bio_on_off = "//android.widget.TextView[@text = 'Nanti Saja']"

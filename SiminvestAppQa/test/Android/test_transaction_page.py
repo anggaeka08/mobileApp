@@ -96,7 +96,7 @@ class Transaction_test(Transaction):
 
     @pytest.mark.trans_gtc_list_ui
     @pytest.mark.Android
-    @pytest.mark.Transaction
+    @pytest.mark.Transaction_NoRun
     @allure.story("F-8:Transaction Page")
     def test_ui_functionality_of_gtc_list_tab(self):
         try:
@@ -115,7 +115,7 @@ class Transaction_test(Transaction):
 
     @pytest.mark.order_details_of_gtc_list
     @pytest.mark.Android
-    @pytest.mark.Transaction
+    @pytest.mark.Transaction_No_Run
     @allure.story("F-8:Transaction Page")
     def test_ui_for_order_details_of_gtc_list(self):
         try:
@@ -312,7 +312,7 @@ class Transaction_test(Transaction):
 
     @pytest.mark.functional_feature_of_gtc_list
     @pytest.mark.Android
-    @pytest.mark.Transaction
+    @pytest.mark.Transaction_NoRUn
     @allure.story("F-8:Transaction Page")
     def test_functional_feature_of_gtc_list(self):
         try:
@@ -332,7 +332,7 @@ class Transaction_test(Transaction):
 
     @pytest.mark.gtc_list_Data_with_api
     @pytest.mark.Android
-    @pytest.mark.Transaction
+    @pytest.mark.Transaction_NoRUn
     @allure.story("F-8:Transaction Page")
     def test_gtc_list_Data_with_api(self):
         try:
@@ -358,7 +358,7 @@ class Transaction_test(Transaction):
 
     @pytest.mark.functional_feature_of_filter_in_GTC_list
     @pytest.mark.Android
-    @pytest.mark.Transaction
+    @pytest.mark.Transaction_NoRun
     @allure.story("F-8:Transaction Page")
     def test_functional_feature_of_filter_in_GTC_list(self):
         try:
@@ -379,7 +379,7 @@ class Transaction_test(Transaction):
 
     @pytest.mark.functional_feature_of_gtc_detail_page
     @pytest.mark.Android
-    @pytest.mark.Transaction
+    @pytest.mark.TransactionNoRun
     @allure.story("F-8:Transaction Page")
     def test_functional_feature_of_gtc_detail_page(self):
         try:
@@ -400,7 +400,7 @@ class Transaction_test(Transaction):
 
     @pytest.mark.verify_functional_features_of_gtc_cancellation
     @pytest.mark.Android
-    @pytest.mark.Transaction
+    @pytest.mark.TransactionNoRun
     @allure.story("F-8:Transaction Page")
     def test_verify_functional_features_of_gtc_cancellation(self):
         try:

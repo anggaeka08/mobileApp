@@ -307,7 +307,7 @@ class SaldoRdn(HomePage):
         rekening_bank_number = rdn_user_account_res['data']['bank_account_number']
         rdn_account_number = rdn_user_account_res['data']['rdn_account']
         withdraw_history_res = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint=f"api/v1/users/rdn/history?page=1", headers=token,expected_status_code=200)
-        withdraw_history_account = withdraw_history_res['data']['statements'][0]['amount']
+       # withdraw_history_account = withdraw_history_res['data']['statements'][0]['amount']
         self.assert_equal(rdn_value, rdn_balance_api)
         self.assert_equal(bank_name_rdn, bank_name_api)
         self.assert_equal(bank_account_name, bank_account_name_api)
