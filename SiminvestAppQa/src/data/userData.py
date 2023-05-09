@@ -1,7 +1,7 @@
 user_data = {
     'reg_no':'8445557108',
     'valid_otp':'1234',
-    'setup_pin_value':'123456',
+    'setup_pin_value':[1,2,3,4,5,6],
     'wrong_length_no':'808343',
     'unkyc_reg_no':'8447777107',
     'max_lenth_no':'84412345678912',

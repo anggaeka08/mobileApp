@@ -23,7 +23,7 @@ class signUpFlow_test(LoginPage):
         self.enter_otp('1235')
         self.verify_otp_page_with_phone_no(number)
         self.enter_otp('1234')
-        self.set_pin('123456')
+        self.set_pin()
         self.close_home_page_banner()
         self.verify_home_page()
 

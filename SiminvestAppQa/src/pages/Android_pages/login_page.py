@@ -1,3 +1,4 @@
+import logging as logger
 import time
 import os
 import allure
@@ -11,17 +12,17 @@ text_input = 'EnterNumEdit'
 selanjutnya = "selanjutana_btn"
 otp_enter = 'PinTextInput'
 #otp_enter = '(//android.widget.EditText[@content-desc="Browser_Stack"])[1]'
-set_pin ="SetUpPinText1"
+set_pin ="//android.widget.TextView[@text='Buat PIN Kamu']"
 risk_profile_page="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView"
 risk_profile = "Pilih tipe portfolio yang sesuai dengan Kamu."
 agresif = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView"
-Home_page_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
-Home_page_text = "Mulai Investasi Yuk…"
+Home_page_locator = "//android.widget.TextView[@text='Buka Akun Investasi']"
+Home_page_text = "Buka Akun Investasi"
 #Home_page_reg_user_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
 Home_page_reg_user_locator = "HomePageRDN"
 Home_page_reg_user_locator_text ="Saldo RDN"
 #Home_page_reg_user_locator_text ="Mulai Investasi Yuk…"
-phone_no_page_text_r = "Masukkan Nomor Ponsel"
+phone_no_page_text_r = "Nomor Ponsel"
 phone_no_page_locator ="EnterNumText1"
 click_1 = "//*[@text='1']"
 click_2 = "//*[@text='2']"
@@ -36,7 +37,7 @@ otp_page_locator = "OtpText2"
 wrong_pin_msg = "Pin masih salah, Silahkan coba 1x lagi"
 wrong_pin_msg_locator = "EnterPinErrorMsg"
 #reset_pin_btn = "//android.widget.TextView[@text='RESET PIN']"
-reset_pin_btn = "ResetPinBtn"
+reset_pin_btn = "//android.widget.TextView[@text='Lupa PIN SimInvest']"
 pin_page_locator = "EnterPinText1"
 confirm_pin_page_locator = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
 pin_page_text_dir = "Masukkan PIN SimInvest"
@@ -52,8 +53,8 @@ error_msg = "//android.widget.TextView[@text='Pastikan memasukkan Nomor Ponsel d
 send_otp_bia_sms = '//android.widget.TextView[@text="Kirim OTP via SMS"]'
 pengaturan_btn = 'ProfilePageEntry3'
 ganti_pin_siminvest='PengaturanPagePinSiminvest'
-pin_lama = "//android.widget.EditText[@index = '4']"
-old_pin_error_msg = "//android.widget.TextView[@index= '11']"
+pin_lama = "//android.widget.EditText[@index = '3']"
+old_pin_error_msg = "//android.widget.TextView[@index= '10']"
 ok_btn = "//android.widget.TextView[@text= 'OK']"
 YA_btn = "//android.widget.TextView[@text= 'YA']"
 confirm_pin = 'cnfPin'
@@ -63,7 +64,7 @@ ganti_pin_password_page_header = 'GantiPAgeHeader'
 sms_btn = 'SMSBtn'
 whatsaap_btn = 'WhatsappBtn'
 otp_verfiy = 'EnterNumText2'
-otp_verify_text = 'Kami akan mengirimkan 4 digit kode verifikasi'
+otp_verify_text = 'Masukkan nomor ponsel untuk mendaftar. Pastikan nomor benar dan aktif.'
 wrong_number_text = 'WrongNumText'
 wrong_otp_msg = "//android.widget.TextView[@text='OTP Salah. Silahkan ulangi lagi']"
 wrong_otp_msg_text ='OTP Salah. Silahkan ulangi lagi'
@@ -94,7 +95,7 @@ class LoginPage(BaseCase):
     @allure.step("verify mobile no page")
     def verify_mobile_no_page(self):
         mobile_no_page_text = self.get_attribute(mobile_no_page, "text")
-        self.assert_equal(mobile_no_page_text, "Masukkan Nomor Ponsel")
+        self.assert_equal(mobile_no_page_text, "Nomor Ponsel")
 
     @allure.step("verify count of mobile no")
     def verify_count_of_mobile_no(self, phone_number):
@@ -124,15 +125,18 @@ class LoginPage(BaseCase):
         #self.execute_script('mobile: shell', {'command': 'input text', 'args': otp})
 
     @allure.step("enter set/confirm pin")
-    def set_pin(self,pin):
+    def set_pin(self, pin):
         #os.system(f"start /wait cmd /c adb shell input text {pin}")
         #self.execute_script('mobile: shell', {'command': 'input text', 'args': pin})
-        self.set_text(set_up_pin, pin)
+       # self.set_text(set_up_pin, pin)
+        self.sleep(2)
+        for i in range(len(pin)):
+            self.click(f"//*[@text='{pin[i]}']")
 
     @allure.step("verify set up pin page")
     def verify_setup_pin_page(self):
         setup_page_text = self.get_attribute(set_pin, "text")
-        self.assert_equal(setup_page_text, "Atur PIN")
+        self.assert_equal(setup_page_text, "Buat PIN Kamu")
 
     @allure.step("verify risk profile page")
     def verify_risk_profile_page(self):
@@ -224,6 +228,17 @@ class LoginPage(BaseCase):
         self.assert_equal(phone_no_page_text_r, phone_no_page_text)
         #self.tearDown()
 
+    @allure.step("enter pin")
+    def set_up_pin(self):
+        self.sleep(2)
+        self.click(click_6)
+        self.click(click_5)
+        self.click(click_4)
+        self.click(click_3)
+        self.click(click_2)
+        self.click(click_1)
+        self.sleep(2)
+
     @allure.step("click kirim ulang")
     def click_Kirim_Ulang(self):
         self.click(Kirim_Ulang_click)
@@ -245,7 +260,7 @@ class LoginPage(BaseCase):
     def verify_otp_page_with_phone_no(self, phone_no):
         self.sleep(2)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
-        self.assert_equal(otp_page_text, f"Kami mengirimkan kode melalui SMS ke nomor +62{phone_no}")
+        self.assert_equal(otp_page_text, f"4 digit OTP telah dikirim melalui SMS ke nomor +62{phone_no}")
 
     @allure.step("verify wrong pin message")
     def verify_wrong_pin_message(self):
@@ -365,11 +380,15 @@ class LoginPage(BaseCase):
 
     @allure.step("Enter confirm Pin")
     def enter_confirm_pin(self, pin):
-        self.set_text(confirm_pin, pin)
+        self.sleep(2)
+        for i in range(len(pin)):
+            self.click(f"//*[@text='{pin[i]}']")
         self.click(bio_on_off)
     @allure.step("Enter confirm Pin")
     def enter_confirm_pin_without_bio(self, pin):
-        self.set_text(confirm_pin, pin)
+        self.sleep(2)
+        for i in range(len(pin)):
+            self.click(f"//*[@text='{pin[i]}']")
 
     @allure.step("Validate error msg on confirm pin page")
     def validate_error_msg_on_confirm_pin_page_page(self):
@@ -472,7 +491,7 @@ class LoginPage(BaseCase):
     @allure.step('Verify timer with given time')
     def verify_timer_for_given_time(self, time):
         otp_page_time = self.get_attribute(Kirim_Ulang_unclick, 'text', timeout=50000)
-        timer_on_page = otp_page_time[12:]
+        timer_on_page = otp_page_time[22:]
         self.assert_equal(timer_on_page, str(time))
 
     @allure.step("Click by position")
