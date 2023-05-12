@@ -1,5 +1,9 @@
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
+from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
+from SiminvestAppQa.src.pages.Android_pages.sell_process import SellProcess
+from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
 from SiminvestAppQa.src.data.userData import user_data
+from datetime import datetime
 import allure
 import logging as logger
 
@@ -36,6 +40,14 @@ cash_balance = 'PortPageText11'
 help_btn = "//android.widget.TextView[@text = 'Hubungi Customer Care']"
 chrome_xpath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[2]/android.webkit.WebView/android.view.View[2]/android.view.View[1]/android.view.View'
 pl_percentage_over="PortPageText2"
+sell_success= "BuyTransactionMarketOpenPopUpHeading"
+homepage_btn= "//android.widget.TextView[@text='Home']"
+ok_btn_close = 'BuyTransactionMarketCloseButton'
+exchange_notification= '//android.widget.TextView[contains(@text, "Bursa Tidak Beroperasi")]'
+investasi_sekarang_saham= '//android.widget.TextView[@text="INVESTASI SEKARANG"]'
+investasi_sekarang_reksadana='//android.widget.TextView[@text="Investasi Sekarang"]'
+
+
 
 class Portfolio(HomePage):
 
@@ -81,11 +93,11 @@ class Portfolio(HomePage):
         avg_price_port = self.get_attribute(avg_value, 'text')
         p_l_value_port = self.get_attribute(plidr_value, 'text')
         pl_per_value_port = self.get_attribute(pl_percentage, 'text')
-        self.click_on_portfolio_entry_2()
+        self.click_on_portfolio_entry_1()
         total_nilai_value = self.get_attribute(total_nilai, 'text')
         c = '('
         index = total_nilai_value.find(c)
-        p_l_value_sdp = total_nilai_value[2:index]
+        p_l_value_sdp = total_nilai_value[2:index-1]
         p_l_per_value=total_nilai_value[index+1:-1]
         lot_value_sdp = self.get_attribute(lot_dimiki, 'text')
         harga_value_sdp = self.get_attribute(harga, 'text')
@@ -133,7 +145,7 @@ class Portfolio(HomePage):
         Portfolio_value_H = self.get_attribute(portfolio_value_H, "text").replace(' ', '')
         PL_H = self.get_attribute(pl_h, "text")
         c = '('
-        index = PL_H.find(c)
+        index = PL_H.find(c)-1
         PL_H_value = PL_H[:index]
         RDN_H = self.get_attribute(rdn_h, "text")
         RDN_H_Value = RDN_H[3:]
@@ -169,4 +181,37 @@ class Portfolio(HomePage):
         percentage_value = self.get_attribute(pl_percentage_over, "text")
         percentage = percentage_value[1:7]
         self.assert_equal(PL_per, percentage)
+
+    @allure.step("verify buy sell success")
+    def verify_buy_sell_success(self):
+        now = datetime.now()
+        current_time = now.strftime("%H:%M")
+        logger.info(f"Current Time = {current_time}")
+        if (current_time >= '7:30' and current_time <= '10:00') or (
+                current_time >= '12:00' and current_time <= '15:00'):
+            self.assert_equal(self.is_element_visible(sell_success), True)
+            self.click_on_ok_btn()
+        else :
+            logger.info("Out of time")
+            self.assert_equal(self.is_element_visible(sell_success), False)
+            self.click(ok_btn_close)
+            self.go_back()
+            self.go_back()
+
+    @allure.step("Click on homepage")
+    def click_on_home_page(self):
+        self.click(homepage_btn)
+
+    @allure.step("Verify app closed")
+    def verify_app_closed(self):
+        self.assert_equal(self.is_element_visible(homepage_btn), False)
+
+    @allure.step("Validate portfolio for non kyc user")
+    def validate_portfolio_for_non_kyc_user(self):
+        self.assert_equal(self.is_element_visible(investasi_sekarang_saham), True)
+        self.click(reksadhana_tab)
+        self.assert_equal(self.is_element_visible(investasi_sekarang_reksadana), True)
+
+
+
 

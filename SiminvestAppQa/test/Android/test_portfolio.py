@@ -5,14 +5,78 @@ from SiminvestAppQa.src.pages.Android_pages.sell_process import SellProcess
 from SiminvestAppQa.src.utilities.genericUtilities import generate_random_string
 from SiminvestAppQa.src.data.userData import user_data
 import logging as logger
+import allure
+from selenium.common.exceptions import NoSuchElementException
 
-@pytest.mark.usefixtures("unittest_setUpClass_fixture_Portfolio_test")
+
 class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
+
+    @pytest.mark.functional_feature_of_portfolio
+    @pytest.mark.Android
+    @pytest.mark.Portfolio
+    @allure.story("F-15:Portfolio Page")
+    def test_functional_feature_of_portfolio(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_portfolio')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_3'])
+            self.click_on_portfolio_btn()
+            self.redirection_from_portfolio_to_sdp()
+            self.click_on_sell_btn()
+            self.sleep(2)
+            self.click_on_jual_btn_on_sell_page()
+            self.click_on_setuju()
+            self.verify_buy_sell_success()
+            self.click_on_portfolio_btn()
+            self.redirection_from_portfolio_to_sdp()
+            self.click_on_buy_btn()
+            self.price_value_decrease()
+            self.click_on_buy_btn_on_buy_page()
+            self.click_on_confirm_btn()
+            self.verify_buy_sell_success()
+            self.click_on_home_page()
+            self.Compare_values_between_homepage_and_portfolio()
+            self.verify_buypower_and_other_values_presence()
+            self.comparing_the_value_between_portfolio_page_and_sdp()
+            self.go_back()
+            #reached on portfolio page
+            self.go_back()
+            self.go_back()
+            self.verify_app_closed()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_portfolio', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_portfolio', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.functional_feature_of_portfolio_for_non_kyc_user
+    @pytest.mark.Android
+    @pytest.mark.Portfolio
+    @allure.story("F-15:Portfolio Page")
+    def test_functional_feature_of_portfolio_for_non_kyc_user(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_portfolio_for_non_kyc_user')
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+            self.click_on_portfolio_btn()
+            self.validate_portfolio_for_non_kyc_user()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_portfolio_for_non_kyc_user', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_portfolio_for_non_kyc_user', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
 
     # Cover all 5 test cases in single test
     @pytest.mark.Port_SMMA_001_to_005
     @pytest.mark.Android
-    @pytest.mark.portfolio
+    @pytest.mark.portfolio_old
     def test_validate_portfolio_btn_position_clickable_redirection_rakshdana_saham_btn_clickable(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.verify_portfolio_on_homepage()
@@ -24,7 +88,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
     # Cover all 3 test cases in single test
     @pytest.mark.Port_SMMA_006_007_008
     @pytest.mark.Android
-    @pytest.mark.portfolio
+    @pytest.mark.portfolio_old
     def test_validate_presence_of_values_and_stock_in_portfolio(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_portfolio_btn()
@@ -36,7 +100,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
     # Cover all 4 test cases in single test
     @pytest.mark.Port_SMMA_009_to_012
     @pytest.mark.Android
-    @pytest.mark.portfolio
+    @pytest.mark.portfolio_old
     def test_validate_values_on_two_different_pages(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_portfolio_btn()
@@ -49,7 +113,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
     # Cover all 2 test cases in single test
     @pytest.mark.Port_SMMA_014_to_015
     @pytest.mark.Android
-    @pytest.mark.portfolio
+    @pytest.mark.portfolio_old
     def test_validate_redirection_and_buy_sell_after_tab_on_portfolio_stock(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_portfolio_btn()
@@ -72,7 +136,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
     # Cover all 2 test cases in single test
     @pytest.mark.Port_SMMA_016_017
     @pytest.mark.Android
-    @pytest.mark.portfolio
+    @pytest.mark.portfolio_old
     def test_validate_redirection_after_click_reksadana(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_portfolio_btn()
@@ -84,7 +148,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
     # Cover all 4 test cases in single test
     @pytest.mark.Port_SMMA_018_to_21
     @pytest.mark.Android
-    @pytest.mark.portfolio
+    @pytest.mark.portfolio_old
     def test_right_left_swipe_on_portfolio_and_customer_care(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_portfolio_btn()
@@ -100,7 +164,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
     # Cover all 3 test cases in single test
     @pytest.mark.Port_SMMA_025_26_29a
     @pytest.mark.Android
-    @pytest.mark.portfolio
+    @pytest.mark.portfolio_old
     def test_validate_portfolio_value_buying_power_PL_value_with_portfolio_page_value(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.Compare_values_between_homepage_and_portfolio()
@@ -108,7 +172,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
 # Cover all 3 test cases in single test
     @pytest.mark.Port_SMMA_034_035_037
     @pytest.mark.Android
-    @pytest.mark.portfolio
+    @pytest.mark.portfolio_old
     def test_back_btn_non_kyc_reksadana_help_btn(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_portfolio_btn()
@@ -123,7 +187,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
 # Cover all 2 test cases in single test
     @pytest.mark.Port_SMMA_039_040
     @pytest.mark.Android
-    @pytest.mark.portfolio
+    @pytest.mark.portfolio_old
     def test_validate_PL_and_PL_per_value(self):
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
         self.click_on_portfolio_btn()

@@ -67,6 +67,7 @@ class SellProcess(BuyProcess):
     @allure.step("click on setuju btn")
     def click_on_setuju(self):
         self.click(Setuju_btn)
+        self.sleep(2)
 
     @allure.step("click on batal btn")
     def click_on_batal(self):
