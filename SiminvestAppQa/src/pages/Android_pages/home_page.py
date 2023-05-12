@@ -689,6 +689,11 @@ class HomePage(LoginPage):
         self.click(portfolio_entry_2)
         self.sleep(2)
 
+    @allure.step("click on portfolio entry 1")
+    def click_on_portfolio_entry_1(self):
+        self.click(portfolio_entry_1)
+        self.sleep(2)
+
     @allure.step("click on transaction btn")
     def click_on_transaction_btn(self):
         self.click(transition_btn)
