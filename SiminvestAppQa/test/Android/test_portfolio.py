@@ -59,7 +59,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
     def test_functional_feature_of_portfolio_for_non_kyc_user(self):
         try:
             self.execute_script('lambda-name=test_functional_feature_of_portfolio_for_non_kyc_user')
-            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no'])
             self.click_on_portfolio_btn()
             self.validate_portfolio_for_non_kyc_user()
             self.execute_script("lambda-status=passed")
@@ -72,6 +72,24 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.ui_feature_of_portfolio_tab
+    @pytest.mark.Android
+    @pytest.mark.Portfolio
+    @allure.story("F-15:Portfolio Page")
+    def test_ui_feature_of_portfolio_tab(self):
+        try:
+            self.execute_script('lambda-name=test_ui_feature_of_portfolio_tab')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
+            self.verify_ui_feature_for_portfolio()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_ui_feature_of_portfolio_tab','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_ui_feature_of_portfolio_tab','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
 
     # Cover all 5 test cases in single test
     @pytest.mark.Port_SMMA_001_to_005
@@ -193,7 +211,6 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
         self.click_on_portfolio_btn()
         self.verify_pl_value()
         self.verify_pl_percentage()
-
 
 
 
