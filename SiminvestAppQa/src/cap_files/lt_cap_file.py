@@ -13,11 +13,11 @@ cp = [
 {
     #"app":"lt://APP1016046941680173474501548",
    # "app":"lt://APP10160591891683016062192803",
-    "app":"lt://APP10160591891683532939368782",
+    "app":"lt://APP10160591891684303692753231",
     "platformName": "Android",
     "deviceName": "Pixel 4",
     "platformVersion": "10",
-    "build": "Testing 1.81.1",
+    "build": "Testing 1.82.1",
     "name": "Testing Test Cases",
     "isRealMobile": True,
     "user": "pawan@binmile.com",
