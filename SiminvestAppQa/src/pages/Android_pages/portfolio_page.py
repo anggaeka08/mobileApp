@@ -6,8 +6,10 @@ from SiminvestAppQa.src.data.userData import user_data
 from datetime import datetime
 import allure
 import logging as logger
+from appium.webdriver.common.touch_action import TouchAction
 
 saham_tab = '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[1]'
+reksadana_to_saham_btn = '(//android.view.ViewGroup[@content-desc="PortPageReksadanaTab"])[1]'
 reksadhana_tab = '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[2]'
 buying_power_value = 'PortPageText9'
 p_l_value = 'PortPageText3'
@@ -31,6 +33,7 @@ harga = 'SDPPortPageText9'
 portfolio_entry_1 = 'PortPageEntry0'
 buka_akun_reksadana = '//android.widget.TextView[@text="Buka Akun Reksadana"]'
 order_buy = '//android.widget.TextView[@text="ORDER BELI"]'
+order_jual = "FastBSHeader"
 portfolio_value_H = 'HomepageRp'
 pl_h = 'HomepageRpAmount'
 rdn_h = 'HomePageRdnValue'
@@ -38,7 +41,8 @@ portfolio_value_port = 'PortPagePortfolioValue'
 pl_port = 'PortPageText3'
 cash_balance = 'PortPageText11'
 help_btn = "//android.widget.TextView[@text = 'Hubungi Customer Care']"
-chrome_xpath = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.FrameLayout[1]/android.widget.FrameLayout[2]/android.webkit.WebView/android.view.View[2]/android.view.View[1]/android.view.View'
+chrome_xpath = "//android.widget.TextView[@text = 'PusatBantuanSimInvest']"
+select_browser = "//android.widget.TextView[@text = 'Open links with']"
 pl_percentage_over="PortPageText2"
 sell_success= "BuyTransactionMarketOpenPopUpHeading"
 homepage_btn= "//android.widget.TextView[@text='Home']"
@@ -46,7 +50,15 @@ ok_btn_close = 'BuyTransactionMarketCloseButton'
 exchange_notification= '//android.widget.TextView[contains(@text, "Bursa Tidak Beroperasi")]'
 investasi_sekarang_saham= '//android.widget.TextView[@text="INVESTASI SEKARANG"]'
 investasi_sekarang_reksadana='//android.widget.TextView[@text="Investasi Sekarang"]'
-
+portfolio_btn = '//android.widget.TextView[@text="Portfolio"]'
+code="PortPageTextHeader1"
+lot="PortPageTextHeader2"
+avg="PortPageTextHeader3"
+last="PortPageTextHeader4"
+PL_idr="PortPageTextHeader5"
+PL_percent="PortPageTextHeader6"
+invested="PortPageTextHeader7"
+value="PortPageTextHeader8"
 
 
 class Portfolio(HomePage):
@@ -119,6 +131,11 @@ class Portfolio(HomePage):
     @allure.step("Click on reksadhana_tab")
     def click_on_reksadhana_tab(self):
         self.click(reksadhana_tab)
+        self.sleep(2)
+
+    @allure.step("Click on saham tab")
+    def click_on_saham_tab(self):
+        self.click(saham_tab)
 
     @allure.step("Verify Tab on Reksadhana")
     def verify_tab_on_reksadhana(self):
@@ -139,6 +156,10 @@ class Portfolio(HomePage):
     @allure.step("Verify half card page buy")
     def verify_half_card_page_buy(self):
         self.assert_equal(self.is_element_visible(order_buy), True)
+
+    @allure.step("Verify half card for sell")
+    def verify_half_card_for_sell(self):
+        self.assert_equal(self.is_element_visible(order_jual), True)
 
     @allure.step("Compare portfolio_value_buying_power_PL_value with homepage")
     def Compare_values_between_homepage_and_portfolio(self):
@@ -164,7 +185,10 @@ class Portfolio(HomePage):
     @allure.step("Verify redirection after click on customer support")
     def verify_redirection_after_click_on_customer_support(self):
         self.sleep(3)
-        self.assert_equal(self.is_element_visible(chrome_xpath), True)
+        if self.is_element_visible(select_browser)==True:
+            self.assert_equal(self.is_element_visible(select_browser), True)
+        else:
+            self.assert_equal(self.is_element_visible(chrome_xpath), True)
 
     @allure.step("Verify PL value")
     def verify_pl_value(self):
@@ -187,8 +211,7 @@ class Portfolio(HomePage):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
         logger.info(f"Current Time = {current_time}")
-        if (current_time >= '7:30' and current_time <= '10:00') or (
-                current_time >= '12:00' and current_time <= '15:00'):
+        if (current_time >= '7:30' or current_time <= '15:00'):
             self.assert_equal(self.is_element_visible(sell_success), True)
             self.click_on_ok_btn()
         else :
@@ -212,6 +235,70 @@ class Portfolio(HomePage):
         self.click(reksadhana_tab)
         self.assert_equal(self.is_element_visible(investasi_sekarang_reksadana), True)
 
+    @allure.step("Verify sub heading")
+    def verify_sub_heading(self):
+        self.assert_equal(self.is_element_visible(code), True)
+        self.assert_equal(self.is_element_visible(lot), True)
+        self.assert_equal(self.is_element_visible(avg), True)
+        self.assert_equal(self.is_element_visible(last), True)
+        self.assert_equal(self.is_element_visible(PL_idr), True)
+        self.assert_equal(self.is_element_visible(PL_percent), True)
+        self.assert_equal(self.is_element_visible(invested), True)
+        self.assert_equal(self.is_element_visible(value), True)
+
+    @allure.step("Verify portfolio stock code sorting")
+    def verify_portfolio_stock_code_sorting(self):
+        self.assert_equal(self.get_attribute('PortPageEntry0Code', "text"), "ANTM" )
+        self.assert_equal(self.get_attribute('PortPageEntry1Code', "text"), "APLN" )
+        self.assert_equal(self.get_attribute('PortPageEntry2Code', "text"), "ASII" )
+        self.assert_equal(self.get_attribute('PortPageEntry3Code', "text"), "BBCA" )
+        self.assert_equal(self.get_attribute('PortPageEntry4Code', "text"), "BBNI" )
 
 
-
+    @allure.step("verify ui feature for portfolio")
+    def verify_ui_feature_for_portfolio(self):
+        self.assert_equal(self.is_element_visible(portfolio_btn), True)
+        self.click_on_portfolio_btn()
+        self.verify_buypower_and_other_values_presence()
+        self.assert_equal(self.is_element_visible(saham_tab), True)
+        self.verify_saham_tab_clickable()
+        self.assert_equal(self.is_element_visible(reksadhana_tab), True)
+        self.verify_reksadhana_tab_clickable()
+        self.click_on_reksadhana_tab()
+        self.assert_equal(self.is_element_visible(investasi_sekarang_reksadana), True)
+        self.click_on_home_page()
+        self.click_on_portfolio_btn()
+        self.assert_equal(self.is_element_visible(investasi_sekarang_reksadana), True)
+        self.click(reksadana_to_saham_btn)
+        self.verify_presence_of_Code_Lot_Avg_Last_PL_IDR_PL_percentage_invested_value()
+        self.scroll_up()
+        self.scroll_down()
+        self.assert_equal(self.is_element_visible(portfolio_entry_1), True)
+        self.right_swipe_on_portfolio()
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(order_jual), True)
+        self.go_back()
+        self.left_swipe_on_portfolio()
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(order_jual), True)
+        self.go_back()
+        self.scroll_screen(start_x=500, start_y=1820, end_x=500, end_y=-4000, duration=10000)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(help_btn), True)
+        self.click_to_help_btn()
+        self.verify_redirection_after_click_on_customer_support()
+        self.go_back()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(saham_tab), True)
+        self.sleep(1)
+        self.scroll_screen(start_x=600, start_y=420, end_x=600, end_y=6000, duration=10000)
+        self.verify_sub_heading()
+        self.scroll_down()
+        self.sleep(2)
+        self.verify_portfolio_stock_code_sorting()
+        self.click_on_reksadhana_tab()
+        self.click(reksadana_to_saham_btn)
+        self.verify_portfolio_stock_code_sorting()
+        self.click_on_home_page()
+        self.click_on_portfolio_btn()
+        self.verify_portfolio_stock_code_sorting()
