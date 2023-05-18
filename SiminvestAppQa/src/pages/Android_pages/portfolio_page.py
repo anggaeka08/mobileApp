@@ -12,6 +12,7 @@ saham_tab = '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[1]'
 reksadana_to_saham_btn = '(//android.view.ViewGroup[@content-desc="PortPageReksadanaTab"])[1]'
 reksadhana_tab = '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[2]'
 buying_power_value = 'PortPageText9'
+buying_power_H = 'HomepagebuyPower'
 p_l_value = 'PortPageText3'
 invested_value = 'PortPageText5'
 cash_value = 'PortPageText11'
@@ -30,6 +31,7 @@ jual_btn = 'SDPPageSellBtn'
 total_nilai = 'SDPPortPageText3'
 lot_dimiki = 'SDPPortPageText5'
 harga = 'SDPPortPageText9'
+diinvestasikan_value= 'SDPPortPageText8'
 portfolio_entry_1 = 'PortPageEntry0'
 buka_akun_reksadana = '//android.widget.TextView[@text="Buka Akun Reksadana"]'
 order_buy = '//android.widget.TextView[@text="ORDER BELI"]'
@@ -105,6 +107,7 @@ class Portfolio(HomePage):
         avg_price_port = self.get_attribute(avg_value, 'text')
         p_l_value_port = self.get_attribute(plidr_value, 'text')
         pl_per_value_port = self.get_attribute(pl_percentage, 'text')
+        invested_value_port = self.get_attribute(invested_values, 'text')
         self.click_on_portfolio_entry_1()
         total_nilai_value = self.get_attribute(total_nilai, 'text')
         c = '('
@@ -113,10 +116,12 @@ class Portfolio(HomePage):
         p_l_per_value=total_nilai_value[index+1:-1]
         lot_value_sdp = self.get_attribute(lot_dimiki, 'text')
         harga_value_sdp = self.get_attribute(harga, 'text')
+        diinvestasikan_value_sdp= self.get_attribute(diinvestasikan_value, 'text')
         self.assert_equal(lot_value_sdp, lot_port)
         self.assert_equal(harga_value_sdp, avg_price_port)
         self.assert_equal(p_l_value_sdp, p_l_value_port)
         self.assert_equal(p_l_per_value, pl_per_value_port)
+        self.assert_equal(invested_value_port, diinvestasikan_value_sdp)
 
     @allure.step("Validate redirection from portfolio to sdp")
     def validate_redirection_from_portfolio_to_sdp(self):
@@ -163,20 +168,39 @@ class Portfolio(HomePage):
 
     @allure.step("Compare portfolio_value_buying_power_PL_value with homepage")
     def Compare_values_between_homepage_and_portfolio(self):
+        #extract portfolio value from homepage
         Portfolio_value_H = self.get_attribute(portfolio_value_H, "text").replace(' ', '')
+        #extract P/L value from homepage
         PL_H = self.get_attribute(pl_h, "text")
         c = '('
         index = PL_H.find(c)-1
         PL_H_value = PL_H[:index]
+        #extract P/L Percentage from homepage
+        index1 = PL_H.find('(')
+        index2=  PL_H.find(')')+1
+        PL_H_percentage= PL_H[index1:index2]
+        #extract RDN value from homepage
         RDN_H = self.get_attribute(rdn_h, "text")
         RDN_H_Value = RDN_H[3:]
+        # extract buying power from homepage
+        buying_power=  self.get_attribute(buying_power_H, "text")
+        buying_power_H_value=buying_power[16:]
         self.click_on_portfolio_btn()
+        # extract portfolio value from pf
         Portfolio_value_Port = self.get_attribute(portfolio_value_port, "text").replace(' ','')
+        # extract P/L value from pf
         PL_Port = self.get_attribute(pl_port, "text")
+        # extract P/L Percentage from pf
+        PL_percentage_Port = self.get_attribute(pl_percentage_over, "text")
+        # extract cash balance value from PF
         Cash_balance = self.get_attribute(cash_balance, "text")
+        # extract buying power from PF
+        buying_power_port = self.get_attribute(buying_power_value, "text")
         self.assert_equal(Portfolio_value_H,Portfolio_value_Port)
         self.assert_equal(PL_H_value, PL_Port)
         self.assert_equal(RDN_H_Value, Cash_balance)
+        self.assert_equal(PL_H_percentage, PL_percentage_Port)
+        self.assert_equal(buying_power_H_value, buying_power_port)
 
     @allure.step('Click to help btn')
     def click_to_help_btn(self):
