@@ -225,10 +225,34 @@ class Portfolio(HomePage):
     def verify_pl_percentage(self):
         PL_value = int(self.get_attribute(pl_port, "text").replace(',', ''))
         invest_value = int(self.get_attribute(invested_value, "text").replace(',', ''))
-        PL_per = str((invest_value*100) / PL_value)
+        PL_per = str((PL_value*100) / invest_value)
         percentage_value = self.get_attribute(pl_percentage_over, "text")
         percentage = percentage_value[1:7]
         self.assert_equal(PL_per, percentage)
+
+    @allure.step("verify PL value for stock")
+    def verify_pl_value_for_stock(self):
+        current_value = int(self.get_attribute(value_value, "text").replace(',', ''))
+        invest_value = int(self.get_attribute(invested_values, "text").replace(',', ''))
+        PL_value_expected= str(current_value-invest_value)
+        PL_value_actual = self.get_attribute(plidr_value, "text").replace(',', '')
+        self.assert_equal(PL_value_expected, PL_value_actual)
+
+    @allure.step("verify PL Percentage for stock")
+    def verify_pl_percentage_for_stock(self):
+        PL_value = int(self.get_attribute(plidr_value, "text").replace(',', ''))
+        invest_value = int(self.get_attribute(invested_values, "text").replace(',', ''))
+        PL_per = str((PL_value * 100) / invest_value)
+        percentage_value = (self.get_attribute(pl_percentage, "text"))[:-2]
+        self.assert_equal(PL_per, percentage_value)
+
+    @allure.step("verify portfolio value")
+    def verify_portfolio_value(self):
+        PL_value = int(self.get_attribute(p_l_value, "text").replace(',', ''))
+        invest_value = int(self.get_attribute(invested_value, "text").replace(',', ''))
+        portfolio_value_expected = str((PL_value+invest_value))
+        portfolio_value_actual = (self.get_attribute(portfolio_value_port, "text"))[4:]
+        self.assert_equal(portfolio_value_expected, portfolio_value_actual)
 
     @allure.step("verify buy sell success")
     def verify_buy_sell_success(self):

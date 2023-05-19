@@ -91,6 +91,30 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.mathematical_validation_of_portfolio_tab
+    @pytest.mark.Android
+    @pytest.mark.Portfolio
+    @allure.story("F-15:Portfolio Page")
+    def test_mathematical_validation_of_portfolio_tab(self):
+        try:
+            self.execute_script('lambda-name=test_mathematical_validation_of_portfolio_tab')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
+            self.click_on_portfolio_btn()
+            self.verify_pl_value()
+            self.verify_pl_percentage()
+            self.verify_pl_percentage_for_stock()
+            self.verify_pl_value_for_stock()
+            self.verify_portfolio_value()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_mathematical_validation_of_portfolio_tab', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_mathematical_validation_of_portfolio_tab', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
     # Cover all 5 test cases in single test
     @pytest.mark.Port_SMMA_001_to_005
     @pytest.mark.Android
