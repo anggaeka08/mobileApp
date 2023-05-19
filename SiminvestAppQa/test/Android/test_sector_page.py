@@ -18,6 +18,7 @@ class saldoRdn_test(SectorPage):
             self.execute_script('lambda-name=test_validate_functional_feature_sector_page')
             self.open_sector_page(user_data['reg_no_2'])
             self.Validate_11_entries_available_on_sector_page()
+            self.validate_the_number_of_stock_on_list_page_and_sector_page()
         except AssertionError as E:
             self.save_screenshot('test_validate_functional_feature_sector_page', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
