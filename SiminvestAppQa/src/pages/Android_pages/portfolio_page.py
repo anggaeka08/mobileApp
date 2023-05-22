@@ -1,13 +1,11 @@
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
-from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
-from SiminvestAppQa.src.pages.Android_pages.sell_process import SellProcess
-from SiminvestAppQa.src.pages.Android_pages.buy_process import BuyProcess
-from SiminvestAppQa.src.data.userData import user_data
 from datetime import datetime
 import allure
 import logging as logger
-from appium.webdriver.common.touch_action import TouchAction
+from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 
+
+request_utilities = RequestsUtilities()
 saham_tab = '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[1]'
 reksadana_to_saham_btn = '(//android.view.ViewGroup[@content-desc="PortPageReksadanaTab"])[1]'
 reksadhana_tab = '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[2]'
@@ -350,3 +348,46 @@ class Portfolio(HomePage):
         self.click_on_home_page()
         self.click_on_portfolio_btn()
         self.verify_portfolio_stock_code_sorting()
+
+    @allure.step("Collect api data for portfolio")
+    def collect_api_data_for_portfolio(self):
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        homepage_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='api/v1/oms/equities/trading-account/53617?stock_code=', headers=token,expected_status_code=200)
+        logger.info(homepage_rs)
+        rdn_balance_api = str(homepage_rs['data']['rdn_balance'])
+        trading_balance_api = str(homepage_rs['data']['trading_balance'])
+        portfolio_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='api/v1/users/portfolios/equities/53617', headers=token, expected_status_code=202)
+        logger.info(portfolio_rs)
+        buying_power_api = str(portfolio_rs['data']['buying_power'])
+        buyopen_api = str(portfolio_rs['data']['buyopen'])
+        cash_balance_api = str(portfolio_rs['data']['cash_balance'])
+        earnings_api = portfolio_rs['data']['earnings']
+        market_value_api = str(portfolio_rs['data']['market_value'])
+        return_api = str(portfolio_rs['data']['return'])
+        sellopen_api = str(portfolio_rs['data']['sellopen'])
+        total_investment_api = str(portfolio_rs['data']['total_investment'])
+        return rdn_balance_api, trading_balance_api, buying_power_api, buyopen_api,cash_balance_api,earnings_api,market_value_api,return_api,sellopen_api,total_investment_api
+
+    @allure.step("Collect ui data for portfolio")
+    def collect_ui_data_for_portfolio(self):
+        RDN_H = self.get_attribute(rdn_h, "text")
+        rdn_balance_ui = RDN_H[3:].replace(',','')
+        buying_power = self.get_attribute(buying_power_H, "text")
+        trading_balance_ui = buying_power[16:].replace(',','')
+        self.click_on_portfolio_btn()
+        buying_power_ui = self.get_attribute(buying_power_value, "text").replace(',','')
+        buyopen_ui = self.get_attribute(open_buy, "text").replace(',','')
+        cash_balance_ui = self.get_attribute(cash_balance, "text").replace(',','')
+        earnings_ui = int(self.get_attribute(p_l_value, "text").replace(',', ''))
+        market_value_ui = (self.get_attribute(portfolio_value_port, "text"))[4:]
+        return_ui = (self.get_attribute(pl_percentage_over, "text"))[1:5]
+        sellopen_ui = self.get_attribute(open_sell, "text")
+        total_investment_ui=self.get_attribute(invested_value, "text").replace(',', '')
+        return rdn_balance_ui, trading_balance_ui, buying_power_ui, buyopen_ui, cash_balance_ui, earnings_ui, market_value_ui, return_ui, sellopen_ui, total_investment_ui
+
+
+
+
+
