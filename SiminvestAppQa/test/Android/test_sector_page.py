@@ -12,7 +12,7 @@ class saldoRdn_test(SectorPage):
     @pytest.mark.functional_feature_sector_page
     @pytest.mark.Android
     @pytest.mark.SectorPage
-    @allure.story("F-15: SectorPage")
+    @allure.story("F-16: SectorPage")
     def test_validate_functional_feature_sector_page(self):
         try:
             self.execute_script('lambda-name=test_validate_functional_feature_sector_page')
@@ -28,11 +28,11 @@ class saldoRdn_test(SectorPage):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
-   #SMMA-7400: Use Case 2*: Validate the UI and grammatical and button feature of the sector tab.
+   #SMMA-7400: Use Case 2*: Validate the UI and grammatical                                                                             and button feature of the sector tab.
     @pytest.mark.button_and_grammar_on_sector_page
     @pytest.mark.Android
     @pytest.mark.SectorPage
-    @allure.story("F-15: SectorPage")
+    @allure.story("F-16: SectorPage")
     def test_validate_button_and_grammar_on_sector_page(self):
         try:
             self.execute_script('lambda-name=test_validate_button_and_grammar_on_sector_page')
