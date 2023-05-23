@@ -10,7 +10,8 @@ sector_name = ['Energi', 'Barang Baku', 'Perindustrian', 'Barang Konsumen Non-Pr
 stock_icon = '//android.widget.ImageView'
 sector_entry = '//android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]'
 sdp_header = 'SDPStockCode'
-
+stock_code =""
+stock_fullname = ""
 class SectorPage(StockDetailPage):
 
     @allure.step("verify_redirection_to_sector_page")
@@ -57,3 +58,33 @@ class SectorPage(StockDetailPage):
             count_on_list_page_after_scroll = self.get_attribute(count_on_list, 'text')
             self.assert_equal(count_sector_page, count_on_list_page_after_scroll)
             self.go_back()
+
+
+    @allure.step("validate back btn and grammar on sector page and list page")
+    def validate_back_btn_and_grammar_on_sector_page_and_list_page(self):
+        self.click_on_sector_button()
+        self.sleep(2)
+        for i in range(11):
+            self.click(f'SectorPageType{i}')
+            self.sleep(2)
+            self.scroll_down()
+            self.sleep(5)
+            self.assert_equal(self.is_element_visible(sector_entry), True)
+            for i in range(1,6):
+                self.assert_equal(self.is_element_visible(f'//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]'), True)
+                self.assert_equal(self.is_element_visible(f'//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]'), True)
+                self.assert_equal(self.is_element_visible(f'//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[3]'), True)
+            self.click(sector_entry)
+            self.sleep(2)
+            self.go_back()
+            self.sleep(2)
+            self.assert_equal(self.is_element_visible(f'//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]'),True)
+            self.go_back()
+            self.sleep(1)
+
+    @allure.step("Verify redirection after back btn from sector page")
+    def verify_redirection_after_back_btn_from_sector_page(self):
+        self.go_back()
+        self.sleep(2)
+        self.verify_home_page_reg_user()
+
