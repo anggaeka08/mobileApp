@@ -115,6 +115,38 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.validate_portfoilo_api_ui_data
+    @pytest.mark.Android
+    @pytest.mark.Portfolio
+    @allure.story("F-15:Portfolio Page")
+    def test_validate_portfoilo_api_ui_data(self):
+        try:
+            self.execute_script('lambda-name=test_validate_portfoilo_api_ui_data')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            rdn_balance_ui, trading_balance_ui, buying_power_ui, buyopen_ui, cash_balance_ui, earnings_ui, market_value_ui, return_ui, sellopen_ui, total_investment_ui = self.collect_ui_data_for_portfolio()
+            rdn_balance_api, trading_balance_api, buying_power_api, buyopen_api,cash_balance_api,earnings_api,market_value_api,return_api,sellopen_api,total_investment_api = self.collect_api_data_for_portfolio()
+            self.assert_equal(rdn_balance_ui,rdn_balance_api)
+            self.assert_equal(trading_balance_ui,trading_balance_ui)
+            self.assert_equal(buying_power_ui, buying_power_api)
+            self.assert_equal(buyopen_ui, buyopen_api)
+            self.assert_equal(cash_balance_ui, cash_balance_api)
+            self.assert_equal(earnings_ui, earnings_api)
+            self.assert_equal(market_value_ui, market_value_api)
+            self.assert_equal(return_ui, return_api)
+            self.assert_equal(sellopen_ui, sellopen_api)
+            self.assert_equal(total_investment_ui,total_investment_api)
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_portfoilo_api_ui_data', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_portfoilo_api_ui_data', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+
+
     # Cover all 5 test cases in single test
     @pytest.mark.Port_SMMA_001_to_005
     @pytest.mark.Android
