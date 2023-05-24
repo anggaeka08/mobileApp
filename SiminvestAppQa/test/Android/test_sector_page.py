@@ -47,3 +47,22 @@ class saldoRdn_test(SectorPage):
             self.save_screenshot('test_validate_button_and_grammar_on_sector_page', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+   #SMMA-7400: Use Case 3 validate ui data with api                                                                        and button feature of the sector tab.
+    @pytest.mark.ui_data_validation_with_api
+    @pytest.mark.Android
+    @pytest.mark.SectorPage
+    @allure.story("F-16: SectorPage")
+    def test_ui_data_validation_with_api(self):
+        try:
+            self.execute_script('lambda-name=test_ui_data_validation_with_api')
+            self.open_sector_page(user_data['reg_no_3'])
+            self.validate_ui_data_with_api()
+        except AssertionError as E:
+            self.save_screenshot('test_ui_data_validation_with_api', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_ui_data_validation_with_api', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
