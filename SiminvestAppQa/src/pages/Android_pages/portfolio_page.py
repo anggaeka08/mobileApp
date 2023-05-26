@@ -49,7 +49,7 @@ homepage_btn= "//android.widget.TextView[@text='Home']"
 ok_btn_close = 'BuyTransactionMarketCloseButton'
 exchange_notification= '//android.widget.TextView[contains(@text, "Bursa Tidak Beroperasi")]'
 investasi_sekarang_saham= '//android.widget.TextView[@text="INVESTASI SEKARANG"]'
-investasi_sekarang_reksadana='//android.widget.TextView[@text="Investasi Sekarang"]'
+investasi_sekarang_reksadana='//android.widget.TextView[@text="INVESTASI SEKARANG"]'
 portfolio_btn = '//android.widget.TextView[@text="Portfolio"]'
 code="PortPageTextHeader1"
 lot="PortPageTextHeader2"

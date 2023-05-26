@@ -216,7 +216,7 @@ class Watchlist_test(Watchlist):
         try:
             self.execute_script('lambda-name=test_validate_same_stock_will_be_added_to_many_watchlist')
             self.go_to_watchlist_option_after_login(user_data['reg_no_2'])
-            self.scroll_up()
+            #self.scroll_up()
             self.click_on_defaults_btn()
             for i in range(9):
                 self.click_on_plus_btn()

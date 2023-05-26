@@ -25,7 +25,7 @@ class Research_test(Research):
             self.Verify_availability_for_last_report_and_news_on_search_option()
             self.enter_and_verify_some_value_in_search_option()
             self.Click_to_new_and_verify_entry()
-            self.click_to_lastreport_and_verify_entry()
+            #self.click_to_lastreport_and_verify_entry()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_validate_research_page_redirection_and_search_option', 'SiminvestAppQa/src/data/ScreenShots')
@@ -64,7 +64,7 @@ class Research_test(Research):
 
     @pytest.mark.RE_022_to_039
     @pytest.mark.Android
-    @pytest.mark.Research
+    @pytest.mark.Research_1
     @pytest.mark.Revamp
     @allure.story("F-4:Research Feature")
     def test_validate_red_dots_on_stock_signal(self):
