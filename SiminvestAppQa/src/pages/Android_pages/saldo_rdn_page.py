@@ -70,6 +70,7 @@ class SaldoRdn(HomePage):
 
     @allure.step("Verify rdn homePage")
     def verify_rdn_homePage(self):
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(rdn_header), True)
         self.assert_equal(self.is_element_visible(rdn_balance), True)
 
@@ -206,7 +207,7 @@ class SaldoRdn(HomePage):
         self.go_back()
         self.assert_equal(self.is_element_visible(profile_name), True)
         self.click(homepage_btn)
-        self.sleep(2)
+        self.sleep(4)
         self.click_on_saldo_rdn_btn()
         rp_rdn = self.get_attribute(rdn_balance, 'text')
         bank_name_rdn = self.get_attribute(bank_name, 'text')

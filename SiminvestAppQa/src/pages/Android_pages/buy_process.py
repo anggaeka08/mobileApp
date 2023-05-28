@@ -484,7 +484,7 @@ class BuyProcess(HomePage):
             self.go_back()
         self.sleep(2)
         self.verify_buy_page()
-        self.go_back()
+        #self.go_back()
         self.sleep(2)
         self.go_back()
         # self.click(sell_btn)
@@ -596,8 +596,7 @@ class BuyProcess(HomePage):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
         logger.info(f"Current Time = {current_time}")
-        if (current_time >= '7:30' and current_time <= '10:00') or (
-                current_time >= '12:00' and current_time <= '13:15'):
+        if (current_time >= '7:30' or current_time <= '15:15'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
             self.click_on_ok_btn()

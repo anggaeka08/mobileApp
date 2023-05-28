@@ -413,7 +413,7 @@ class AmendProcess(StockDetailPage,SellProcess ):
         token_value = self.login()
         token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
         token['Authorization'] = 'Bearer ' + token_value
-        sdp_rs = request_utilities.get(base_url='https://api.siminvest.co.id/api/v1/pcs/v2/product/equity',endpoint=f'/{stock_code_trans}', headers=token,expected_status_code=200)
+        sdp_rs = request_utilities.get(base_url='https://stgapi.siminvest.co.id/api/v1/pcs/v2/product/equity',endpoint=f'/{stock_code_trans}', headers=token,expected_status_code=200)
         vol = str(numerize.numerize(int(sdp_rs['vol'])))
         val = str(numerize.numerize(int(sdp_rs['val'])))
         # new_value = vol[:2]+"."+vol[2:4] +" Jt"

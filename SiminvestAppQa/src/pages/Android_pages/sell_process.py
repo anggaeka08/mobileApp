@@ -164,7 +164,7 @@ class SellProcess(BuyProcess):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
         logger.info(f"Current Time = {current_time}")
-        if (current_time >= '7:30') or (current_time <= '15:00'):
+        if (current_time >= '7:30' or current_time <= '15:00'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
             self.click_on_ok_btn()
