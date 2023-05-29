@@ -1,6 +1,7 @@
 from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
 import allure
+import logging as logger
 
 request_utilities = RequestsUtilities()
 sector_page_header = 'SektorPageHeader'
@@ -71,8 +72,11 @@ class SectorPage(StockDetailPage):
             self.sleep(5)
             self.assert_equal(self.is_element_visible(sector_entry), True)
             for i in range(1,6):
+                #cod4
                 self.assert_equal(self.is_element_visible(f'//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[1]'), True)
+                #comapny name
                 self.assert_equal(self.is_element_visible(f'//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]'), True)
+                #price
                 self.assert_equal(self.is_element_visible(f'//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[3]'), True)
             self.click(sector_entry)
             self.sleep(2)
@@ -88,3 +92,44 @@ class SectorPage(StockDetailPage):
         self.sleep(2)
         self.verify_home_page_reg_user()
 
+    @allure.step("validate ui data with api")
+    def validate_ui_data_with_api(self):
+        sector_name_list = []
+        stock_count_list = []
+        stock_code_list_0 = []
+        stock_code_list_1 = []
+        stock_code_list_2 = []
+        stock_code_list_3 = []
+        stock_code_list_4 = []
+        stock_code_list_5 = []
+        stock_code_list_6 = []
+        stock_code_list_7 = []
+        stock_code_list_8 = []
+        stock_code_list_9 = []
+        stock_code_list_10 = []
+        for i in range(11):
+            sector_name_list.append(self.get_attribute(f'SectorPageName{i}', 'text'))
+            stock_count_text = self.get_attribute(f'SectorPageCount{i}', 'text')
+            index = (stock_count_text.find('S')) -1
+            stock_count = int(stock_count_text[:index])
+            stock_count_list.append(stock_count)
+            self.click(f'SectorPageType{i}')
+            self.sleep(3)
+            for j in range(1,7):
+                 stock_code = self.get_attribute(f'//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{j}]/android.widget.TextView[1]', 'text')
+                 # import pdb
+                 # pdb.set_trace()
+                 locals()[f"stock_code_list_{i}"].append(stock_code)
+            self.go_back()
+            self.sleep(2)
+        # #sector api data
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        sector_list_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='emerson/v1/sector',headers=token, expected_status_code=200)
+        for i in range(len(sector_list_api['data'])):
+            self.assert_equal(sector_name_list[i], sector_list_api['data'][i]['description'])
+        #for k in range(11):
+            sector_stock_list = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint=f"emerson/v1/stock?sector_code={sector_list_api['data'][i]['code']}&sort_by=code&is_asc=true&page=1&limit={sector_list_api['data'][i]['total_stock']}",headers=token, expected_status_code=200)
+            for k in range(6):
+                self.assert_equal(sector_stock_list['data'][k]['code'], locals()[f"stock_code_list_{i}"][k])
