@@ -7,7 +7,7 @@ from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 
 request_utilities = RequestsUtilities()
 gamification_check_box= "//android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView"
-gamification_button= "reward_entry"
+gamification_button= "reward_forward_icon"
 sdp_keystate = "//android.widget.TextView[@text='Keystats']"
 tc_submit= "//android.widget.TextView[@text='Submit']"
 gamification_header= 'MissionHeader'
@@ -27,7 +27,14 @@ kerja_webpage= "//android.view.ViewGroup[2]/android.widget.TextView"
 webpage_back= "//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView"
 menu= "Mission_page_menu"
 kerja_button= "//android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup"
-
+level_btn= '//android.view.ViewGroup[@content-desc="Mission_level_icon"]/android.widget.ImageView'
+level_header = "Level_header"
+riwayat_btn= '//android.view.ViewGroup[@content-desc="Mission_riwayat_icon"]/android.widget.ImageView'
+riwayat_header = "Riwayat_header"
+lihat_semua_btn =  "//android.widget.TextView[@text='Lihat Semua']"
+lihat_semua_entry_1= 'LihatSemua_entry_1_value'
+info_btn='//android.view.ViewGroup[@content-desc="Mission_details_icon"]/android.widget.ImageView'
+info_experince= "//android.widget.TextView[@text='Experience Point']"
 
 class Gamification(HomePage):
 
@@ -41,6 +48,7 @@ class Gamification(HomePage):
         self.enter_pin()
         self.verify_home_page_reg_user()
         self.click_on_profile_btn()
+        self.sleep(1)
         self.click(gamification_button)
         self.sleep(1)
         if self.is_element_visible(gamification_check_box)==True:
@@ -130,14 +138,48 @@ class Gamification(HomePage):
         self.sleep(1)
         self.assert_equal(self.is_element_visible(gamification_header), True)
 
+    @allure.step("Validate level button functionality")
+    def validate_level_button_functionality(self):
+        self.click(level_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(level_header), True)
+        self.go_back()
+        self.sleep(1)
 
+    @allure.step("Validate riwayat button functionality")
+    def validate_riwayat_button_functionality(self):
+        self.click(riwayat_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(riwayat_header), True)
+        self.go_back()
+        self.sleep(1)
 
+    @allure.step("Validate info button functionality")
+    def validate_info_button_functionality(self):
+        self.click(info_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(info_experince), True)
+        self.go_back()
+        self.sleep(1)
 
+    @allure.step("Validate lihat semua button functionality")
+    def validate_lihat_semua_functionality(self):
+        self.click(lihat_semua_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(lihat_semua_entry_1), True)
+        self.go_back()
+        self.sleep(1)
 
+    @allure.step("Validate menu button functionality")
+    def validate_menu_button_functionality(self):
+        self.click(menu)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(kerja_button), True)
+        self.click(back_button)
+        self.sleep(1)
 
-
-
-
-
-
-
+    @allure.step("Validate back button functionality")
+    def validate_back_button_functionality(self):
+        self.click(back_button)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gamification_button), True)
