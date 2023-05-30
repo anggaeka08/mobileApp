@@ -34,3 +34,29 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
             self.save_screenshot('test_functional_response_validation_of_gamification_homepage', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.button_response_validation_of_gamification_homepage
+    @pytest.mark.Android
+    @pytest.mark.Gamification
+    @allure.story("F-17:Gamification")
+    def test_button_response_validation_of_gamification_homepage(self):
+        try:
+            self.execute_script('lambda-name=test_button_response_validation_of_gamification_homepage')
+            self.open_gamification_page(user_data['reg_no_4'])
+            self.validate_level_button_functionality()
+            self.validate_riwayat_button_functionality()
+            self.validate_info_button_functionality()
+            self.validate_lihat_semua_functionality()
+            self.validate_menu_button_functionality()
+            self.validate_back_button_functionality()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_button_response_validation_of_gamification_homepage',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_button_response_validation_of_gamification_homepage',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
