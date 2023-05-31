@@ -35,6 +35,17 @@ lihat_semua_btn =  "//android.widget.TextView[@text='Lihat Semua']"
 lihat_semua_entry_1= 'LihatSemua_entry_1_value'
 info_btn='//android.view.ViewGroup[@content-desc="Mission_details_icon"]/android.widget.ImageView'
 info_experince= "//android.widget.TextView[@text='Experience Point']"
+harian_1_activity= '//android.view.ViewGroup[@content-desc="Harian_entry_1_activity"]/android.widget.TextView'
+onboarding_1_activity= '//android.view.ViewGroup[@content-desc="Onboarding_entry_1_activity"]/android.widget.TextView'
+transaction_1_activity= '//android.view.ViewGroup[@content-desc="Transaction_entry_1_activity"]/android.widget.TextView'
+frequency_1_activity= '//android.view.ViewGroup[@content-desc="Frequency_entry_1_activity"]/android.widget.TextView'
+referral_1_activity= '//android.view.ViewGroup[@content-desc="Referral_entry_1_activity"]/android.widget.TextView'
+Harian_entry_1_xp= 'Harian_entry_1_xp'
+Onboarding_entry_1_xp= 'Onboarding_entry_1_xp'
+Transaction_entry_1_xp= 'Transaction_entry_1_xp'
+Frequency_entry_1_xp= 'Frequency_entry_1_xp'
+Referral_entry_1_xp= 'Referral_entry_1_xp'
+
 
 class Gamification(HomePage):
 
@@ -183,3 +194,52 @@ class Gamification(HomePage):
         self.click(back_button)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(gamification_button), True)
+
+    @allure.step("Collect api data for gamification")
+    def collect_api_data_for_gamification(self):
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        gamification_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='radix/v1/account/45997/balance/2', headers=token,expected_status_code=200)
+        logger.info(gamification_rs)
+        code_api = gamification_rs['code']
+        xp_value_api =gamification_rs['data']['value']
+        success_api = gamification_rs['is_success']
+        message_api = gamification_rs['message']
+        return code_api, xp_value_api, success_api, message_api
+
+    @allure.step("Collect mission list api data")
+    def collect_mission_list_api_data(self):
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        mission_list_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='reverb/v1/account/45997/mission?limit=50&sort_by=type_id,status&is_asc=true', headers=token,expected_status_code=200)
+        logger.info(mission_list_rs)
+        ids_api= []
+        lables_api=[]
+        xps_api=[]
+        for i in range(len(mission_list_rs['data'])):
+            ids_api.append(mission_list_rs['data'][i]['id'])
+            lables_api.append(mission_list_rs['data'][i]['campaign']['label'])
+            xps_api.append(mission_list_rs['data'][i]['campaign']['extra']['reward_xp'])
+        return ids_api,lables_api,xps_api
+
+    @allure.step("Collect ui data for gamification")
+    def collect_ui_data_for_gamification(self):
+        harian_1= self.get_attribute(harian_1_activity,"text")
+        harian_1_xp= (self.get_attribute(Harian_entry_1_xp,"text")).replace('+','').replace(',','').replace('XP', '')
+        self.scroll_screen(start_x=500, start_y=2100, end_x=500, end_y=300, duration=6000)
+        onboarding_1= self.get_attribute(onboarding_1_activity,"text")
+        onboarding_1_xp = (self.get_attribute(Onboarding_entry_1_xp, "text")).replace('+', '').replace(',', '').replace('XP','')
+        transaction_1= self.get_attribute(transaction_1_activity,"text")
+        transaction_1_xp = (self.get_attribute(Transaction_entry_1_xp, "text")).replace('+', '').replace(',', '').replace('XP','')
+        frequency_1= self.get_attribute(frequency_1_activity,"text")
+        frequency_1_xp = (self.get_attribute(Frequency_entry_1_xp, "text")).replace('+', '').replace(',', '').replace('XP','')
+        referral_1= self.get_attribute(referral_1_activity,"text")
+        referral_1_xp = (self.get_attribute(Referral_entry_1_xp, "text")).replace('+', '').replace(',', '').replace('XP','')
+        labels_ui= []
+        labels_ui.extend([harian_1,onboarding_1,transaction_1,frequency_1, referral_1])
+        XPs_Ui= []
+        XPs_Ui.extend([int(harian_1_xp), int(onboarding_1_xp), int(transaction_1_xp), int(frequency_1_xp), int(referral_1_xp)])
+        return labels_ui,XPs_Ui
+
