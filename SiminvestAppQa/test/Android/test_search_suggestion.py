@@ -16,6 +16,7 @@ class searchSuggestion_test(SearchSuggestion):
             self.execute_script('lambda-name=test_functional_validation_for_stockSearch')
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
             self.click_on_search_btn_on_homepage()
+            self.validate_keyboard_option_on_search_box()
             self.verify_text_disappear_after_type_word_in_search_box()
             self.validate_selection_of_tab_before_search()
             self.validate_last_4_search_stock_function()
