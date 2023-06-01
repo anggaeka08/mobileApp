@@ -108,6 +108,9 @@ class SearchSuggestion(StockDetailPage):
         self.assert_equal(self.is_element_visible(mover_option), True)
         self.go_back()
         self.sleep(2)
+
+    @allure.step("Verify search suggestion after reopen app for kyc user")
+    def verify_search_suggestion_after_reopen_app_user_for_kyc_user(self):
         self.launch_app_again()
         self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
         self.click(homePage_search_btn)
@@ -119,6 +122,15 @@ class SearchSuggestion(StockDetailPage):
         # self.sleep(1)
         # self.assert_equal(self.get_attribute(empty_search_history_msg, 'text'), 'Riwayat pencarianmu masih kosong')
 
-
-
-
+    @allure.step("Verify search suggestion after reopen app for non kyc user")
+    def verify_search_suggestion_after_reopen_app_user_for_non_kyc_user(self):
+        self.launch_app_again()
+        self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+        self.click(homePage_search_btn)
+        self.sleep(2)
+        # for i in range(1, 5):
+        #     self.assertIn(self.get_attribute(f'last_search_entry_{i}_name', 'text'), stock_list_for_search)
+        #     self.assert_equal(self.is_element_visible(f'last_search_entry_{i}_icon'), True)
+        # self.click(hapus_btn)
+        # self.sleep(1)
+        # self.assert_equal(self.get_attribute(empty_search_history_msg, 'text'), 'Riwayat pencarianmu masih kosong')
