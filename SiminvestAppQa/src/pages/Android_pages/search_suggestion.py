@@ -17,7 +17,12 @@ mover_tab='MoverPageHeader'
 mover_option = 'Mover'
 empty_search_history_msg = '//android.view.ViewGroup[3]/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.widget.TextView'
 hapus_btn='hapus_btn'
-
+first_mf_entry_search = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView'
+#mf_header = '//android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
+mf_header = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@index = '1']"
+mf_last_search_entry = '//android.view.ViewGroup[@content-desc="last_search_entry_1"]/android.widget.TextView'
+popular_entry_1 = '//android.view.ViewGroup[@content-desc="popular_entry_1"]/android.widget.TextView'
+mf_last_search_empty_msg = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
 class SearchSuggestion(StockDetailPage):
 
     @allure.step("click search btn on homepage")
@@ -134,3 +139,58 @@ class SearchSuggestion(StockDetailPage):
         # self.click(hapus_btn)
         # self.sleep(1)
         # self.assert_equal(self.get_attribute(empty_search_history_msg, 'text'), 'Riwayat pencarianmu masih kosong')
+
+    @allure.step("Verify search suggestion for MF")
+    def verify_search_suggestion_for_mf_redirection_after_search(self):
+        MF_list = ['Simas Saham Bertumbuh', 'Simas Danamas Shama', 'Danamas Pasti', 'Danamas Rupiah Plus']
+        self.switch_to_reksadana_tab()
+        self.update_text(search_field, 'Dana')
+        self.click(first_mf_entry_search)
+        #self.sleep(6)
+        mf_name_mf_page = self.get_attribute(mf_header, 'text', timeout=10)
+        self.go_back()
+        self.sleep(2)
+        self.clear_search_box()
+        mf_name = self.get_attribute(mf_last_search_entry, 'text')
+        self.assert_equal(mf_name_mf_page, mf_name)
+        for i in range(1, 5):
+            self.assert_equal(self.is_element_visible(f'popular_entry_{i}'), True)
+        self.assert_equal(self.is_element_visible(hapus_btn), True)
+        self.click(mf_last_search_entry)
+        self.sleep(4)
+        mf_name_mf_page = self.get_attribute(mf_header, 'text')
+        self.assert_equal(mf_name_mf_page, mf_name)
+        self.go_back()
+        self.sleep(2)
+        popular_mf_name_1_search_entry = self.get_attribute(popular_entry_1, 'text')
+        self.click(popular_entry_1)
+        self.sleep(4)
+        mf_name_mf_page = self.get_attribute(mf_header, 'text')
+        self.assert_equal(popular_mf_name_1_search_entry, mf_name_mf_page)
+        self.go_back()
+        self.sleep(2)
+        self.clear_search_box()
+        self.click(hapus_btn)
+        self.assert_equal(self.get_attribute(mf_last_search_empty_msg, 'text'), 'Riwayat pencarianmu masih kosong')
+        # self.app_in_background(30)
+        # self.sleep(10)
+        # self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+        # self.click(homePage_search_btn)
+        # self.switch_to_reksadana_tab()
+        # mf_name_after_login = self.get_attribute(mf_last_search_entry, 'text')
+        # self.assert_equal(mf_name_after_login, mf_name)
+        # for i in range(5):
+        #     self.update_text(search_field, MF_list[i])
+        #     self.click(first_mf_entry_search)
+        #     self.sleep(4)
+        #     self.go_back()
+        #     self.sleep(2)
+        # mf_first_entry_name = self.get_attribute(mf_last_search_entry, 'text')
+        # self.assert_equal(mf_first_entry_name,MF_list[4])
+        # self.click(hapus_btn)
+        # self.assert_equal(self.get_attribute(mf_last_search_empty_msg, 'text'), 'Riwayat pencarianmu masih kosong')
+        # self.launch_app_again()
+        # self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+        # self.click(homePage_search_btn)
+        # self.switch_to_reksadana_tab()
+        # self.assert_equal(self.get_attribute(mf_last_search_empty_msg, 'text'), 'Riwayat pencarianmu masih kosong')
