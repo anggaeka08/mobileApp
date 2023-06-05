@@ -55,3 +55,45 @@ class searchSuggestion_test(SearchSuggestion):
             self.save_screenshot('test_functional_validation_for_stockSearch_NonKyc', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+#Use Case 1*: Validate functional validation of the Search Suggestions. for MF with kyc user
+    @pytest.mark.functional_validation_for_MF_search_for_kyc_user
+    @pytest.mark.Android
+    @pytest.mark.SearchSuggestion
+    @allure.story("F-18: SearchSuggestion")
+    def test_functional_validation_for_MF_search_for_kyc_user(self):
+        try:
+            self.execute_script('lambda-name=test_functional_validation_for_MF_search_for_kyc_user')
+            self.login_and_verify_homepage_for_reg_user(user_data['unkyc_reg_no_2'])
+            self.click_on_search_btn_on_homepage()
+            self.verify_search_suggestion_for_mf_redirection_after_search()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_validation_for_MF_search_for_kyc_user', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_validation_for_MF_search_for_kyc_user', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+#Use Case 1*: Validate functional validation of the Search Suggestions. for MF with non kyc user
+    @pytest.mark.functional_validation_for_MF_search_for_nonkyc_user
+    @pytest.mark.Android
+    @pytest.mark.SearchSuggestion
+    @allure.story("F-18: SearchSuggestion")
+    def test_functional_validation_for_MF_search_for_nonkyc_user(self):
+        try:
+            self.execute_script('lambda-name=test_functional_validation_for_MF_search_for_nonkyc_user')
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+            self.click_on_search_btn_on_homepage()
+            self.verify_search_suggestion_for_mf_redirection_after_search()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_validation_for_MF_search_for_nonkyc_user', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_validation_for_MF_search_for_nonkyc_user', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
