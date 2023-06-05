@@ -28,7 +28,21 @@ webpage_back= "//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget
 menu= "Mission_page_menu"
 kerja_button= "//android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup"
 level_btn= '//android.view.ViewGroup[@content-desc="Mission_level_icon"]/android.widget.ImageView'
+level_backward='Level_backward'
+level_forward='Level_forward'
 level_header = "Level_header"
+level_name='(//android.widget.TextView[@content-desc="Level_name"])[1]'
+xp_level= '(//android.widget.TextView[@content-desc="Level_name"])[2]'
+level_entry_1= '(//android.view.ViewGroup[@content-desc="Level_enrty_1"])[1]'
+level_1_text= '(//android.widget.TextView[@content-desc="Level_enrty_1_text"])[1]'
+level_entry_2= '(//android.view.ViewGroup[@content-desc="Level_enrty_1"])[2]'
+level_2_text= '(//android.widget.TextView[@content-desc="Level_enrty_1_text"])[2]'
+level_entry_3= '(//android.view.ViewGroup[@content-desc="Level_enrty_1"])[3]'
+level_3_text= '(//android.widget.TextView[@content-desc="Level_enrty_1_text"])[3]'
+level_entry_4= '(//android.view.ViewGroup[@content-desc="Level_enrty_1"])[4]'
+level_4_text= '(//android.widget.TextView[@content-desc="Level_enrty_1_text"])[4]'
+level_back_button= "level_back_btn"
+level_value= 'Level_value'
 riwayat_btn= '//android.view.ViewGroup[@content-desc="Mission_riwayat_icon"]/android.widget.ImageView'
 riwayat_header = "Riwayat_header"
 lihat_semua_btn =  "//android.widget.TextView[@text='Lihat Semua']"
@@ -152,7 +166,7 @@ class Gamification(HomePage):
     @allure.step("Validate level button functionality")
     def validate_level_button_functionality(self):
         self.click(level_btn)
-        self.sleep(1)
+        self.sleep(2)
         self.assert_equal(self.is_element_visible(level_header), True)
         self.go_back()
         self.sleep(1)
@@ -242,4 +256,104 @@ class Gamification(HomePage):
         XPs_Ui= []
         XPs_Ui.extend([int(harian_1_xp), int(onboarding_1_xp), int(transaction_1_xp), int(frequency_1_xp), int(referral_1_xp)])
         return labels_ui,XPs_Ui
+
+    @allure.step("Get Level name from gamification page")
+    def get_Level_name_from_gamification_page(self):
+        status_on_gamification = self.get_attribute(mission_status, "text")
+        return status_on_gamification
+
+    @allure.step("Open Level Benefit page")
+    def open_level_benefit_page(self):
+        self.click(level_btn)
+        self.sleep(1)
+
+    @allure.step("Validate default level name")
+    def validate_default_level_name(self):
+        status_on_gamification= self.get_Level_name_from_gamification_page()
+        self.open_level_benefit_page()
+        status_on_level_page = self.get_attribute(level_name, "text")
+        self.assert_equal(status_on_gamification,status_on_level_page)
+
+    @allure.step("functional validation for level forward and backward button")
+    def functional_validation_for_level_forward_and_backward_button(self):
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Pemimpi')
+        self.click(level_forward)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Juragan')
+        self.click(level_backward)
+
+    @allure.step("validate level entry are not clickable")
+    def validate_level_entry_are_not_clickable(self):
+        self.assert_equal(self.get_attribute(level_entry_1, 'clickable'), 'false')
+        self.assert_equal(self.get_attribute(level_entry_2, 'clickable'), 'false')
+
+    @allure.step("validate level back button is not scrollable")
+    def validate_level_back_button_is_not_scrollable(self):
+        self.assert_equal(self.get_attribute(level_back_button, 'scrollable'), 'false')
+        self.assert_equal(self.get_attribute(level_header, 'scrollable'), 'false')
+
+    @allure.step("Validate refresh functionality for level page")
+    def validate_refresh_functionality_for_level_page(self):
+        self.scroll_down()
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Pemimpi')
+        self.click(level_forward)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Juragan')
+        self.click(level_back_button)
+        self.sleep(1)
+        self.click(level_btn)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Pemimpi')
+
+    @allure.step("validate pemimpi level")
+    def validate_pemimpi_level(self):
+        self.assert_equal(self.get_attribute(level_value, 'text'), 'Level Kamu saat ini')
+        self.assert_equal(self.get_attribute(xp_level, 'text'), 'XP 0')
+        self.assert_equal(self.get_attribute(level_1_text, 'text'), 'StarPoin setiap transaksi')
+        self.assert_equal(self.get_attribute(level_2_text, 'text'), 'Gratis Biaya Penarikan RDN')
+
+
+    @allure.step("validate juragan level")
+    def validate_juragan_level(self):
+        self.click(level_forward)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Juragan')
+        self.assert_equal(self.get_attribute(xp_level, 'text'), 'XP 5.000')
+        self.assert_equal(self.get_attribute(level_1_text, 'text'), 'StarPoin setiap transaksi')
+        self.assert_equal(self.get_attribute(level_2_text, 'text'), 'Gratis 500 XP')
+        self.assert_equal(self.get_attribute(level_3_text, 'text'), 'Gratis Biaya Penarikan RDN')
+
+    @allure.step("validate_tajir_konglo_sultan_level")
+    def validate_tajir_konglo_sultan_level(self):
+        self.click(level_forward)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Tajir')
+        self.assert_equal(self.get_attribute(xp_level, 'text'), 'XP 25.000')
+        self.assert_equal(self.get_attribute(level_1_text, 'text'), 'StarPoin setiap transaksi')
+        self.assert_equal(self.get_attribute(level_2_text, 'text'), 'Gratis 1,000 XP')
+        self.assert_equal(self.get_attribute(level_3_text, 'text'), 'Bonus StarPoin 10,000 poin')
+        self.assert_equal(self.get_attribute(level_4_text, 'text'), 'Gratis Biaya Penarikan RDN')
+        self.click(level_forward)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Konglo')
+        self.assert_equal(self.get_attribute(xp_level, 'text'), 'XP 75.000')
+        self.assert_equal(self.get_attribute(level_1_text, 'text'), 'StarPoin setiap transaksi')
+        self.assert_equal(self.get_attribute(level_2_text, 'text'), 'Gratis 1,500 XP')
+        self.assert_equal(self.get_attribute(level_3_text, 'text'), 'Bonus StarPoin 25,000 poin')
+        self.assert_equal(self.get_attribute(level_4_text, 'text'), 'Gratis Biaya Penarikan RDN')
+        self.click(level_forward)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Sultan')
+        self.assert_equal(self.get_attribute(xp_level, 'text'), 'XP 150.000')
+        self.assert_equal(self.get_attribute(level_1_text, 'text'), 'StarPoin setiap transaksi')
+        self.assert_equal(self.get_attribute(level_2_text, 'text'), 'Gratis 2,000 XP')
+        self.assert_equal(self.get_attribute(level_3_text, 'text'), 'Bonus StarPoin 50,000 poin')
+        self.assert_equal(self.get_attribute(level_4_text, 'text'), 'Gratis Biaya Penarikan RDN')
+        self.click(level_backward)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Konglo')
+        self.click(level_backward)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Tajir')
+        self.click(level_backward)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Juragan')
+        self.click(level_backward)
+        self.assert_equal(self.get_attribute(level_name, 'text'), 'Pemimpi')
+
+
+
+
+
 
