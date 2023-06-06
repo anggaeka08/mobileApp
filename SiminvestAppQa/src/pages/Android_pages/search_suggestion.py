@@ -23,6 +23,13 @@ mf_header = "//android.view.ViewGroup/android.view.ViewGroup/android.widget.Text
 mf_last_search_entry = '//android.view.ViewGroup[@content-desc="last_search_entry_1"]/android.widget.TextView'
 popular_entry_1 = '//android.view.ViewGroup[@content-desc="popular_entry_1"]/android.widget.TextView'
 mf_last_search_empty_msg = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+last_search_text = 'last_search_text'
+popular_text = 'popular_text'
+acceleration_text = '//android.view.ViewGroup[@content-desc="acceleration_board_btn"]/android.widget.TextView'
+popular_stock_entry_4 = 'popular_entry_4_name'
+search_close_btn = 'search_close'
+homepage_locator= '//android.widget.TextView[@text="Top Up"]'
+
 class SearchSuggestion(StockDetailPage):
 
     @allure.step("click search btn on homepage")
@@ -194,3 +201,53 @@ class SearchSuggestion(StockDetailPage):
         # self.click(homePage_search_btn)
         # self.switch_to_reksadana_tab()
         # self.assert_equal(self.get_attribute(mf_last_search_empty_msg, 'text'), 'Riwayat pencarianmu masih kosong')
+
+    @allure.step("Validate grammar for search suggestions")
+    def Validate_grammar_for_search_suggestions(self):
+        self.assert_equal(self.get_attribute(last_search_text, 'text'), 'Pencarian Terakhir')
+        self.assert_equal(self.get_attribute(popular_text, 'text'), 'Pencarian Populer')
+        self.assert_equal(self.get_attribute(acceleration_text, 'text'), 'Papan Akselerasi')
+       # self.scroll_vertical(loc_1='popular_entry_1_icon' , loc_2=popular_stock_entry_4)
+        self.assert_equal(self.is_element_visible(popular_stock_entry_4), True)
+        self.click(search_field)
+        self.assert_equal(self.check_keyboard_shown(), True)
+        self.update_text(search_field, '*')
+        self.assert_equal(self.is_element_visible(stock_search_entries), True)
+        self.update_text(search_field, '123')
+        self.assert_equal(self.is_element_visible(stock_search_entries), False)
+        self.click(search_close_btn)
+        self.sleep(3)
+        self.assert_equal(self.is_element_visible(homepage_locator), True)
+        self.click_on_search_btn_on_homepage()
+        self.update_text(search_field, 'A')
+        stock_list = []
+        self.sleep(2)
+        for i in range(1, 4):
+            stock_list.append(self.get_attribute(f'(//android.widget.TextView[@content-desc="StockSearchCode"])[{i}]', 'text'))
+        stock_list_after_small = []
+        self.update_text(search_field, 'a')
+        self.sleep(3)
+        for i in range(1, 4):
+            stock_list_after_small.append(self.get_attribute(f'(//android.widget.TextView[@content-desc="StockSearchCode"])[{i}]', 'text'))
+            self.assert_equal(self.is_element_visible(f'(//android.widget.TextView[@content-desc="StockSearchCode"])[{i}]'), True)
+            self.assert_equal(self.is_element_visible(f'(//android.widget.TextView[@content-desc="StockSearchName"])[{i}]'), True)
+        self.assert_equal(stock_list, stock_list_after_small)
+
+
+    @allure.step("Scroll vertical on screen")
+    def scroll_vertical(self, loc_1, loc_2):
+        self.sleep(2)
+        second_coordinate= self.get_attribute(loc_1, 'bounds')
+        lst_1 = second_coordinate.split(',')
+        fist_x = int(lst_1[0][1:])
+        fist_y = int(lst_1[1][0:4])
+        fist_coordinate= self.get_attribute(loc_2, 'bounds')
+        lst_2 = fist_coordinate.split(',')
+        sec_x = int(lst_2[0][1:])
+        sec_y = int(lst_2[1][0:4])
+        #logger.info(f'{second_coordinate} {type(second_coordinate)} {second_coordinate[1]}')
+        #logger.info(f'{fist_coordinate} {type(fist_coordinate)} {fist_coordinate[1]}')
+        self.scroll_screen(start_x=sec_x, start_y=sec_y, end_x=fist_x, end_y=fist_y, duration=5000)
+        self.sleep(2)
+
+
