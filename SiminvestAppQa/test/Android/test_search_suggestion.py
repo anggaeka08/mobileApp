@@ -122,3 +122,30 @@ class searchSuggestion_test(SearchSuggestion):
             self.save_screenshot('test_validation_ui_and_grammar_for_kyc_user_with_stock', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    #Use Case 2*: Validate Ui and grammar for MF with kyc and non kyc user
+    @pytest.mark.validation_ui_and_grammar_with_MF
+    @pytest.mark.Android
+    @pytest.mark.SearchSuggestion
+    @allure.story("F-18: SearchSuggestion")
+    def test_validation_ui_and_grammar_with_MF(self):
+        try:
+            self.execute_script('lambda-name=test_validation_ui_and_grammar_with_MF')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
+            self.click_on_search_btn_on_homepage()
+            self.switch_to_reksadana_tab()
+            self.Validate_grammar_for_search_suggestions_mf()
+            self.launch_app_again()
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+            self.click_on_search_btn_on_homepage()
+            self.switch_to_reksadana_tab()
+            self.Validate_grammar_for_search_suggestions_mf()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validation_ui_and_grammar_with_MF', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validation_ui_and_grammar_with_MF', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)

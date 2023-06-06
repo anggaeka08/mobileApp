@@ -250,4 +250,21 @@ class SearchSuggestion(StockDetailPage):
         self.scroll_screen(start_x=sec_x, start_y=sec_y, end_x=fist_x, end_y=fist_y, duration=5000)
         self.sleep(2)
 
-
+    @allure.step("Validate grammar for search suggestions for MF")
+    def Validate_grammar_for_search_suggestions_mf(self):
+        self.assert_equal(self.get_attribute(last_search_text, 'text'), 'Pencarian Terakhir')
+        self.assert_equal(self.get_attribute(popular_text, 'text'), 'Pencarian Populer')
+        self.assert_equal(self.get_attribute(mf_last_search_empty_msg, 'text'), 'Riwayat pencarianmu masih kosong')
+        self.switch_to_Saham_tab()
+        self.assert_equal(self.get_attribute(acceleration_text, 'text'), 'Papan Akselerasi')
+        self.switch_to_reksadana_tab()
+        self.update_text(search_field, 'Danamas')
+        for i in range(1,3):
+            self.assert_equal(self.is_element_visible(f'//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView'), True)
+            self.assert_equal(self.is_element_visible(f'(//android.widget.TextView[@content-desc="StockSearchCode"])[{i}]'), False)
+        self.click(first_mf_entry_search)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(mf_header), True)
+        self.go_back()
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(first_mf_entry_search), True)
