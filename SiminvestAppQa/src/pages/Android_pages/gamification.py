@@ -352,6 +352,39 @@ class Gamification(HomePage):
         self.click(level_backward)
         self.assert_equal(self.get_attribute(level_name, 'text'), 'Pemimpi')
 
+    @allure.step("Collect level api data")
+    def collect_level_api_data(self):
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        level_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='reborn/v1/config?name=gamification&type=level',headers=token, expected_status_code=200)
+        level_xp_api= []
+        for i in range(len(level_rs['data']['gamification_level'])):
+            level_xp_api.append(level_rs['data']['gamification_level'][i]['xp_min'])
+        return level_xp_api
+
+    @allure.step("Collect level ui data")
+    def collect_level_ui_data(self):
+        self.open_level_benefit_page()
+        self.click(level_backward)
+        value= self.get_attribute(xp_level, 'text')
+        pemimpi_xp = int(value.replace('XP ', '').replace('.', ''))
+        self.click(level_forward)
+        value = self.get_attribute(xp_level, 'text')
+        juragan_xp = int(value.replace('XP ', '').replace('.', ''))
+        self.click(level_forward)
+        value = self.get_attribute(xp_level, 'text')
+        tajir_xp = int(value.replace('XP ', '').replace('.', ''))
+        self.click(level_forward)
+        value = self.get_attribute(xp_level, 'text')
+        konglo_xp = int(value.replace('XP ', '').replace('.', ''))
+        self.click(level_forward)
+        value = self.get_attribute(xp_level, 'text')
+        sultan_xp = int(value.replace('XP ', '').replace('.', ''))
+        level_xp_ui = []
+        level_xp_ui.extend([pemimpi_xp, juragan_xp, tajir_xp, konglo_xp, sultan_xp])
+        return level_xp_ui
+
 
 
 
