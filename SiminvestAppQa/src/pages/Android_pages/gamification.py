@@ -47,6 +47,7 @@ riwayat_btn= '//android.view.ViewGroup[@content-desc="Mission_riwayat_icon"]/and
 riwayat_header = "Riwayat_header"
 lihat_semua_btn =  "//android.widget.TextView[@text='Lihat Semua']"
 lihat_semua_entry_1= 'LihatSemua_entry_1_value'
+jalankan_misi_btn =  "//android.widget.TextView[@text='Jalankan Misi']"
 info_btn='//android.view.ViewGroup[@content-desc="Mission_details_icon"]/android.widget.ImageView'
 info_experince= "//android.widget.TextView[@text='Experience Point']"
 harian_1_activity= '//android.view.ViewGroup[@content-desc="Harian_entry_1_activity"]/android.widget.TextView'
@@ -384,6 +385,19 @@ class Gamification(HomePage):
         level_xp_ui = []
         level_xp_ui.extend([pemimpi_xp, juragan_xp, tajir_xp, konglo_xp, sultan_xp])
         return level_xp_ui
+
+    @allure.step("Button Response Validation on mission list page")
+    def button_response_validation_on_mission_list_page(self):
+        self.click(lihat_semua_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(lihat_semua_entry_1), True)
+        self.click(jalankan_misi_btn)
+        self.sleep(1)
+        self.go_back()
+        self.assert_equal(self.is_element_visible(lihat_semua_entry_1), True)
+        self.go_back()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gamification_header), True)
 
 
 
