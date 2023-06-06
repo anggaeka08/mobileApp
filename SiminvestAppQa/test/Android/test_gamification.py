@@ -6,6 +6,7 @@ from SiminvestAppQa.src.pages.Android_pages.gamification import Gamification
 from SiminvestAppQa.src.data.userData import user_data
 import allure
 from selenium.common.exceptions import NoSuchElementException
+import logging
 
 
 class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
@@ -137,5 +138,26 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
         except NoSuchElementException as E:
             self.save_screenshot('test_validate_all_lavels_on_level_benefit_page',
                                  'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.validate_level_api_ui_data
+    @pytest.mark.Android
+    @pytest.mark.Gamification
+    @allure.story("F-17:Gamification")
+    def test_validate_level_api_ui_data(self):
+        try:
+            self.execute_script('lambda-name=test_validate_level_api_ui_data')
+            self.open_gamification_page(user_data['reg_no'])
+            level_xp_ui= self.collect_level_ui_data()
+            level_xp_api= self.collect_level_api_data()
+            self.assert_equal(level_xp_ui, level_xp_api)
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_level_api_ui_data', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_level_api_ui_data', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
