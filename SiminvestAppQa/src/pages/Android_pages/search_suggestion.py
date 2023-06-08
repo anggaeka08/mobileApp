@@ -1,9 +1,9 @@
 from SiminvestAppQa.src.data.userData import user_data
-from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
 import allure
+from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 import logging as logger
-
+request_utilities = RequestsUtilities()
 #locators
 homePage_search_btn = 'Browser_Stack'
 search_field= 'StockSearch'
@@ -29,6 +29,7 @@ acceleration_text = '//android.view.ViewGroup[@content-desc="acceleration_board_
 popular_stock_entry_4 = 'popular_entry_4_name'
 search_close_btn = 'search_close'
 homepage_locator= '//android.widget.TextView[@text="Top Up"]'
+popular_mf_list =['Danamas Stabil', 'Danamas Rupiah Plus', 'Simas Syariah Pendapatan Tetap', 'Danamas Pasti']
 
 class SearchSuggestion(StockDetailPage):
 
@@ -268,3 +269,22 @@ class SearchSuggestion(StockDetailPage):
         self.go_back()
         self.sleep(2)
         self.assert_equal(self.is_element_visible(first_mf_entry_search), True)
+
+    @allure.step("validate api data for stock and MF on search suggestion")
+    def validate_api_data_for_stock_and_mf_on_search_suggestion(self, number):
+        stock_list_popular_ui = []
+        MF_popular_ui = []
+        api_stock_list_popular = []
+        for i in range(1, 5):
+            stock_list_popular_ui.append(self.get_attribute(f'popular_entry_{i}_name', 'text'))
+        self.switch_to_reksadana_tab()
+        for i in range(1, 5):
+            MF_popular_ui.append(self.get_attribute(f'//android.view.ViewGroup[@content-desc="popular_entry_{i}"]/android.widget.TextView', 'text'))
+        self.assert_equal(MF_popular_ui, popular_mf_list)
+        token_value = self.login_with_a_number(number)
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        portfolio_equity_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='api/mds/v1/stock/category/top-gainer-volume', headers=token,expected_status_code=200)
+        for i in range(0, 4):
+            api_stock_list_popular.append(portfolio_equity_rs[i]['code'])
+        self.assert_equal(stock_list_popular_ui, api_stock_list_popular)

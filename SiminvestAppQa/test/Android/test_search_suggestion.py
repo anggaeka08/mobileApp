@@ -149,3 +149,28 @@ class searchSuggestion_test(SearchSuggestion):
             self.save_screenshot('test_validation_ui_and_grammar_with_MF', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    #Use Case 3*: Validate API validation of the Search Suggestions.
+    @pytest.mark.validate_api_data_with_ui_for_search
+    @pytest.mark.Android
+    @pytest.mark.SearchSuggestion
+    @allure.story("F-18: SearchSuggestion")
+    def test_validate_api_data_with_ui_for_search(self):
+        try:
+            self.execute_script('lambda-name=test_validate_api_data_with_ui_for_search')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_3'])
+            self.click_on_search_btn_on_homepage()
+            self.validate_api_data_for_stock_and_mf_on_search_suggestion(user_data['reg_no_3'])
+            self.launch_app_again()
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+            self.click_on_search_btn_on_homepage()
+            self.validate_api_data_for_stock_and_mf_on_search_suggestion(user_data['unkyc_reg_no_2'])
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_api_data_with_ui_for_search', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_api_data_with_ui_for_search', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
