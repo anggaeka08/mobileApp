@@ -45,7 +45,11 @@ level_back_button= "level_back_btn"
 level_value= 'Level_value'
 riwayat_btn= '//android.view.ViewGroup[@content-desc="Mission_riwayat_icon"]/android.widget.ImageView'
 riwayat_header = "Riwayat_header"
-lihat_semua_btn =  "//android.widget.TextView[@text='Lihat Semua']"
+lihat_header='LihatSemua_header'
+onboarding_lihat_btn =  '//android.view.ViewGroup[@content-desc="Onboarding_lihat"]/android.widget.TextView'
+transaction_lihat_btn='//android.view.ViewGroup[@content-desc="Transaction_lihat"]/android.widget.TextView'
+frequency_lihat_btn='//android.view.ViewGroup[@content-desc="Frequency_lihat"]/android.widget.TextView'
+referral_lihat_btn='//android.view.ViewGroup[@content-desc="Referral_lihat"]/android.widget.TextView'
 lihat_semua_entry_1= 'LihatSemua_entry_1_value'
 jalankan_misi_btn =  "//android.widget.TextView[@text='Jalankan Misi']"
 info_btn='//android.view.ViewGroup[@content-desc="Mission_details_icon"]/android.widget.ImageView'
@@ -60,6 +64,7 @@ Onboarding_entry_1_xp= 'Onboarding_entry_1_xp'
 Transaction_entry_1_xp= 'Transaction_entry_1_xp'
 Frequency_entry_1_xp= 'Frequency_entry_1_xp'
 Referral_entry_1_xp= 'Referral_entry_1_xp'
+saham_tab= '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[1]'
 
 
 class Gamification(HomePage):
@@ -190,7 +195,7 @@ class Gamification(HomePage):
 
     @allure.step("Validate lihat semua button functionality")
     def validate_lihat_semua_functionality(self):
-        self.click(lihat_semua_btn)
+        self.click(onboarding_lihat_btn)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(lihat_semua_entry_1), True)
         self.go_back()
@@ -388,7 +393,7 @@ class Gamification(HomePage):
 
     @allure.step("Button Response Validation on mission list page")
     def button_response_validation_on_mission_list_page(self):
-        self.click(lihat_semua_btn)
+        self.click(onboarding_lihat_btn)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(lihat_semua_entry_1), True)
         self.click(jalankan_misi_btn)
@@ -398,6 +403,50 @@ class Gamification(HomePage):
         self.go_back()
         self.sleep(1)
         self.assert_equal(self.is_element_visible(gamification_header), True)
+
+    @allure.step("open onboarding lihat semua")
+    def open_onboarding_lihat_semua(self):
+        self.click(onboarding_lihat_btn)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(lihat_header, 'text'), 'Onboarding ')
+        self.assert_equal(self.get_attribute(lihat_header, 'scrollable'), 'false')
+        self.go_back()
+
+    @allure.step("open transaction lihat semua")
+    def open_transaction_lihat_semua(self):
+        self.scroll_screen(start_x=500, start_y=1900, end_x=500, end_y=300, duration=6000)
+        self.click(transaction_lihat_btn)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(lihat_header, 'text'), 'Transaksi')
+        self.assert_equal(self.get_attribute(lihat_header, 'scrollable'), 'false')
+        self.go_back()
+
+    @allure.step("open frequency lihat semua")
+    def open_frequency_lihat_semua(self):
+        self.click(frequency_lihat_btn)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(lihat_header, 'text'), 'Frekuensi')
+        self.assert_equal(self.get_attribute(lihat_header, 'scrollable'), 'false')
+        self.go_back()
+
+    @allure.step("open refferal lihat semua")
+    def open_refferal_lihat_semua(self):
+        self.click(referral_lihat_btn)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(lihat_header, 'text'), 'Referral')
+        self.assert_equal(self.get_attribute(lihat_header, 'scrollable'), 'false')
+        self.go_back()
+
+    @allure.step("Validate redirection of Jalankan Misi")
+    def validate_redirection_of_jalankan_misi(self):
+        #self.scroll_screen(start_x=500, start_y=200, end_x=500, end_y=3000, duration=5000)
+        self.click(onboarding_lihat_btn)
+        self.sleep(1)
+        self.click(jalankan_misi_btn)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(saham_tab),True)
+
+
 
 
 
