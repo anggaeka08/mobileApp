@@ -446,10 +446,72 @@ class Gamification(HomePage):
         self.sleep(2)
         self.assert_equal(self.is_element_visible(saham_tab),True)
 
+    @allure.step("Collect mission list filtered api data")
+    def collect_mission_list_filtered_api_data(self):
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        list_filtered_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='reverb/v1/account/45997/mission?limit=50&sort_by=type_id,status&is_asc=true', headers=token,expected_status_code=200)
+        ob_label_api = []
+        ob_xp_api = []
+        trans_label_api = []
+        trans_xp_api = []
+        freq_label_api = []
+        freq_xp_api = []
+        refer_label_api = []
+        refer_xp_api = []
+        for i in range(len(list_filtered_rs['data'])):
+            if list_filtered_rs['data'][i]['campaign']['type_id']==4:
+                ob_label_api.append(list_filtered_rs['data'][i]['campaign']['label'])
+                ob_xp_api.append(list_filtered_rs['data'][i]['campaign']['extra']['reward_xp'])
+            if list_filtered_rs['data'][i]['campaign']['type_id']==6:
+                trans_label_api.append(list_filtered_rs['data'][i]['campaign']['label'])
+                trans_xp_api.append(list_filtered_rs['data'][i]['campaign']['extra']['reward_xp'])
+            if list_filtered_rs['data'][i]['campaign']['type_id']==9:
+                freq_label_api.append(list_filtered_rs['data'][i]['campaign']['label'])
+                freq_xp_api.append(list_filtered_rs['data'][i]['campaign']['extra']['reward_xp'])
+            if list_filtered_rs['data'][i]['campaign']['type_id']==10:
+                refer_label_api.append(list_filtered_rs['data'][i]['campaign']['label'])
+                refer_xp_api.append(list_filtered_rs['data'][i]['campaign']['extra']['reward_xp'])
+        return ob_label_api,ob_xp_api,trans_label_api,trans_xp_api,freq_label_api,freq_xp_api,refer_label_api,refer_xp_api
 
-
-
-
-
-
+    @allure.step("Collect mission list filtered Ui data")
+    def collect_mission_list_filtered_Ui_data(self):
+        self.click(onboarding_lihat_btn)
+        self.sleep(1)
+        ob_label_ui=[]
+        ob_xp_ui=[]
+        for i in range (1,4):
+            ob_xp_ui.append(int(self.get_attribute(f"LihatSemua_entry_{i}_value", 'text').replace('+', '').replace(',', '').replace('XP', '')))
+            ob_label_ui.append(self.get_attribute(f"LihatSemua_entry_{i}_type", 'text'))
+        self.go_back()
+        self.scroll_screen(start_x=500, start_y=1900, end_x=500, end_y=300, duration=6000)
+        self.click(transaction_lihat_btn)
+        self.sleep(1)
+        trans_xp_ui = []
+        trans_label_ui=[]
+        for i in range (1,4):
+            trans_xp_ui.append(int(self.get_attribute(f"LihatSemua_entry_{i}_value", 'text').replace('+', '').replace(',', '').replace('XP', '')))
+            trans_label_ui.append(self.get_attribute(f"LihatSemua_entry_{i}_type", 'text'))
+        self.go_back()
+        self.click(frequency_lihat_btn)
+        self.sleep(1)
+        freq_xp_ui=[]
+        freq_label_ui=[]
+        for i in range(1, 4):
+            freq_xp_ui.append(
+                int(self.get_attribute(f"LihatSemua_entry_{i}_value", 'text').replace('+', '').replace(',', '').replace(
+                    'XP', '')))
+            freq_label_ui.append(self.get_attribute(f"LihatSemua_entry_{i}_type", 'text'))
+        self.go_back()
+        self.click(referral_lihat_btn)
+        self.sleep(1)
+        refer_xp_ui=[]
+        refer_label_ui=[]
+        for i in range(1, 4):
+            refer_xp_ui.append(
+                int(self.get_attribute(f"LihatSemua_entry_{i}_value", 'text').replace('+', '').replace(',', '').replace(
+                    'XP', '')))
+            refer_label_ui.append(self.get_attribute(f"LihatSemua_entry_{i}_type", 'text'))
+        return ob_label_ui,ob_xp_ui,trans_label_ui,trans_xp_ui,freq_label_ui,freq_xp_ui,refer_label_ui,refer_xp_ui
 
