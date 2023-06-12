@@ -234,3 +234,27 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
             self.save_screenshot('test_validate_mission_list_filtered_api_ui_data', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+
+    @pytest.mark.ui_and_grammer_gamification_xp_history_page
+    @pytest.mark.Android
+    @pytest.mark.Gamification
+    @allure.story("F-17:Gamification")
+    def test_ui_and_grammer_gamification_xp_history_page(self):
+        try:
+            self.execute_script('lambda-name=test_ui_and_grammer_gamification_xp_history_page')
+            self.open_gamification_page(user_data['reg_no_2'])
+            self.open_riwayat_page()
+            self.validate_active_xp_expired_xp_back_button_until_date_xp_value_visibility()
+            self.validate_empty_state_page()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_ui_and_grammer_gamification_xp_history_page',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_ui_and_grammer_gamification_xp_history_page',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
