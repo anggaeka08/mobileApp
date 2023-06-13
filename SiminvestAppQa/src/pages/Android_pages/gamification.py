@@ -65,6 +65,12 @@ Transaction_entry_1_xp= 'Transaction_entry_1_xp'
 Frequency_entry_1_xp= 'Frequency_entry_1_xp'
 Referral_entry_1_xp= 'Referral_entry_1_xp'
 saham_tab= '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[1]'
+xp_aktif= 'Riwayat_aktif'
+xp_kedaluwarsa='Riwayat_Kedaluwarsa'
+riwayat_back_btn='Riwayat_back_btn'
+until_date='(//android.widget.TextView[@content-desc="Riwayat_entry_1_text"])[1]'
+riwayat_xp_value='(//android.widget.TextView[@content-desc="Riwayat_entry_1_value"])[1]'
+empty_smile_face='//android.view.ViewGroup/android.widget.ImageView'
 
 
 class Gamification(HomePage):
@@ -514,4 +520,24 @@ class Gamification(HomePage):
                     'XP', '')))
             refer_label_ui.append(self.get_attribute(f"LihatSemua_entry_{i}_type", 'text'))
         return ob_label_ui,ob_xp_ui,trans_label_ui,trans_xp_ui,freq_label_ui,freq_xp_ui,refer_label_ui,refer_xp_ui
+
+    @allure.step("Open Riwayat Page")
+    def open_riwayat_page(self):
+        self.click(riwayat_btn)
+        self.sleep(1)
+
+    @allure.step("Validate Active XP, Expired XP, back button, until date, xp value visibility")
+    def validate_active_xp_expired_xp_back_button_until_date_xp_value_visibility(self):
+        self.assert_equal(self.is_element_visible(xp_aktif),True)
+        self.assert_equal(self.is_element_visible(xp_kedaluwarsa),True)
+        self.assert_equal(self.is_element_visible(riwayat_back_btn),True)
+        self.assert_equal(self.is_element_visible(until_date),True)
+        self.assert_equal(self.is_element_visible(riwayat_xp_value),True)
+
+    @allure.step("validate empty state page")
+    def validate_empty_state_page(self):
+        self.click(xp_kedaluwarsa)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(empty_smile_face), True)
+
 
