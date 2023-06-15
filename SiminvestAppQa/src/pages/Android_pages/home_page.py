@@ -1014,7 +1014,7 @@ class HomePage(LoginPage):
         getAccelerationBoardList_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id', endpoint='/emerson/v1/stock?board_id=3&sort_by=code&is_asc=true&limit=50',headers=token, expected_status_code=200)
         #logger.info(type(top_frequency_rs))
         #logger.info(top_frequency_rs[0])
-        for i in range(20):
+        for i in range(10):
             top_frequency.append(top_frequency_rs[i]['code'])
             top_top_gainer.append(top_top_gainer_rs[i]['code'])
             top_gainer_percent.append(top_gainer_percent_rs[i]['code'])

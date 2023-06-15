@@ -12,7 +12,7 @@ class Login_test(LoginPage):
     # Verify that user should be redirecting to the welcome page after open the application.
     @pytest.mark.SMMA_001
     @pytest.mark.Android
-    @pytest.mark.Login_Logout
+    @pytest.mark.Login_Logout_1
     @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_welcome_after_open_app(self):
@@ -126,7 +126,7 @@ class Login_test(LoginPage):
     # Verify that user should redirect to the home page after entering the 6 digit pin number
     @pytest.mark.SMMA_007
     @pytest.mark.Android
-    @pytest.mark.Login_Logout
+    @pytest.mark.Login_Logout_1
     @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_home_page_after_enter_pin(self):
@@ -152,7 +152,7 @@ class Login_test(LoginPage):
     # Verify that user should be redirecting to the welcome page after tap on logout link under profile section
     @pytest.mark.SMMA_008
     @pytest.mark.Android
-    @pytest.mark.Login_Logout
+    @pytest.mark.Login_Logout_1
     @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_verify_redirect_to_welcome_page_after_logout_click(self):
@@ -240,7 +240,7 @@ class Login_test(LoginPage):
     # Validate enter mobile number page should accept maximum 12 digit number
     @pytest.mark.SMMA_013
     @pytest.mark.Android
-    @pytest.mark.Login_Logout
+    @pytest.mark.Login_Logout_1
     @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_entry_of_max_12_digit_no_in_phone_section(self):
@@ -329,7 +329,7 @@ class Login_test(LoginPage):
     # Validate user is able to logout from the enter pin page.
     @pytest.mark.SMMA_017
     @pytest.mark.Android
-    @pytest.mark.Login_Logout
+    @pytest.mark.Login_Logout_1
     @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_user_able_to_logout_from_enter_pin_page(self):
@@ -413,7 +413,7 @@ class Login_test(LoginPage):
     # validate the timeout of OTP page is running even after user switch the application while timeout is running.
     @pytest.mark.SMMA_022
     @pytest.mark.Android
-    @pytest.mark.Login_Logout
+    @pytest.mark.Login_Logout_1
     @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_validate_otp_timeout_timer_while_app_in_background(self):
@@ -493,7 +493,7 @@ class Login_test(LoginPage):
 
     @pytest.mark.SMMA_039
     @pytest.mark.Android
-    @pytest.mark.Login_Logout
+    @pytest.mark.Login_Logout_1
     @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_Validate_that_when_user_input_otp_and_close_the_app_next_time_user_get_redirected_to_Mulai_sekarang_page(self):
@@ -727,7 +727,7 @@ class Login_test(LoginPage):
 
     @pytest.mark.UseCase_05
     @pytest.mark.Android
-    @pytest.mark.Login_Logout
+    @pytest.mark.Login_Logout_1
     @pytest.mark.Revamp
     @allure.story("F-2:Login/logout Feature")
     def test_Validate_another_method_if_user_got_blocked_for_whatsApp_OTP(self):
