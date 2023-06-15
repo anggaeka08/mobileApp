@@ -196,7 +196,7 @@ class LoginPage(BaseCase):
         self.click(click_5)
         self.click(click_6)
         self.sleep(2)
-        self.click(bio_on_off)
+        #self.click(bio_on_off)
 
     @allure.step("enter pin")
     def enter_pin_without_bio(self):
