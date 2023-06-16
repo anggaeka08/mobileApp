@@ -70,7 +70,11 @@ xp_kedaluwarsa='Riwayat_Kedaluwarsa'
 riwayat_back_btn='Riwayat_back_btn'
 until_date='(//android.widget.TextView[@content-desc="Riwayat_entry_1_text"])[1]'
 riwayat_xp_value='(//android.widget.TextView[@content-desc="Riwayat_entry_1_value"])[1]'
+riwayat_mission_name='(//android.widget.TextView[@content-desc="Riwayat_entry_1_type"])[1]'
+riwayat_mission_time='(//android.widget.TextView[@content-desc="Riwayat_entry_1_time"])[1]'
+
 empty_smile_face='//android.view.ViewGroup/android.widget.ImageView'
+empty_kedaluwarsa_msg= "//android.widget.TextView[@text='Yuk, jalankan misi dan kumpulkan XP!']"
 
 
 class Gamification(HomePage):
@@ -525,6 +529,7 @@ class Gamification(HomePage):
     def open_riwayat_page(self):
         self.click(riwayat_btn)
         self.sleep(1)
+        self.assert_equal(self.is_element_visible(riwayat_header), True)
 
     @allure.step("Validate Active XP, Expired XP, back button, until date, xp value visibility")
     def validate_active_xp_expired_xp_back_button_until_date_xp_value_visibility(self):
@@ -533,11 +538,40 @@ class Gamification(HomePage):
         self.assert_equal(self.is_element_visible(riwayat_back_btn),True)
         self.assert_equal(self.is_element_visible(until_date),True)
         self.assert_equal(self.is_element_visible(riwayat_xp_value),True)
+        self.assert_equal(self.is_element_visible(riwayat_mission_name),True)
+        self.assert_equal(self.is_element_visible(riwayat_mission_time),True)
 
     @allure.step("validate empty state page")
     def validate_empty_state_page(self):
         self.click(xp_kedaluwarsa)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(empty_smile_face), True)
+        self.assert_equal(self.is_element_visible(empty_kedaluwarsa_msg), True)
 
+    @allure.step("Click Back Button on Gamification History Page")
+    def click_back_button_on_gamification_history_page(self):
+        self.click(riwayat_back_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gamification_header),True)
+
+    @allure.step("Validate Swipe Functionality in Riwayat Subtabs")
+    def validate_swipe_functionality_in_riwayat_subtabs(self):
+        self.scroll_screen(start_x=250, start_y=1081, end_x=900, end_y=1021, duration=5000)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(riwayat_xp_value),True)
+
+    @allure.step("Validate riwayat button is visible on gamification homepage")
+    def validate_riwayat_button_is_visible_on_gamification_homepage(self):
+        self.assert_equal(self.is_element_visible(riwayat_btn),True)
+
+    @allure.step("Validate until date and time format")
+    def validate_until_date_and_time_format(self):
+        time_in_entry= self.get_attribute(riwayat_mission_time,'text')
+        date_in_entry= (self.get_attribute(until_date,'text')).replace('Berlaku sampai ','')[:-1]
+        in_date = datetime.strptime(date_in_entry, '%d %B %Y')
+        out_date = datetime.strftime(in_date, '%d %B %Y')
+        self.assert_equal(date_in_entry,out_date)
+        in_time = datetime.strptime(time_in_entry, '%H:%M')
+        out_time = datetime.strftime(in_time, '%H:%M')
+        self.assert_equal(time_in_entry, out_time)
 
