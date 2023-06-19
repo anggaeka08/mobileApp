@@ -575,3 +575,36 @@ class Gamification(HomePage):
         out_time = datetime.strftime(in_time, '%H:%M')
         self.assert_equal(time_in_entry, out_time)
 
+    @allure.step("Collect api data for gamification history")
+    def collect_api_data_for_gamification_history(self):
+        token_value = self.login()
+        token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        history_rs = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='radix/v1/account/45997/reward-xp?status=1&campaign_id=&sort_by=id&is_asc=false&limit=20', headers=token,expected_status_code=200)
+        label_api = []
+        credit_api= []
+        for i in range(len(history_rs['data'])):
+            label_api.append(history_rs['data'][i]['campaign']['label'])
+            credit_api.append(history_rs['data'][i]['credit'])
+        logger.info(label_api)
+        logger.info(credit_api)
+        return label_api,credit_api
+
+    @allure.step("Collect ui data for gamification history")
+    def collect_ui_data_for_gamification_history(self):
+        self.open_riwayat_page()
+        label_ui= []
+        credit_ui=[]
+        l1=self.get_attribute('(//android.widget.TextView[@content-desc="Riwayat_entry_1_type"])[1]','text')
+        l2=self.get_attribute('//android.widget.TextView[@content-desc="Riwayat_entry_2_type"]','text')
+        l3=self.get_attribute('(//android.widget.TextView[@content-desc="Riwayat_entry_1_type"])[2]','text')
+        l4=self.get_attribute('(//android.widget.TextView[@content-desc="Riwayat_entry_1_type"])[3]','text')
+        label_ui.extend([l1,l2,l3,l4])
+        c1=int(self.get_attribute('(//android.widget.TextView[@content-desc="Riwayat_entry_1_value"])[1]', 'text').replace('+', '').replace(',', '').replace('XP', ''))
+        c2=int(self.get_attribute('//android.widget.TextView[@content-desc="Riwayat_entry_2_value"]', 'text').replace('+', '').replace(',', '').replace('XP', ''))
+        c3=int(self.get_attribute('(//android.widget.TextView[@content-desc="Riwayat_entry_1_value"])[2]', 'text').replace('+', '').replace(',', '').replace('XP', ''))
+        c4=int(self.get_attribute('(//android.widget.TextView[@content-desc="Riwayat_entry_1_value"])[3]', 'text').replace('+', '').replace(',', '').replace('XP', ''))
+        credit_ui.extend([c1,c2,c3,c4])
+        logger.info(label_ui)
+        logger.info(credit_ui)
+        return label_ui,credit_ui
