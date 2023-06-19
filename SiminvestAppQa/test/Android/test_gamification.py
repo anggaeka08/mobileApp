@@ -307,3 +307,27 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
                                  'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.validate_gamification_history_api_ui_data
+    @pytest.mark.Android
+    @pytest.mark.Gamification
+    @allure.story("F-17:Gamification")
+    def test_validate_gamification_history_api_ui_data(self):
+        try:
+            self.execute_script('lambda-name=test_validate_gamification_history_api_ui_data')
+            self.open_gamification_page(user_data['reg_no'])
+            label_ui, credit_ui = self.collect_ui_data_for_gamification_history()
+            label_api, credit_api= self.collect_api_data_for_gamification_history()
+            self.assert_true(set(label_ui).issubset(label_api))
+            self.assert_true(set(credit_ui).issubset(credit_api))
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_gamification_history_api_ui_data',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_gamification_history_api_ui_data',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
