@@ -64,3 +64,22 @@ class Index_test(IndexPage):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.ui_and_api_data_validation_index
+    @pytest.mark.Android
+    @pytest.mark.index
+    @allure.story("F-18 :Index Page")
+    def test_ui_and_api_data_validation(self):
+        try:
+            self.execute_script('lambda-name=test_ui_and_api_data_validation')
+            self.open_index_page(user_data['reg_no_2'])
+            self.validate_data_with_api_and_ui()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_ui_and_api_data_validation', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_ui_and_api_data_validation', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+

@@ -6,6 +6,7 @@ import logging as logger
 from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
 from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 from datetime import datetime
+request_utilities = RequestsUtilities()
 
 #locators
 index_page_header = 'IndeksPageHeader'
@@ -109,4 +110,22 @@ class IndexPage(StockDetailPage):
             price_value = self.get_attribute(f'IndeksEntryLastPrice{i}', 'text')
             if len(price_value) >= 8:
                 self.assert_in(',', price_value)
+
+    @allure.step("validate the data with api and app ui")
+    def validate_data_with_api_and_ui(self):
+        ui_index_name = []
+        api_index_name = []
+        for i in range(11):
+            ui_index_name.append(self.get_attribute(f'IndeksEntryName{i}', 'text'))
+        token_value = self.login()
+        token = {
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        index_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='emerson/v1/index', headers=token, expected_status_code=200)
+        for i in range(len(index_api['data'])):
+            api_index_name.append(index_api['data'][i]['name'])
+        logger.info(ui_index_name)
+        logger.info(api_index_name)
+        for i in range(len(ui_index_name)):
+            self.assert_in(ui_index_name[i], api_index_name)
 
