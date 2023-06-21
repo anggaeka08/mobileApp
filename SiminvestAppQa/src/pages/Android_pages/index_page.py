@@ -8,15 +8,18 @@ from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 from datetime import datetime
 
 #locators
+index_page_header = 'IndeksPageHeader'
 search_field= 'StockSearch'
 search_btn_index = 'IndeksPageSearchBtn'
 search_type = 'StockSearchType'
+index_entry_1 = 'IndeksPageEntry0'
+price_entry_1 = 'IndeksEntryLastPrice0'
 search_entry_stock_code = '(//android.widget.TextView[@content-desc="StockSearchCode"])[1]'
 search_entry_stock_name = '(//android.widget.TextView[@content-desc="StockSearchName"])[1]'
 search_entry_reksadana = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]'
 search_close_btn = '//android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]'
 special_notation = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup'
-
+last_entry_index='IndeksPageEntry49'
 
 class IndexPage(StockDetailPage):
 
@@ -89,3 +92,21 @@ class IndexPage(StockDetailPage):
         self.scroll_down()
         self.click('IndeksPageEntry0')
         self.validate_header_movement()
+
+    @allure.step("Validate scroll up and down on index page")
+    def validate_scroll_up_and_down_on_index_page(self):
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(index_entry_1), False)
+       # self.assert_equal(self.is_element_visible(last_entry_index), True)
+        self.scroll_down()
+        self.assert_equal(self.is_element_visible(index_entry_1), True)
+
+    @allure.step("Validate thousand separator and name in index entry")
+    def validate_thousand_separator_and_name_in_index_entry(self):
+        self.assert_equal(self.get_attribute(index_page_header, 'text'), 'Indeks')
+        for i in range(5):
+            self.assert_not_in(' ', self.get_attribute(f'IndeksEntryName{i}', 'text'))
+            price_value = self.get_attribute(f'IndeksEntryLastPrice{i}', 'text')
+            if len(price_value) >= 8:
+                self.assert_in(',', price_value)
+
