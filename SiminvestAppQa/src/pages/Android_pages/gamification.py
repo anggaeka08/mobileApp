@@ -72,9 +72,17 @@ until_date='(//android.widget.TextView[@content-desc="Riwayat_entry_1_text"])[1]
 riwayat_xp_value='(//android.widget.TextView[@content-desc="Riwayat_entry_1_value"])[1]'
 riwayat_mission_name='(//android.widget.TextView[@content-desc="Riwayat_entry_1_type"])[1]'
 riwayat_mission_time='(//android.widget.TextView[@content-desc="Riwayat_entry_1_time"])[1]'
-
 empty_smile_face='//android.view.ViewGroup/android.widget.ImageView'
 empty_kedaluwarsa_msg= "//android.widget.TextView[@text='Yuk, jalankan misi dan kumpulkan XP!']"
+referral_entry_1='Referral_entry_1'
+referral_entry_2='Referral_entry_2'
+referral_entry_3='Referral_entry_3'
+refferal_message= '//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[3]'
+jalankan_referal_1_btn= '//android.view.ViewGroup[@content-desc="Referral_entry_1"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
+accept_tc_refferal= '//android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
+submit_tc_refferal= "//android.widget.TextView[@text='SUBMIT']"
+refferal_page_header= 'RefferalPageHeader'
+refferal_page_back= '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 
 
 class Gamification(HomePage):
@@ -608,3 +616,59 @@ class Gamification(HomePage):
         logger.info(label_ui)
         logger.info(credit_ui)
         return label_ui,credit_ui
+
+    @allure.step("Swipe up on gamification page")
+    def swipe_up_on_gamification_page(self):
+        self.scroll_screen(start_x=500, start_y=2100, end_x=500, end_y=220, duration=6000)
+
+    @allure.step("Validate message for Referral entry 1")
+    def validate_message_for_referral_entry_1(self):
+        self.click(referral_entry_1)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(refferal_message,'text'), 'Ayo ajak 10 kerabat berinvestasi supaya kamu bisa cuan bareng.')
+
+    @allure.step("Validate message for Referral entry 2")
+    def validate_message_for_referral_entry_2(self):
+        self.click(referral_entry_2)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(refferal_message, 'text'),
+                          'Terus ajak semua orang yang kamu kenal supaya semua bisa melek investasi.')
+
+    @allure.step("click on referral jalakan misi")
+    def click_on_referral_jalakan_misi(self):
+        self.click(jalankan_referal_1_btn)
+        self.sleep(1)
+
+    @allure.step("Accept term condition on refferal")
+    def accept_term_condition_on_refferal(self):
+        self.click(accept_tc_refferal)
+        self.click(submit_tc_refferal)
+        self.assert_equal(self.is_element_visible(refferal_page_header),True)
+
+    @allure.step('Click back button on refferal page')
+    def click_back_button_on_refferal_page(self):
+        self.click(refferal_page_back)
+        self.sleep(1)
+
+    @allure.step('Validate visibilty of gamification header')
+    def validate_visibilty_of_gamification_header(self):
+        self.assert_equal(self.is_element_visible(gamification_header), True)
+
+    @allure.step("Open Gamification Page Non kyc")
+    def open_gamification_page_non_kyc(self, phone_number):
+        self.login_and_verify_homepage_for_non_kyc_user(phone_number)
+        self.click_on_profile_btn()
+        self.sleep(1)
+        self.click(gamification_button)
+        self.sleep(1)
+        if self.is_element_visible(gamification_check_box) == True:
+            self.click(gamification_check_box)
+            self.click(tc_submit)
+            self.assert_equal(self.is_element_visible(gamification_header), True)
+        else:
+            self.assert_equal(self.is_element_visible(gamification_header), True)
+
+
+
+
+
