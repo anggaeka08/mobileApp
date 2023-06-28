@@ -390,8 +390,7 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
             self.execute_script('lambda-name=test_validate_functional_flow_for_refferal_mission_tab_non_kyc_user')
             self.open_gamification_page_non_kyc(user_data['unkyc_reg_no'])
             self.swipe_up_on_gamification_page()
-            self.click_on_referral_jalakan_misi()
-            self.accept_term_condition_on_refferal()
+            self.click_on_refferal_entry()
             self.go_back()
             self.validate_visibilty_of_gamification_header()
             self.execute_script("lambda-status=passed")
@@ -401,7 +400,32 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
-            self.save_screenshot('test_validate_functional_flow_for_refferal_mission_tab',
+            self.save_screenshot('test_validate_functional_flow_for_refferal_mission_tab_non_kyc_user',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.validate_buttons_response_for_refferal_mission_tab
+    @pytest.mark.Android
+    @pytest.mark.Gamification
+    @allure.story("F-17:Gamification")
+    def test_validate_buttons_response_for_refferal_mission_tab(self):
+        try:
+            self.execute_script('lambda-name=test_validate_buttons_response_for_refferal_mission_tab')
+            self.open_gamification_page_non_kyc(user_data['unkyc_reg_no'])
+            self.swipe_up_on_gamification_page()
+            self.click_on_referral_jalakan_misi()
+            self.accept_term_condition_on_refferal()
+            self.go_back()
+            self.validate_visibilty_of_gamification_header()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_buttons_response_for_refferal_mission_tab',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_buttons_response_for_refferal_mission_tab',
                                  'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)

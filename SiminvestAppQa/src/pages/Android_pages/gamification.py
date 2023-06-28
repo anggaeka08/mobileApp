@@ -83,7 +83,7 @@ accept_tc_refferal= '//android.view.ViewGroup/android.view.ViewGroup[1]/android.
 submit_tc_refferal= "//android.widget.TextView[@text='SUBMIT']"
 refferal_page_header= 'RefferalPageHeader'
 refferal_page_back= '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
-
+refferal_mission_modal= '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]'
 
 class Gamification(HomePage):
 
@@ -667,6 +667,14 @@ class Gamification(HomePage):
             self.assert_equal(self.is_element_visible(gamification_header), True)
         else:
             self.assert_equal(self.is_element_visible(gamification_header), True)
+
+    @allure.step("Click on Refferal Entry")
+    def click_on_refferal_entry(self):
+        self.click(Referral_entry_1_xp)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(refferal_mission_modal),True)
+
+
 
 
 
