@@ -44,3 +44,23 @@ class Index_test(EventPage):
             self.save_screenshot('test_validate_functional_feature_for_event_page', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.API_data_validation_event
+    @pytest.mark.Android
+    @pytest.mark.index
+    @allure.story("F-18 :Index Page")
+    def test_validate_API_data_validation_event_page(self):
+        try:
+            self.execute_script('lambda-name=test_validate_API_data_validation_event_page')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
+            self.click_on_event_btn()
+            self.api_data_validation_for_event_page()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_API_data_validation_event_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_API_data_validation_event_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)

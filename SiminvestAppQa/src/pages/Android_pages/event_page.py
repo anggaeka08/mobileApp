@@ -213,3 +213,45 @@ class EventPage(StockDetailPage):
         self.click(ipo_tab)
         self.sleep(3)
         self.assert_equal(self.is_element_visible('IPOTabHeaderCompName'), True)
+
+    @allure.step("Api data validation for event page")
+    def api_data_validation_for_event_page(self):
+        today_data_ui = []
+        dividend_data_ui = []
+        right_data_ui = []
+        warrant_data_ui = []
+        bonus_data_ui = []
+        rups_data_ui = []
+        public_data_ui = []
+        ipo_data_ui = []
+        for i in range(7):
+            today_data_ui.append(self.get_attribute(f'RUPSStockCode{i}', 'text'))
+        self.click(dividend_tab)
+        self.sleep(3)
+        for i in range(5):
+            dividend_data_ui.append(self.get_attribute(f'DividendTabStockCode{i}', 'text'))
+        self.click(stock_split_tab)
+        self.sleep(3)
+        self.click(reverse_split_tab)
+        self.sleep(3)
+        self.click(right_issue_tab)
+        self.sleep(3)
+        right_data_ui.append(self.get_attribute('RightIssueTabSymbol0', 'text'))
+        self.click(warrant_tab)
+        self.sleep(3)
+        for i in range(5):
+            warrant_data_ui.append(self.get_attribute(f'WarrantTabSymbol{i}', 'text'))
+        self.click(bonus_tab)
+        self.sleep(3)
+        bonus_data_ui.append(self.get_attribute('BonusTabStockCode0', 'text'))
+        self.click(rups_tab)
+        self.sleep(3)
+        for i in range(5):
+            rups_data_ui.append(self.get_attribute(f'RUPSTabHeaderSymbol{i}', 'text'))
+        self.click(public_expose_tab)
+        self.sleep(3)
+        for i in range(5):
+            public_data_ui.append(self.get_attribute(f'PublicExposeTabSymbol{i}', 'text'))
+        self.click(ipo_tab)
+        self.sleep(3)
+        ipo_data_ui.append(self.get_attribute(f'IPOTabCompName0', 'text'))
