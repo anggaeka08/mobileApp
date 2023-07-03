@@ -429,3 +429,52 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
                                  'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.validate_ui_grammar_for_frequency_mission_tab
+    @pytest.mark.Android
+    @pytest.mark.Gamification
+    @allure.story("F-17:Gamification")
+    def test_validate_ui_grammar_for_frequency_mission_tab(self):
+        try:
+            self.execute_script('lambda-name=test_validate_ui_grammar_for_frequency_mission_tab')
+            self.open_gamification_page(user_data['reg_no_2'])
+            self.swipe_up_on_gamification_page()
+            self.validate_message_for_frequency_tab()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_ui_grammar_for_frequency_mission_tab',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_ui_grammar_for_frequency_mission_tab',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.validate_functinal_flow_for_frequency_mission_tab
+    @pytest.mark.Android
+    @pytest.mark.Gamification
+    @allure.story("F-17:Gamification")
+    def test_validate_functinal_flow_for_frequency_mission_tab(self):
+        try:
+            self.execute_script('lambda-name=test_validate_functinal_flow_for_frequency_mission_tab')
+            self.open_gamification_page(user_data['reg_no_3'])
+            self.swipe_up_on_gamification_page()
+            self.click_on_frequency_1_jalakan_misi()
+            self.go_back()
+            self.click_on_frequency_2_jalakan_misi()
+            self.go_back()
+            self.swipe_to_3rd_entry()
+            self.click_on_frequency_3_jalakan_misi()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_functinal_flow_for_frequency_mission_tab',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_functinal_flow_for_frequency_mission_tab',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)

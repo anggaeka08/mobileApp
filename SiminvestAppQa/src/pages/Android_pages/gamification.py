@@ -84,6 +84,11 @@ submit_tc_refferal= "//android.widget.TextView[@text='SUBMIT']"
 refferal_page_header= 'RefferalPageHeader'
 refferal_page_back= '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 refferal_mission_modal= '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]'
+jalankan_frequency_1_btn= '//android.view.ViewGroup[@content-desc="Frequency_entry_1"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
+jalankan_frequency_2_btn= '//android.view.ViewGroup[@content-desc="Frequency_entry_2"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
+jalankan_frequency_3_btn= '//android.view.ViewGroup[@content-desc="Frequency_entry_3"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
+sector_header= 'SektorPageHeader'
+
 
 class Gamification(HomePage):
 
@@ -673,6 +678,48 @@ class Gamification(HomePage):
         self.click(Referral_entry_1_xp)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(refferal_mission_modal),True)
+
+    @allure.step("Validate message for Frequency tab")
+    def validate_message_for_frequency_tab(self):
+        frequency_msgs = []
+        for i in range(1, 2):
+            frequency_msgs.append(self.get_attribute(f"//android.view.ViewGroup[@content-desc='Frequency_entry_{i}_activity']/android.widget.TextView", 'text'))
+        self.assert_equal(len(frequency_msgs), len(set(frequency_msgs)))
+
+    @allure.step("click on frequency 1 jalakan misi")
+    def click_on_frequency_1_jalakan_misi(self):
+        self.click(jalankan_frequency_1_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(sector_header), True)
+
+    @allure.step("click on frequency 2 jalakan misi")
+    def click_on_frequency_2_jalakan_misi(self):
+        self.click(jalankan_frequency_2_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(sector_header), True)
+
+    @allure.step("click on frequency 3 jalakan misi")
+    def click_on_frequency_3_jalakan_misi(self):
+        self.click(jalankan_frequency_3_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(sector_header), True)
+
+    @allure.step("Swipe to 3rd entry")
+    def swipe_to_3rd_entry(self):
+        second_coordinate = self.get_attribute(jalankan_frequency_1_btn, 'bounds')
+        lst_2 = second_coordinate.split(',')
+        e_x = int(lst_2[0][1:])
+        e_y = int(lst_2[1][0:4])
+        first_coordinate = self.get_attribute(jalankan_frequency_2_btn, 'bounds')
+        lst_1 = first_coordinate.split(',')
+        s_x = int(lst_1[0][1:])
+        s_y = int(lst_1[1][0:4])
+        self.scroll_screen(start_x=s_x, start_y=s_y, end_x=e_x, end_y=e_y, duration=5000)
+        self.sleep(1)
+
+
+
+
 
 
 
