@@ -255,3 +255,18 @@ class EventPage(StockDetailPage):
         self.click(ipo_tab)
         self.sleep(3)
         ipo_data_ui.append(self.get_attribute(f'IPOTabCompName0', 'text'))
+
+
+    @allure.step("Open Event page")
+    def open_event_page(self, number):
+        self.login_and_verify_homepage_for_reg_user(number)
+        self.click_on_event_btn()
+        self.sleep(2)
+        self.verify_event_page()
+        
+    @allure.step("Validate swipe up and swipe down the page")
+    def validate_scroll_up_and_down_on_Event_page(self):
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(today_sub_1), False)
+        self.scroll_down()
+        self.assert_equal(self.is_element_visible(today_sub_1), True)
