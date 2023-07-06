@@ -68,7 +68,7 @@ class Index_test(EventPage):
 
     @pytest.mark.event_ui_and_grammar_validation
     @pytest.mark.Android
-    @pytest.mark.index
+    @pytest.mark.Event
     @allure.story("F-18 :Index Page")
     def test_validate_event_ui_and_grammar_validation(self):
         try:
