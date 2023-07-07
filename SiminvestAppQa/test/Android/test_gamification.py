@@ -194,6 +194,7 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
             self.open_onboarding_lihat_semua()
             self.open_transaction_lihat_semua()
             self.open_frequency_lihat_semua()
+            self.go_back()
             self.open_refferal_lihat_semua()
             self.validate_redirection_of_jalankan_misi()
             self.execute_script("lambda-status=passed")
@@ -216,13 +217,14 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
         try:
             self.execute_script('lambda-name=test_validate_mission_list_filtered_api_ui_data')
             self.open_gamification_page(user_data['reg_no'])
-            ob_label_ui, ob_xp_ui, trans_label_ui, trans_xp_ui, freq_label_ui, freq_xp_ui, refer_label_ui, refer_xp_ui = self.collect_mission_list_filtered_Ui_data()
-            ob_label_api, ob_xp_api, trans_label_api, trans_xp_api, freq_label_api, freq_xp_api, refer_label_api, refer_xp_api =self.collect_mission_list_filtered_api_data()
+            ob_label_ui, ob_xp_ui, trans_label_ui, trans_xp_ui, freq_label_ui, freq_xp_ui, freq_msg_ui, refer_label_ui, refer_xp_ui = self.collect_mission_list_filtered_Ui_data()
+            ob_label_api, ob_xp_api, trans_label_api, trans_xp_api, freq_label_api, freq_xp_api,freq_msg_api, refer_label_api, refer_xp_api =self.collect_mission_list_filtered_api_data()
             self.assert_true(set(ob_label_ui).issubset(ob_label_api))
             self.assert_true(set(ob_xp_ui).issubset(ob_xp_api))
             self.assert_true(set(trans_label_ui).issubset(trans_label_api))
             self.assert_true(set(freq_label_ui).issubset(freq_label_api))
             self.assert_true(set(freq_xp_ui).issubset(freq_xp_api))
+            self.assert_true(set(freq_msg_ui).issubset(freq_msg_api))
             self.assert_true(set(refer_label_ui).issubset(refer_label_api))
             self.assert_true(set(refer_xp_ui).issubset(refer_xp_api))
             self.execute_script("lambda-status=passed")
@@ -475,6 +477,48 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
             self.save_screenshot('test_validate_functinal_flow_for_frequency_mission_tab',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.validate_button_response_for_frequency_mission_tab
+    @pytest.mark.Android
+    @pytest.mark.Gamification
+    @allure.story("F-17:Gamification")
+    def test_validate_button_response_for_frequency_mission_tab(self):
+        try:
+            self.execute_script('lambda-name=test_validate_button_response_for_frequency_mission_tab')
+            self.open_gamification_page(user_data['reg_no_4'])
+            self.swipe_up_on_gamification_page()
+            self.click_frequency_entry_1()
+            self.click_jalakan_misi()
+            self.validate_sector_page_is_open()
+            self.go_back()
+            self.validate_visibilty_of_gamification_header()
+            self.click_frequency_entry_2()
+            self.click_jalakan_misi()
+            self.validate_sector_page_is_open()
+            self.go_back()
+            self.swipe_to_3rd_entry()
+            self.click_frequency_entry_3()
+            self.click_jalakan_misi()
+            self.validate_sector_page_is_open()
+            self.go_back()
+            self.open_frequency_lihat_semua()
+            self.click_lihat_semua_entry_2()
+            self.validate_sector_page_is_open()
+            self.go_back()
+            self.validate_frequency_tab_is_open()
+            self.click_lihat_semua_back_button()
+            self.validate_visibilty_of_gamification_header()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_button_response_for_frequency_mission_tab',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_button_response_for_frequency_mission_tab',
                                  'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
