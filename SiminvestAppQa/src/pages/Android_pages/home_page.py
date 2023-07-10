@@ -539,6 +539,7 @@ class HomePage(LoginPage):
     @allure.step("click on back btn")
     def go_back(self):
         self.back()
+        self.sleep(1)
 
     @allure.step("click on see more btn")
     def click_on_see_more_btn(self):

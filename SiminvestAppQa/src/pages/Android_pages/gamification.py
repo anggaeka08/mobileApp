@@ -46,6 +46,7 @@ level_value= 'Level_value'
 riwayat_btn= '//android.view.ViewGroup[@content-desc="Mission_riwayat_icon"]/android.widget.ImageView'
 riwayat_header = "Riwayat_header"
 lihat_header='LihatSemua_header'
+lihat_back_btn='LihatSemua_back_btn'
 onboarding_lihat_btn =  '//android.view.ViewGroup[@content-desc="Onboarding_lihat"]/android.widget.TextView'
 transaction_lihat_btn='//android.view.ViewGroup[@content-desc="Transaction_lihat"]/android.widget.TextView'
 frequency_lihat_btn='//android.view.ViewGroup[@content-desc="Frequency_lihat"]/android.widget.TextView'
@@ -63,6 +64,8 @@ Harian_entry_1_xp= 'Harian_entry_1_xp'
 Onboarding_entry_1_xp= 'Onboarding_entry_1_xp'
 Transaction_entry_1_xp= 'Transaction_entry_1_xp'
 Frequency_entry_1_xp= 'Frequency_entry_1_xp'
+Frequency_entry_2_xp= 'Frequency_entry_2_xp'
+Frequency_entry_3_xp= 'Frequency_entry_3_xp'
 Referral_entry_1_xp= 'Referral_entry_1_xp'
 saham_tab= '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[1]'
 xp_aktif= 'Riwayat_aktif'
@@ -88,6 +91,7 @@ jalankan_frequency_1_btn= '//android.view.ViewGroup[@content-desc="Frequency_ent
 jalankan_frequency_2_btn= '//android.view.ViewGroup[@content-desc="Frequency_entry_2"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
 jalankan_frequency_3_btn= '//android.view.ViewGroup[@content-desc="Frequency_entry_3"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
 sector_header= 'SektorPageHeader'
+lihat_semua_entry_2= '//android.view.ViewGroup[@content-desc="LihatSemua_entry_2"]/android.view.ViewGroup/android.view.ViewGroup'
 
 
 class Gamification(HomePage):
@@ -450,7 +454,6 @@ class Gamification(HomePage):
         self.sleep(1)
         self.assert_equal(self.get_attribute(lihat_header, 'text'), 'Frekuensi')
         self.assert_equal(self.get_attribute(lihat_header, 'scrollable'), 'false')
-        self.go_back()
 
     @allure.step("open refferal lihat semua")
     def open_refferal_lihat_semua(self):
@@ -481,6 +484,7 @@ class Gamification(HomePage):
         trans_xp_api = []
         freq_label_api = []
         freq_xp_api = []
+        freq_msg_api= []
         refer_label_api = []
         refer_xp_api = []
         for i in range(len(list_filtered_rs['data'])):
@@ -493,10 +497,11 @@ class Gamification(HomePage):
             if list_filtered_rs['data'][i]['campaign']['type_id']==9:
                 freq_label_api.append(list_filtered_rs['data'][i]['campaign']['label'])
                 freq_xp_api.append(list_filtered_rs['data'][i]['campaign']['extra']['reward_xp'])
+                freq_msg_api.append(list_filtered_rs['data'][i]['campaign']['description'])
             if list_filtered_rs['data'][i]['campaign']['type_id']==10:
                 refer_label_api.append(list_filtered_rs['data'][i]['campaign']['label'])
                 refer_xp_api.append(list_filtered_rs['data'][i]['campaign']['extra']['reward_xp'])
-        return ob_label_api,ob_xp_api,trans_label_api,trans_xp_api,freq_label_api,freq_xp_api,refer_label_api,refer_xp_api
+        return ob_label_api,ob_xp_api,trans_label_api,trans_xp_api,freq_label_api,freq_xp_api,freq_msg_api, refer_label_api,refer_xp_api
 
     @allure.step("Collect mission list filtered Ui data")
     def collect_mission_list_filtered_Ui_data(self):
@@ -521,10 +526,12 @@ class Gamification(HomePage):
         self.sleep(1)
         freq_xp_ui=[]
         freq_label_ui=[]
-        for i in range(1, 4):
+        freq_msg_ui = []
+        for i in range(1, 3):
             freq_xp_ui.append(
                 int(self.get_attribute(f"LihatSemua_entry_{i}_value", 'text').replace('+', '').replace(',', '').replace(
                     'XP', '')))
+            freq_msg_ui.append(self.get_attribute(f"LihatSemua_entry_{i}_text", 'text'))
             freq_label_ui.append(self.get_attribute(f"LihatSemua_entry_{i}_type", 'text'))
         self.go_back()
         self.click(referral_lihat_btn)
@@ -536,7 +543,7 @@ class Gamification(HomePage):
                 int(self.get_attribute(f"LihatSemua_entry_{i}_value", 'text').replace('+', '').replace(',', '').replace(
                     'XP', '')))
             refer_label_ui.append(self.get_attribute(f"LihatSemua_entry_{i}_type", 'text'))
-        return ob_label_ui,ob_xp_ui,trans_label_ui,trans_xp_ui,freq_label_ui,freq_xp_ui,refer_label_ui,refer_xp_ui
+        return ob_label_ui,ob_xp_ui,trans_label_ui,trans_xp_ui,freq_label_ui,freq_xp_ui,freq_msg_ui,refer_label_ui,refer_xp_ui
 
     @allure.step("Open Riwayat Page")
     def open_riwayat_page(self):
@@ -636,8 +643,7 @@ class Gamification(HomePage):
     def validate_message_for_referral_entry_2(self):
         self.click(referral_entry_2)
         self.sleep(1)
-        self.assert_equal(self.get_attribute(refferal_message, 'text'),
-                          'Terus ajak semua orang yang kamu kenal supaya semua bisa melek investasi.')
+        self.assert_equal(self.get_attribute(refferal_message, 'text'),'Terus ajak semua orang yang kamu kenal supaya semua bisa melek investasi.')
 
     @allure.step("click on referral jalakan misi")
     def click_on_referral_jalakan_misi(self):
@@ -717,13 +723,41 @@ class Gamification(HomePage):
         self.scroll_screen(start_x=s_x, start_y=s_y, end_x=e_x, end_y=e_y, duration=5000)
         self.sleep(1)
 
+    @allure.step("Click frequency entry 1")
+    def click_frequency_entry_1(self):
+        self.click(Frequency_entry_1_xp)
+        self.sleep(1)
 
+    @allure.step("Click frequency entry 2")
+    def click_frequency_entry_2(self):
+        self.click(Frequency_entry_2_xp)
+        self.sleep(1)
 
+    @allure.step("Click frequency entry 3")
+    def click_frequency_entry_3(self):
+        self.click(Frequency_entry_3_xp)
+        self.sleep(1)
 
+    @allure.step("Click jalakan Misi")
+    def click_jalakan_misi(self):
+        self.click(jalankan_misi_btn)
+        self.sleep(1)
 
+    @allure.step("Validate sector page is open")
+    def validate_sector_page_is_open(self):
+        self.assert_equal(self.is_element_visible(sector_header),True)
+        self.sleep(1)
 
+    @allure.step("Click Lihat Semua Back Button")
+    def click_lihat_semua_back_button(self):
+        self.click(lihat_back_btn)
+        self.sleep(1)
 
+    @allure.step("click lihat semua entry 2")
+    def click_lihat_semua_entry_2(self):
+        self.click(lihat_semua_entry_2)
+        self.sleep(1)
 
-
-
-
+    @allure.step("Validate frequency tab is open")
+    def validate_frequency_tab_is_open(self):
+        self.assert_equal(self.get_attribute(lihat_header, 'text'), 'Frekuensi')
