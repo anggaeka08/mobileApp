@@ -289,7 +289,7 @@ class EventPage(StockDetailPage):
         self.assert_equal(self.is_element_visible(calender_week), True)
   
     @allure.step("validate Read venue Public Expose tab")
-    def validate_warrant_tab(self):
+    def validate_Read_venue_expose_tab(self):
         public_expo_date = []
         public_expo_time=[]
         public_expo_venue = []
