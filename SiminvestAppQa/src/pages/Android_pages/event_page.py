@@ -304,7 +304,7 @@ class EventPage(StockDetailPage):
             self.assert_equal(self.is_element_visible(f"PublicExposeTabSymbol{i}"), True)
             public_expo_date.append(self.get_attribute(f"PublicExposeTabDate{i}", 'text'))
             public_expo_time.append(self.get_attribute(f'PublicExposeTabTime{i}', 'text'))
-        self.scroll_with_two_element('PublicExposeTabSymbol2', 'PublicExposeTabTime')
+        self.scroll_with_two_element('PublicExposeTabSymbol2', 'PublicExposeTabTime2')
         for i in range(8):
             public_expo_venue.append(self.get_attribute(f'PublicExposeTabVenue{i}', 'text'))
        
