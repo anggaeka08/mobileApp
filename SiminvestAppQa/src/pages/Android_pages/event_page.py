@@ -22,6 +22,8 @@ month_dict = {
 }
 back_btn="//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView"
 month_loc = '//android.view.ViewGroup[@content-desc="EventsCalendar"]/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.SeekBar/android.widget.TextView'
+calender_day= '//android.view.ViewGroup[@content-desc="EventsCalendar"]/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.SeekBar/android.view.ViewGroup                   '
+calender_week= 'HEADER_MONTH_NAME-calendar_1688688000000'
 today_sub_1 = 'TodaySubHeader1'
 today_sub_2 = 'TodaySubHeader7'
 todays_sub_3 = 'TodaySubHeader8'
@@ -57,6 +59,10 @@ warrant_trad_end ='WarrantTabHeader3'
 bonus_tab = 'EventsPageHeaderTab6'
 rups_tab = 'EventsPageHeaderTab7'
 public_expose_tab='EventsPageHeaderTab8'
+public_symbol='PublicExposeTabHeaderSymbol'
+public_date='PublicExposeTabHeader1'
+public_time='PublicExposeTabHeader2'
+public_venue='PublicExposeTabHeader3'
 ipo_tab = 'EventsPageHeaderTab9'
 class EventPage(StockDetailPage):
 
@@ -270,3 +276,35 @@ class EventPage(StockDetailPage):
         self.assert_equal(self.is_element_visible(today_sub_1), False)
         self.scroll_down()
         self.assert_equal(self.is_element_visible(today_sub_1), True)
+
+    @allure.step("Validate sunday to saturday")
+    def validate_sunday_to_saturday(self):
+       self.assert_equal(self.is_element_visible(calender_day), True)
+    
+    @allure.step("Validate week on calender")
+    def validate_week_on_calender(self):
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(calender_week), False)
+        self.scroll_down()
+        self.assert_equal(self.is_element_visible(calender_week), True)
+  
+    @allure.step("validate Read venue Public Expose tab")
+    def validate_warrant_tab(self):
+        public_expo_date = []
+        public_expo_time=[]
+        public_expo_venue = []
+        self.click(public_expose_tab)
+        self.sleep(3)
+        self.assert_equal(self.get_attribute(public_symbol, 'text'), 'Symbol')
+        self.assert_equal(self.get_attribute(public_date, 'text'), 'Date')
+        self.assert_equal(self.get_attribute(public_time, 'text'), 'Time')
+        self.assert_equal(self.get_attribute(public_venue, 'text'), 'venue')
+        for i in range(8):
+            self.assert_equal(self.is_element_visible(f'PublicExposeTabSymbol{i}'), True)
+            self.assert_equal(self.is_element_visible(f"PublicExposeTabSymbol{i}"), True)
+            public_expo_date.append(self.get_attribute(f"PublicExposeTabDate{i}", 'text'))
+            public_expo_time.append(self.get_attribute(f'PublicExposeTabTime{i}', 'text'))
+        self.scroll_with_two_element('PublicExposeTabSymbol2', 'PublicExposeTabTime')
+        for i in range(8):
+            public_expo_venue.append(self.get_attribute(f'PublicExposeTabVenue{i}', 'text'))
+       
