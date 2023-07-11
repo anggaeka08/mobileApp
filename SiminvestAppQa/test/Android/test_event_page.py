@@ -78,8 +78,8 @@ class Index_test(EventPage):
             self.verify_event_page()
             self.validate_sunday_to_saturday()
             self.validate_scroll_up_and_down_on_Event_page()
-            self.validate_warrant_tab()
             self.verify_all_tab_available()
+            self.validate_Read_venue_expose_tab()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_validate_ui_and_grammar_for_event_page', 'SiminvestAppQa/src/data/ScreenShots')
