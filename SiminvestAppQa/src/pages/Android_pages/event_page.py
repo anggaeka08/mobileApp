@@ -307,4 +307,13 @@ class EventPage(StockDetailPage):
         self.scroll_with_two_element('PublicExposeTabSymbol2', 'PublicExposeTabTime')
         for i in range(8):
             public_expo_venue.append(self.get_attribute(f'PublicExposeTabVenue{i}', 'text'))
+
+
+    
+    @allure.step("Swipe Left venue public expose")
+    def swipe_left_venue(self):
+        self.click(public_expose_tab)
+        self.sleep(2)
+        self.scroll_screen(start_x=150, start_y=1380, end_x=1160, end_y=1380, duration=10000)
+        self.sleep(2)
        
