@@ -788,7 +788,7 @@ class HomePage(LoginPage):
         self.assert_equal(saldo_api['data']['balance'],int(saldo_rdn_value.replace(',', '')))
         self.assert_equal(star_point['data']['value'], int(star_point_value))
         self.assert_equal(buying_power_rs['data']['buying_power'], int(buying_power))
-        self.assert_equal(buying_power_rs['data']['market_value'], int(homepage_rp_value))
+        self.assert_equal(buying_power_rs['data']['market_value'], int(homepage_rp_value.replace(',', '')))
         list_of_index = ihsg_value_api['data']
         for i in range(len(list_of_index)):
             if list_of_index[i]['name'] == 'COMPOSITE':
