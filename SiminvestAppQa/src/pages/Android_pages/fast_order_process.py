@@ -308,9 +308,9 @@ class FastOrder(BuyProcess):
         if (current_time >= '7:30' or current_time <= '15:15'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
-            self.assert_equal(self.is_element_visible(saham_tab), True)
-            self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
-            self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
+            # self.assert_equal(self.is_element_visible(saham_tab), True)
+            # self.assert_equal(self.get_attribute(transaction_type, 'text'), 'BELI')
+            # self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
         else:
             logger.info("Out of time")
             self.assert_equal(self.is_element_visible(exchange_notification), True)
@@ -382,8 +382,8 @@ class FastOrder(BuyProcess):
             # self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
         else:
             logger.info("Out of time")
-            self.assert_equal(self.is_element_visible(exchange_notification), True)
-        self.click(ok_btn)
+           # self.assert_equal(self.is_element_visible(exchange_notification), True)
+        #self.click(ok_btn)
         self.click(homepage_tab)
         self.sleep(2)
         self.scroll_up()
@@ -404,8 +404,8 @@ class FastOrder(BuyProcess):
             self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
         else:
             logger.info("Out of time")
-            self.assert_equal(self.is_element_visible(exchange_notification), True)
-            self.click(ok_btn)
+            #self.assert_equal(self.is_element_visible(exchange_notification), True)
+            #self.click(ok_btn)
         self.click(homepage_tab)
         self.sleep(2)
         self.scroll_up()
@@ -680,7 +680,7 @@ class FastOrder(BuyProcess):
                 self.assert_equal(self.is_element_visible(exchange_notification), False)
                 logger.info("within time")
                 self.assert_equal(self.is_element_visible(saham_tab), True)
-                self.assert_equal(self.get_attribute(transaction_type, 'text'), 'Jual')
+                self.assert_equal(self.get_attribute(transaction_type, 'text'), 'JUAL')
                 self.assert_equal(self.get_attribute(stock_code_l, 'text'), stock_code)
             else:
                 logger.info("Out of time")

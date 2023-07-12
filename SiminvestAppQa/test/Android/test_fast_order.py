@@ -277,7 +277,7 @@ class FastOrder_test(FastOrder):
     def test_validate_buy_sell_functionality_in_fo_from_portfolio(self):
         try:
             self.execute_script('lambda-name=test_validate_buy_sell_functionality_in_fo_from_portfolio')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
             self.open_portfolio_page()
             self.scroll_for_open_fastOrder_buy_from_portfolio()
             self.validate_trading_limit_and_buy_process_from_portfolio()
