@@ -76,10 +76,12 @@ class Index_test(EventPage):
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
             self.click_on_event_btn()
             self.verify_event_page()
+            self.validate_format_date()
             self.validate_sunday_to_saturday()
             self.validate_scroll_up_and_down_on_Event_page()
             self.verify_all_tab_available()
             self.swipe_left_venue()
+            self.validate_format_date()
           #  self.validate_Read_venue_expose_tab()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:

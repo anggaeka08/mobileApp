@@ -5,7 +5,8 @@ import allure
 import logging as logger
 from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
 from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
-from datetime import datetime
+from datetime import datetime,date,timedelta
+
 month_dict = {
     1: "January",
     2: "February",
@@ -41,6 +42,7 @@ div_cum='DividendTabHeader2'
 div_ex = 'DividendTabHeader3'
 div_rec = 'DividendTabHeader4'
 div_pay = 'DividendTabHeader5'
+div_cum_date='DividendTabCumDate1'
 empty_page = '//android.widget.TextView[@text="Tidak ada agenda hari ini"]'
 stock_split_tab ='EventsPageHeaderTab2'
 reverse_split_tab = 'EventsPageHeaderTab3'
@@ -316,4 +318,18 @@ class EventPage(StockDetailPage):
         self.sleep(2)
         self.scroll_screen(start_x=150, start_y=1380, end_x=1160, end_y=1380, duration=10000)
         self.sleep(2)
-       
+    
+    @allure.step("Validate Format Date")
+    def validate_format_date(self):
+        self.click(dividend_tab)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(div_symbol), True)
+        self.assert_equal(self.is_element_visible(div_div), True)
+        self.assert_equal(self.is_element_visible(div_cum), True)
+        self.assert_equal(self.is_element_visible(div_ex), True)
+        date_in_entry = self.get_attribute(div_cum_date, 'text')
+        in_date = datetime.strptime(date_in_entry, '%d %b %y')
+        out_date = datetime.strftime(in_date, '%d %b %y')
+        self.assert_equal(date_in_entry, str(out_date))
+
+        
