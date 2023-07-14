@@ -342,7 +342,6 @@ class EventPage(StockDetailPage):
            self.assert_equal(self.is_element_visible(empty_page), True)
            self.sleep(2)
         else:
-
             self.assert_equal(self.is_element_visible('DividendRp0'), True)
             self.assert_in('Rp', self.get_attribute('DividendTabDiv0', 'text'))
             self.sleep(2)
