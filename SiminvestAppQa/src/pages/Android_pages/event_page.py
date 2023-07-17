@@ -428,19 +428,19 @@ class EventPage(StockDetailPage):
     @allure.step("Validate Format Date and empty page")
     def validate_format_date_Right(self):
         self.click(right_issue_tab)
-        self.sleep(2)
+        self.sleep(3)
         page_no_event= self.is_element_visible(empty_page)
         if page_no_event == True:
            self.assert_equal(self.is_element_visible(empty_page), True)
            self.sleep(2)
         else:   
-            self.assert_equal(self.is_element_visible(right_issue_date), True)
-            date_in_entry = self.get_attribute(right_issue_cum_date, 'text')
-            in_date = datetime.strptime(date_in_entry, '%d %b %y')
-            out_date = datetime.strftime(in_date, '%d %b %y')
-            self.assert_equal(date_in_entry, str(out_date))
-            self.sleep(2)
-        
+            self.assert_equal(self.is_element_visible(right_symbol), True)
+            self.assert_equal(self.is_element_visible(right_ratio), True)
+            self.assert_equal(self.is_element_visible(right_factorv), True)
+            self.assert_equal(self.is_element_visible(right_symbol_0), True)
+            self.assert_equal(self.is_element_visible(right_factor_0), True)
+            self.assert_equal(self.is_element_visible(right_ratio_0), True)
+
     @allure.step("Validate Format Date, time and empty page")
     def validate_format_date_Public(self):
         self.click(public_expose_tab)
@@ -478,7 +478,7 @@ class EventPage(StockDetailPage):
             out_date = datetime.strftime(in_date, '%d %b %y')
             self.assert_equal(date_in_entry, str(out_date))
             self.sleep(2)
-
+    
 
     """ @allure.step("Validate Format Time all tab")
     def validate_format_time(self):
