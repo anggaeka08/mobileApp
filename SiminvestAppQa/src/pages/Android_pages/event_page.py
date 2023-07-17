@@ -36,7 +36,7 @@ rups_time = 'RUPSTime0'
 rups_date = 'RUPSTabHeader1'
 rups_time_tab = 'RUPSTabHeader2'
 rups_time_format = 'RUPSTabHeaderTime0'
-rups_cum_date = 'RUPSTabHeaderDate0'
+rups_cum_date = 'RUPSTabHeaderDate3'
 expose_code = 'PublicExposeStockCode0'
 expose_time = 'PublicExposeTime0'
 dividend_tab = 'EventsPageHeaderTab1'
@@ -374,8 +374,6 @@ class EventPage(StockDetailPage):
            self.assert_equal(self.is_element_visible(empty_page), True)
            self.sleep(2)
         else:   
-            self.assert_equal(self.is_element_visible(), True)
-            self.assert_equal(self.is_element_visible(stock_split_date), True)
             self.assert_equal(self.is_element_visible(stock_split_date), True)
             date_in_entry = self.get_attribute(stock_split_cumdate, 'text')
             in_date = datetime.strptime(date_in_entry, '%d %b %y')
@@ -448,7 +446,7 @@ class EventPage(StockDetailPage):
             self.assert_equal(self.is_element_visible(right_ratio_0), True)
 
     @allure.step("Validate Format Date, time and empty page")
-    def validate_format_date_Public(self):
+    def validate_format_date_and_time_Public(self):
         self.click(public_expose_tab)
         self.sleep(2)
         page_no_event= self.is_element_visible(empty_page)
@@ -460,6 +458,12 @@ class EventPage(StockDetailPage):
             date_in_entry = self.get_attribute(public_cum_date, 'text')
             in_date = datetime.strptime(date_in_entry, '%d %b %y')
             out_date = datetime.strftime(in_date, '%d %b %y')
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)
+            self.assert_equal(self.is_element_visible(public_time), True) 
+            time_in_entry = self.get_attribute(public_time_format, 'text')
+            in_time = datetime.strptime(time_in_entry, "%H:%M")
+            out_time = datetime.strftime(in_time, "%H:%M")
             self.assert_equal(date_in_entry, str(out_date))
             self.sleep(2)
             
