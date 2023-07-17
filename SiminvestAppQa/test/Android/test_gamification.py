@@ -522,3 +522,24 @@ class Gamification_test(Portfolio, SellProcess,StockDetailPage,Gamification):
                                  'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+
+    @pytest.mark.validate_functional_flow_for_transaction_mission
+    @pytest.mark.Android
+    @pytest.mark.Gamification
+    @allure.story("F-17:Gamification")
+    def test_validate_functional_flow_for_transaction_mission_tab(self):
+        try:
+            self.execute_script('lambda-name=test_validate_functional_flow_for_transaction_mission_tab')
+            self.open_gamification_page(user_data['reg_no_3'])
+            self.swipe_up_on_gamification_page()
+            self.validate_mission_list_for_transaction_missions()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_functional_flow_for_transaction_mission_tab','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_functional_flow_for_transaction_mission_tab','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)

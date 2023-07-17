@@ -20,8 +20,8 @@ cp = [
     "platformName": "Android",
     "deviceName": "Pixel 4",
     "platformVersion": "10",
-    "build": "Regression 1.85.3 (505)",
-    "name": "Regression Test Cases",
+    "build": "Testing 1.85.3 (505)",
+    "name": "Testing Test Cases",
     "isRealMobile": True,
     "user": "pawan@binmile.com",
     "accessKey": "nrVDKFpgRayhZV7Y9KGQh6J7MuJ4M4rWbNZV4Y0eYZzmJ3sTlj"

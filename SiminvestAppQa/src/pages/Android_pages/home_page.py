@@ -1040,6 +1040,22 @@ class HomePage(LoginPage):
         self.assert_equal(self.is_element_visible(stock_name), True)
         self.sleep(1)
 
+    @allure.step("scroll for with two component")
+    def scroll_with_two_element(self, first, second):
+        self.sleep(1)
+        second_coordinate = self.get_attribute(first, 'bounds')
+        lst_1 = second_coordinate.split(',')
+        fist_x = int(lst_1[0][1:])
+        fist_y = int(lst_1[1][0:3])
+        fist_coordinate = self.get_attribute(second, 'bounds')
+        lst_2 = fist_coordinate.split(',')
+        sec_x = int(lst_2[0][1:])
+        sec_y = int(lst_2[1][0:3])
+        # logger.info(f'{second_coordinate} {type(second_coordinate)} {second_coordinate[1]}')
+        # logger.info(f'{fist_coordinate} {type(fist_coordinate)} {fist_coordinate[1]}')
+        self.scroll_screen(start_x=sec_x, start_y=sec_y, end_x=fist_x, end_y=fist_y, duration=9000)
+        self.sleep(1)
+
 
 
 

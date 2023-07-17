@@ -92,8 +92,12 @@ jalankan_frequency_2_btn= '//android.view.ViewGroup[@content-desc="Frequency_ent
 jalankan_frequency_3_btn= '//android.view.ViewGroup[@content-desc="Frequency_entry_3"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
 sector_header= 'SektorPageHeader'
 lihat_semua_entry_2= '//android.view.ViewGroup[@content-desc="LihatSemua_entry_2"]/android.view.ViewGroup/android.view.ViewGroup'
-
-
+transaction_ongoing_mission_value = '//android.view.ViewGroup[@content-desc="Transaction_entry_1"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
+transaction_btn = '//android.view.ViewGroup[@content-desc="Transaction_entry_2"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
+pop_header = '//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[1]'
+pop_jalankan_masi = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
+transaction_lihat = '//android.view.ViewGroup[@content-desc="Transaction_lihat"]/android.widget.TextView'
+pop_msg ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[3]'
 class Gamification(HomePage):
 
     @allure.step("Open Gamification Page")
@@ -761,3 +765,64 @@ class Gamification(HomePage):
     @allure.step("Validate frequency tab is open")
     def validate_frequency_tab_is_open(self):
         self.assert_equal(self.get_attribute(lihat_header, 'text'), 'Frekuensi')
+
+    @allure.step("validate mission list for transaction missions")
+    def validate_mission_list_for_transaction_missions(self):
+        mission_list_homepage = []
+        RP_list = []
+        mission_list_lihat = []
+        Rp_list_lihat = []
+        message_list = []
+        self.sleep(1)
+        for i in range(1,9):
+            mission_list_homepage.append(self.get_attribute(f'//android.view.ViewGroup[@content-desc="Transaction_entry_{i}_activity"]/android.widget.TextView', 'text'))
+            RP_list.append(self.get_attribute(f'Transaction_entry_{i}_xp', 'text'))
+            #self.swipe_between_element(f'//android.view.ViewGroup[@content-desc="Transaction_entry_{i}_activity"]/android.widget.TextView', f'//android.view.ViewGroup[@content-desc="Transaction_entry_{i+1}_activity"]/android.widget.TextView')
+            #ongoing_mission_value_1 = self.get_attribute(f'//android.view.ViewGroup[@content-desc="Transaction_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView', 'text')
+            ongoing_mission_value = self.get_attribute(f'//android.view.ViewGroup[@content-desc="Transaction_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView', 'text')
+            logger.info(ongoing_mission_value)
+            if ongoing_mission_value != 'Jalankan Misi':
+                self.click(f'//android.view.ViewGroup[@content-desc="Transaction_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup')
+                self.sleep(2)
+                self.assert_equal(mission_list_homepage[i-1], self.get_attribute(pop_header, 'text'))
+                self.go_back()
+                self.sleep(1)
+                self.click(f'//android.view.ViewGroup[@content-desc="Transaction_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup')
+                message_list.append(self.get_attribute(pop_msg, 'text'))
+                self.sleep(1)
+                self.click(pop_jalankan_masi)
+                self.sleep(1)
+                self.assert_equal(self.is_element_visible('SektorPageHeader'), True)
+                self.go_back()
+                self.sleep(3)
+                self.scroll_with_two_element(f'//android.view.ViewGroup[@content-desc="Transaction_entry_{i}_activity"]/android.widget.ImageView',f'//android.view.ViewGroup[@content-desc="Transaction_entry_{i + 1}_activity"]/android.widget.ImageView')
+            else :
+                self.click(f'//android.view.ViewGroup[@content-desc="Transaction_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup')
+                self.assert_equal(self.is_element_visible('SektorPageHeader'), True)
+                self.go_back()
+                # self.sleep(2)
+                # self.click(f'Transaction_entry_{i}')
+                # message_list.append(self.get_attribute(pop_msg, 'text'))
+                # self.go_back()
+                self.sleep(3)
+                for j in range(1, i+1):
+                    self.scroll_with_two_element(f'//android.view.ViewGroup[@content-desc="Transaction_entry_{j}_activity"]/android.widget.ImageView', f'//android.view.ViewGroup[@content-desc="Transaction_entry_{j + 1}_activity"]/android.widget.ImageView')
+        logger.info(mission_list_homepage)
+        self.click(transaction_lihat)
+        self.sleep(5)
+        self.assert_equal(self.get_attribute(lihat_header, 'text'), 'Transaksi')
+        for i in range(1, 9):
+            mission_list_lihat.append(self.get_attribute(f'LihatSemua_entry_{i}_type', 'text'))
+            Rp_list_lihat.append(self.get_attribute(f'LihatSemua_entry_{i}_value', 'text'))
+
+            if i ==3 or i==6:
+                #self.scroll_with_two_element(f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i-2}"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView',f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView')
+               self.scroll_screen(start_x=500, start_y=2100, end_x=500, end_y=500, duration=6000)
+        logger.info(Rp_list_lihat)
+        self.click(lihat_back_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gamification_header), True)
+        self.assert_equal(mission_list_lihat, mission_list_homepage)
+        self.assert_equal(RP_list, Rp_list_lihat)
+        for i in range(len(message_list)-1):
+            self.assert_not_equal(message_list[i], message_list[i+1])
