@@ -5,7 +5,8 @@ import allure
 import logging as logger
 from SiminvestAppQa.src.pages.Android_pages.stock_detail_page import StockDetailPage
 from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
-from datetime import datetime
+from datetime import datetime,date,timedelta
+
 month_dict = {
     1: "January",
     2: "February",
@@ -22,6 +23,8 @@ month_dict = {
 }
 back_btn="//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView"
 month_loc = '//android.view.ViewGroup[@content-desc="EventsCalendar"]/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.SeekBar/android.widget.TextView'
+calender_day= '//android.view.ViewGroup[@content-desc="EventsCalendar"]/android.widget.HorizontalScrollView[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.SeekBar/android.view.ViewGroup                   '
+calender_week= 'HEADER_MONTH_NAME-calendar_1688688000000'
 today_sub_1 = 'TodaySubHeader1'
 today_sub_2 = 'TodaySubHeader7'
 todays_sub_3 = 'TodaySubHeader8'
@@ -30,6 +33,10 @@ dividend_rp = 'DividendRp0'
 dividend_label = 'DividendLabel0'
 rups_code = 'RUPSStockCode0'
 rups_time = 'RUPSTime0'
+rups_date = 'RUPSTabHeader1'
+rups_time_tab = 'RUPSTabHeader2'
+rups_time_format = 'RUPSTabHeaderTime0'
+rups_cum_date = 'RUPSTabHeaderDate3'
 expose_code = 'PublicExposeStockCode0'
 expose_time = 'PublicExposeTime0'
 dividend_tab = 'EventsPageHeaderTab1'
@@ -39,9 +46,14 @@ div_cum='DividendTabHeader2'
 div_ex = 'DividendTabHeader3'
 div_rec = 'DividendTabHeader4'
 div_pay = 'DividendTabHeader5'
+div_cum_date='DividendTabCumDate1'
 empty_page = '//android.widget.TextView[@text="Tidak ada agenda hari ini"]'
 stock_split_tab ='EventsPageHeaderTab2'
+stock_split_date = 'StockSplitTabHeader3'
+stock_split_cumdate = 'StockSplitTabCumDate0'
 reverse_split_tab = 'EventsPageHeaderTab3'
+right_issue_date ='RightIssueTabHeader4'
+right_issue_cum_date = 'RightIssueTabCumDate0'
 right_issue_tab='EventsPageHeaderTab4'
 right_symbol = 'RightIssueTabHeaderSymbol'
 right_ratio = 'RightIssueTabHeader1'
@@ -53,11 +65,22 @@ warrant_tab='EventsPageHeaderTab5'
 warrant_symbol = 'WarrantTabHeaderSymbol'
 warrant_exercise = 'WarrantTabHeader1'
 warrant_trad_start = 'WarrantTabHeader2'
+warrant_trd_date = 'WarrantTabTrdStart0'
 warrant_trad_end ='WarrantTabHeader3'
 bonus_tab = 'EventsPageHeaderTab6'
+bonus_date = 'BonusTabHeader3'
+bonus_cum_date = 'BonusTabCumDate0'
 rups_tab = 'EventsPageHeaderTab7'
 public_expose_tab='EventsPageHeaderTab8'
+public_symbol='PublicExposeTabHeaderSymbol'
+public_date='PublicExposeTabHeader1'
+public_time='PublicExposeTabHeader2'
+public_venue='PublicExposeTabHeader3'
+public_time_format = 'PublicExposeTabTime0'
+public_cum_date = 'PublicExposeTabDate0'
 ipo_tab = 'EventsPageHeaderTab9'
+ipo_date ='IPOTabHeader3'
+ipo_cum_date ='IPOTabOffStart0 '
 class EventPage(StockDetailPage):
 
     @allure.step("Open event page")
@@ -255,3 +278,267 @@ class EventPage(StockDetailPage):
         self.click(ipo_tab)
         self.sleep(3)
         ipo_data_ui.append(self.get_attribute(f'IPOTabCompName0', 'text'))
+
+
+    @allure.step("Open Event page")
+    def open_event_page(self, number):
+        self.login_and_verify_homepage_for_reg_user(number)
+        self.click_on_event_btn()
+        self.sleep(2)
+        self.verify_event_page()
+        
+    @allure.step("Validate swipe up and swipe down the page")
+    def validate_scroll_up_and_down_on_Event_page(self):
+        page_no_scroll= self.is_element_visible(today_sub_1)
+        if page_no_scroll == True:
+           self.scroll_up()
+           self.assert_equal(self.is_element_visible(today_sub_1), False)
+           self.scroll_down()
+           self.assert_equal(self.is_element_visible(today_sub_1), True)
+           self.sleep(2)
+        else:   
+           self.assert_equal(self.is_element_visible(calender_day), True)
+
+    @allure.step("Validate sunday to saturday")
+    def validate_sunday_to_saturday(self):
+       self.assert_equal(self.is_element_visible(calender_day), True)
+    
+    @allure.step("Validate week on calender")
+    def validate_week_on_calender(self):
+        page_no_scroll_calender= self.is_element_visible(calender_week)
+        if page_no_scroll_calender == True:
+           self.scroll_up()
+           self.assert_equal(self.is_element_visible(calender_week), False)
+           self.scroll_down()
+           self.assert_equal(self.is_element_visible(calender_week), True)
+  
+        else:   
+           self.assert_equal(self.is_element_visible(calender_day), True)
+       
+    @allure.step("validate Read venue Public Expose tab")
+    def validate_Read_venue_expose_tab(self):
+        public_expo_date = []
+        public_expo_time=[]
+        public_expo_venue = []
+        self.click(public_expose_tab)
+        self.sleep(3)
+        self.assert_equal(self.get_attribute(public_symbol, 'text'), 'Symbol')
+        self.assert_equal(self.get_attribute(public_date, 'text'), 'Date')
+        self.assert_equal(self.get_attribute(public_time, 'text'), 'Time')
+        self.assert_equal(self.get_attribute(public_venue, 'text'), 'venue')
+        for i in range(8):
+            self.assert_equal(self.is_element_visible(f'PublicExposeTabSymbol{i}'), True)
+            self.assert_equal(self.is_element_visible(f"PublicExposeTabSymbol{i}"), True)
+            public_expo_date.append(self.get_attribute(f"PublicExposeTabDate{i}", 'text'))
+            public_expo_time.append(self.get_attribute(f'PublicExposeTabTime{i}', 'text'))
+        self.scroll_with_two_element('PublicExposeTabSymbol2', 'PublicExposeTabTime')
+        for i in range(8):
+            public_expo_venue.append(self.get_attribute(f'PublicExposeTabVenue{i}', 'text'))
+
+
+    @allure.step("SMMA-012 Validate  user is able to read complete address in public expose tab. ( Venue )")
+    def swipe_left_venue(self):
+        self.click(public_expose_tab)
+        self.sleep(2)
+        self.scroll_screen(start_x=150, start_y=1380, end_x=1160, end_y=1380, duration=10000)
+        self.sleep(2)
+
+    @allure.step("Validate Format Date and Rp")
+    def validate_format_date_devidend(self):
+        self.click(dividend_tab)
+        self.sleep(2)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:
+            self.assert_equal(self.is_element_visible('DividendTabStockCode0'), True)
+            self.assert_in('Rp', self.get_attribute('DividendTabDiv0', 'text'))
+            self.sleep(2)
+            self.assert_equal(self.is_element_visible(div_symbol), True)
+            self.assert_equal(self.is_element_visible(div_div), True)
+            self.assert_equal(self.is_element_visible(div_cum), True)
+            self.assert_equal(self.is_element_visible(div_ex), True)
+            date_in_entry = self.get_attribute(div_cum_date, 'text')
+            in_date = datetime.strptime(date_in_entry, '%d %b %y')
+            out_date = datetime.strftime(in_date, '%d %b %y')
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)
+
+    @allure.step("Validate Format Date and empty page")
+    def validate_format_date_StockSlipt(self):
+        self.click(stock_split_tab)
+        self.sleep(2)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:   
+            self.assert_equal(self.is_element_visible(stock_split_date), True)
+            date_in_entry = self.get_attribute(stock_split_cumdate, 'text')
+            in_date = datetime.strptime(date_in_entry, '%d %b %y')
+            out_date = datetime.strftime(in_date, '%d %b %y')
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)    
+    
+    @allure.step("Validate Format Date and empty page")
+    def validate_format_date_Warrant(self):
+        self.click(warrant_tab)
+        self.sleep(2)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:    
+            self.assert_equal(self.is_element_visible(warrant_trad_start), True)
+            date_in_entry = self.get_attribute(warrant_trd_date, 'text')
+            in_date = datetime.strptime(date_in_entry, '%d %b %y')
+            out_date = datetime.strftime(in_date, '%d %b %y')
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)
+        
+    @allure.step("Validate Format Date and empty page")
+    def validate_format_date_Bonus(self):
+        self.click(bonus_tab)
+        self.sleep(2)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:  
+            self.assert_equal(self.is_element_visible(bonus_date), True)
+            date_in_entry = self.get_attribute(bonus_cum_date, 'text')
+            in_date = datetime.strptime(date_in_entry, '%d %b %y')
+            out_date = datetime.strftime(in_date, '%d %b %y')
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)
+         
+    @allure.step("Validate Format Date, time and empty page")
+    def validate_format_date_Rups(self):
+        self.click(rups_tab)
+        self.sleep(2)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:  
+            self.assert_equal(self.is_element_visible(rups_date), True)
+            date_in_entry = self.get_attribute(rups_cum_date, 'text')
+            in_date = datetime.strptime(date_in_entry, '%d %b %y')
+            out_date = datetime.strftime(in_date, '%d %b %y')
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)
+     
+    @allure.step("Validate Format Date and empty page")
+    def validate_format_date_Right(self):
+        self.click(right_issue_tab)
+        self.sleep(3)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:   
+            self.assert_equal(self.is_element_visible(right_symbol), True)
+            self.assert_equal(self.is_element_visible(right_ratio), True)
+            self.assert_equal(self.is_element_visible(right_factorv), True)
+            self.assert_equal(self.is_element_visible(right_symbol_0), True)
+            self.assert_equal(self.is_element_visible(right_factor_0), True)
+            self.assert_equal(self.is_element_visible(right_ratio_0), True)
+
+    @allure.step("Validate Format Date, time and empty page")
+    def validate_format_date_and_time_Public(self):
+        self.click(public_expose_tab)
+        self.sleep(2)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:  
+            self.assert_equal(self.is_element_visible(public_date), True)
+            date_in_entry = self.get_attribute(public_cum_date, 'text')
+            in_date = datetime.strptime(date_in_entry, '%d %b %y')
+            out_date = datetime.strftime(in_date, '%d %b %y')
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)
+            self.assert_equal(self.is_element_visible(public_time), True) 
+            time_in_entry = self.get_attribute(public_time_format, 'text')
+            in_time = datetime.strptime(time_in_entry, "%H:%M")
+            out_time = datetime.strftime(in_time, "%H:%M")
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)
+            
+
+    @allure.step("Validate Format Date and empty page")
+    def validate_format_date_IPO(self):
+        self.click(ipo_tab)
+        self.sleep(2)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:  
+            self.assert_equal(self.is_element_visible(ipo_date), True)
+            date_in_entry = self.get_attribute(ipo_cum_date, 'text')
+            in_date = datetime.strptime(date_in_entry, '%d %b %y')
+            out_date = datetime.strftime(in_date, '%d %b %y')
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)
+    
+    @allure.step("Validate Format time and empty page")
+    def validate_format_Time_Rups(self):
+        self.click(rups_tab)
+        self.sleep(2)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:  
+            self.assert_equal(self.is_element_visible(rups_time_tab), True) 
+            date_in_entry = self.get_attribute(rups_time_format, 'text')
+            in_date = datetime.strptime(date_in_entry, '%H %M')
+            out_date = datetime.strftime(in_date, '%H %M')
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)
+
+    @allure.step("Validate Format time and empty page")
+    def validate_format_Time_Public(self):
+        self.click(public_expose_tab)
+        self.sleep(2)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:  
+            self.assert_equal(self.is_element_visible(public_time), True) 
+            date_in_entry = self.get_attribute(public_time_format, 'text')
+            in_date = datetime.strptime(date_in_entry, '%H %M')
+            out_date = datetime.strftime(in_date, '%H %M')
+            self.assert_equal(date_in_entry, str(out_date))
+            self.sleep(2)
+        
+    """ @allure.step("Validate Format Time all tab")
+    def validate_format_time(self):
+        self.click(rups_tab)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(rups_time_tab), True) 
+        date_in_entry = self.get_attribute(rups_time_format, 'text')
+        in_date = datetime.strptime(date_in_entry, '%H %M')
+        out_date = datetime.strftime(in_date, '%H %M')
+        self.assert_equal(date_in_entry, str(out_date))
+        self.sleep(2)
+        self.click(public_expose_tab)
+        self.assert_equal(self.is_element_visible(public_time), True) 
+        date_in_entry = self.get_attribute(public_time_format, 'text')
+        in_date = datetime.strptime(date_in_entry, '%H %M')
+        out_date = datetime.strftime(in_date, '%H %M')
+        self.assert_equal(date_in_entry, str(out_date)) """
+
+
+
+
+
+    
+
+
+
+        
