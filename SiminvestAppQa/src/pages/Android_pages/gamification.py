@@ -98,6 +98,22 @@ pop_header = '//android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.
 pop_jalankan_masi = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup'
 transaction_lihat = '//android.view.ViewGroup[@content-desc="Transaction_lihat"]/android.widget.TextView'
 pop_msg ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[3]'
+#dailyMission Locator
+claim_btn_login = '//android.view.ViewGroup[@content-desc="Harian_entry_1_claim"]/android.widget.TextView'
+claim_btn_daily_search = '//android.view.ViewGroup[@content-desc="Harian_entry_1"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
+daily_mission_entry_2_activity = '//android.view.ViewGroup[@content-desc="Harian_entry_2_activity"]/android.widget.TextView'
+dm_xp_entry_2 = 'Harian_entry_2_xp'
+dm_btn_entry_2 = '//android.view.ViewGroup[@content-desc="Harian_entry_2"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
+dm_pop_ok_btn = 'ClaimPage_icon_text'
+dm_pop_text_claim = '(//android.widget.TextView[@content-desc="ClaimPage_value"])[2]'
+dm_entry_2 = 'Harian_entry_2'
+pop_header_after_claim = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[1]'
+pop_text_1_after_claim = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[2]'
+pop_text_2_after_claim = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[3]'
+pop_ok_after_claim = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
+dm_entry_1 = 'Harian_entry_1'
+daily_research_header = '//android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
+
 class Gamification(HomePage):
 
     @allure.step("Open Gamification Page")
@@ -895,6 +911,69 @@ class Gamification(HomePage):
                         self.assert_equal(transaction_mission_api['data'][i]['status'], 1)
         else :
             logger.info("No claimed mission")
+
+    @allure.step("Validate functional flow for dailyMission Api")
+    def validate_functional_flow_for_dailyMission_Api(self):
+        self.assert_equal(self.get_attribute(harian_1_activity, 'text'), 'Login Harian')
+        self.assert_equal(self.get_attribute(Harian_entry_1_xp, 'text'), '+10XP')
+        self.assert_equal(self.get_attribute(claim_btn_login, 'text'), 'Klaim')
+        self.assert_equal(self.get_attribute(daily_mission_entry_2_activity, 'text'), 'Baca Riset Harian')
+        self.assert_equal(self.get_attribute(dm_xp_entry_2, 'text'), '+10XP')
+        self.assert_equal(self.get_attribute(dm_btn_entry_2, 'text'), 'Jalankan Misi')
+        self.click(claim_btn_login)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(dm_pop_text_claim), True)
+        self.click(dm_pop_ok_btn)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gamification_header), True)
+        self.assert_equal(self.get_attribute(daily_mission_entry_2_activity, 'text'), 'Login Harian')
+        self.assert_equal(self.get_attribute(dm_xp_entry_2, 'text'), '+10XP')
+        self.assert_equal(self.get_attribute(dm_btn_entry_2, 'text'), 'Klaim')
+        self.click(dm_entry_2)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(pop_header_after_claim, 'text'), 'Login Harian')
+        self.assert_equal(self.get_attribute(pop_text_1_after_claim, 'text'), 'Daily Mission  +10XP')
+        self.assert_equal(self.get_attribute(pop_text_2_after_claim, 'text'), 'Yuk login setiap hari buat dapetin XP di SimInvest')
+        self.click(pop_ok_after_claim)
+        self.assert_equal(self.is_element_visible(gamification_header), True)
+        self.click(dm_entry_2)
+        self.sleep(1)
+        self.tap_by_coordinates(x=817 , y=477)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gamification_header), True)
+        self.click(dm_entry_1)
+        self.assert_equal(self.get_attribute(pop_header_after_claim, 'text'), 'Baca Riset Harian')
+        self.assert_equal(self.get_attribute(pop_text_1_after_claim, 'text'), 'Daily Mission  +10XP')
+        self.assert_equal(self.get_attribute(pop_text_2_after_claim, 'text'),
+                          'Update pengetahuan kamu setiap hari dengan hasil riset rekomendasi kami, untuk bisa dapetin XP')
+        self.tap_by_coordinates(x=817, y=477)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gamification_header), True)
+        self.click(claim_btn_daily_search)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(daily_research_header), True)
+        self.go_back()
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(gamification_header), True)
+        self.click(claim_btn_login)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(dm_pop_text_claim), True)
+        self.click(dm_pop_ok_btn)
+        self.assert_equal(self.is_element_visible(gamification_header), True)
+        self.click(dm_entry_2)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(pop_ok_after_claim, 'text'), 'OK')
+        self.tap_by_coordinates(x=817, y=477)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(gamification_header), True)
+
+
+
+
+
+
+
+
 
 
 
