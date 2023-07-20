@@ -826,3 +826,78 @@ class Gamification(HomePage):
         self.assert_equal(RP_list, Rp_list_lihat)
         for i in range(len(message_list)-1):
             self.assert_not_equal(message_list[i], message_list[i+1])
+
+    @allure.step("validate api data with ui for transaction mission")
+    def validate_api_data_with_ui_for_transaction_mission(self):
+        jalakan_misi_list = []
+        ongoing_misi_list = []
+        claim_misi_list = []
+        mission_value = []
+        self.click(transaction_lihat_btn)
+        self.assert_equal(self.get_attribute(lihat_header, 'text'), 'Transaksi')
+        for i in range(1, 10):
+            if i == 4 or i == 7:
+                self.scroll_screen(start_x=500, start_y=2100, end_x=500, end_y=500, duration=6000)
+                if self.get_attribute(f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView', 'text') == 'Jalankan Misi':
+                    jalakan_misi_list.append(self.get_attribute(f'LihatSemua_entry_{i}_type', 'text'))
+                    mission_value.append(self.get_attribute(f'LihatSemua_entry_{i}_value', 'text'))
+                elif self.get_attribute(f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView', 'text') == 'Klaim':
+                    claim_misi_list.append(self.get_attribute(f'LihatSemua_entry_{i}_type', 'text'))
+                    mission_value.append(self.get_attribute(f'LihatSemua_entry_{i}_value', 'text'))
+                elif self.get_attribute(
+                    f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView', 'text') != 'Klaim' or self.get_attribute(
+                    f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView', 'text') != 'Jalankan Misi':
+                    ongoing_misi_list.append(self.get_attribute(f'LihatSemua_entry_{i}_type', 'text'))
+                    mission_value.append(self.get_attribute(f'LihatSemua_entry_{i}_value', 'text'))
+            else :
+                if self.get_attribute(f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView', 'text') == 'Jalankan Misi':
+                    jalakan_misi_list.append(self.get_attribute(f'LihatSemua_entry_{i}_type', 'text'))
+                    mission_value.append(self.get_attribute(f'LihatSemua_entry_{i}_value', 'text'))
+                elif self.get_attribute(f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView', 'text') == 'Klaim':
+                    claim_misi_list.append(self.get_attribute(f'LihatSemua_entry_{i}_type', 'text'))
+                    mission_value.append(self.get_attribute(f'LihatSemua_entry_{i}_value', 'text'))
+                elif self.get_attribute(
+                    f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView', 'text') != 'Klaim' or self.get_attribute(
+                    f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView', 'text') != 'Jalankan Misi':
+                    ongoing_misi_list.append(self.get_attribute(f'LihatSemua_entry_{i}_type', 'text'))
+                    mission_value.append(self.get_attribute(f'LihatSemua_entry_{i}_value', 'text'))
+        logger.info(jalakan_misi_list)
+        logger.info(ongoing_misi_list)
+        logger.info(claim_misi_list)
+        logger.info(mission_value)
+        token_value = self.login_with_a_number(user_data['reg_no_2'])
+        token = {
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        transaction_mission_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',
+                                           endpoint='/reverb/v1/account/366737/mission?limit=50&sort_by=type_id,status&is_asc=true',
+                                           headers=token, expected_status_code=200)
+        if len(jalakan_misi_list) >=1:
+            for i in range(len(jalakan_misi_list)):
+                for j in range(len(transaction_mission_api['data'])):
+                    if jalakan_misi_list[i] == transaction_mission_api['data'][i]['campaign']['label']:
+                     self.assert_equal(transaction_mission_api['data'][i]['status'], 1)
+                     self.assert_in(str(transaction_mission_api['data'][i]['campaign']['extra']['reward_xp']), mission_value)
+        else :
+            logger.info("No mission in jalakan misi")
+        if len(ongoing_misi_list) >=1:
+            for i in range(len(ongoing_misi_list)):
+                for j in range(len(transaction_mission_api['data'])):
+                    if ongoing_misi_list[i] == transaction_mission_api['data'][i]['campaign']['label']:
+                        self.assert_equal(transaction_mission_api['data'][i]['status'], 2)
+        else :
+            logger.info("No on going mission")
+
+        if len(claim_misi_list)>=1:
+            for i in range(len(claim_misi_list)):
+                for j in range(len(transaction_mission_api['data'])):
+                    if claim_misi_list[i] == transaction_mission_api['data'][i]['campaign']['label']:
+                        self.assert_equal(transaction_mission_api['data'][i]['status'], 1)
+        else :
+            logger.info("No claimed mission")
+
+
+
+
+
+
