@@ -5,13 +5,13 @@ from SiminvestAppQa.src.data.userData import user_data
 import logging as logger
 from selenium.common.exceptions import NoSuchElementException
 
-class Index_test(EventPage):
+class Event_test(EventPage):
 
 
     @pytest.mark.event_functional_feature
     @pytest.mark.Android
-    @pytest.mark.index
-    @allure.story("F-18 :Index Page")
+    @pytest.mark.Event
+    @allure.story("F-19 :Event Page")
     def test_validate_functional_feature_for_event_page(self):
         try:
             self.execute_script('lambda-name=test_validate_functional_feature_for_event_page')
@@ -47,8 +47,8 @@ class Index_test(EventPage):
 
     @pytest.mark.API_data_validation_event
     @pytest.mark.Android
-    @pytest.mark.index
-    @allure.story("F-18 :Index Page")
+    @pytest.mark.Event
+    @allure.story("F-19 :Event Page")
     def test_validate_API_data_validation_event_page(self):
         try:
             self.execute_script('lambda-name=test_validate_API_data_validation_event_page')
@@ -69,7 +69,7 @@ class Index_test(EventPage):
     @pytest.mark.event_ui_and_grammar_validation
     @pytest.mark.Android
     @pytest.mark.Event
-    @allure.story("F-18 :Index Page")
+    @allure.story("F-19 :Event Page")
     def test_validate_event_ui_and_grammar_validation(self):
         try:
             self.execute_script('lambda-name=test_validate_functional_feature_for_event_page')
