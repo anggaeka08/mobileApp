@@ -72,7 +72,7 @@ class Event_test(EventPage):
     @allure.story("F-19 :Event Page")
     def test_validate_event_ui_and_grammar_validation(self):
         try:
-            self.execute_script('lambda-name=test_validate_functional_feature_for_event_page')
+            self.execute_script('lambda-name=test_validate_event_ui_and_grammar_validation')
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
             self.click_on_event_btn()
             self.verify_event_page()
@@ -91,10 +91,10 @@ class Event_test(EventPage):
             self.validate_week_on_calender()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
-            self.save_screenshot('test_validate_ui_and_grammar_for_event_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_validate_event_ui_and_grammar_validation', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
-            self.save_screenshot('test_validate_ui_and_grammar_for_event_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.save_screenshot('test_validate_event_ui_and_grammar_validation', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
