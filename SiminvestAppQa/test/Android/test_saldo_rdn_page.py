@@ -102,7 +102,7 @@ class saldoRdn_test(SaldoRdn):
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
             self.click_on_saldo_rdn_btn()
             self.click_on_tarik_dana_btn()
-            self.validate_ui_for_tarikDana_page()
+            self.validate_ui_for_tarikDana_page()   # verify in non exchange hours
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('ui_functionality_of_withdrawal_page', 'SiminvestAppQa/src/data/ScreenShots')

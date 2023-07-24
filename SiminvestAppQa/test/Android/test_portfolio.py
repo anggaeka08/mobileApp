@@ -131,7 +131,7 @@ class Portfolio_test(Portfolio, SellProcess,StockDetailPage):
             self.assert_equal(buyopen_ui, buyopen_api)
             self.assert_equal(cash_balance_ui, cash_balance_api)
             self.assert_equal(earnings_ui, earnings_api)
-            self.assert_equal(market_value_ui, market_value_api)
+            self.assert_equal(market_value_ui.replace(',', ''), market_value_api)
             self.assert_equal(return_ui, return_api)
             self.assert_equal(sellopen_ui, sellopen_api)
             self.assert_equal(total_investment_ui,total_investment_api)
