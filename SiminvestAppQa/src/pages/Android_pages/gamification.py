@@ -1,3 +1,5 @@
+import pytest
+
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
 from SiminvestAppQa.src.data.userData import user_data
 from datetime import datetime
@@ -104,6 +106,7 @@ claim_btn_daily_search = '//android.view.ViewGroup[@content-desc="Harian_entry_1
 daily_mission_entry_2_activity = '//android.view.ViewGroup[@content-desc="Harian_entry_2_activity"]/android.widget.TextView'
 dm_xp_entry_2 = 'Harian_entry_2_xp'
 dm_btn_entry_2 = '//android.view.ViewGroup[@content-desc="Harian_entry_2"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
+dm_btn_entry_1 = '//android.view.ViewGroup[@content-desc="Harian_entry_1"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
 dm_pop_ok_btn = 'ClaimPage_icon_text'
 dm_pop_text_claim = '(//android.widget.TextView[@content-desc="ClaimPage_value"])[2]'
 dm_entry_2 = 'Harian_entry_2'
@@ -112,7 +115,13 @@ pop_text_1_after_claim = '//android.view.ViewGroup/android.view.ViewGroup/androi
 pop_text_2_after_claim = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[3]'
 pop_ok_after_claim = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
 dm_entry_1 = 'Harian_entry_1'
-daily_research_header = '//android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
+# daily_research_header = '//android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
+# dm_fist_mission_name = '//android.view.ViewGroup[@content-desc="Misi harian kamu_entry_1_activity"]/android.widget.TextView'
+# dm_first_mission_xp = 'Misi harian kamu_entry_1_xp'
+# dm_first_mission_btn = '//android.view.ViewGroup[@content-desc="Misi harian kamu_entry_1_activity"]/android.widget.TextView'
+# dm_second_mission_name = '//android.view.ViewGroup[@content-desc="Misi harian kamu_entry_2_activity"]/android.widget.TextView'
+# dm_second_mission_xp = 'Misi harian kamu_entry_2_xp'
+# dm_second_mission_btn = '//android.view.ViewGroup[@content-desc="Misi harian kamu_entry_2"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
 
 class Gamification(HomePage):
 
@@ -950,7 +959,7 @@ class Gamification(HomePage):
         self.sleep(1)
         self.assert_equal(self.is_element_visible(gamification_header), True)
         self.click(claim_btn_daily_search)
-        self.sleep(1)
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(daily_research_header), True)
         self.go_back()
         self.sleep(2)
@@ -967,6 +976,49 @@ class Gamification(HomePage):
         self.sleep(2)
         self.assert_equal(self.is_element_visible(gamification_header), True)
 
+    @allure.step("Validate api and ui data for daily mission")
+    def validate_api_and_ui_data_for_daily_mission(self):
+        self.sleep(3)
+        first_mission_name_ui = self.get_attribute(harian_1_activity, 'text')
+        first_mission_xp_ui = self.get_attribute(Harian_entry_1_xp, 'text')
+        first_mission_btn_text_ui = self.get_attribute(dm_btn_entry_1, 'text')
+        second_mission_name_ui = self.get_attribute(daily_mission_entry_2_activity, 'text')
+        second_mission_xp_ui = self.get_attribute(dm_xp_entry_2, 'text')
+        second_mission_btn_text_ui = self.get_attribute(dm_btn_entry_2, 'text')
+        token_value = self.login_with_a_number(user_data['reg_no_2'])
+        token = {
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        daily_mission_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',
+                                                        endpoint='/reverb/v1/account/366737/mission?limit=50&sort_by=type_id,status&is_asc=true',
+                                                        headers=token, expected_status_code=200)
+        # logger.info(f"first_mission_name_ui {first_mission_name_ui}")
+        # logger.info(f"first_mission_xp_ui {first_mission_xp_ui} ")
+        # logger.info(f"first_mission_btn_text_ui {first_mission_btn_text_ui}")
+        # logger.info(f"second_mission_name_ui {second_mission_name_ui}")
+        # logger.info(f"second_mission_xp_ui {second_mission_xp_ui}")
+        # logger.info(f"second_mission_btn_text_ui{second_mission_btn_text_ui}")
+        # logger.info(f"API Response {daily_mission_api}")
+        for i in range(len(daily_mission_api['data'])):
+            if daily_mission_api['data'][i]['campaign']['label'] == first_mission_name_ui:
+                self.assertIn(str(daily_mission_api['data'][i]['campaign']['extra']['reward_xp']), first_mission_xp_ui)
+                self.assert_equal(daily_mission_api['data'][i]['campaign']['id'], 9)
+                if first_mission_btn_text_ui == 'Klaim' :
+                    self.assert_equal(daily_mission_api['data'][i]['status'] , 2)
+                elif first_mission_btn_text_ui == 'Klaimed' :
+                    self.assert_equal(daily_mission_api['data'][i]['status'] , 3)
+                elif first_mission_btn_text_ui == 'Jalankan Misi' :
+                    self.assert_equal(daily_mission_api['data'][i]['status'], 1)
+
+            if daily_mission_api['data'][i]['campaign']['label'] == second_mission_name_ui:
+                self.assertIn(str(daily_mission_api['data'][i]['campaign']['extra']['reward_xp']), second_mission_xp_ui)
+                self.assert_equal(daily_mission_api['data'][i]['campaign']['id'], 10)
+                if second_mission_btn_text_ui == 'Klaim':
+                    self.assert_equal(daily_mission_api['data'][i]['status'] , 2)
+                elif second_mission_btn_text_ui == 'Klaimed':
+                    self.assert_equal(daily_mission_api['data'][i]['status'] , 3)
+                elif second_mission_btn_text_ui == 'Jalankan Misi':
+                    self.assert_equal(daily_mission_api['data'][i]['status'] , 1)
 
 
 
