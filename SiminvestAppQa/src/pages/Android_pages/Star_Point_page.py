@@ -23,7 +23,8 @@ starpoint_icon3 = 'starPoint_icon_1_3'
 txt_1_swp3 = '//android.view.ViewGroup[@content-desc="starPoint_text_1_3"]/android.widget.TextView'
 txt_2_swp3 ='starPoint_text_2_3'
 starpoint_icon4 = 'starPoint_icon_1_4'
-txt_1_swp4 = 'starPoint_text_2_4'
+txt_1_swp4 = '//android.view.ViewGroup[@content-desc="starPoint_text_1_4"]/android.widget.TextView[1]'
+txt_1_swip4 = 'starPoint_text_2_4'
 starpoint_icon5 = 'starPoint_icon_1_5'
 txt_1_swp5 = '//android.view.ViewGroup[@content-desc="starPoint_text_1_5"]/android.widget.TextView[1]'
 txt_2_swp5 = '//android.view.ViewGroup[@content-desc="starPoint_text_1_5"]/android.widget.TextView[2]'
@@ -79,18 +80,17 @@ class StarPointPage(HomePage):
    @allure.step("Swipe right to left")
    def swipe_right_to_left(self):
       self.sleep(2)
-      self.scroll_screen(start_x=1061, start_y=953, end_x=19, end_y=953, duration=10000)
+      self.scroll_screen(start_x=933, start_y=1095, end_x=89, end_y=1107, duration=10000)
       self.sleep(2)
 
    @allure.step("cover test 001, 002, 003, 004,005, and 006 ")
    def Validate_starPoint_Swipe_and_Value(self):
-      self.click(Star_point_txt)
       self.sleep(2)
       page_tutorial_starpoint= self.is_element_visible(starpoint_icon1)
       if page_tutorial_starpoint == True:
          self.assert_equal(self.is_element_visible(starpoint_icon1), True)
          about_starpoint_txt = self.get_attribute(About_startpoint, "text")
-         self.assert_equal(about_starpoint_txt,"StarPoin")
+         self.assert_equal(about_starpoint_txt,"All About StarPoin")
          starpoint_swp1_txt2 = self.get_attribute(txt_2_swp1, "text")
          self.assert_equal(starpoint_swp1_txt2,"Investasi Sekarang")
          self.sleep(2)
@@ -98,27 +98,27 @@ class StarPointPage(HomePage):
          self.sleep(2)
          self.assert_equal(self.is_element_visible(starpoint_icon2), True)
          starpoint_swipe2_txt = self.get_attribute(txt_2_swp2, "text")
-         self.assert_equal(starpoint_swipe2_txt,"Setiap")
+         self.assert_equal(starpoint_swipe2_txt,"Setiap Melakukan transaksi, otomatis StarPoin di")
          self.sleep(2)
          self.swipe_right_to_left()
          self.assert_equal(self.is_element_visible(starpoint_icon3), True)
          starpoint_swipe3_txt = self.get_attribute(txt_2_swp3, "text")
-         self.assert_equal(starpoint_swipe3_txt,"Semakin")
+         self.assert_equal(starpoint_swipe3_txt,"Semakin sering transaksi, makin banyak StarPoin yang kamu dapat")
          self.sleep(2)
          self.swipe_right_to_left()
          self.assert_equal(self.is_element_visible(starpoint_icon4), True)
          starpoint_swipe4_txt = self.get_attribute(txt_1_swp4, "text")
-         self.assert_equal(starpoint_swipe4_txt,"Share")
+         self.assert_equal(starpoint_swipe4_txt,"Share Kode Referral Dapat")
          self.sleep(2)
          self.swipe_right_to_left()
          self.assert_equal(self.is_element_visible(starpoint_icon5), True)
          starpoint_swipe5_txt = self.get_attribute(txt_3_swp5, "text")
-         self.assert_equal(starpoint_swipe5_txt,"Sekarang")
+         self.assert_equal(starpoint_swipe5_txt,"Sekarang, StarPoin bisa ditukar di SimInvest langsung jadi RDN kamu loh! Sehingga bisa jadi modal untuk beli saham.")
          self.sleep(2)
          self.swipe_right_to_left()
          self.assert_equal(self.is_element_visible(starpoint_icon6), True)
          starpoint_swipe6_txt = self.get_attribute(txt_2_swp6, "text")
-         self.assert_equal(starpoint_swipe6_txt,"adalah")
+         self.assert_equal(starpoint_swipe6_txt,"StarPoin adalah produk loyalty & reward kepada customer dan merupakan bagian dari Sinar Mas Financial Service. StarPoin bisa ditukarkan untuk belanja di lebih dari 1.000 merchant yang bekerja sama. Plus, untuk investasi reksa dana atau saham.")
          self.sleep(2)
          self.click(btn_mulai)
          self.sleep(2)

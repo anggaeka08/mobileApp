@@ -17,7 +17,7 @@ class StartPoint_test(StarPointPage):
             self.execute_script('lambda-name=test_validate_functional_feature_for_starpoint_page')
             self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
             self.verify_starpoint_page()
-           # self.verify_star_point_btn()
+            self.verify_star_point_btn()
             self.Validate_starPoint_Swipe_and_Value()
             self.validate_show_TC_afterTutorial()
             self.click_checkbox_btn()
