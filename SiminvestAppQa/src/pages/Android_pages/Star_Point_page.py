@@ -74,12 +74,12 @@ class StarPointPage(HomePage):
    def verify_starpoint_page(self):
       self.sleep(2)
       starpoint_page_header_text = self.get_attribute(Star_point_txt, "text")
-      self.assert_equal(starpoint_page_header_text, "StarPoint")
+      self.assert_equal(starpoint_page_header_text, "StarPoin")
     
    @allure.step("Swipe right to left")
    def swipe_right_to_left(self):
       self.sleep(2)
-      self.scroll_screen(start_x=767, start_y=1021, end_x=310, end_y=1081, duration=10000)
+      self.scroll_screen(start_x=1061, start_y=953, end_x=19, end_y=953, duration=10000)
       self.sleep(2)
 
    @allure.step("cover test 001, 002, 003, 004,005, and 006 ")
