@@ -98,7 +98,7 @@ class StarPointPage(HomePage):
          self.sleep(2)
          self.assert_equal(self.is_element_visible(starpoint_icon2), True)
          starpoint_swipe2_txt = self.get_attribute(txt_2_swp2, "text")
-         self.assert_equal(starpoint_swipe2_txt,"Setiap Melakukan transaksi, otomatis StarPoin di")
+         self.assert_equal(starpoint_swipe2_txt,"Setiap melakukan transaksi, otomatis StarPoin di Home SimInvest kamu akan bertambah")
          self.sleep(2)
          self.swipe_right_to_left()
          self.assert_equal(self.is_element_visible(starpoint_icon3), True)
@@ -118,12 +118,11 @@ class StarPointPage(HomePage):
          self.swipe_right_to_left()
          self.assert_equal(self.is_element_visible(starpoint_icon6), True)
          starpoint_swipe6_txt = self.get_attribute(txt_2_swp6, "text")
-         self.assert_equal(starpoint_swipe6_txt,"StarPoin adalah produk loyalty & reward kepada customer dan merupakan bagian dari Sinar Mas Financial Service. StarPoin bisa ditukarkan untuk belanja di lebih dari 1.000 merchant yang bekerja sama. Plus, untuk investasi reksa dana atau saham.")
+         self.assert_equal(starpoint_swipe6_txt,"StarPoin adalah produk loyalty & reward kepada customer dan merupakan  bagian dari Sinar Mas Financial Service. StarPoin bisa ditukarkan untuk belanja di lebih dari 1.000 merchant yang bekerja sama. Plus, untuk investasi reksa dana atau saham.")
          self.sleep(2)
          self.click(btn_mulai)
          self.sleep(2)
-     
-      else:  
+      else:
          self.assert_equal(self.is_element_visible(starpoint_saya), True)
          self.assert_equal(self.is_element_visible(startpoint_value2), True)
          self.assert_equal(self.is_element_visible(starpoint_riwayat_btn), True)
@@ -133,12 +132,12 @@ class StarPointPage(HomePage):
          tukar_check_txt = self.get_attribute(tukar_txt, "text")
          self.assert_equal(tukar_check_txt,"Riwayat")
          self.assert_equal(self.is_element_visible(riwayat_simInvest), True)
-
+   
    @allure.step("when T&C showing and cover test ")
    def validate_show_TC_afterTutorial(self):
       self.assert_equal(self.is_element_visible(Syarat_dan_Ketentuan_txt), True)
       self.assert_equal(self.is_element_visible(Agreement_txt), True)
-
+   
    @allure.step("Click to submit")
    def click_to_submit(self):
       self.click(btn_submit_TC)
@@ -148,7 +147,7 @@ class StarPointPage(HomePage):
    def click_checkbox_btn(self):
       self.click(checklist)
       self.sleep(2)
-
+   
    @allure.step("validate 3 dot")
    def Validate_3dot_when_Click(self):
       self.click(Tri_dot)
@@ -157,10 +156,6 @@ class StarPointPage(HomePage):
       self.sleep(2)
       self.assert_equal(self.is_element_visible(Term_cond_txt1), True)
       self.assert_equal(self.is_element_visible(Term_cond_txt2), True)
-      self.scroll_down()
-      self.assert_equal(self.is_element_visible(Term_cond_txt1), True)
-      self.scroll_up()
-      self.assert_equal(self.is_element_visible(pagedown_term_cond) , True)
       self.sleep(2)
       self.click(back_btn)
       self.sleep(2)

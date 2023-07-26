@@ -54,3 +54,4 @@ Thumbs.db
 /Reports
 dashboard.html
 Dockerfile
+bitbucket-pipelines.yml
