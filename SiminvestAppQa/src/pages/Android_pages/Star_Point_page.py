@@ -159,3 +159,15 @@ class StarPointPage(HomePage):
       self.sleep(5)
       self.click(back_btn)
       self.sleep(2)
+   
+   @allure.step("luanch app again")
+   def launch_app_again(self):
+        self.launch()
+
+   @allure.step("validate reopen T&C cover test 0012,0013,0014")
+   def Validate_Reopen_not_showing(self):
+      self.launch_app_again()
+      self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
+      self.verify_starpoint_page()
+      self.verify_star_point_btn()
+      self.sleep(2)

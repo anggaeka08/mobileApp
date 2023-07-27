@@ -23,6 +23,7 @@ class StartPoint_test(StarPointPage):
             self.click_checkbox_btn()
             self.click_to_submit()
             self.Validate_3dot_when_Click()
+            self.Validate_Reopen_not_showing()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_validate_functional_feature_for_starpoint_page', 'SiminvestAppQa/src/data/ScreenShots')
