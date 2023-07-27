@@ -11,7 +11,7 @@ class StartPoint_test(StarPointPage):
     @pytest.mark.starpoint_functional_feature
     @pytest.mark.Android
     @pytest.mark.starpoint
-    @allure.story("F-19 :StarPoint Page")
+    @allure.story("F-20 :StarPoint Page")
     def test_validate_functional_feature_for_starpoint_page(self):
         try:
             self.execute_script('lambda-name=test_validate_functional_feature_for_starpoint_page')
