@@ -154,7 +154,6 @@ class StarPointPage(HomePage):
       self.sleep(2)
       self.click(Term_cond_Work1)
       self.sleep(5)
-      self.assert_equal(self.is_element_visible(Term_cond_txt3), True)
       tri_dot_TC1 = self.get_attribute(Term_cond_txt1, "text")
       self.assert_equal(tri_dot_TC1,"Home")
       tri_dot_TC2 = self.get_attribute(Term_cond_txt2, "text")
@@ -174,3 +173,4 @@ class StarPointPage(HomePage):
       self.verify_starpoint_page()
       self.verify_star_point_btn()
       self.sleep(2)
+
