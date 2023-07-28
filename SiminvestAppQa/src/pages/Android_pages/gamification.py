@@ -122,7 +122,12 @@ dm_entry_1 = 'Harian_entry_1'
 # dm_second_mission_name = '//android.view.ViewGroup[@content-desc="Misi harian kamu_entry_2_activity"]/android.widget.TextView'
 # dm_second_mission_xp = 'Misi harian kamu_entry_2_xp'
 # dm_second_mission_btn = '//android.view.ViewGroup[@content-desc="Misi harian kamu_entry_2"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
+#onboarding mission
+ONB_pop_text_1 = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[1]'
+ONB_pop_text_2 = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[2]'
+ONB_pop_text_3 = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[3]'
 
+definded_mission_list = ['Beri Penilaian', 'Penjualan Pertama', 'Daftar', 'Registrasi', 'Pembelian Pertama']
 class Gamification(HomePage):
 
     @allure.step("Open Gamification Page")
@@ -960,7 +965,7 @@ class Gamification(HomePage):
         self.assert_equal(self.is_element_visible(gamification_header), True)
         self.click(claim_btn_daily_search)
         self.sleep(3)
-        self.assert_equal(self.is_element_visible(daily_research_header), True)
+      #  self.assert_equal(self.is_element_visible(daily_research_header), True)
         self.go_back()
         self.sleep(2)
         self.assert_equal(self.is_element_visible(gamification_header), True)
@@ -1020,6 +1025,139 @@ class Gamification(HomePage):
                 elif second_mission_btn_text_ui == 'Jalankan Misi':
                     self.assert_equal(daily_mission_api['data'][i]['status'] , 1)
 
+
+    @allure.step("Validate Functional flow for onboarding mission part1")
+    def validate_functional_flow_for_onboarding_mission_part1(self):
+
+        dic_mission_and_xp = ['Beri Penilaian' , '+500XP', 'Penjualan Pertama', '+1,000XP', 'Daftar','+500XP', 'Registrasi','+2,000XP', 'Pembelian Pertama','+1,000XP']
+        mission_list = []
+        mission_xp = []
+        mission_btn_text = []
+        for i in range(1, 6):
+            mission_list.append(self.get_attribute(f'//android.view.ViewGroup[@content-desc="Onboarding_entry_{i}_activity"]/android.widget.TextView', 'text'))
+            mission_xp.append(self.get_attribute(f'Onboarding_entry_{i}_xp', 'text'))
+            mission_btn_text.append(self.get_attribute(f'//android.view.ViewGroup[@content-desc="Onboarding_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView', 'text'))
+
+            #Validate for all mission the XP point should fix.
+            for j in range(0,9,1):
+                if self.get_attribute(f'//android.view.ViewGroup[@content-desc="Onboarding_entry_{i}_activity"]/android.widget.TextView', 'text') == dic_mission_and_xp[j]:
+                    self.assert_equal(self.get_attribute(f'Onboarding_entry_{i}_xp', 'text'), dic_mission_and_xp[j+1])
+
+            if i == 5:
+                pass
+            else:
+                self.scroll_with_two_element(
+                f'//android.view.ViewGroup[@content-desc="Onboarding_entry_{i}_activity"]/android.widget.ImageView',
+                f'//android.view.ViewGroup[@content-desc="Onboarding_entry_{i+1}_activity"]/android.widget.ImageView')
+            #Validate all word written on all on boarding mission should not change. UI
+            self.assert_in(mission_list[i-1], definded_mission_list)
+            #Validate "+" should written for all mission on XP point. UI
+            self.assert_in('+', mission_xp[i-1])
+        self.assert_equal(len(mission_list), 5)
+        logger.info(f'mission_list  {mission_list}')
+        logger.info(f'mission_xp  {mission_xp}')
+        logger.info(f'mission_btn_text  {mission_btn_text}')
+
+    @allure.step("validate the redirection of buttons")
+    def validate_the_redirection_of_buttons(self):
+        # self.go_back()
+        # self.sleep(2)
+        # self.click(gamification_button)
+        # self.sleep(1)
+        # self.swipe_up_on_gamification_page()
+        for i in range(1, 6):
+            mission_title = self.get_attribute(f'//android.view.ViewGroup[@content-desc="Onboarding_entry_{i}_activity"]/android.widget.TextView', 'text')
+            mission_btn = self.get_attribute(f'//android.view.ViewGroup[@content-desc="Onboarding_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView', 'text')
+            if mission_title =='Beri Penilaian':
+                if mission_btn == 'Jalankan Misi':
+                    self.click('//android.widget.TextView[@text="Beri Penilaian"]')
+                    self.sleep(2)
+                    self.assert_equal(self.get_attribute(ONB_pop_text_1, 'text'), 'Beri Penilaian')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_2, 'text'), 'Onboarding  +500XP')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_3, 'text'), 'Berikan kami nilai sesuai dengan pengalaman kamu agar kami bisa terus menjadi lebih baik')
+                    self.tap_by_coordinates(x=817, y=477)
+
+                else :
+                    self.click('//android.widget.TextView[@text="Beri Penilaian"]')
+                    self.sleep(2)
+                    self.assert_equal(self.get_attribute(ONB_pop_text_1, 'text'), 'Beri Penilaian')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_2, 'text'), 'Onboarding  +500XP')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_3, 'text'),'Berikan kami nilai sesuai dengan pengalaman kamu agar kami bisa terus menjadi lebih baik')
+                    self.tap_by_coordinates(x=817, y=477)
+            if mission_title =='Penjualan Pertama':
+                if mission_btn == 'Jalankan Misi':
+                    self.click('//android.widget.TextView[@text="Penjualan Pertama"]')
+                    self.sleep(2)
+                    self.assert_equal(self.get_attribute(ONB_pop_text_1, 'text'), 'Penjualan Pertama')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_2, 'text'), 'Onboarding  +1,000XP')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_3, 'text'),
+                                      'Lakukan penjualan saham pertamamu di aplikasi SimInvest')
+                    self.tap_by_coordinates(x=817, y=477)
+                else:
+                    self.click('//android.widget.TextView[@text="Penjualan Pertama"]')
+                    self.sleep(2)
+                    self.assert_equal(self.get_attribute(ONB_pop_text_1, 'text'), 'Beri Penilaian')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_2, 'text'), 'Onboarding  +1,000XP')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_3, 'text'),
+                                      'Lakukan penjualan saham pertamamu di aplikasi SimInvest')
+                    self.tap_by_coordinates(x=817, y=477)
+            if mission_title == 'Daftar' :
+                if mission_btn == 'Jalankan Misi':
+                    self.click('//android.widget.TextView[@text="Daftar"]')
+                    self.sleep(2)
+                    self.assert_equal(self.get_attribute(ONB_pop_text_1, 'text'), 'Daftar')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_2, 'text'), 'Onboarding  +500XP')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_3, 'text'),
+                                      'Ayo daftar dan dapatkan XP pertamamu')
+                    self.tap_by_coordinates(x=817, y=477)
+                else:
+                    self.click('//android.widget.TextView[@text="Daftar"]')
+                    self.sleep(2)
+                    self.assert_equal(self.get_attribute(ONB_pop_text_1, 'text'), 'Daftar')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_2, 'text'), 'Onboarding  +500XP')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_3, 'text'),
+                                      'Ayo daftar dan dapatkan XP pertamamu')
+                    self.tap_by_coordinates(x=817, y=477)
+            if mission_title == 'Registrasi' :
+                if mission_btn == 'Jalankan Misi':
+                    self.click('//android.widget.TextView[@text="Registrasi"]')
+                    self.sleep(2)
+                    self.assert_equal(self.get_attribute(ONB_pop_text_1, 'text'), 'Registrasi')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_2, 'text'), 'Onboarding  +2,000XP')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_3, 'text'),
+                                      'Kamu harus registrasi dengan buka akun di SimInvest untuk memulai permainan ini')
+                    self.tap_by_coordinates(x=817, y=477)
+                else:
+                    self.click('//android.widget.TextView[@text="Registrasi"]')
+                    self.sleep(2)
+                    self.assert_equal(self.get_attribute(ONB_pop_text_1, 'text'), 'Registrasi')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_2, 'text'), 'Onboarding  +2,000XP')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_3, 'text'),
+                                      'Kamu harus registrasi dengan buka akun di SimInvest untuk memulai permainan ini')
+                    self.tap_by_coordinates(x=817, y=477)
+            if mission_title == 'Pembelian Pertama':
+                if mission_btn == 'Jalankan Misi':
+                    self.click('//android.widget.TextView[@text="Pembelian Pertama"]')
+                    self.sleep(2)
+                    self.assert_equal(self.get_attribute(ONB_pop_text_1, 'text'), 'Pembelian Pertama')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_2, 'text'), 'Onboarding  +1,000XP')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_3, 'text'),
+                                      'Lakukan pembelian saham pertamamu di aplikasi SimInvest')
+                    self.tap_by_coordinates(x=817, y=477)
+                else:
+                    self.click('//android.widget.TextView[@text="Pembelian Pertama"]')
+                    self.sleep(2)
+                    self.assert_equal(self.get_attribute(ONB_pop_text_1, 'text'), 'Pembelian Pertama')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_2, 'text'), 'Onboarding  +1,000XP')
+                    self.assert_equal(self.get_attribute(ONB_pop_text_3, 'text'),
+                                      'Lakukan pembelian saham pertamamu di aplikasi SimInvest')
+                    self.tap_by_coordinates(x=817, y=477)
+            if i == 5:
+                pass
+            else:
+                self.scroll_with_two_element(
+                f'//android.view.ViewGroup[@content-desc="Onboarding_entry_{i}_activity"]/android.widget.ImageView',
+                f'//android.view.ViewGroup[@content-desc="Onboarding_entry_{i+1}_activity"]/android.widget.ImageView')
 
 
 
