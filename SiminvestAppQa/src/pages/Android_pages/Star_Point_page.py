@@ -3,6 +3,7 @@ from SiminvestAppQa.src.data.userData import user_data
 import allure
 import logging as logger
 from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
+from datetime import datetime,date,timedelta
 
 Star_point_txt =  'HomeStarPointText'
 Star_point_value = 'HomepageStarPointValue'
@@ -64,6 +65,60 @@ tukar_txt = 'StarPoin_tukar_text'
 riwayat_simInvest = 'StarPoin_riwayat_di'
 empty_history_txt = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[2]'
 icon_empty_hitory = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.ScrollView/android.view.ViewGroup/android.widget.ImageView'
+
+#Showing on Dashboard StarPoint
+btn_tukar = '//android.view.ViewGroup[@content-desc="StarPoin_tukar_icon"]/android.view.ViewGroup'
+btn_riwayat = '//android.view.ViewGroup[@content-desc="StarPoin_riwayat_icon"]/android.view.ViewGroup'
+entry_txt1 = 'StarPoin_entry_1_text'
+entry_txt2 = 'StarPoin_entry_2_text'
+entry_txt3 = 'StarPoin_entry_3_text'
+entry_txt5 = 'StarPoin_entry_3_text'
+date_format1 = 'StarPoin_entry_1_date'
+date_format2 = 'StarPoin_entry_2_date'
+date_format3 = 'StarPoin_entry_3_date'
+date_format4 = 'StarPoin_entry_4_date'
+date_format5 = 'StarPoin_entry_5_date'
+icon_image_homestar1 = '//android.view.ViewGroup[@content-desc="StarPoin_entry_1"]/android.view.ViewGroup'
+icon_image_homestar2 = '//android.view.ViewGroup[@content-desc="StarPoin_entry_2"]/android.view.ViewGroup'
+icon_image_homestar3 = '//android.view.ViewGroup[@content-desc="StarPoin_entry_3"]/android.view.ViewGroup'
+icon_image_homestar5 = '//android.view.ViewGroup[@content-desc="StarPoin_entry_5"]/android.view.ViewGroup'
+starpoin_entry_value1= 'StarPoin_entry_1_value'
+starpoin_status1= 'StarPoin_entry_1_status'
+starpoin_entry_value2= 'StarPoin_entry_2_value'
+starpoin_status2 = 'StarPoin_entry_2_status'
+starpoin_entry_value3 = 'StarPoin_entry_3_value'
+starpoin_status3= 'StarPoin_entry_3_status'
+starpoin_entry_value4 = 'StarPoin_entry_4_value'
+starpoin_status4 = 'StarPoin_entry_4_status'
+
+#When click riwayat
+
+back_riwayat_btn= 'riwayat_back'
+riwayat_page = 'riwayat_header'
+riwayat1 = 'riwayat_entry_1'
+riwayat24 = 'riwayat_entry_24'
+riwayat25 = 'riwayat_entry_25'
+icon_image_riwayat1 = '//android.view.ViewGroup[@content-desc="riwayat_entry_1"]/android.view.ViewGroup'
+icon_image_riwayat2 = '//android.view.ViewGroup[@content-desc="riwayat_entry_2"]/android.view.ViewGroup'
+riwayat_date_entry = 'riwayat_entry_1_date'
+riwayat_entry1 = 'riwayat_entry_1_text'
+riwayat_entry_value1 = 'riwayat_entry_1_value'
+riwayat_status1 = 'riwayat_entry_1_status'
+riwayat_date_entry2 = 'riwayat_entry_2_date'
+riwayat_entry2 = 'riwayat_entry_2_text'
+riwayat_entry_value2 = 'riwayat_entry_2_value'
+riwayat_status2 = 'riwayat_entry_2_status'
+
+#when click Tukar
+
+back_tukar_btn = 'tukar_back'
+tukar_icon = 'tukar_icon'
+tukar_txt1 = 'tukar_text_1'
+tukar_value1 = 'tukar_value'
+tukar_txt2 = 'tukar_text_2'
+tukar_txt4= 'tukar_text_4'
+
+
 
 class StarPointPage(HomePage):
      
@@ -174,3 +229,60 @@ class StarPointPage(HomePage):
       self.verify_star_point_btn()
       self.sleep(2)
 
+   @allure.step("validate 5 last transaction, status, date and plus minus simbol")
+   def Validate_starpoint_Home_and_Tukar(self):
+      self.sleep(2)
+      self.assert_equal(self.is_element_visible(riwayat_simInvest) , True)
+      self.assert_equal(self.is_element_visible(icon_image_homestar1) , True)
+      self.assert_equal(self.is_element_visible(icon_image_homestar2) , True)
+      self.assert_equal(self.is_element_visible(icon_image_homestar3) , True)
+      self.assert_equal(self.is_element_visible(entry_txt1), True)
+      self.assert_equal(self.is_element_visible(entry_txt2), True)
+      self.assert_equal(self.is_element_visible(entry_txt3), True)
+      self.assert_equal(self.is_element_visible(starpoin_entry_value1), True)
+      self.assert_equal(self.is_element_visible(starpoin_entry_value2), True)
+      self.assert_equal(self.is_element_visible(starpoin_entry_value3), True)
+      self.assert_equal(self.is_element_visible(starpoin_status1), True)
+      self.assert_equal(self.is_element_visible(starpoin_status2), True)
+      self.assert_equal(self.is_element_visible(starpoin_status3), True)
+      self.assert_equal(self.is_element_visible(starpoin_status4), True)
+      date_in_entry = self.get_attribute(date_format1, 'text')
+      in_date = datetime.strptime(date_in_entry, '%d %B %Y')
+      out_date = datetime.strftime(in_date, '%d %B %Y')
+      self.assert_equal(date_in_entry, str(out_date))
+      self.sleep(2)
+      self.scroll_up()
+      self.assert_equal(self.is_element_visible(icon_image_homestar5) , True)
+      self.assert_equal(self.is_element_visible(entry_txt5), True)
+      self.sleep(2)
+      self.click(btn_tukar)
+      self.sleep(2)
+      self.assert_equal(self.is_element_visible(tukar_icon), True)
+      self.assert_equal(self.is_element_visible(tukar_txt), True)
+      self.assert_equal(self.is_element_visible(tukar_txt1), True)
+      self.assert_equal(self.is_element_visible(tukar_txt2), True)
+      self.assert_equal(self.is_element_visible(tukar_txt4), True)
+      self.assert_equal(self.is_element_visible(tukar_value1), True)
+      self.click(back_tukar_btn)
+      self.sleep(2)
+
+   @allure.step ("Validate When click Riwayat")
+   def Validate_starpoint_riwayat(self):
+      self.click(btn_riwayat)
+      self.sleep(2)
+      
+   @allure.step("Validate thousand separator in starpoin Riwayat")
+   def validate_thousand_separator_in_starpoin_Riwayat(self):
+      self.assert_equal(self.get_attribute(riwayat_page, 'text'), 'Riwayat')
+      for i in range(5):
+            self.assert_not_in(' ', self.get_attribute(f'riwayat_entry_1_text{i}', 'text'))
+            price_value = self.get_attribute(f'riwayat_entry_1_value{i}', 'text')
+            if len(price_value) >= 8:
+                self.assert_in(',', price_value)
+
+   @allure.step("Validate scroll up and down on Riwayat page and 25 Transaction")
+   def validate_scroll_up_and_down_on_Riwayat_page(self):
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(riwayat1), False)
+        self.scroll_down()
+        self.assert_equal(self.is_element_visible(riwayat1), True)
