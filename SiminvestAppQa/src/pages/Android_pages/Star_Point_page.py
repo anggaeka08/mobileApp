@@ -106,6 +106,19 @@ riwayat_entry_value1 = 'riwayat_entry_1_value'
 riwayat_status1 = 'riwayat_entry_1_status'
 riwayat_date_entry2 = 'riwayat_entry_2_date'
 riwayat_entry2 = 'riwayat_entry_2_text'
+riwayat_entry4 = 'riwayat_entry_4_text'
+riwayat_entry3 = 'riwayat_entry_3_text'
+riwayat_entry5 = 'riwayat_entry_5_text'
+riwayat_entry6 = 'riwayat_entry_6_text'
+riwayat_entry7 = 'riwayat_entry_7_text'
+riwayat_entry8 = 'riwayat_entry_8_text'
+riwayat_entry9 = 'riwayat_entry_9_text'
+riwayat_entry10 = 'riwayat_entry_10_text'
+riwayat_entry15 = 'riwayat_entry_15_text'
+riwayat_entry18 = 'riwayat_entry_18_text'
+riwayat_entry22 = 'riwayat_entry_22_text'
+riwayat_entry25 = 'riwayat_entry_25_text'
+
 riwayat_entry_value2 = 'riwayat_entry_2_value'
 riwayat_status2 = 'riwayat_entry_2_status'
 
@@ -287,7 +300,19 @@ class StarPointPage(HomePage):
 
    @allure.step("Validate scroll up and down on Riwayat page and 25 Transaction")
    def validate_scroll_up_and_down_on_Riwayat_page(self):
+        self.assert_equal(self.is_element_visible(riwayat_entry1), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry2), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry3), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry4), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry5), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry7), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry8), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry9), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry10), True)
         self.scroll_up()
-        self.assert_equal(self.is_element_visible(riwayat1), False)
-        self.scroll_down()
-        self.assert_equal(self.is_element_visible(riwayat1), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry15), True)
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(riwayat_entry18), True)
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(riwayat_entry22), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry25), True)
