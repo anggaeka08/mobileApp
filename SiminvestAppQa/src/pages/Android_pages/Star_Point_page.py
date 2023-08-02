@@ -270,6 +270,11 @@ class StarPointPage(HomePage):
    def Validate_starpoint_riwayat(self):
       self.click(btn_riwayat)
       self.sleep(2)
+
+   @allure.step ("Validate Back btn Riwayat")
+   def Validate_Back_btn_riwayat(self):
+      self.click(back_riwayat_btn)
+      self.sleep(2)
       
    @allure.step("Validate thousand separator in starpoin Riwayat")
    def validate_thousand_separator_in_starpoin_Riwayat(self):
