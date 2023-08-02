@@ -1276,6 +1276,56 @@ class Gamification(HomePage):
         self.assert_equal(mission_list_lihat,mission_list)
         self.assert_equal(Rp_list_lihat,mission_xp)
 
+    @allure.step("Validate api response with ui for onboarding mission")
+    def validate_api_response_with_ui_for_onboarding_mission(self):
+
+        dic_mission_and_xp = ['Beri Penilaian' , 'Penjualan Pertama', 'Daftar', 'Registrasi','Pembelian Pertama']
+        mission_id = [374, 375,376, 377,378]
+       # Rp_list_lihat_ui = []
+        #mission_text_ui = []
+        mission_list_lihat_ui =[]
+        self.click(onboarding_lihat_btn)
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(lihat_header, 'Text'), 'Onboarding ')
+        for i in range(1, 6):
+            mission_list_lihat_ui.append(self.get_attribute(f'LihatSemua_entry_{i}_type', 'text'))
+            mission_list_lihat_ui.append(self.get_attribute(f'LihatSemua_entry_{i}_text', 'text'))
+            if i == 3:
+                # self.scroll_with_two_element(f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i-2}"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView',f'//android.view.ViewGroup[@content-desc="LihatSemua_entry_{i}"]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView')
+                self.scroll_screen(start_x=500, start_y=2100, end_x=500, end_y=500, duration=6000)
+        token_value = self.login_with_a_number(user_data['reg_no_4'])
+        token = {
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        onboarding_mission_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',
+                                                  endpoint='reverb/v1/account/53615/mission-group?sort_by=priority,status&is_asc=true',
+                                                  headers=token, expected_status_code=200)
+        for i in range(len(onboarding_mission_api)):
+            if onboarding_mission_api['data'][i]['label'] == 'Onboarding':
+                mission_list = onboarding_mission_api['data'][i]['missions']
+                break
+        for i in range(len(mission_list)):
+            for j in range(0,len(mission_list_lihat_ui),2):
+                if mission_list[i]['campaign']['label'] == mission_list_lihat_ui[j]:
+                    self.assert_equal(mission_list[i]['campaign']['description'], mission_list_lihat_ui[j+1])
+            self.assert_in(mission_list[i]['id'], mission_id)
+            self.assert_in('onboarding.png', mission_list[i]['campaign']['extra']['image_url'])
+            if mission_list[i]['status'] == 1 or mission_list[i]['status'] == 2 or mission_list[i]['status'] == 3:
+                continue
+            else:
+                pytest.fail("Status not matched")
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
