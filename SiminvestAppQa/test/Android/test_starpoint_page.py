@@ -54,7 +54,7 @@ class StartPoint_test(StarPointPage):
             self.validate_scroll_up_and_down_on_Riwayat_page()
             self.Validate_Back_btn_riwayat()
             #self.validate_thousand_separator_in_starpoin_Riwayat()
-            
+            self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_starpoint_History_Page_Functional_validation', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
