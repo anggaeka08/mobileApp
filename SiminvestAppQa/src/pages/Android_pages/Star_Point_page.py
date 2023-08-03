@@ -293,7 +293,7 @@ class StarPointPage(HomePage):
       
    @allure.step("Validate thousand separator in starpoin Riwayat")
    def validate_thousand_separator_in_starpoin_Riwayat(self):
-      self.assert_equal(self.get_attribute(riwayat_page, 'text'), 'Riwayat')
+      self.assert_equal(self.get_attribute(riwayat_simInvest, 'text'), 'Riwayat di SimInvest')
       for i in range(5):
             self.assert_not_in(' ', self.get_attribute(f'StarPoin_entry_1_text{i}', 'text'))
             price_value = self.get_attribute(f'StarPoin_entry_1_value{i}', 'text')
@@ -307,14 +307,19 @@ class StarPointPage(HomePage):
         self.assert_equal(self.is_element_visible(riwayat_entry3), True)
         self.assert_equal(self.is_element_visible(riwayat_entry4), True)
         self.assert_equal(self.is_element_visible(riwayat_entry5), True)
-        #self.assert_equal(self.is_element_visible(riwayat_entry7), True)
-        #self.assert_equal(self.is_element_visible(riwayat_entry8), True)
-        #self.assert_equal(self.is_element_visible(riwayat_entry9), True)
-        #self.assert_equal(self.is_element_visible(riwayat_entry10), True)
-        #self.scroll_up()
-        #self.assert_equal(self.is_element_visible(riwayat_entry15), True)
-        #self.scroll_up()
-        #self.assert_equal(self.is_element_visible(riwayat_entry18), True)
-        #self.scroll_up()
-        #self.assert_equal(self.is_element_visible(riwayat_entry22), True)
-        #self.assert_equal(self.is_element_visible(riwayat_entry25), True)
+        page_no_scroll_riwayat= self.is_element_visible(riwayat_entry7)
+        if page_no_scroll_riwayat == True:      
+         self.assert_equal(self.is_element_visible(riwayat_entry7), True)
+         self.assert_equal(self.is_element_visible(riwayat_entry8), True)
+         self.assert_equal(self.is_element_visible(riwayat_entry9), True)
+         self.assert_equal(self.is_element_visible(riwayat_entry10), True)
+         self.scroll_up()
+         self.assert_equal(self.is_element_visible(riwayat_entry15), True)
+         self.scroll_up()
+         self.assert_equal(self.is_element_visible(riwayat_entry18), True)
+         self.scroll_up()
+         self.assert_equal(self.is_element_visible(riwayat_entry22), True)
+         self.assert_equal(self.is_element_visible(riwayat_entry25), True)
+        else:
+         self.assert_equal(self.is_element_visible(riwayat_entry5), True)    
+   
