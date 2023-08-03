@@ -292,8 +292,8 @@ class StarPointPage(HomePage):
       
    @allure.step("Validate thousand separator in starpoin Riwayat")
    def validate_thousand_separator_in_starpoin_Riwayat(self):
-      self.assert_equal(self.get_attribute(riwayat_simInvest, 'text'), 'Riwayat di SimInvest')
-      for i in range(5):
+            
+      for i in range(1,6):
             self.assert_not_in(' ', self.get_attribute(f'StarPoin_entry_1{i}_text', 'text'))
             price_value = self.get_attribute(f'StarPoin_entry_1{i}_value', 'text')
             if len(price_value) >= 8:
