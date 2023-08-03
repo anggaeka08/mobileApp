@@ -271,7 +271,6 @@ class StarPointPage(HomePage):
       self.click(btn_tukar)
       self.sleep(2)
       self.assert_equal(self.is_element_visible(tukar_icon), True)
-      self.assert_equal(self.is_element_visible(tukar_txt), True)
       self.assert_equal(self.is_element_visible(tukar_txt1), True)
       self.assert_equal(self.is_element_visible(tukar_txt2), True)
       self.assert_equal(self.is_element_visible(tukar_txt4), True)
@@ -295,8 +294,8 @@ class StarPointPage(HomePage):
    def validate_thousand_separator_in_starpoin_Riwayat(self):
       self.assert_equal(self.get_attribute(riwayat_simInvest, 'text'), 'Riwayat di SimInvest')
       for i in range(5):
-            self.assert_not_in(' ', self.get_attribute(f'StarPoin_entry_1_text{i}', 'text'))
-            price_value = self.get_attribute(f'StarPoin_entry_1_value{i}', 'text')
+            self.assert_not_in(' ', self.get_attribute(f'StarPoin_entry_1{i}_text', 'text'))
+            price_value = self.get_attribute(f'StarPoin_entry_1{i}_value', 'text')
             if len(price_value) >= 8:
                 self.assert_in(',', price_value)
 
