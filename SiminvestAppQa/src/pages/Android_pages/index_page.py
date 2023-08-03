@@ -108,7 +108,7 @@ class IndexPage(StockDetailPage):
         for i in range(5):
             self.assert_not_in(' ', self.get_attribute(f'IndeksEntryName{i}', 'text'))
             price_value = self.get_attribute(f'IndeksEntryLastPrice{i}', 'text')
-            if len(price_value) >= 8:
+            if len(price_value) >= 5:
                 self.assert_in(',', price_value)
 
     @allure.step("validate the data with api and app ui")
