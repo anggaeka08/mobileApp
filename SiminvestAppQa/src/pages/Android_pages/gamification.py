@@ -126,8 +126,16 @@ dm_entry_1 = 'Harian_entry_1'
 ONB_pop_text_1 = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[1]'
 ONB_pop_text_2 = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[2]'
 ONB_pop_text_3 = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[3]'
-
+#locator_for_profile_page
+tag_name_on_profile_page = '//android.view.ViewGroup[@content-desc="reward_status"]/android.widget.TextView'
+reward_profile_page = 'reward_text'
+t_c_Text_1 = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView'
+t_c_text_2 = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup/android.widget.TextView'
+t_c_header = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]'
 definded_mission_list = ['Beri Penilaian', 'Penjualan Pertama', 'Daftar', 'Registrasi', 'Pembelian Pertama']
+
+
+
 class Gamification(HomePage):
 
     @allure.step("Open Gamification Page")
@@ -1315,22 +1323,61 @@ class Gamification(HomePage):
             else:
                 pytest.fail("Status not matched")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @allure.step("Validate application profile for gamification process")
+    def validate_application_profile_page_for_gamification_process(self, phone_number):
+        self.sleep(4)
+        self.click_mulai_sekarang()
+        self.type_mobile_no(phone_number)
+        self.click_selanjutnya()
+        self.enter_otp('1234')
+        self.enter_pin()
+        self.verify_home_page_reg_user()
+        self.click_on_profile_btn()
+        self.sleep(1)
+        gamification_status_profile = self.get_attribute(tag_name_on_profile_page, 'text')
+        reward_msg_profile_page = self.get_attribute(reward_profile_page ,'text')
+        c = ' X'
+        index = reward_msg_profile_page.find(c)
+        reward_msg_profile_page_value = int(reward_msg_profile_page[:index])
+        self.click(gamification_button)
+        self.sleep(1)
+        self.go_back()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(tag_name_on_profile_page), True)
+        self.click(gamification_button)
+        self.sleep(1)
+        # self.scroll_with_two_element(t_c_Text_1, t_c_text_2)
+        # self.assert_equal(self.is_element_visible(t_c_Text_1), False)
+        # self.assert_equal(self.is_element_visible(t_c_header), True)
+        self.app_in_background(6)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gamification_check_box), True)
+        self.click(gamification_check_box)
+        self.click(tc_submit)
+        self.assert_equal(self.is_element_visible(gamification_header),True)
+        self.go_back()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(tag_name_on_profile_page), True)
+        self.click(gamification_button)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(t_c_header), False)
+        self.assert_equal(self.is_element_visible(gamification_header),True)
+        mission_status_gami = self.get_attribute(mission_status, 'text')
+        mission_msg_gami = self.get_attribute(mission_msg, 'text')
+        c = ' X'
+        index = mission_msg_gami.find(c)
+        mission_msg_gami_value = int(mission_msg_gami[:index])
+        self.assert_equal(mission_status_gami, gamification_status_profile)
+        self.assert_equal(mission_msg_gami_value, reward_msg_profile_page_value)
+        self.launch_app_again()
+        self.sleep(4)
+        self.click_mulai_sekarang()
+        self.type_mobile_no(phone_number)
+        self.click_selanjutnya()
+        self.enter_otp('1234')
+        self.enter_pin()
+        self.verify_home_page_reg_user()
+        self.click_on_profile_btn()
+        self.click(gamification_button)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(gamification_check_box), True)
