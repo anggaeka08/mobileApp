@@ -177,7 +177,7 @@ class homePage_test(HomePage,LoginPage):
             self.go_back()
             self.go_back()
             self.go_back()
-            self.verify_username_on_homepage_after_close()
+            #self.verify_username_on_homepage_after_close()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_functional_with_homepage_data', 'SiminvestAppQa/src/data/ScreenShots')

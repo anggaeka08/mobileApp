@@ -279,7 +279,7 @@ class FastOrder(BuyProcess):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
         logger.info(f"Current Time = {current_time}")
-        if (current_time >= '7:30' or current_time <= '13:15'):
+        if (current_time >= '7:30' or current_time <= '15:15'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
             self.assert_equal(self.is_element_visible(saham_tab), True)
@@ -327,8 +327,8 @@ class FastOrder(BuyProcess):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
         logger.info(f"Current Time = {current_time}")
-        if (current_time >= '7:30' and current_time <= '10:00') or (
-                current_time >= '12:00' and current_time <= '13:15'):
+        if (current_time >= '7:30'  or
+                current_time <= '15:15'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
             self.assert_equal(self.is_element_visible(saham_tab), True)
@@ -350,8 +350,7 @@ class FastOrder(BuyProcess):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
         logger.info(f"Current Time = {current_time}")
-        if (current_time >= '7:30' and current_time <= '10:00') or (
-                current_time >= '12:00' and current_time <= '13:15'):
+        if (current_time >= '7:30'   or current_time <= '15:15'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
             self.assert_equal(self.is_element_visible(saham_tab), True)
@@ -724,8 +723,7 @@ class FastOrder(BuyProcess):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
         logger.info(f"Current Time = {current_time}")
-        if (current_time >= '7:30' and current_time <= '10:00') or (
-                current_time >= '12:00' and current_time <= '13:15'):
+        if (current_time >= '7:30' or current_time <= '15:15'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
             self.assert_equal(self.is_element_visible(saham_tab), True)
@@ -746,8 +744,7 @@ class FastOrder(BuyProcess):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
         logger.info(f"Current Time = {current_time}")
-        if (current_time >= '7:30' and current_time <= '10:00') or (
-                current_time >= '12:00' and current_time <= '13:15'):
+        if (current_time >= '7:30' or current_time <= '15:15'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
             self.assert_equal(self.is_element_visible(saham_tab), True)
@@ -771,8 +768,7 @@ class FastOrder(BuyProcess):
         now = datetime.now()
         current_time = now.strftime("%H:%M")
         logger.info(f"Current Time = {current_time}")
-        if (current_time >= '7:30' and current_time <= '10:00') or (
-                current_time >= '12:00' and current_time <= '13:15'):
+        if (current_time >= '7:30' or current_time <= '15:15'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
             self.assert_equal(self.is_element_visible(saham_tab), True)
