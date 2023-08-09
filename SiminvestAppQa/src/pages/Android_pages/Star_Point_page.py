@@ -4,6 +4,7 @@ import allure
 import logging as logger
 from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 from datetime import datetime,date,timedelta
+request_utilities = RequestsUtilities()
 
 Star_point_txt =  'HomeStarPointText'
 Star_point_value = 'HomepageStarPointValue'
