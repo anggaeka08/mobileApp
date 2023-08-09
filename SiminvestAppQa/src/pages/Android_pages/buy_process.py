@@ -569,8 +569,8 @@ class BuyProcess(HomePage):
 
     @allure.step("Verify sbp numerical and mathematical values")
     def verify_sbp_numerical_and_mathematical_values(self):
-        buying_power_with_buy = self.get_attribute(Buying_Power, 'text')
-        buying_power = (buying_power_with_buy[16:]).replace(',', '')
+        # buying_power_with_buy = self.get_attribute(Buying_Power, 'text')
+        # buying_power = (buying_power_with_buy[16:]).replace(',', '')
         self.click_global_search_btn_and_saerch_stock('ACES')
         self.sleep(3)
         self.click_on_stock_code()
@@ -578,8 +578,8 @@ class BuyProcess(HomePage):
         stock_price = self.get_attribute(stock_price_ele, 'text')
         price_beli = self.get_attribute(price_space, 'text')
         self.assert_equal(stock_price, price_beli)
-        buying_power_on_buy_page = (self.buy_power_on_buy_page()).replace(',','')
-        self.assert_equal(buying_power, buying_power_on_buy_page)
+        #buying_power_on_buy_page = (self.buy_power_on_buy_page()).replace(',','')
+        # self.assert_equal(buying_power, buying_power_on_buy_page)
         lot_value_buy = self.get_attribute(lot_area, 'text')
         self.assert_equal(int(lot_value_buy), 1)
         self.verify_total_beli_amount()

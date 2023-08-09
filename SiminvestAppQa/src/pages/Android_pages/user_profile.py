@@ -30,8 +30,8 @@ Stock_Reward_header = '//android.widget.TextView[@text="Stock Reward"]'
 daftar_masuk_btn = '//android.widget.TextView[@text="Daftar / Masuk"]'
 masuk_page_header = '//android.widget.TextView[@text="Masuk"]'
 informasi_btn = '//android.widget.TextView[@text="Informasi RDN"]'
-profile_icon = 'ProfilePageImage'
-#profile_icon = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]'
+#profile_icon = 'ProfilePageImage'
+profile_icon = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.TextView'
 batan_btn = '//android.widget.TextView[@text="Batal"]'
 batan_btn1 = '//android.widget.TextView[@text="BATAL"]'
 camera_option = '//android.widget.TextView[@text="Camera"]'
@@ -556,7 +556,8 @@ class UserProfile(HomePage):
     @allure.step("click mulai sekarang")
     def click_mulai_sekarang_after_profile(self):
         #self.sleep(1)
-        self.click(mulai_sekarang)
+        #self.click(mulai_sekarang)
+        self.tap_by_coordinates(511, 1825)
 
     @allure.step("login and verify homepage for rg user")
     def login_and_verify_homepage_from_logout(self, phone_number):

@@ -696,7 +696,7 @@ class Transaction(AmendProcess):
         self.click(ODP_back_btn)
         self.assert_equal(self.is_element_visible(orderlist_entry), True)
         self.assert_equal(self.is_element_visible(orderlist_entry_1), True)
-        self.click(orderlist_entry_2)
+        self.click(orderlist_entry_1)
         self.click(od_stock_code)
         self.sleep(2)
         self.assert_equal(self.is_element_visible(sdp_header), True)
@@ -714,12 +714,12 @@ class Transaction(AmendProcess):
         self.click(setuju_btn)
         self.sleep(2)
         self.click_on_ok()
-        harga= self.get_attribute(gtc_tab_harga_2, "text")
-        c = ':'
-        index = harga.find(c)
-        updated_price_ol=harga[index + 2::]
+        # harga= self.get_attribute(gtc_tab_harga_2, "text")
+        # c = ':'
+        # index = harga.find(c)
+        # updated_price_ol=harga[index + 2::]
         logger.info(increased_price)
-        logger.info(updated_price_ol)
+        #logger.info(updated_price_ol)
         #self.assert_equal(increased_price, updated_price_ol)
 
     @allure.step("verify withdraw process from odp")

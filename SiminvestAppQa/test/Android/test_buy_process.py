@@ -93,7 +93,7 @@ class BuyProcess_test(BuyProcess):
     def test_buy_process_for_non_kyc(self):
         try:
             self.execute_script('lambda-name=test_buy_process_for_non_kyc')
-            self.open_sdp_page_with_non_kyc_user(user_data['unkyc_reg_no_2'], user_data['stock_code'][2])
+            self.open_sdp_page_with_non_kyc_user(user_data['unkyc_reg_no'], user_data['stock_code'][2])
             self.check_for_buy_btn()
             self.click_on_buy_btn()
             self.verify_refferal_page()
