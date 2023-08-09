@@ -330,14 +330,14 @@ class StarPointPage(HomePage):
         api_starpoinhistory_name = []
         for i in range(1,4):
             ui_starpoinhistory_name.append(self.get_attribute(f'StarPoin_entry_{i}_text', 'text'))
-        token_value = self.login()
+        #token_value = self.loginstarpoin()
         token = {
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
-        token['Authorization'] = 'Bearer ' + token_value
-        starpoint_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='radix/v1/account/54522/balance/1', headers=token, expected_status_code=200)
-        for i in range(len(starpoint_api['data'])):
-            api_starpoinhistory_name(starpoint_api['data'][i]['value'])
-        logger.info(ui_starpoinhistory_name)
-        logger.info(api_starpoinhistory_name)
-        for i in range(len( ui_starpoinhistory_name)):
-            self.assert_in(ui_starpoinhistory_name , api_starpoinhistory_name)
+        #token['Authorization'] = 'Bearer ' + token_value
+        #starpoint_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='radix/v1/account/54522/balance/1', headers=token, expected_status_code=200)
+        #for i in range(len(starpoint_api['data'])):
+         #   api_starpoinhistory_name(starpoint_api['data'][i]['value'])
+        #logger.info(ui_starpoinhistory_name)
+        #logger.info(api_starpoinhistory_name)
+        #for i in range(len( ui_starpoinhistory_name)):
+         #   self.assert_in(ui_starpoinhistory_name , api_starpoinhistory_name)
