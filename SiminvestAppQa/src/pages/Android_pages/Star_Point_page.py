@@ -293,10 +293,10 @@ class StarPointPage(HomePage):
    @allure.step("Validate thousand separator in starpoin Riwayat")
    def validate_thousand_separator_in_starpoin_Riwayat(self):
             
-      for i in range(1,6):
-            self.assert_not_in(' ', self.get_attribute(f'StarPoin_entry_1{i}_text', 'text'))
-            price_value = self.get_attribute(f'StarPoin_entry_1{i}_value', 'text')
-            if len(price_value) >= 8:
+      for i in range(1,5):
+            self.assert_not_in(' ', self.get_attribute(f'StarPoin_entry_{i}_text', 'text'))
+            price_value = self.get_attribute(f'StarPoin_entry_{i}_value', 'text')
+            if len(price_value) >= 5:
                 self.assert_in(',', price_value)
 
    @allure.step("Validate scroll up and down on Riwayat page and 25 Transaction")
@@ -322,3 +322,21 @@ class StarPointPage(HomePage):
         else:
          self.assert_equal(self.is_element_visible(riwayat_entry5), True)    
    
+   
+   @allure.step("API validation of Starpoint")
+   def api_data_validation_for_Starpoint(self):
+        ui_starpoinhistory_name = []
+        api_starpoinhistory_name = []
+        for i in range(1,4):
+            ui_starpoinhistory_name.append(self.get_attribute(f'StarPoin_entry_{i}_text', 'text'))
+        token_value = self.login()
+        token = {
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+        token['Authorization'] = 'Bearer ' + token_value
+        starpoint_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='radix/v1/account/54522/balance/1', headers=token, expected_status_code=200)
+        for i in range(len(starpoint_api['data'])):
+            api_starpoinhistory_name(starpoint_api['data'][i]['value'])
+        logger.info(ui_starpoinhistory_name)
+        logger.info(api_starpoinhistory_name)
+        for i in range(len( ui_starpoinhistory_name)):
+            self.assert_in(ui_starpoinhistory_name , api_starpoinhistory_name)
