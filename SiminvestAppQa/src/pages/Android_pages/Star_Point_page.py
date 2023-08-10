@@ -338,7 +338,7 @@ class StarPointPage(HomePage):
         token = {
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
         token['Authorization'] = 'Bearer ' + token_value
-        starpoint_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='radix/v1/account/54522/reward-starpoin?sort_by=id&is_asc=false&limit=100', headers=token, expected_status_code=200)
+        starpoint_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='radix/v1/account/54522/reward-starpoin?sort_by=id&is_asc=false&limit=5', headers=token, expected_status_code=200)
         for i in range(len(starpoint_api['data'])):
             api_starpoinhistory_name(starpoint_api['data'][i]['campaign_label'])
         logger.info(ui_riwayat_disiminvest)
