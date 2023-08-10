@@ -326,22 +326,22 @@ class StarPointPage(HomePage):
    
    @allure.step("API validation of Starpoint")
    def api_data_validation_for_Starpoint(self):
-        ui_starpoinhistory_name = []
-        ui_starpoinhistory_saya = []
-        ui_riwayat_disiminvest = []
-        api_starpoinhistory_name = []
-        ui_starpoinhistory_name.append(self.get_attribute(f'StarPoin_value', 'text'))
-        ui_starpoinhistory_saya.append(self.get_attribute(f'StarPoin_saya', 'text'))
-        for i in range(6):
-            ui_riwayat_disiminvest.append(self.get_attribute(f'StarPoin_entry_{i}_text', 'text'))
-        token_value = self.loginstarpoin()
-        token = {
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
-        token['Authorization'] = 'Bearer ' + token_value
-        starpoint_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='radix/v1/account/54522/reward-starpoin?sort_by=id&is_asc=false&limit=5', headers=token, expected_status_code=200)
-        for i in range(len(starpoint_api['data'])):
-            api_starpoinhistory_name.append(starpoint_api['data'][i]['campaign_label'])
-        logger.info(ui_riwayat_disiminvest)
-        logger.info(api_starpoinhistory_name)
-        for i in range(len( ui_riwayat_disiminvest)):
-            self.assert_in(ui_riwayat_disiminvest[i], api_starpoinhistory_name)
+     ui_starpoinhistory_name = []
+     ui_starpoinhistory_saya = []
+     ui_riwayat_disiminvest = []
+     api_starpoinhistory_name = []
+     ui_starpoinhistory_name.append(self.get_attribute(f'StarPoin_value', 'text'))
+     ui_starpoinhistory_saya.append(self.get_attribute(f'StarPoin_saya', 'text'))
+     for i in range(1, 5):
+         ui_riwayat_disiminvest.append(self.get_attribute(f'StarPoin_entry_{i}_text', 'text'))
+     token_value = self.loginstarpoin()
+     token = {
+         "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
+     token['Authorization'] = 'Bearer ' + token_value
+     starpoint_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/', endpoint='radix/v1/account/54522/reward-starpoin?sort_by=id&is_asc=false&limit=5', headers=token, expected_status_code=200)
+     for i in range(len(starpoint_api['data'])):
+         api_starpoinhistory_name.append(starpoint_api['data'][i]['campaign_label'])
+     logger.info(ui_riwayat_disiminvest)
+     logger.info(api_starpoinhistory_name)
+     for i in range(len( ui_riwayat_disiminvest)):
+         self.assert_in(ui_riwayat_disiminvest[i], api_starpoinhistory_name)
