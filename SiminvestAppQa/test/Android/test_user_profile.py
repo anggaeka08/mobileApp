@@ -188,8 +188,6 @@ class userProfile_test(UserProfile):
             self.Click_to_Ganti_pin_siminvest()
             self.sleep(1)
             self.go_back()
-            self.sleep(1)
-            self.go_back()
             self.verify_pengaturan_page()
             self.click_on_ganti_pin_password_btn()
             self.verify_header_of_Ganti_pin_password_page()

@@ -11,5 +11,6 @@ user_data = {
     'reg_no_3':'8445547107',
     'reg_no_4':'8445547109',
     'reg_no_5':'8445557119',
+    'reg_no_6':'8445547208',
     'stock_code':['ACES', 'ADMR', 'ARKO']
 }

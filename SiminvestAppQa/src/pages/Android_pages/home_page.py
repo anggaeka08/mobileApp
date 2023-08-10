@@ -352,8 +352,8 @@ class HomePage(LoginPage):
         self.assert_equal(Portfolio_Saham_text, "Portfolio saham")
         today_text = self.get_attribute(today, "text")
         self.assert_equal(today_text[-5:], "Today")
-        Buying_Power_text = self.get_attribute(Buying_Power, "text")
-        self.assert_equal(Buying_Power_text[:12], "Buying power")
+        # Buying_Power_text = self.get_attribute(Buying_Power, "text") #removed from app
+        # self.assert_equal(Buying_Power_text[:12], "Buying power")
         #Keren_dua_text = self.get_attribute(Keren_dua, "text")
         #self.assert_equal(Keren_dua_text, "Sudah siap? Yuk, mulai sekarang")
         Top_up_text = self.get_attribute(Top_up, "text")
