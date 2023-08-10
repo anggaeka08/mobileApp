@@ -817,6 +817,16 @@ class HomePage(LoginPage):
         rs_api = request_utilities.post(base_url=base_url,endpoint=endpoint, payload=payload,expected_status_code=201)
         logger.info(f"Given Endpoint : {endpoint} _______payload : {payload}___________ Response Body = {rs_api}")
         return rs_api['data']['access_token']
+    
+    @allure.step("Login with an starpoin user ")
+    def loginstarpoin(self):
+        base_url = 'https://stg-api.siminvest.co.id/'
+        endpoint = 'api/v1/users/signin/phone'
+        data = {"phone_number": "628445557119","pin": "123456","device_id": "3F4330E5-4F07-4A26-A710-A6552D583FE8"}
+        payload = json.dumps(data)
+        rs_api = request_utilities.post(base_url=base_url,endpoint=endpoint, payload=payload,expected_status_code=201)
+        logger.info(f"Given Endpoint : {endpoint} _______payload : {payload}___________ Response Body = {rs_api}")
+        return rs_api['data']['access_token']
 
 
     @allure.step("Login with an user ")
