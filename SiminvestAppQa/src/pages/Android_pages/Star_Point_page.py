@@ -332,7 +332,7 @@ class StarPointPage(HomePage):
         api_starpoinhistory_name = []
         ui_starpoinhistory_name.append(self.get_attribute(f'StarPoin_value', 'text'))
         ui_starpoinhistory_saya.append(self.get_attribute(f'StarPoin_saya', 'text'))
-        for i in range(1,4):
+        for i in range(6):
             ui_riwayat_disiminvest.append(self.get_attribute(f'StarPoin_entry_{i}_text', 'text'))
         token_value = self.loginstarpoin()
         token = {
