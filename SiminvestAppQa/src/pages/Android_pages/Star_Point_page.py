@@ -344,4 +344,4 @@ class StarPointPage(HomePage):
         logger.info(ui_riwayat_disiminvest)
         logger.info(api_starpoinhistory_name)
         for i in range(len( ui_riwayat_disiminvest)):
-            self.assert_in(ui_riwayat_disiminvest , api_starpoinhistory_name)
+            self.assert_in(ui_riwayat_disiminvest[i], api_starpoinhistory_name)
