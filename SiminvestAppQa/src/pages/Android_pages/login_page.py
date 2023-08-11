@@ -84,13 +84,15 @@ class LoginPage(BaseCase):
 
     @allure.step("click mulai sekarang")
     def click_mulai_sekarang(self):
-        self.sleep(5)
+        self.sleep(10)
         if self.is_element_visible(ignore_btn) == True:
             self.tap(ignore_btn)
-            self.sleep(1)
-            self.click(mulai_sekarang)
+            self.sleep(3)
+            #self.click(mulai_sekarang)
+            self.tap_by_coordinates(511,1825)
         else:
-            self.click(mulai_sekarang)
+            #self.click(mulai_sekarang)
+            self.tap_by_coordinates(511, 1825)
 
     @allure.step("verify mobile no page")
     def verify_mobile_no_page(self):

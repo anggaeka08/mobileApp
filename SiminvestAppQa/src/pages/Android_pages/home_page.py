@@ -352,8 +352,8 @@ class HomePage(LoginPage):
         self.assert_equal(Portfolio_Saham_text, "Portfolio saham")
         today_text = self.get_attribute(today, "text")
         self.assert_equal(today_text[-5:], "Today")
-        Buying_Power_text = self.get_attribute(Buying_Power, "text")
-        self.assert_equal(Buying_Power_text[:12], "Buying power")
+        # Buying_Power_text = self.get_attribute(Buying_Power, "text") #removed from app
+        # self.assert_equal(Buying_Power_text[:12], "Buying power")
         #Keren_dua_text = self.get_attribute(Keren_dua, "text")
         #self.assert_equal(Keren_dua_text, "Sudah siap? Yuk, mulai sekarang")
         Top_up_text = self.get_attribute(Top_up, "text")
@@ -813,6 +813,16 @@ class HomePage(LoginPage):
         base_url = 'https://stg-api.siminvest.co.id/'
         endpoint = 'api/v1/users/signin/phone'
         data = {"phone_number": "628445557108","pin": "123456","device_id": "3F4330E5-4F07-4A26-A710-A6552D583FE8"}
+        payload = json.dumps(data)
+        rs_api = request_utilities.post(base_url=base_url,endpoint=endpoint, payload=payload,expected_status_code=201)
+        logger.info(f"Given Endpoint : {endpoint} _______payload : {payload}___________ Response Body = {rs_api}")
+        return rs_api['data']['access_token']
+    
+    @allure.step("Login with an starpoin user ")
+    def loginstarpoin(self):
+        base_url = 'https://stg-api.siminvest.co.id/'
+        endpoint = 'api/v1/users/signin/phone'
+        data = {"phone_number": "628445557119","pin": "123456","device_id": "3F4330E5-4F07-4A26-A710-A6552D583FE8"}
         payload = json.dumps(data)
         rs_api = request_utilities.post(base_url=base_url,endpoint=endpoint, payload=payload,expected_status_code=201)
         logger.info(f"Given Endpoint : {endpoint} _______payload : {payload}___________ Response Body = {rs_api}")

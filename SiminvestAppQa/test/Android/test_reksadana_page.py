@@ -17,7 +17,7 @@ class Reksadana_HomePage_test(ReksadanaPage):
     def test_functional_response_validation_of_reksadana_homepage(self):
         try:
             self.execute_script('lambda-name=test_functional_response_validation_of_reksadana_homepage')
-            self.open_reksadana_page(user_data['reg_no_6'])
+            self.open_reksadana_page(user_data['reg_no_7'])
             self.Validate_text_reksadana()
             self.validate_amount()
             self.validate_refresh_functionality_for_reksadana_page()
