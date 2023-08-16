@@ -110,6 +110,8 @@ class StartPoint_test(StarPointPage):
             self.verify_starpoint_page()
             self.verify_star_point_btn()
             self.click_button_mulai_starpoint()
+            self.click_checkbox_btn()
+            self.click_to_submit()    
             self.validate_thousand_separator_in_starpoin_Riwayat()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:

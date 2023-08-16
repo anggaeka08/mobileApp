@@ -406,7 +406,7 @@ class StarPointPage(HomePage):
    def Compare_values_between_homepage_and_starpoint(self):
       STARPOINT_Menu = self.get_attribute(startpoint_value2, "text")
       Starpoint_value_menu = STARPOINT_Menu[:]
-      self.sleeep(2)
+      self.sleep(2)
       self.click(back_btn)
       self.sleep(2)
       Starpoint_home =self.get_attribute(Star_point_value, "text")
