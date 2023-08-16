@@ -51,6 +51,12 @@ Term_cond_txt2 =  '//android.view.View[@content-desc="Program & Promo"]/android.
 Term_cond_txt3 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View[1]/android.view.View[1]'
 back_btn2 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 
+#popup minim tukar
+
+pop_up_txt = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]'
+
+btn_ok_pop = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
+
 
 #dashboard starpoint
 
@@ -127,10 +133,21 @@ riwayat_status2 = 'riwayat_entry_2_status'
 
 back_tukar_btn = 'tukar_back'
 tukar_icon = 'tukar_icon'
-tukar_txt1 = 'tukar_text_1'
+tukar_txt1 = 'tukar_text_1' # (Tukar Poin Anda)
+
 tukar_value1 = 'tukar_value'
 tukar_txt2 = 'tukar_text_2'
 tukar_txt4= 'tukar_text_4'
+
+tukar_head = 'tukar_header'  #(Tukar StarPoin)
+tukar_trf = 'tukar_transfer_text1'  #(Transfer ke RDN)
+tukar_nominal ='tukar_pilih_nominal' #(Pilih Nominal)
+Rp_50 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.TextView' #Rp 50,000
+Rp_100 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.widget.TextView' #Rp 100,000
+Rp_150 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[3]/android.widget.TextView' #Rp 150,000
+Rp_250 = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[4]/android.widget.TextView' #Rp 250,000
+
+
 
 
 
@@ -294,10 +311,10 @@ class StarPointPage(HomePage):
    @allure.step("Validate thousand separator in starpoin Riwayat")
    def validate_thousand_separator_in_starpoin_Riwayat(self):
             
-      for i in range(1,5):
+      for i in range(1,4):
             self.assert_not_in(' ', self.get_attribute(f'StarPoin_entry_{i}_text', 'text'))
             price_value = self.get_attribute(f'StarPoin_entry_{i}_value', 'text')
-            if len(price_value) >= 5:
+            if len(price_value) >= 4:
                 self.assert_in(',', price_value)
 
    @allure.step("Validate scroll up and down on Riwayat page and 25 Transaction")
@@ -345,3 +362,54 @@ class StarPointPage(HomePage):
      logger.info(api_starpoinhistory_name)
      for i in range(len( ui_riwayat_disiminvest)):
          self.assert_in(ui_riwayat_disiminvest[i], api_starpoinhistory_name)
+   
+
+   @allure.step("cover SMMA-001, 002, 003")
+   def validate_tukarpage_Starpoint_less_Minimun(self):
+    self.sleep(2)
+    empty_page_show= self.is_element_visible(empty_history_txt)
+    if empty_page_show == True:
+      self.assert_equal(self.is_element_visible(empty_history_txt), True)
+      self.assert_equal(self.is_element_visible(icon_empty_hitory), True)
+      self.click(tukar_btn)
+      self.sleep(2)
+      self.assert_equal(self.is_element_visible(pop_up_txt), True)
+      self.assert_equal(self.is_element_visible(btn_ok_pop), True)
+      self.sleep(2)
+      self.click(btn_ok_pop)
+    else:
+      self.click(tukar_btn)
+      self.sleep(2)
+      self.assert_equal(self.is_element_visible(tukar_head), True)
+      self.assert_equal(self.is_element_visible(tukar_nominal), True)
+      self.assert_equal(self.is_element_visible(tukar_trf), True)
+      self.assert_equal(self.is_element_visible(tukar_txt1), True)
+      self.assert_equal(self.is_element_visible(tukar_head), True)
+      self.assert_equal(self.is_element_visible(Rp_50), True)
+      tukar_rp = self.get_attribute(Rp_50, 'text')
+      tukar_rp_value = tukar_rp[3:]
+      self.assert_in(',', tukar_rp_value) 
+      self.assert_equal(self.is_element_visible(Rp_100), True)
+      self.assert_equal(self.is_element_visible(Rp_150), True)
+      self.assert_equal(self.is_element_visible(Rp_250), True)
+      self.sleep(2)
+      self.click(back_tukar_btn)
+
+
+   
+   @allure.step("compare value starpoint")
+   def Compare_values_between_homepage_and_starpoint(self):
+      STARPOINT_Menu = self.get_attribute(startpoint_value2, "text")
+      Starpoint_value_menu = STARPOINT_Menu[:]
+      self.sleeep(2)
+      self.click(back_btn)
+      self.sleep(2)
+      Starpoint_home =self.get_attribute(Star_point_value, "text")
+      Starpoint_value_home = Starpoint_home[:]
+      self.assert_equal(Starpoint_value_menu, Starpoint_value_home)
+
+   @allure.step("klik button mulai")
+   def click_button_mulai_starpoint(self):
+      self.sleep(2)
+      self.click(btn_mulai)
+      self.sleep(2)
