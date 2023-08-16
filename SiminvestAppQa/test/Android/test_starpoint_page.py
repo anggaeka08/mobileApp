@@ -107,6 +107,7 @@ class StartPoint_test(StarPointPage):
             self.click_to_submit()    
             self.validate_tukarpage_Starpoint_less_Minimun() 
             self.Compare_values_between_homepage_and_starpoint()
+            self.verify_starpoint_page()
             self.verify_star_point_btn()
             self.click_button_mulai_starpoint()
             self.validate_thousand_separator_in_starpoin_Riwayat()
