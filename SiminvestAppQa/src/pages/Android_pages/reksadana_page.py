@@ -21,40 +21,47 @@ saham_tab = '//android.widget.TextView[@content-desc="Saham_tab"]'
 Home = '//android.widget.TextView[@text="Home"]'
 profile = '//android.widget.TextView[@text="Profile"]'
 today = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[3]'
-Pasar_uang = '//android.widget.TextView[@content-desc="reksadana_pasarUang_text1"]'
-icon_pasar_uang = '//android.widget.ImageView[@content-desc="reksadana_pasarUang_Image1"]'
-Pasar_uang_title = '//android.widget.TextView[@content-desc="reksadana_psruang_tittle"]'
-back_btn_pasar_uang = '//android.view.ViewGroup[@content-desc="reksadana_psruang_backbutton"]/android.widget.ImageView'
-product_pasar_uang = '//android.widget.TextView[@content-desc="reksadana_psruang_subtitle"]'
+Pasar_uang = 'reksadana_pasarUang_text1'
+icon_pasar_uang = 'reksadana_pasarUang_Image1'
+Pasar_uang_title = 'reksadana_psruang_tittle'
+back_btn_pasar_uang = 'reksadana_psruang_backbutton'
+product_pasar_uang = 'reksadana_psruang_subtitle'
 title_product_pasar_uang_1 = '(//android.widget.TextView[@content-desc="reksadana_psruang_entry_1_text"])[1]'
 title_product_pasar_uang_2 = '(//android.widget.TextView[@content-desc="reksadana_psruang_entry_1_text"])[2]'
 title_product_pasar_uang_3 = '(//android.widget.TextView[@content-desc="reksadana_psruang_entry_1_text"])[3]'
 
 
 btn_beli = '//android.view.ViewGroup[@content-desc="button_beli"]/android.widget.TextView'
-back_btn_rdp = '//android.view.ViewGroup[@content-desc="back_button"]/android.widget.ImageView'
+back_btn_rdp = 'back_button'
 product_pasar_uang_1 = '(//android.widget.TextView[@content-desc="reksadana_psruang_entry_1_text"])[1]'
 btn_beli_psr_uang = '//android.view.ViewGroup[@content-desc="button_beli"]/android.widget.TextView'
-icon_pendapatan_tetap = '//android.widget.ImageView[@content-desc="reksadana_PendapatanTtp_Image1"]'
-Pendapatan_Tetap = '//android.widget.TextView[@content-desc="reksadana_PendapatanTtp_text1"]'
-Pendapatan_tetap_title = '//android.widget.TextView[@content-desc="reksadana_pndptn_tetap_title"]'
-product_pendapatan_tetap = '//android.widget.TextView[@content-desc="reksadana_pndptn_tetap_subtitle"]'
-back_btn_pendapatan_tetap = '//android.view.ViewGroup[@content-desc="reksadana_pndptn_tetap_backbtn"]/android.widget.ImageView'
-icon_saham = '//android.widget.ImageView[@content-desc="reksadana_saham_Image1"]'
-Saham = '//android.widget.TextView[@content-desc="reksadana_saham_tetx1"]'
-Saham_title = '//android.widget.TextView[@content-desc="reksadana_saham_tittle"]'
-product_saham = '//android.widget.TextView[@content-desc="reksadana_saham_subtitle"]'
-back_btn_saham = '//android.view.ViewGroup[@content-desc="reksadana_saham_backbutton"]/android.widget.ImageView'
-icon_campuran = '//android.widget.ImageView[@content-desc="reksadana_Campuran_Image1"]'
-Campuran = '//android.widget.TextView[@content-desc="reksadana_Campuran_text1"]'
-Campuran_title = '//android.widget.TextView[@content-desc="reksadana_campuran_Title"]'
-product_campuran = '//android.widget.TextView[@content-desc="reksadana_campuran_subtitle"]'
-back_btn_campuran = '//android.view.ViewGroup[@content-desc="reksadana_campuran_backbtn"]/android.widget.ImageView'
+title_rdp_psr_uang = 'text_title'
+Pasar_uang_value_amount = '(//android.widget.TextView[@content-desc="reksadana_psruang_entry_1_nominal"])[1]'
+rdp_psr_uang_value_amount= '//android.view.ViewGroup[@content-desc="nav_chart_details"]/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]'
+Pasar_uang_value_Aum = '(//android.widget.TextView[@content-desc="reksadana_psruang_entry_1_aum"])[1]'
+Pasar_uang_value_Percentage = '(//android.widget.TextView[@content-desc="reksadana_psruang_entry_1_percentage"])[1]'
+Pasar_uang_value_Date = '(//android.widget.TextView[@content-desc="reksadana_psruang_entry_1_date"])[1]'
+icon_pendapatan_tetap = 'reksadana_PendapatanTtp_Image1'
+Pendapatan_Tetap = 'reksadana_PendapatanTtp_text1'
+Pendapatan_tetap_title = 'reksadana_pndptn_tetap_title'
+product_pendapatan_tetap = 'reksadana_pndptn_tetap_subtitle'
+back_btn_pendapatan_tetap = 'reksadana_pndptn_tetap_backbtn'
+icon_saham = 'reksadana_saham_Image1'
+Saham = 'reksadana_saham_tetx1'
+Saham_title = 'reksadana_saham_tittle'
+product_saham = 'reksadana_saham_subtitle'
+back_btn_saham = 'reksadana_saham_backbutton'
+icon_campuran = 'reksadana_Campuran_Image1'
+Campuran = 'reksadana_Campuran_text1'
+Campuran_title = 'reksadana_campuran_Title'
+product_campuran = 'reksadana_campuran_subtitle'
+back_btn_campuran = 'reksadana_campuran_backbtn'
+
 top_reksadana_title= '//android.view.ViewGroup[@content-desc="Top_reksadana_title1"]/android.widget.TextView'
 icon_i = '//android.view.ViewGroup[@content-desc="Top_reksadana_title1"]/android.widget.ImageView'
-half_card_title = '//android.widget.TextView[@content-desc="top_reksadana_title"]'
-half_card_subtitle = '//android.widget.TextView[@content-desc="top_reksadana_subtitle"]'
-half_card_btn_close = '//android.view.ViewGroup[@content-desc="top_reksadana_btn_close"]/android.widget.ImageView'
+half_card_title = 'top_reksadana_title'
+half_card_subtitle = 'top_reksadana_subtitle'
+half_card_btn_close = 'top_reksadana_btn_close'
 
 #product list mutual fund
 list_product_mf1 = '(//android.view.ViewGroup[@content-desc="Top_reksadana_box1"])[1]'
@@ -166,24 +173,36 @@ class ReksadanaPage(HomePage):
         self.assert_equal(self.get_attribute(title_product_pasar_uang_2, 'text'), 'Simas Kas Prima')
         self.assert_equal(self.is_element_visible(title_product_pasar_uang_3),True)
         self.assert_equal(self.get_attribute(title_product_pasar_uang_3, 'text'), 'Danamas Rupiah')
-
+        Pasar_uang_amount = self.get_attribute(Pasar_uang_value_amount, "text")
+        Pasar_uang_value = Pasar_uang_amount[:]
+        Pasar_uang_Aum = self.get_attribute(Pasar_uang_value_Aum, "text")
+        Pasar_uang_Percentage = self.get_attribute(Pasar_uang_value_Percentage, "text")
+        Pasar_uang_Date = self.get_attribute(Pasar_uang_value_Date, "text")
         self.assert_equal(self.is_element_visible(back_btn_pasar_uang),True)
         self.click(product_pasar_uang_1)
         self.sleep(2)
-        self.assert_equal(self.is_element_visible(btn_beli_psr_uang),True)
-        self.assert_equal(self.get_attribute(btn_beli_psr_uang, 'text'), 'BELI')
+        self.assert_equal(self.is_element_visible(title_rdp_psr_uang),True)
+        self.assert_equal(self.get_attribute(title_rdp_psr_uang, 'text'), 'Danamas Rupiah Plus')
+        rdp_psr_uang_amount = self.get_attribute(rdp_psr_uang_value_amount, "text")
+        rdp_psr_uang_value= rdp_psr_uang_amount[:]
         self.click(back_btn_rdp)
         self.sleep(2)
         self.assert_equal(self.get_attribute(Pasar_uang_title, 'text'), 'PASAR UANG')
         self.click(back_btn_pasar_uang)
         self.sleep(2)
         self.assert_equal(self.get_attribute(Portfolio_reksadana, 'text'), 'Portfolio reksadana')
-  
+
+    
+    @allure.step("click_list_product_mf1")
+    def click_list_product_mf1(self):
+        self.click(list_product_mf1)
+        self.sleep(1)
+
     @allure.step("validate_RDP")
     def validate_RDP(self): 
         self.assert_equal(self.is_element_visible(btn_beli),True)
         self.assert_equal(self.get_attribute(btn_beli, 'text'), 'BELI')
-        self.click(back_btn_rdp) 
+        self.click(back_btn_rdp)
         self.sleep(3)      
         self.assert_equal(self.get_attribute(Portfolio_reksadana, 'text'), 'Portfolio reksadana')
         self.click(list_product_mf1) 
