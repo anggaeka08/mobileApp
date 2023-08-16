@@ -310,7 +310,12 @@ class StarPointPage(HomePage):
       
    @allure.step("Validate thousand separator in starpoin Riwayat")
    def validate_thousand_separator_in_starpoin_Riwayat(self):
-            
+    self.sleep(2)
+    empty_page_show= self.is_element_visible(empty_history_txt)
+    if empty_page_show == True:
+      self.assert_equal(self.is_element_visible(empty_history_txt), True)
+      self.assert_equal(self.is_element_visible(icon_empty_hitory), True) 
+    else:       
       for i in range(1,4):
             self.assert_not_in(' ', self.get_attribute(f'StarPoin_entry_{i}_text', 'text'))
             price_value = self.get_attribute(f'StarPoin_entry_{i}_value', 'text')
