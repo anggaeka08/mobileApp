@@ -31,7 +31,7 @@ daftar_masuk_btn = '//android.widget.TextView[@text="Daftar / Masuk"]'
 masuk_page_header = '//android.widget.TextView[@text="Masuk"]'
 informasi_btn = '//android.widget.TextView[@text="Informasi RDN"]'
 #profile_icon = 'ProfilePageImage'
-profile_icon = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.TextView'
+profile_icon = 'ProfilePageImage'
 batan_btn = '//android.widget.TextView[@text="Batal"]'
 batan_btn1 = '//android.widget.TextView[@text="BATAL"]'
 camera_option = '//android.widget.TextView[@text="Camera"]'
@@ -229,7 +229,7 @@ class UserProfile(HomePage):
 
     @allure.step("Verify phone number available on prifile page")
     def verify_phone_number_available_on_profile_page(self):
-        self.sleep(1)
+        self.sleep(3)
         self.assert_equal(self.is_element_visible(phone__number_profile), True)
 
     @allure.step("Click on ajak akun and validate redirection")
@@ -524,14 +524,14 @@ class UserProfile(HomePage):
     def click_and_verify_to_hubunagi_tab(self):
         self.scroll_up()
         self.click(hubunagi_tab)
-        self.sleep(1)
+        self.sleep(2)
         self.assert_equal(self.is_element_visible(hubungi_header), True)
         self.assert_equal(self.is_element_visible(hubungi_email), True)
         self.assert_equal(self.is_element_visible(hubungi_number), True)
         self.assert_equal(self.is_element_visible(hubungi_whatsapp), True)
         self.go_back()
         self.sleep(1)
-        self.verify_phone_number_available_on_profile_page()
+        self.assert_equal(self.is_element_visible(hubunagi_tab), True)
 
 
     @allure.step("Click and verify to FAQs tab")

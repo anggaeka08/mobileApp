@@ -17,7 +17,7 @@ class SDP_test(StockDetailPage):
     def test_validate_Grammar_on_sdp_page(self):
         try:
             self.execute_script('lambda-name=test_validate_Grammar_on_sdp_page')
-            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_2'], 'ACES')
             self.validate_grammar_of_title()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
@@ -124,7 +124,7 @@ class SDP_test(StockDetailPage):
     def test_validate_sdp_exchange_hour_notification(self):
         try:
             self.execute_script('lambda-name=test_validate_sdp_exchange_hour_notification')
-            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_2'], 'ACES')
             self.validate_position_of_elements_on_sdp()
             self.validate_notification_in_timeline()
             self.execute_script("lambda-status=passed")
@@ -267,7 +267,7 @@ class SDP_test(StockDetailPage):
     def test_SBP_GTC_Validation(self):
         try:
             self.execute_script('lambda-name=test_SBP_GTC_Validation')
-            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_2'], 'ACES')
             self.check_for_buy_btn()
             self.click_on_buy_btn()
             self.verify_buy_page()
@@ -290,7 +290,7 @@ class SDP_test(StockDetailPage):
     def test_Stock_buy_conf_page(self):
         try:
             self.execute_script('lambda-name=test_Stock_buy_conf_page')
-            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ASII')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_2'], 'ASII')
             self.click_on_buy_btn()
             self.validate_order_confirmation_page_for_buy()
             self.validate_order_confirmation_page_for_sell()
@@ -387,7 +387,7 @@ class SDP_test(StockDetailPage):
     def test_sbp_function_validation(self):
         try:
             self.execute_script('lambda-name=test_sbp_function_validation')
-            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_2'], 'ACES')
             self.click_on_buy_btn()
             self.verify_buy_page()
             self.verify_buying_power_exceed_msg()

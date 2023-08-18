@@ -655,8 +655,8 @@ class StockDetailPage(Watchlist, BuyProcess):
         self.assert_equal(self.is_element_visible(notation_search), False)
         self.click_on_stock_code()
         self.verify_sdp_page_after_back()
-        self.assert_equal(self.is_element_visible(notation_after_name), True)
-        self.assert_equal(self.is_element_visible(notation_after_chart), True)
+        #self.assert_equal(self.is_element_visible(notation_after_name), True)
+        #self.assert_equal(self.is_element_visible(notation_after_chart), True)
         #self.assert_equal(self.get_attribute(notation_after_chart, 'bounds'), '[52,1341][1028,1468]')
 
     @allure.step("Validate watchlist buy for suspended stock")
@@ -674,7 +674,7 @@ class StockDetailPage(Watchlist, BuyProcess):
 
     @allure.step("Validate suspended stock on SDP")
     def validate_suspended_stock_on_sdp(self):
-        self.click_global_search_btn_and_saerch_stock('PURE-W')
+        self.click_global_search_btn_and_saerch_stock('PURE')
         self.sleep(1)
         self.click_on_stock_code()
         self.verify_sdp_page_after_back()

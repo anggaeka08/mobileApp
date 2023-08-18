@@ -15,7 +15,7 @@ class Cancel_test(CancelProcess):
     def test_Cancel_process_for_buy(self):
         try:
             self.execute_script('lambda-name=test_Cancel_process_for_buy')
-            self.open_sdp_page_with_kyc_user(user_data['reg_no'], 'ACES')
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_2'], 'ACES')
             self.check_for_buy_btn()
             self.click_on_buy_btn()
             self.verify_buy_page()

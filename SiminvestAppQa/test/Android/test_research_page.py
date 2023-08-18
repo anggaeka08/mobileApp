@@ -64,7 +64,7 @@ class Research_test(Research):
 
     @pytest.mark.RE_022_to_039
     @pytest.mark.Android
-    @pytest.mark.Research_1
+    @pytest.mark.Research
     @pytest.mark.Revamp
     @allure.story("F-4:Research Feature")
     def test_validate_red_dots_on_stock_signal(self):
