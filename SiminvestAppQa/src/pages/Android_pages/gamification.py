@@ -133,7 +133,7 @@ t_c_Text_1 = '//android.view.ViewGroup/android.widget.ScrollView/android.view.Vi
 t_c_text_2 = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[5]/android.view.ViewGroup/android.widget.TextView'
 t_c_header = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]'
 definded_mission_list = ['Beri Penilaian', 'Penjualan Pertama', 'Daftar', 'Registrasi', 'Pembelian Pertama']
-
+ok_btn = '//android.view.ViewGroup/android.widget.TextView[@text="Ok"]'
 
 
 class Gamification(HomePage):
@@ -154,6 +154,13 @@ class Gamification(HomePage):
         if self.is_element_visible(gamification_check_box)==True:
             self.click(gamification_check_box)
             self.click(tc_submit)
+            self.sleep(2)
+            self.click(ok_btn)
+            self.sleep(2)
+            self.click(ok_btn)
+            self.sleep(2)
+            self.scroll_down()
+            self.sleep(2)
             self.assert_equal(self.is_element_visible(gamification_header),True)
         else:
             self.assert_equal(self.is_element_visible(gamification_header),True)
@@ -264,6 +271,7 @@ class Gamification(HomePage):
 
     @allure.step("Validate lihat semua button functionality")
     def validate_lihat_semua_functionality(self):
+        self.scroll_up()
         self.click(onboarding_lihat_btn)
         self.sleep(1)
         self.assert_equal(self.is_element_visible(lihat_semua_entry_1), True)
