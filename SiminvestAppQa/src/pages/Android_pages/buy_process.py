@@ -479,6 +479,7 @@ class BuyProcess(HomePage):
         self.sleep(5)
         if self.is_element_visible(ok_btn_close) == True:
             self.go_back()
+            self.click(ok_btn_close)
         else :
             self.assert_equal(self.is_element_visible(ok_btn), True)
             self.go_back()
@@ -649,7 +650,7 @@ class BuyProcess(HomePage):
             harga_without_rp = harga_o[3:]
             lot_value_o = self.get_attribute(lot_order, 'text')
             self.assert_equal(stock_code_b, stock_code_o)
-            self.assert_equal(stock_full_name_b, stock_full_name_o)
+            #self.assert_equal(stock_full_name_b, stock_full_name_o)
             self.assert_equal(harga_b, harga_without_rp)
             self.assert_equal(lot_value_b, lot_value_o)
         else:

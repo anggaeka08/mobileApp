@@ -87,7 +87,7 @@ class Amend_test(AmendProcess):
     def test_button_functional_on_amend(self):
         try:
             self.execute_script('lambda-name=test_button_functional_on_amend')
-            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            self.open_trans_page_with_reg_user(user_data['reg_no_2'])
             self.open_status_page_of_buy_order()
             self.verify_order_status_page()
             self.click_on_amend_btn()
@@ -136,7 +136,7 @@ class Amend_test(AmendProcess):
     def test_amend_mathematical_and_numerical_validation(self):
         try:
             self.execute_script('lambda-name=test_amend_mathematical_and_numerical_validation')
-            self.open_trans_page_with_reg_user(user_data['reg_no'])
+            self.open_trans_page_with_reg_user(user_data['reg_no_3'])
             self.validate_numeric_and_mathematical_values_on_amend_page()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:

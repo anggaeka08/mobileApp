@@ -15,7 +15,7 @@ class BuyProcess_test(BuyProcess):
     def test_positive_flow_for_buy(self):
         try:
             self.execute_script('lambda-name=test_positive_flow_for_buy')
-            self.open_sdp_page_with_kyc_user(user_data['reg_no'],user_data['stock_code'][1] )
+            self.open_sdp_page_with_kyc_user(user_data['reg_no_2'],user_data['stock_code'][1] )
             self.check_for_buy_btn()
             self.click_on_buy_btn()
             self.verify_buy_page()
