@@ -88,3 +88,32 @@ class StartPoint_test(StarPointPage):
             self.save_screenshot('test_api_data_validation_for_Starpoint', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+
+
+    @pytest.mark.validation_functional_part1_Starpoint
+    @pytest.mark.Android
+    @pytest.mark.starpoint
+    @allure.story("F-20 :StarPoint Page")
+    def test_validation_functional_part1_Starpoint(self):
+        try:
+            self.execute_script('lambda-name=test_validation_functional_part1_Starpoint')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_4'])
+            self.verify_starpoint_page()
+            self.verify_star_point_btn()
+            self.Validate_starPoint_Swipe_and_Value()
+            self.validate_show_TC_afterTutorial()
+            self.click_checkbox_btn()
+            self.click_to_submit()    
+            self.validate_tukarpage_Starpoint_less_Minimun()  
+            self.validate_thousand_separator_in_starpoin_Riwayat()
+            self.Compare_values_between_homepage_and_starpoint()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validation_functional_part1_Starpoint', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validation_functional_part1_Starpoint', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
