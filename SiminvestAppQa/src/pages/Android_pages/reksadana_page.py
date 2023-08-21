@@ -264,6 +264,7 @@ class ReksadanaPage(HomePage):
         self.click(half_card_btn_close)
         self.assert_equal(self.is_element_visible(half_card_subtitle),False)
         self.click(icon_i)
+        self.sleep(2)
         self.driver.back()
         self.assert_equal(self.is_element_visible(half_card_subtitle),False)
         self.sleep(3)

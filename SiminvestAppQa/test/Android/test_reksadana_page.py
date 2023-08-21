@@ -28,12 +28,12 @@ class Reksadana_HomePage_test(ReksadanaPage):
             self.click_list_product_mf1()
             self.sleep(3)
             self.validate_RDP()
+            self.validate_pendapatan_tetap_page()
+            self.validate_saham_page()
+            self.validate_campuran_page()
+            self.validate_half_card()
             
-            #next tiket
-            #self.validate_pendapatan_tetap_page()
-            #self.validate_saham_page()
-            #self.validate_campuran_page()
-            #self.validate_half_card()
+            #next ticket
             #self.validate_list_mutual_fund()
             #self.validate_return_mutual_fund()
             #self.execute_script("lambda-status=passed")
