@@ -32,11 +32,10 @@ class Reksadana_HomePage_test(ReksadanaPage):
             self.validate_saham_page()
             self.validate_campuran_page()
             self.validate_half_card()
-            
-            #next ticket
-            #self.validate_list_mutual_fund()
-            #self.validate_return_mutual_fund()
-            #self.execute_script("lambda-status=passed")
+            self.validate_list_mutual_fund()
+            self.validate_return_mutual_fund()
+            self.click_list_product_mf2()
+            self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_functional_response_validation_of_reksadana_homepage', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")

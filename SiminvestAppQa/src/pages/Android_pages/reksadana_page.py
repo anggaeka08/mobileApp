@@ -56,6 +56,7 @@ Campuran = 'reksadana_Campuran_text1'
 Campuran_title = 'reksadana_campuran_Title'
 product_campuran = 'reksadana_campuran_subtitle'
 back_btn_campuran = 'reksadana_campuran_backbtn'
+text_title_rdp = 'text_title'
 
 top_reksadana_title= '//android.view.ViewGroup[@content-desc="Top_reksadana_title1"]/android.widget.TextView'
 icon_i = '//android.view.ViewGroup[@content-desc="Top_reksadana_title1"]/android.widget.ImageView'
@@ -144,8 +145,8 @@ class ReksadanaPage(HomePage):
       self.click(reksadana)
       self.sleep(2)
       self.assert_equal(self.is_element_visible(reksadana), True)
-   
-          
+      
+
     @allure.step("validate_refresh_for_reksadana_page_when_tab_other")
     def validate_refresh_for_reksadana_page_when_tab_other(self):
         self.click(transaction)
@@ -309,3 +310,18 @@ class ReksadanaPage(HomePage):
     def validate_return_mutual_fund(self): 
         self.assert_equal(self.is_element_visible(return_1Y_mf),True)
         self.sleep(2)
+    
+    @allure.step("click_list_product_mf2")
+    def click_list_product_mf2(self):
+        self.click(list_product_mf2)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(text_title_rdp),True)
+        self.click(back_btn_rdp)
+        self.sleep(3)      
+        self.assert_equal(self.get_attribute(Portfolio_reksadana, 'text'), 'Portfolio reksadana')
+        self.click(list_product_mf2)
+        self.sleep(3)
+        self.assert_equal(self.is_element_visible(text_title_rdp),True)
+        self.driver.back()
+        self.sleep(3)      
+        self.assert_equal(self.get_attribute(Portfolio_reksadana, 'text'), 'Portfolio reksadana')
