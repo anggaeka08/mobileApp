@@ -255,7 +255,7 @@ class StarPointPage(HomePage):
    @allure.step("validate reopen T&C cover test 0012,0013,0014")
    def Validate_Reopen_not_showing(self):
       self.launch_app_again()
-      self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
+      self.login_and_verify_homepage_for_reg_user(user_data['reg_no_5'])
       self.verify_starpoint_page()
       self.verify_star_point_btn()
       self.sleep(2)
@@ -418,3 +418,34 @@ class StarPointPage(HomePage):
       self.sleep(2)
       self.click(btn_mulai)
       self.sleep(2)
+
+   @allure.step("validate element menu tukar")
+   def validate_elemnt_tukar_menu(self):
+      self.click(tukar_btn)
+      self.sleep(2)
+      self.assert_equal(self.is_element_visible(tukar_head), True)
+      self.assert_equal(self.is_element_visible(tukar_nominal), True)
+      self.assert_equal(self.is_element_visible(tukar_trf), True)
+      self.assert_equal(self.is_element_visible(tukar_txt1), True)
+      self.assert_equal(self.is_element_visible(tukar_head), True)
+      self.assert_equal(self.is_element_visible(Rp_50), True)
+      tukar_rp = self.get_attribute(Rp_50, 'text')
+      tukar_rp_value = tukar_rp[3:]
+      self.assert_in(',', tukar_rp_value) 
+      self.assert_equal(self.is_element_visible(Rp_100), True)
+      self.assert_equal(self.is_element_visible(Rp_150), True)
+      self.assert_equal(self.is_element_visible(Rp_250), True)
+      self.sleep(2)
+      self.click(back_tukar_btn)
+
+   @allure.step("kill apss")
+   def Validate_kill_app(self):
+      self.launch_app_again()
+      self.login_and_verify_homepage_for_reg_user(user_data['reg_no_5'])
+      self.verify_starpoint_page()
+      self.verify_star_point_btn()
+      self.sleep(2)
+
+
+   
+   
