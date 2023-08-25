@@ -44,4 +44,23 @@ class Reksadana_HomePage_test(ReksadanaPage):
             self.save_screenshot('test_functional_response_validation_of_reksadana_homepage', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
-            
+
+
+    @pytest.mark.mathematical_validation_on_homepage
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Homepage")
+    def test_mathematical_validation_on_homepage(self):
+        try:
+            self.execute_script('lambda-name=test_mathematical_validation_on_homepage')
+            self.open_reksadana_page(user_data['reg_no_7'])
+            self.mathematical_validation_on_homepage()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_mathematical_validation_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_mathematical_validation_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)            
