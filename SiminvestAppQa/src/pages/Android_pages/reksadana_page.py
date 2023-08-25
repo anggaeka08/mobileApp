@@ -89,7 +89,10 @@ logo_product_mf9 = '(//android.view.ViewGroup[@content-desc="Top_reksadana_box1"
 logo_product_mf10 = '(//android.view.ViewGroup[@content-desc="Top_reksadana_box1"])[10]/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup'
 
 return_1Y_mf='(//android.widget.TextView[@content-desc="Top_reksadana_Returntext1"])[1]'
-	
+return_percentage = '(//android.widget.TextView[@content-desc="Top_reksadana_percentage1"])[1]'
+return_percentage_4 = '(//android.widget.TextView[@content-desc="Top_reksadana_percentage1"])[4]'
+return_percentage_10 = '(//android.widget.TextView[@content-desc="Top_reksadana_percentage1"])[10]'
+
 
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
@@ -325,3 +328,58 @@ class ReksadanaPage(HomePage):
         self.driver.back()
         self.sleep(3)      
         self.assert_equal(self.get_attribute(Portfolio_reksadana, 'text'), 'Portfolio reksadana')
+    
+    @allure.step("scroll up homepage")
+    def scroll_up_homepage(self):
+        self.scroll_screen(start_x=470, start_y=1176, end_x=439, end_y=796, duration=10000)
+        self.sleep(2)   
+     
+    @allure.step("scroll up homepage")
+    def scroll_up_homepage_2(self):
+        self.scroll_screen(start_x=382, start_y=1891, end_x=558, end_y=630, duration=10000)
+        self.sleep(2)      
+           
+        
+    @allure.step("mathematical validation on homepage")
+    def mathematical_validation_on_homepage(self):
+        self.click(reksadana)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(reksadana), True)   
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(Portfolio_reksadana, 'text'), 'Portfolio reksadana')
+        
+        current_price = self.get_attribute(total_amount, 'text')
+        current_percentage = self.get_attribute(today, 'text')
+        current_percentage_return = self.get_attribute(return_percentage, 'text')
+        
+        c = '('
+        index = current_price.find(c)
+        resposnePrice = (current_price[:])
+        
+        d = current_percentage.find('%')
+        response_percentage = (current_percentage[2:d])
+        
+        e = current_percentage_return.find('%')
+        response_return_percentage = (current_percentage_return[0:e])
+        
+        self.scroll_up_homepage()
+        self.scroll_up_homepage_2()
+        
+        current_percentage_return_4 = self.get_attribute(return_percentage_4, 'text')
+        e = current_percentage_return_4.find('%')
+        response_return_percentage_4 = (current_percentage_return_4[0:e])
+        
+        current_percentage_return_10 = self.get_attribute(return_percentage_10, 'text')
+        e = current_percentage_return_10.find('%')
+        response_return_percentage_10 = (current_percentage_return_10[0:e])
+        
+        logger.info(current_price)
+        logger.info(current_percentage)
+        logger.info(current_percentage_return)
+        logger.info(current_percentage_return_10)
+        
+        logger.info(f'resposnePrice {resposnePrice}')
+        logger.info(f'response_percentage_today {response_percentage}')
+        logger.info(f'response_percentage_max {response_return_percentage}')
+        logger.info(f'response_percentage_midle {response_return_percentage_4}')
+        logger.info(f'response_percentage_min {response_return_percentage_10}')
