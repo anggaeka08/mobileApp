@@ -93,6 +93,8 @@ return_percentage = '(//android.widget.TextView[@content-desc="Top_reksadana_per
 return_percentage_4 = '(//android.widget.TextView[@content-desc="Top_reksadana_percentage1"])[4]'
 return_percentage_10 = '(//android.widget.TextView[@content-desc="Top_reksadana_percentage1"])[10]'
 
+title_product_mf_9 = '(//android.view.ViewGroup[@content-desc="Top_reksadana_box1"])[9]/android.view.ViewGroup[1]/android.widget.TextView[1]'
+
 
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
@@ -383,3 +385,49 @@ class ReksadanaPage(HomePage):
         logger.info(f'response_percentage_max {response_return_percentage}')
         logger.info(f'response_percentage_midle {response_return_percentage_4}')
         logger.info(f'response_percentage_min {response_return_percentage_10}')
+        
+
+    @allure.step("validate the data with api and app ui")
+    def validate_data_with_api_and_ui(self):
+        self.click(reksadana)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(reksadana), True)
+        
+        saldo_reksadana_with_rp = (self.get_attribute(total_amount, 'text')).replace(',', '')
+        saldo_reksadana_value =  str(saldo_reksadana_with_rp[3:])
+        amount_invested_value = (saldo_reksadana_value [:8])
+        logger.info(saldo_reksadana_value)
+        logger.info(amount_invested_value)
+        
+        category_value= self.get_attribute(Campuran, 'text')
+        logger.info(category_value)
+        
+        self.scroll_up_homepage()
+        self.scroll_up_homepage_2()
+        product_value= self.get_attribute(title_product_mf_9, 'text')
+        logger.info( product_value)
+        
+        token_value = self.login_with_a_number(user_data['reg_no_7'])
+        token = {
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidlJnbGsyVDB3cWhxQ3U0Mm1OOGsyVEZmMFIwc2I0MyIsInN1YiI6IlNpbWFzSW52ZXN0In0.IBV4PRj9HG9TCm6lVNXmkgbsA9a43ngRIlDZ4o4rNdY"}
+        token['Authorization'] = 'Bearer ' + token_value
+        reksadana_homepage_api = request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint=f"api/v1/users/auth/fund/portfoliov3/{user_data['reg_no_7']}", headers=token, expected_status_code=200)
+        
+        for i in range(len(reksadana_homepage_api['accounts'])):
+            saldo_value_api = reksadana_homepage_api['accounts'][i]['balance']
+            saldo_api= str(saldo_value_api)
+            logger.info(saldo_value_api)
+            self.assert_equal(saldo_api, saldo_reksadana_value)
+            
+            amount_invested_api = reksadana_homepage_api['accounts'][i]['amount_invested']
+            amount_invested_value_api= str( amount_invested_api)
+            logger.info(amount_invested_value_api)
+            self.assert_equal(amount_invested_value_api, amount_invested_value)
+            
+            category_name_api = str(reksadana_homepage_api['accounts'][i]['investments']['mixed'][i]['category'])
+            self.assert_equal(category_name_api, category_value)
+            logger.info(category_name_api)
+            
+            product_name_api = str(reksadana_homepage_api['accounts'][i]['investments']['money_market'][i]['name'])
+            self.assert_equal(product_name_api, product_value)
+            logger.info(product_name_api)
