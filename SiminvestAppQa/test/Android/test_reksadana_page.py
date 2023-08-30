@@ -63,4 +63,24 @@ class Reksadana_HomePage_test(ReksadanaPage):
         except NoSuchElementException as E:
             self.save_screenshot('test_mathematical_validation_on_homepage', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
-            pytest.fail(E.msg, pytrace=True)            
+            pytest.fail(E.msg, pytrace=True)      
+            
+
+    @pytest.mark.API_data_validation_reksadana_homepage
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Homepage")
+    def test_ui_and_api_data_validation_reksadana_homepage(self):
+        try:
+            self.execute_script('lambda-name=test_ui_and_api_data_validation')
+            self.open_reksadana_page(user_data['reg_no_7'])
+            self.validate_data_with_api_and_ui()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_ui_and_api_data_validation_reksadana_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_ui_and_api_data_validation_reksadana_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)                
