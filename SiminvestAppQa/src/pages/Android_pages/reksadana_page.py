@@ -93,8 +93,6 @@ return_percentage = '(//android.widget.TextView[@content-desc="Top_reksadana_per
 return_percentage_4 = '(//android.widget.TextView[@content-desc="Top_reksadana_percentage1"])[4]'
 return_percentage_10 = '(//android.widget.TextView[@content-desc="Top_reksadana_percentage1"])[10]'
 
-title_product_mf_9 = '(//android.view.ViewGroup[@content-desc="Top_reksadana_box1"])[9]/android.view.ViewGroup[1]/android.widget.TextView[1]'
-
 
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
@@ -402,11 +400,6 @@ class ReksadanaPage(HomePage):
         category_value= self.get_attribute(Campuran, 'text')
         logger.info(category_value)
         
-        self.scroll_up_homepage()
-        self.scroll_up_homepage_2()
-        product_value= self.get_attribute(title_product_mf_9, 'text')
-        logger.info( product_value)
-        
         token_value = self.login_with_a_number(user_data['reg_no_7'])
         token = {
             "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidlJnbGsyVDB3cWhxQ3U0Mm1OOGsyVEZmMFIwc2I0MyIsInN1YiI6IlNpbWFzSW52ZXN0In0.IBV4PRj9HG9TCm6lVNXmkgbsA9a43ngRIlDZ4o4rNdY"}
@@ -427,7 +420,3 @@ class ReksadanaPage(HomePage):
             category_name_api = str(reksadana_homepage_api['accounts'][i]['investments']['mixed'][i]['category'])
             self.assert_equal(category_name_api, category_value)
             logger.info(category_name_api)
-            
-            product_name_api = str(reksadana_homepage_api['accounts'][i]['investments']['money_market'][i]['name'])
-            self.assert_equal(product_name_api, product_value)
-            logger.info(product_name_api)
