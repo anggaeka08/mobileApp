@@ -93,6 +93,9 @@ return_percentage = '(//android.widget.TextView[@content-desc="Top_reksadana_per
 return_percentage_4 = '(//android.widget.TextView[@content-desc="Top_reksadana_percentage1"])[4]'
 return_percentage_10 = '(//android.widget.TextView[@content-desc="Top_reksadana_percentage1"])[10]'
 
+title_mf_1= '(//android.view.ViewGroup[@content-desc="Top_reksadana_box1"])[1]/android.view.ViewGroup[1]/android.widget.TextView[1]'
+
+
 
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
@@ -420,3 +423,17 @@ class ReksadanaPage(HomePage):
             category_name_api = str(reksadana_homepage_api['accounts'][i]['investments']['mixed'][i]['category'])
             self.assert_equal(category_name_api, category_value)
             logger.info(category_name_api)
+            
+    @allure.step("Validate_title_rdp")
+    def Validate_title_rdp(self): 
+        self.click(reksadana)
+        self.sleep(3)
+        self.assert_equal(self.is_element_visible(reksadana), True)
+        self.assert_equal(self.get_attribute(Portfolio_reksadana, 'text'), 'Portfolio reksadana')
+        
+        title_mf_homepage = self.get_attribute(title_mf_1, 'text')
+        self.click(list_product_mf1)
+        self.sleep(2)
+        title_mf_rdp = self.get_attribute(text_title_rdp, 'text')
+        self.assert_equal(title_mf_homepage, title_mf_rdp)
+    

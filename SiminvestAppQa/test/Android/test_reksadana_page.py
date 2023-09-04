@@ -8,12 +8,12 @@ import time
 import logging as logger
 
 
-class Reksadana_HomePage_test(ReksadanaPage):
+class Reksadana_Feature(ReksadanaPage):
 
     @pytest.mark.functional_response_validation_of_reksadana_homepage
     @pytest.mark.Reksadana
     @pytest.mark.Android
-    @allure.story("F-21 :Reksadana Homepage")
+    @allure.story("F-21 :Reksadana Feature")
     def test_functional_response_validation_of_reksadana_homepage(self):
         try:
             self.execute_script('lambda-name=test_functional_response_validation_of_reksadana_homepage')
@@ -49,7 +49,7 @@ class Reksadana_HomePage_test(ReksadanaPage):
     @pytest.mark.mathematical_validation_on_homepage
     @pytest.mark.Reksadana
     @pytest.mark.Android
-    @allure.story("F-21 :Reksadana Homepage")
+    @allure.story("F-21 :Reksadana Feature")
     def test_mathematical_validation_on_homepage(self):
         try:
             self.execute_script('lambda-name=test_mathematical_validation_on_homepage')
@@ -69,7 +69,7 @@ class Reksadana_HomePage_test(ReksadanaPage):
     @pytest.mark.API_data_validation_reksadana_homepage
     @pytest.mark.Reksadana
     @pytest.mark.Android
-    @allure.story("F-21 :Reksadana Homepage")
+    @allure.story("F-21 :Reksadana Feature")
     def test_ui_and_api_data_validation_reksadana_homepage(self):
         try:
             self.execute_script('lambda-name=test_ui_and_api_data_validation')
@@ -84,3 +84,24 @@ class Reksadana_HomePage_test(ReksadanaPage):
             self.save_screenshot('test_ui_and_api_data_validation_reksadana_homepage', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)                
+
+
+    @pytest.mark.functional_response_validation_of_reksadana_rdp
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Feature")
+    def test_functional_response_validation_of_reksadana_rdp(self):
+        try:
+            self.execute_script('lambda-name=test_functional_response_validation_of_reksadana_rdp')
+            self.open_reksadana_page(user_data['reg_no_7'])
+            self.Validate_title_rdp()
+            
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_response_validation_of_reksadana_rdp', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_response_validation_of_reksadana_rdp', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)         
