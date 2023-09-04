@@ -158,7 +158,8 @@ class StartPoint_test(StarPointPage):
             self.validate_show_TC_afterTutorial()
             self.click_checkbox_btn()
             self.click_to_submit()     
-            self.validate_backbtn_homepage_and_starpoint()
+            self.validate_back_dashboardStarpoint_and_poin()
+            self.validate_back_homepagestarpoin_and_point()
             self.Validate_kill_app()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:

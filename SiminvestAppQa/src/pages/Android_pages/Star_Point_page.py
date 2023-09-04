@@ -447,5 +447,36 @@ class StarPointPage(HomePage):
       self.sleep(2)
 
 
-   
+   @allure.step("validate element menu tukar")
+   def validate_back_dashboardStarpoint_and_poin(self):
+      self.click(tukar_btn)
+      self.sleep(2)
+      self.assert_equal(self.is_element_visible(tukar_head), True)
+      self.assert_equal(self.is_element_visible(tukar_nominal), True)
+      self.assert_equal(self.is_element_visible(tukar_trf), True)
+      self.assert_equal(self.is_element_visible(tukar_txt1), True)
+      self.assert_equal(self.is_element_visible(tukar_head), True)
+      self.assert_equal(self.is_element_visible(Rp_50), True)
+      tukar_rp = self.get_attribute(Rp_50, 'text')
+      tukar_rp_value = tukar_rp[3:]
+      self.assert_in(',', tukar_rp_value) 
+      self.sleep(2)
+      self.click(back_tukar_btn)
+      self.sleep(2)
+      starpoin_dashboard = self.get_attribute(starpoint_saya, "text")
+      self.assert_equal(starpoin_dashboard, "StarPoin")
+      self.sleep(2)
+      self.assert_equal(self.is_element_visible(startpoint_value2), True)
+      self.sleep(2)
+
+   @allure.step("validate element menu tukar")
+   def validate_back_homepagestarpoin_and_point(self):
+      self.click(back_btn)
+      self.sleep(2)
+      starpoint_page_header_text = self.get_attribute(Star_point_txt, "text")
+      self.assert_equal(starpoint_page_header_text, "StarPoin")
+      self.sleep(2)
+      self.assert_equal(self.is_element_visible(Star_point_value), True)
+      self.sleep(2)
+
    
