@@ -95,6 +95,9 @@ class Reksadana_Feature(ReksadanaPage):
             self.execute_script('lambda-name=test_functional_response_validation_of_reksadana_rdp')
             self.open_reksadana_page(user_data['reg_no_7'])
             self.Validate_title_rdp()
+            self.validate_ringkasan_tab()
+            self.validate_half_card_rdp()
+            self.validate_button_on_rdp()
             
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
@@ -104,4 +107,24 @@ class Reksadana_Feature(ReksadanaPage):
         except NoSuchElementException as E:
             self.save_screenshot('test_functional_response_validation_of_reksadana_rdp', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
-            pytest.fail(E.msg, pytrace=True)         
+            pytest.fail(E.msg, pytrace=True)  
+            
+    @pytest.mark.functional_feature_of_reksadana_rdp_for_non_kyc_user
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Feature")
+    def test_functional_feature_of_reksadana_rdp_for_non_kyc_user(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_reksadana_rdp_for_non_kyc_user')
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+            self.validate_button_buka_account_reksadana()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_reksadana_rdp_for_non_kyc_user', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_reksadana_rdp_for_non_kyc_user', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+                   
