@@ -95,6 +95,20 @@ return_percentage_10 = '(//android.widget.TextView[@content-desc="Top_reksadana_
 
 title_mf_1= '(//android.view.ViewGroup[@content-desc="Top_reksadana_box1"])[1]/android.view.ViewGroup[1]/android.widget.TextView[1]'
 
+#ringkasan tab
+ringkasan_tab = '//android.view.ViewGroup[@content-desc="ringkasan_tab"]/android.widget.TextView'
+default_line = '//android.view.ViewGroup[@content-desc="ringkasan_tab"]/android.view.ViewGroup'
+min_initial_purchase = '//android.view.ViewGroup[@content-desc="resume_product"]/android.widget.TextView[2]'
+min_resale_price =  '//android.view.ViewGroup[@content-desc="resume_product"]/android.widget.TextView[6]'
+alert_header = 'alert_header'
+button_batal = 'alert_button_batal'
+button_top_up_rdp = 'Button_topup'
+button_buy_rdp = 'Button_jual1'
+button_prospektus = 'button_prospektus'
+button_fact_sheet = 'button_fact_sheet'
+
+#nonkyc
+buttonBukaAccount = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
 
 
 class ReksadanaPage(HomePage):
@@ -340,9 +354,8 @@ class ReksadanaPage(HomePage):
     @allure.step("scroll up homepage")
     def scroll_up_homepage_2(self):
         self.scroll_screen(start_x=382, start_y=1891, end_x=558, end_y=630, duration=10000)
-        self.sleep(2)      
-           
-        
+        self.sleep(2)  
+     
     @allure.step("mathematical validation on homepage")
     def mathematical_validation_on_homepage(self):
         self.click(reksadana)
@@ -436,4 +449,73 @@ class ReksadanaPage(HomePage):
         self.sleep(2)
         title_mf_rdp = self.get_attribute(text_title_rdp, 'text')
         self.assert_equal(title_mf_homepage, title_mf_rdp)
+    
+    @allure.step("scroll up RDP")
+    def scroll_up_RDP(self):
+        self.scroll_screen(start_x=537, start_y=1514, end_x=610, end_y=486, duration=10000)
+        self.sleep(2)
+      
+    @allure.step("validate_ringkasan_tab")
+    def validate_ringkasan_tab(self):
+        self.scroll_up_RDP()
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(ringkasan_tab), True)
+        self.assert_equal(self.get_attribute(ringkasan_tab, 'text'), 'RINGKASAN')
+        self.assert_equal(self.is_element_visible(default_line), True)
+        
+        min_initial_purchase_value = self.get_attribute(min_initial_purchase, 'text')
+        logger.info(min_initial_purchase_value)
+        min_resale_price_value = self.get_attribute(min_resale_price, 'text')
+        logger.info( min_resale_price_value)
+        
+        self.assert_equal(self.is_element_visible(button_prospektus), True)
+        self.click(button_prospektus)
+        self.sleep(2)
+        self.driver.back()
+        self.sleep(2)
+        title_mf_rdp = self.get_attribute(text_title_rdp, 'text')
+        logger.info(title_mf_rdp)
+        self.scroll_up_RDP()
+        self.sleep(2)
+        
+        self.assert_equal(self.is_element_visible(button_fact_sheet), True)
+        self.click(button_fact_sheet)
+        self.sleep(2)
+        self.driver.back()
+        self.sleep(2)
+        title_mf_rdp = self.get_attribute(text_title_rdp, 'text')
+        logger.info(title_mf_rdp)
+        self.scroll_up_RDP()
+        self.sleep(2)
+
+    @allure.step("validate_half_card_rdp")
+    def validate_half_card_rdp(self):
+        self.click(btn_beli)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(alert_header), True)
+        self.assert_equal(self.get_attribute(alert_header, 'text'), 'Tingkat resiko tidak sesuai')
+        self.click(button_batal)
+        self.sleep(1)
+        
+    @allure.step("validate_button_on_rdp")
+    def validate_button_on_rdp(self):
+        self.driver.back()
+        self.sleep(2)
+        
+        self.scroll_up_homepage()
+        self.scroll_up_homepage_2()
+        
+        self.click(list_product_mf3)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(button_top_up_rdp), True)
+        self.assert_equal(self.is_element_visible(button_buy_rdp), True)
+         
+    
+    @allure.step("validate_button_buka_account_reksadana")
+    def validate_button_buka_account_reksadana(self): 
+        self.click(reksadana)
+        self.sleep(3)
+        self.click(list_product_mf1)
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(buttonBukaAccount, 'text'), 'Buka Akun Reksadana')
     
