@@ -102,7 +102,10 @@ min_initial_purchase = '//android.view.ViewGroup[@content-desc="resume_product"]
 min_resale_price =  '//android.view.ViewGroup[@content-desc="resume_product"]/android.widget.TextView[6]'
 alert_header = 'alert_header'
 button_batal = 'alert_button_batal'
-button_rdp = 'Button_topup'
+button_top_up_rdp = 'Button_topup'
+button_buy_rdp = 'Button_jual1'
+button_prospektus = 'button_prospektus'
+button_fact_sheet = 'button_fact_sheet'
 
 #nonkyc
 buttonBukaAccount = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
@@ -465,6 +468,26 @@ class ReksadanaPage(HomePage):
         min_resale_price_value = self.get_attribute(min_resale_price, 'text')
         logger.info( min_resale_price_value)
         
+        self.assert_equal(self.is_element_visible(button_prospektus), True)
+        self.click(button_prospektus)
+        self.sleep(2)
+        self.driver.back()
+        self.sleep(2)
+        title_mf_rdp = self.get_attribute(text_title_rdp, 'text')
+        logger.info(title_mf_rdp)
+        self.scroll_up_RDP()
+        self.sleep(2)
+        
+        self.assert_equal(self.is_element_visible(button_fact_sheet), True)
+        self.click(button_fact_sheet)
+        self.sleep(2)
+        self.driver.back()
+        self.sleep(2)
+        title_mf_rdp = self.get_attribute(text_title_rdp, 'text')
+        logger.info(title_mf_rdp)
+        self.scroll_up_RDP()
+        self.sleep(2)
+
     @allure.step("validate_half_card_rdp")
     def validate_half_card_rdp(self):
         self.click(btn_beli)
@@ -478,9 +501,14 @@ class ReksadanaPage(HomePage):
     def validate_button_on_rdp(self):
         self.driver.back()
         self.sleep(2)
-        self.click(list_product_mf2)
+        
+        self.scroll_up_homepage()
+        self.scroll_up_homepage_2()
+        
+        self.click(list_product_mf3)
         self.sleep(2)
-        self.assert_equal(self.is_element_visible(button_rdp), True)
+        self.assert_equal(self.is_element_visible(button_top_up_rdp), True)
+        self.assert_equal(self.is_element_visible(button_buy_rdp), True)
          
     
     @allure.step("validate_button_buka_account_reksadana")
