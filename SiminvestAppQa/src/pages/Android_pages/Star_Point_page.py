@@ -545,13 +545,13 @@ class StarPointPage(HomePage):
          self.assert_equal(self.is_element_visible(riwayat_entry5), True)    
          
 
-   @allure.step("validate_correct_redirection_to_riwayat") 
+   @allure.step("validate correct redirection to riwayat page") 
    def validate_correct_redirection_to_riwayat(self):
       self.sleep(2)
       Riwayat_page_text = self.get_attribute(riwayat_page, "text")
       self.assert_equal(Riwayat_page_text, "Riwayat")
 
-   @allure.step("validate_correct_redirection") 
+   @allure.step("validate correct redirection starpoint page") 
    def validate_correct_redirection(self):
       self.sleep(2)
       StarPoin_page_text = self.get_attribute(StarPoin_page_header, "text")
