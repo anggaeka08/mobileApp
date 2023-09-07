@@ -188,8 +188,10 @@ class StartPoint_test(StarPointPage):
             self.Validate_formatdate_5trx_plusminus()
             self.validate_thousand_separator_should_show()
             self.Validate_starpoint_riwayat()
+            self.validate_correct_redirection_to_riwayat()
             self.validate_25_transaction_Riwayat_page()
             self.Validate_Back_btn_riwayat()
+            self.validate_correct_redirection()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_validation_historypage_functional_starpoint', 'SiminvestAppQa/src/data/ScreenShots')

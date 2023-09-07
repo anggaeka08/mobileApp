@@ -60,7 +60,7 @@ btn_ok_pop = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/
 
 #dashboard starpoint
 
-
+StarPoin_page_header ='StarPoin_header'
 back_btn = 'StarPoin_backbtn'
 kotak_starpoin = '//android.view.ViewGroup[@content-desc="StarPoin_value_area"]/android.widget.ImageView[2]'
 starpoint_saya ='StarPoin_saya'
@@ -522,6 +522,7 @@ class StarPointPage(HomePage):
 
    @allure.step("validate last 25 Transaction")
    def validate_25_transaction_Riwayat_page(self):
+        self.sleep(4)
         self.assert_equal(self.is_element_visible(riwayat_entry1), True)
         self.assert_equal(self.is_element_visible(riwayat_entry2), True)
         self.assert_equal(self.is_element_visible(riwayat_entry3), True)
@@ -544,4 +545,15 @@ class StarPointPage(HomePage):
          self.assert_equal(self.is_element_visible(riwayat_entry5), True)    
          
 
-   
+   @allure.step("validate_correct_redirection_to_riwayat") 
+   def validate_correct_redirection_to_riwayat(self):
+      self.sleep(2)
+      Riwayat_page_text = self.get_attribute(riwayat_page, "text")
+      self.assert_equal(Riwayat_page_text, "Riwayat")
+
+   @allure.step("validate_correct_redirection") 
+   def validate_correct_redirection(self):
+      self.sleep(2)
+      StarPoin_page_text = self.get_attribute(StarPoin_page_header, "text")
+      self.assert_equal(StarPoin_page_text, "StarPoin")
+       
