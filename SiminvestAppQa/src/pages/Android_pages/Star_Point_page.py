@@ -79,7 +79,7 @@ btn_riwayat = '//android.view.ViewGroup[@content-desc="StarPoin_riwayat_icon"]/a
 entry_txt1 = 'StarPoin_entry_1_text'
 entry_txt2 = 'StarPoin_entry_2_text'
 entry_txt3 = 'StarPoin_entry_3_text'
-entry_txt5 = 'StarPoin_entry_3_text'
+entry_txt5 = 'StarPoin_entry_5_text'
 date_format1 = 'StarPoin_entry_1_date'
 date_format2 = 'StarPoin_entry_2_date'
 date_format3 = 'StarPoin_entry_3_date'
@@ -447,7 +447,7 @@ class StarPointPage(HomePage):
       self.sleep(2)
 
 
-   @allure.step("validate element menu tukar")
+   @allure.step("validate dashboard and poin")
    def validate_back_dashboardStarpoint_and_poin(self):
       self.click(tukar_btn)
       self.sleep(2)
@@ -469,7 +469,7 @@ class StarPointPage(HomePage):
       self.assert_equal(self.is_element_visible(startpoint_value2), True)
       self.sleep(2)
 
-   @allure.step("validate element menu tukar")
+   @allure.step("validate homepage and point")
    def validate_back_homepagestarpoin_and_point(self):
       self.click(back_btn)
       self.sleep(2)
@@ -478,5 +478,70 @@ class StarPointPage(HomePage):
       self.sleep(2)
       self.assert_equal(self.is_element_visible(Star_point_value), True)
       self.sleep(2)
+   
+   @allure.step("validate 5 last transaction, status, date and plus minus simbol")
+   def Validate_formatdate_5trx_plusminus(self):
+      self.sleep(2)
+      self.assert_equal(self.is_element_visible(riwayat_simInvest) , True)
+      self.assert_equal(self.is_element_visible(icon_image_homestar1) , True)
+      self.assert_equal(self.is_element_visible(icon_image_homestar2) , True)
+      self.assert_equal(self.is_element_visible(icon_image_homestar3) , True)
+      self.assert_equal(self.is_element_visible(entry_txt1), True)
+      self.assert_equal(self.is_element_visible(entry_txt2), True)
+      self.assert_equal(self.is_element_visible(entry_txt3), True)
+      self.assert_equal(self.is_element_visible(starpoin_entry_value1), True)
+      self.assert_equal(self.is_element_visible(starpoin_entry_value2), True)
+      self.assert_equal(self.is_element_visible(starpoin_entry_value3), True)
+      self.assert_equal(self.is_element_visible(starpoin_status1), True)
+      self.assert_equal(self.is_element_visible(starpoin_status2), True)
+      self.assert_equal(self.is_element_visible(starpoin_status3), True)
+      self.assert_equal(self.is_element_visible(starpoin_status4), True)
+      date_in_entry = self.get_attribute(date_format1, 'text')
+      in_date = datetime.strptime(date_in_entry, '%d %B %Y')
+      out_date = datetime.strftime(in_date, '%d %B %Y')
+      self.assert_equal(date_in_entry, str(out_date))
+      self.sleep(2)
+      self.scroll_up()
+      self.assert_equal(self.is_element_visible(icon_image_homestar5) , True)
+      self.assert_equal(self.is_element_visible(entry_txt5), True)
+
+
+   @allure.step("Validate thousand separator should show")
+   def validate_thousand_separator_should_show(self):
+    self.sleep(2)
+    empty_page_show= self.is_element_visible(empty_history_txt)
+    if empty_page_show == True:
+      self.assert_equal(self.is_element_visible(empty_history_txt), True)
+      self.assert_equal(self.is_element_visible(icon_empty_hitory), True) 
+    else:       
+      for i in range(1,4):
+            self.assert_not_in(' ', self.get_attribute(f'StarPoin_entry_{i}_text', 'text'))
+            price_value = self.get_attribute(f'StarPoin_entry_{i}_value', 'text')
+            if len(price_value) >= 4:
+                self.assert_in(',', price_value)
+
+   @allure.step("validate last 25 Transaction")
+   def validate_25_transaction_Riwayat_page(self):
+        self.assert_equal(self.is_element_visible(riwayat_entry1), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry2), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry3), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry4), True)
+        self.assert_equal(self.is_element_visible(riwayat_entry5), True)
+        page_no_scroll_riwayat= self.is_element_visible(riwayat_entry7)
+        if page_no_scroll_riwayat == True:      
+         self.assert_equal(self.is_element_visible(riwayat_entry7), True)
+         self.assert_equal(self.is_element_visible(riwayat_entry8), True)
+         self.assert_equal(self.is_element_visible(riwayat_entry9), True)
+         self.assert_equal(self.is_element_visible(riwayat_entry10), True)
+         self.scroll_up()
+         self.assert_equal(self.is_element_visible(riwayat_entry15), True)
+         self.scroll_up()
+         self.assert_equal(self.is_element_visible(riwayat_entry18), True)
+         self.scroll_up()
+         self.assert_equal(self.is_element_visible(riwayat_entry22), True)
+         self.assert_equal(self.is_element_visible(riwayat_entry25), True)
+        else:
+         self.assert_equal(self.is_element_visible(riwayat_entry5), True)    
+         
 
    
