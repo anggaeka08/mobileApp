@@ -515,7 +515,7 @@ class StarPointPage(HomePage):
       self.assert_equal(self.is_element_visible(icon_empty_hitory), True) 
     else:       
       for i in range(1,4):
-            self.assert_not_in(' ', self.get_attribute(f'StarPoin_entry_{i}_value', 'text'))
+            self.assert_in(' ', self.get_attribute(f'StarPoin_entry_{i}_value', 'text'))
             price_value = self.get_attribute(f'StarPoin_entry_{i}_value', 'text')
             if len(price_value) >= 4:
                 self.assert_in(',', price_value)
