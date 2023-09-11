@@ -107,6 +107,26 @@ button_buy_rdp = 'Button_jual1'
 button_prospektus = 'button_prospektus'
 button_fact_sheet = 'button_fact_sheet'
 
+#informasi tab
+informasi_tab = '//android.view.ViewGroup[@content-desc="informasi_tab"]/android.widget.TextView'
+line_informasi_tab = '//android.view.ViewGroup[@content-desc="informasi_tab"]/android.view.ViewGroup'
+title_manajer = 'entry_name_manajer'
+title_company = 'entry_name_company'
+title_bank = 'entry_name_bank_1'
+
+#kalkulator tab
+kalkulator_tab = '//android.view.ViewGroup[@content-desc="kalkulator_tab"]/android.widget.TextView'
+line_kalkulator_tab = '//android.view.ViewGroup[@content-desc="informasi_tab"]/android.view.ViewGroup'
+button_i = '//android.view.ViewGroup[@content-desc="kalkulator_button_informasi"]/android.widget.ImageView'
+title_disclaimer = 'disclaimer_title'
+button_close = '//android.view.ViewGroup[@content-desc="disclaimer_button_close"]/android.widget.ImageView'
+default_number = 'kalkulator_input_value'
+period_1_year = 'kalkulator_text_year_1'
+period_3_year = 'kalkulator_text_year_3'
+period_5_year = 'kalkulator_text_year_5'
+product_value = 'kalkulator_entry_1_value'
+deposito_value = 'kalkulator_entry_2_value'
+
 #nonkyc
 buttonBukaAccount = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
 
@@ -519,3 +539,69 @@ class ReksadanaPage(HomePage):
         self.sleep(2)
         self.assert_equal(self.get_attribute(buttonBukaAccount, 'text'), 'Buka Akun Reksadana')
     
+    @allure.step("validate_informasi_tab")
+    def validate_informasi_tab(self):
+        self.driver.back()
+        self.sleep(2)
+        self.click(list_product_mf1)
+        self.sleep(3)
+        self.click(informasi_tab)
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(informasi_tab, 'text'), 'INFORMASI')
+        self.assert_equal(self.is_element_visible(line_informasi_tab), True)
+        self.scroll_up_RDP()
+        self.assert_equal(self.is_element_visible(title_manajer), True)
+        self.assert_equal(self.is_element_visible(title_company), True)
+        self.assert_equal(self.is_element_visible(title_bank), True)
+      
+    @allure.step("validate_kalkulator_tab")
+    def validate_kalkulator_tab(self):
+        self.click(kalkulator_tab)
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(kalkulator_tab, 'text'), 'KALKULATOR')
+        self.assert_equal(self.is_element_visible(line_kalkulator_tab), True)
+        self.click(button_i)
+        self.sleep(2)
+        
+        self.assert_equal(self.get_attribute(title_disclaimer, 'text'), 'Disclaimer')
+        self.assert_equal(self.is_element_visible(button_close), True)
+        self.click(button_close)
+        self.assert_equal(self.is_element_visible(button_i), True)
+        self.assert_equal(self.get_attribute(default_number, 'text'), '0')
+        
+        max_number = '123456789'
+        self.update_text(default_number, max_number)
+        amount_max_value= (self.get_attribute(default_number, 'text'),  max_number[:9])
+        logger.info(amount_max_value)
+        self.sleep(1)
+        
+        min_number = '1'
+        self.update_text(default_number, min_number)
+        amount_min_value= (self.get_attribute(default_number, 'text'), min_number[:1])
+        logger.info(amount_min_value)
+        
+        self.click(period_1_year)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(product_value), True)
+        
+        self.click(period_3_year)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(product_value), True)
+        
+        self.click(period_5_year)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(deposito_value), True)
+        
+        input_amount = '20400'
+        self.update_text(default_number, input_amount)
+        self.click(period_1_year)
+        self.sleep(1)
+        amount_product_value= self.get_attribute(product_value, 'text')
+        logger.info(amount_product_value)
+        amount_deposito_value= self.get_attribute(deposito_value, 'text')
+        logger.info(amount_deposito_value)
+        
+        self.click(informasi_tab)
+        self.click(kalkulator_tab)
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(default_number, 'text'), '0')
