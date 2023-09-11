@@ -98,7 +98,10 @@ class Reksadana_Feature(ReksadanaPage):
             self.validate_ringkasan_tab()
             self.validate_half_card_rdp()
             self.validate_button_on_rdp()
-            
+            self.validate_informasi_tab()
+            self.validate_half_card_rdp()
+            self.validate_kalkulator_tab()
+            self.validate_half_card_rdp()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_functional_response_validation_of_reksadana_rdp', 'SiminvestAppQa/src/data/ScreenShots')
