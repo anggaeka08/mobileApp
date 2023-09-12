@@ -178,6 +178,16 @@ top_gainer_on_homepage = "//android.widget.TextView[@text='Top gainers']"
 mover_stock_code = 'MoverPageEntry0Code'
 mover_stock_code_1 = 'MoverPageEntry13Code'
 search_btn_mover = 'MoverPageSearchBtn'
+# locator sheild tracker
+Saya_Setuju='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
+Tidak_Setuju='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup[3]/android.widget.TextView'
+Syarat_dan_ketentuan='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.TextView[1]'
+btn_reksadana='Homepage_reksadana_btn'
+reksadana_header='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[8]/android.widget.TextView[1]'
+reksadana_value='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[8]/android.widget.TextView[2]'
+reksadana_today='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[8]/android.widget.TextView[3]'
+tampilkan='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[2]'
+
 
 class HomePage(LoginPage):
 
@@ -1066,6 +1076,67 @@ class HomePage(LoginPage):
         self.scroll_screen(start_x=sec_x, start_y=sec_y, end_x=fist_x, end_y=fist_y, duration=9000)
         self.sleep(1)
 
+    @allure.step("verify sheild tracker when click tidak and setuju")
+    def verify_sheild_tracker_tidak(self):
+        self.sleep(1)
+        self.click(Tidak_Setuju)
+        Sheildtracker_header = self.get_attribute(Syarat_dan_ketentuan, "text")
+        self.assert_equal(Sheildtracker_header, "Syarat dan ketentuan")
+        self.sleep(2)
+    @allure.step("scroll on sheild tracker")
+    def scroll_up_on_sheild(self):
+        self.scroll_screen(start_x=544, start_y=1616, end_x=533, end_y=667, duration=10000)
+        self.sleep(2)
+    @allure.step("scroll on sheild tracker")
+    def scroll_down_on_sheild(self):
+        self.scroll_screen(start_x=540, start_y=689, end_x=540, end_y=1639, duration=10000)
+        self.sleep(2)
+    @allure.step("verify sheild tracker when click setuju")
+    def verify_sheild_tracker_setuju(self):
+        self.sleep(1)
+        self.click(Saya_Setuju)
+        self.sleep(2)
+
+    @allure.step("verify eye button is default close mode and visible when click")
+    def verify_eye_defaultmode(self):
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(home_rdn_value), True)
+        self.assert_equal(self.is_element_visible(homepage_starpoint_value), True)
+        self.assert_equal(self.is_element_visible(today), True)
+        self.assert_equal(self.is_element_visible(homepage_rp), True)
+        self.assert_equal(self.is_element_visible(Buying_Power), True)
+        eye_home_rdn_value = self.get_attribute(home_rdn_value, "text")
+        self.assert_equal(eye_home_rdn_value, "******")
+        eye_homepage_starpoint_value = self.get_attribute(homepage_starpoint_value, "text")
+        self.assert_equal(eye_homepage_starpoint_value, "******")
+        eye_homepage_rp = self.get_attribute(homepage_rp, "text")
+        self.assert_equal(eye_homepage_rp, "******")
+        eye_today = self.get_attribute(today, "text")
+        self.assert_equal(eye_today, "****** (**%) Today")
+        eye_Buying_Power = self.get_attribute(Buying_Power, "text")
+        self.assert_equal(eye_Buying_Power, "Buying power ******")
+        self.sleep(2)
+        self.click(btn_reksadana)
+        self.assert_equal(self.is_element_visible(reksadana_header), True)
+        self.assert_equal(self.is_element_visible(reksadana_today), True)
+        self.assert_equal(self.is_element_visible(reksadana_value), True)
+        eye_reksadana_today = self.get_attribute(reksadana_today, "text")
+        self.assert_equal(eye_reksadana_today, "******(**%) Today")
+        eye_reksadana_value = self.get_attribute(reksadana_value, "text")
+        self.assert_equal(eye_reksadana_value, "******")
+        self.sleep(2)
+        self.click(tampilkan)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(home_rdn_value), True)
+        home_rdn_rp = self.get_attribute(home_rdn_value, 'text')
+        home_rdn_rp_value = home_rdn_rp[3:]
+        self.assert_in(',', home_rdn_rp_value)
+        self.sleep(1)
+    
+    @allure.step("kill apss")
+    def Validate_kill_app(self):
+      self.launch_app_again()
+      self.login_and_verify_homepage_for_reg_user(user_data['reg_no_6'])
 
 
 

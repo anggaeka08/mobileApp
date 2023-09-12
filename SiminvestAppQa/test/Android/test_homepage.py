@@ -188,6 +188,32 @@ class homePage_test(HomePage,LoginPage):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+     #  Hide RDN and shield tracker implimentation on the homepage
+    @pytest.mark.HideRDN_and_ShieldTracker
+    @pytest.mark.Homepage
+    @pytest.mark.Android
+    @pytest.mark.Revamp
+    @allure.story("F-5:HomePage Feature")
+    def test_hideRDN_homepage(self):
+        try:
+            self.execute_script('lambda-name=test_hideRDN_homepage')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_6'])
+            self.verify_sheild_tracker_tidak()
+            self.scroll_up_on_sheild()
+            self.scroll_down_on_sheild()
+            self.verify_sheild_tracker_setuju()
+            self.verify_eye_defaultmode()
+            self.Validate_kill_app()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_hideRDN_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_hideRDN_homepage', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
 
 
 
