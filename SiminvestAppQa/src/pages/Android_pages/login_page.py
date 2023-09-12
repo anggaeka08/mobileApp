@@ -88,11 +88,11 @@ class LoginPage(BaseCase):
         if self.is_element_visible(ignore_btn) == True:
             self.tap(ignore_btn)
             self.sleep(3)
-            #self.click(mulai_sekarang)
-            self.tap_by_coordinates(511,1825)
+            self.click(mulai_sekarang)
+            #self.tap_by_coordinates(511,1825)
         else:
-            #self.click(mulai_sekarang)
-            self.tap_by_coordinates(511, 1825)
+            self.click(mulai_sekarang)
+            #self.tap_by_coordinates(511, 1825)
 
     @allure.step("verify mobile no page")
     def verify_mobile_no_page(self):
