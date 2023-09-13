@@ -75,7 +75,7 @@ back_btn = "//android.view.ViewGroup/android.widget.ImageView[@index ='0']"
 navigate_up = 'Navigate up'
 bio_on_off = "//android.widget.TextView[@text = 'Nanti Saja']"
 close_banner = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.ImageView'
-
+Saya_Setuju ='//android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
 class LoginPage(BaseCase):
 
     @allure.step("luanch app again")
@@ -163,16 +163,16 @@ class LoginPage(BaseCase):
             # self.assert_equal(Home_page_locator_text, Home_page_text)
         else :
             self.sleep(2)
-            if self.is_element_visible('//*[@text="Lewati"]') == True :
-                self.click('//*[@text="Lewati"]')
+            if self.is_element_visible('//*[@text="Saya Setuju"]') == True :
+                self.click('//*[@text="Saya Setuju"]')
             # Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
             # self.assert_equal(Home_page_locator_text, Home_page_text)
 
     @allure.step("verify home page reg user")
     def verify_home_page_reg_user(self):
         self.sleep(3)
-        if self.is_element_visible(close_banner) == True:
-            self.click(close_banner)
+        if self.is_element_visible(Saya_Setuju) == True:
+            self.click(Saya_Setuju)
             self.sleep(2)
             Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
             self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
