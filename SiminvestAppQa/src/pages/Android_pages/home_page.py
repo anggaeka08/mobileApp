@@ -179,14 +179,15 @@ mover_stock_code = 'MoverPageEntry0Code'
 mover_stock_code_1 = 'MoverPageEntry13Code'
 search_btn_mover = 'MoverPageSearchBtn'
 # locator sheild tracker
-Saya_Setuju="//android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView[@text = 'Saya Setuju']"
+Saya_Setuju= "//android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView[@text = 'Saya Setuju']"
 Tidak_Setuju = "//android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView[@text = 'Tidak Setuju']"
 Syarat_dan_ketentuan = "//android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.TextView[1][@text = 'Syarat dan ketentuan']"
-btn_reksadana='Homepage_reksadana_btn'
-reksadana_header='(//android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[1])[1]'
-reksadana_value='/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[2]'
-reksadana_today='//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[3]'
-tampilkan='//android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[2]'
+btn_reksadana = 'Homepage_reksadana_btn'
+reksadana_header ='(//android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[1])[1]'
+reksadana_value = '/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[2]'
+reksadana_today = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[3]'
+tampilkan ="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@text = 'Sembunyikan']"
+
 class HomePage(LoginPage):
 
     @allure.step("click global search btn and search stock")
