@@ -21,13 +21,12 @@ cp = [
     #"app":"lt://APP10160492501691380402841630", #1.87.3 (535)
    # "app":"lt://APP10160571901691402097003235", #1.87.4 (538)
     #"app":"lt://APP1016042571691477927836795", #1.87.5 (540)
-    #"app":"lt://APP1016039551691997859373818", #1.88.3 (547)
-    "app":"lt://APP10160391251694574952961569", #1.90.0 (566)
+    "app":"lt://APP1016039551691997859373818", #1.88.3 (547)
     "platformName": "Android",
     "deviceName": "Pixel 4",
     "platformVersion": "10",
-    "build": "Regression 1.90.0 (566)",
-    "name": "Regression Test Cases",
+    "build": "Testing 1.88.3 (547)",
+    "name": "Testing Test Cases",
     "isRealMobile": True,
     "user": "djoko.utomo@sinarmassekuritas.co.id",
     "accessKey": "q5QNqu2BGiYl7ncqTxKMFZTTPFVHxElYIgRbhtvZHqTTgOxQSi"
