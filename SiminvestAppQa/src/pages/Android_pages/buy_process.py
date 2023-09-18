@@ -121,7 +121,7 @@ class BuyProcess(HomePage):
         self.click_selanjutnya()
         self.enter_otp(user_data['valid_otp'])
         self.enter_pin()
-        self.close_home_page_banner()
+        #self.close_home_page_banner()
         self.verify_home_page()
         self.click_global_search_btn_and_saerch_stock(stock_code)
         self.sleep(3)
@@ -158,10 +158,10 @@ class BuyProcess(HomePage):
         buy_with_sell = self.is_element_visible(buy_btn_with_sell)
         if buy_with_sell == True :
             self.click(buy_btn_with_sell)
-            self.sleep(2)
+            self.sleep(3)
         else :
             self.click(buy_btn_without_sell)
-            self.sleep(2)
+            self.sleep(3)
 
     @allure.step("Verif referral page")
     def verify_refferal_page(self):
