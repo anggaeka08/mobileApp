@@ -1,14 +1,14 @@
 cp = [
 {
-    "app":"lt://APP10160382471695034558311691",
+    "app":"lt://APP101605731695116949096639",
     "platformName": "Android",
     "deviceName": "Pixel 4",
     "platformVersion": "10",
     "build": "Testing 1.88.3 (547)",
     "name": "Testing Test Cases",
     "isRealMobile": True,
-    "user": "pawan@binmile.com",
-    "accessKey": "nrVDKFpgRayhZV7Y9KGQh6J7MuJ4M4rWbNZV4Y0eYZzmJ3sTlj"
+    "user": "djoko.utomo@sinarmassekuritas.co.id",
+    "accessKey": "q5QNqu2BGiYl7ncqTxKMFZTTPFVHxElYIgRbhtvZHqTTgOxQSi"
     },
 {
     #"app":"lt://APP1016046941680173474501548",
@@ -22,15 +22,16 @@ cp = [
    # "app":"lt://APP10160571901691402097003235", #1.87.4 (538)
     #"app":"lt://APP1016042571691477927836795", #1.87.5 (540)
     #"app":"lt://APP1016039551691997859373818", #1.88.3 (547)
-    "app":"lt://APP10160382471695034558311691", #1.90.2 (576)
+    #"app":"lt://APP10160382471695034558311691", #1.90.2 (576)
+    "app":"lt://APP101605731695116949096639", #1.90.3 (578)
     "platformName": "Android",
     "deviceName": "Pixel 4",
     "platformVersion": "10",
-    "build": "Regression 1.90.2 (547)",
+    "build": "Regression New Build 1.90.3 (578)",
     "name": "Regression Test Cases",
     "isRealMobile": True,
-    "user": "pawan@binmile.com",
-    "accessKey": "nrVDKFpgRayhZV7Y9KGQh6J7MuJ4M4rWbNZV4Y0eYZzmJ3sTlj"
+    "user": "djoko.utomo@sinarmassekuritas.co.id",
+    "accessKey": "q5QNqu2BGiYl7ncqTxKMFZTTPFVHxElYIgRbhtvZHqTTgOxQSi"
     }
 
 ]

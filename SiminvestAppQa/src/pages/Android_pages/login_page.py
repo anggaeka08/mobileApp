@@ -154,36 +154,29 @@ class LoginPage(BaseCase):
     def click_agresif_profile(self):
         self.click(agresif)
     
+    # @allure.step("verify home page")
+    # def verify_home_page(self):
+    #     self.sleep(3)
+    #     self.click(Saya_Setuju)
+    #     self.sleep(2)
+    #     self.click(Lewati)
+    #     self.sleep(1)
+
     @allure.step("verify home page")
     def verify_home_page(self):
         self.sleep(3)
         self.click(Saya_Setuju)
-        self.sleep(2)
-        self.click(Lewati)
-        self.sleep(1)
-
-    # @allure.step("verify home page")
-    # def verify_home_page(self):
-    #     self.sleep(3)
-    #     if self.is_element_visible(close_banner) == True:
-    #         self.click(Saya_Setuju)
-    #         #self.click(close_banner)
-    #         self.sleep(2)
-    #         self.click(Lewati)
-    #         #self.click('//*[@text="Lewati"]')
-    #         if self.is_element_visible('//*[@text="Lewati"]') == True :
-    #             self.click(Lewati)
-    #             #self.click('//*[@text="Lewati"]')
-    #         # Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
-    #         # self.assert_equal(Home_page_locator_text, Home_page_text)
-    #     else :
-    #         self.sleep(2)
-    #         if self.is_element_visible('//*[@text="Saya Setuju"]') == True :
-    #             self.click('//*[@text="Saya Setuju"]')
-    #         # Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
-    #         # self.assert_equal(Home_page_locator_text, Home_page_text)
-
-    @allure.step("verify home page reg user")
+        self.sleep(3)
+        if self.is_element_visible(close_banner) == True:
+            self.click(Lewati)
+            self.sleep(2)
+            Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_text)
+        else :
+            self.sleep(2)
+            Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_text)
+            
     def verify_home_page_reg_user(self):
         self.sleep(3)
         if self.is_element_visible(Saya_Setuju) == True:
@@ -308,6 +301,17 @@ class LoginPage(BaseCase):
         pass
         #self.click(banner_close)
         #self.sleep(2)
+        self.sleep(3)
+        if self.is_element_visible(Saya_Setuju) == True:
+            self.click(Saya_Setuju)
+            self.sleep(3)
+            self.click(tampilkan)
+            Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
+        else:
+            self.sleep(3)
+            Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
 
     @allure.step("click on enter pin on logout btn")
     def click_on_enterPin_logout_button(self):
