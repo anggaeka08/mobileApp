@@ -130,6 +130,12 @@ deposito_value = 'kalkulator_entry_2_value'
 #nonkyc
 buttonBukaAccount = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
 
+#portfolio page
+reksadana_btn_portfolio = '(//android.view.ViewGroup[@content-desc="PortPageReksadanaTab"])[2]'
+reksadana_portfolio_text= '(//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView)[2]'
+reksadana_portfolio_icon= '//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
+icon_popup = '//android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.TextView'
+icon_popup_close_btn ='//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
@@ -605,3 +611,20 @@ class ReksadanaPage(HomePage):
         self.click(kalkulator_tab)
         self.sleep(2)
         self.assert_equal(self.get_attribute(default_number, 'text'), '0')
+
+    @allure.step("click on reksadana tab on portfolio page")
+    def click_on_reksadana_tab_on_portfolio_page(self):
+        self.click(reksadana_btn_portfolio)
+        self.sleep(2)
+
+    @allure.step("Validate redirection and functional flow for reksadana tab on portoflio")
+    def validate_redirection_and_functional_flow_for_reksadana_tab_on_portoflio(self):
+        self.assert_equal(self.is_element_visible(reksadana_portfolio_text), True)
+        self.click(reksadana_portfolio_icon)
+        self.assert_equal(self.get_attribute(icon_popup, 'text'), 'Portfolio NAV Update')
+        self.go_back()
+        self.sleep(1)
+        self.click(reksadana_portfolio_icon)
+        self.assert_equal(self.get_attribute(icon_popup, 'text'), 'Portfolio NAV Update')
+        self.go_back()
+
