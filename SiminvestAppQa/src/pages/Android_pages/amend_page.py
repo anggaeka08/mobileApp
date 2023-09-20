@@ -232,10 +232,10 @@ class AmendProcess(StockDetailPage,SellProcess ):
         if (current_time >= '7:30') or (current_time <= '15:00'):
             self.assert_equal(self.is_element_visible(exchange_notification), False)
             logger.info("within time")
-            self.click_on_ok_btn()
-            self.verify_transaction_page()
-            transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
-            transaction_page_lot = self.get_attribute(lot_on_trans_for_entry_1, "text")
+            self.click_on_ok_btn_on_auto_rejection()
+            # self.verify_transaction_page()
+            # transaction_page_price = self.get_attribute(price_on_trans_for_entry_1, "text")
+            # transaction_page_lot = self.get_attribute(lot_on_trans_for_entry_1, "text")
            # transaction_page_lot = transaction_page_lot[5:]
           #  transaction_page_price = int(transaction_page_price[7:])
             # self.assert_equal(self.add_thousand_seprator(int(increased_price)), transaction_page_price)
