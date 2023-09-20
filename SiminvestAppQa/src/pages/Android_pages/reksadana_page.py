@@ -1,6 +1,8 @@
 import json
 
 from appiumbase import BaseCase
+from selenium.common.exceptions import NoSuchElementException
+
 from SiminvestAppQa.src.pages.Android_pages.login_page import LoginPage
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
 import logging as logger
@@ -131,11 +133,17 @@ deposito_value = 'kalkulator_entry_2_value'
 buttonBukaAccount = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
 
 #portfolio page
-reksadana_btn_portfolio = '(//android.view.ViewGroup[@content-desc="PortPageReksadanaTab"])[2]'
+reksadana_btn_portfolio = '(//android.view.ViewGroup[@content-desc="PortPageSahamTab"])[2]'
 reksadana_portfolio_text= '(//android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView)[2]'
 reksadana_portfolio_icon= '//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
 icon_popup = '//android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.TextView'
 icon_popup_close_btn ='//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
+semua_tab = '//android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[1]'
+pasar_uang = '//android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[2]'
+saham_port_tab = '//android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[3]'
+pendapatan_tab = '//android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[4]'
+campuran_tab = '//android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[4]'
+aperd_type='//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[2]'
 
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
@@ -617,6 +625,15 @@ class ReksadanaPage(HomePage):
         self.click(reksadana_btn_portfolio)
         self.sleep(2)
 
+    @allure.step("validate mf type")
+    def validate_mf_type(self, type):
+        try:
+            for i in range(3, 5):
+                self.assert_equal(self.get_attribute(f'//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[{i}]/android.widget.TextView[2]','text'), type)
+        except NoSuchElementException as E:
+            pass
+
+
     @allure.step("Validate redirection and functional flow for reksadana tab on portoflio")
     def validate_redirection_and_functional_flow_for_reksadana_tab_on_portoflio(self):
         self.assert_equal(self.is_element_visible(reksadana_portfolio_text), True)
@@ -627,4 +644,20 @@ class ReksadanaPage(HomePage):
         self.click(reksadana_portfolio_icon)
         self.assert_equal(self.get_attribute(icon_popup, 'text'), 'Portfolio NAV Update')
         self.go_back()
+        self.click(pasar_uang)
+        self.sleep(1)
+        self.validate_mf_type('Pasar Uang')
+        self.click(saham_port_tab)
+        self.sleep(1)
+        self.validate_mf_type('Saham')
+        self.click(pendapatan_tab)
+        self.sleep(1)
+        self.validate_mf_type('Pendapatan Tetap')
+        self.scroll_with_two_element(semua_tab,pendapatan_tab)
+        self.sleep(1)
+        self.click(campuran_tab)
+        self.sleep(1)
+        self.validate_mf_type('Campuran')
+
+
 
