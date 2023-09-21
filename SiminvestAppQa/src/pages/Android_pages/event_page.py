@@ -79,6 +79,7 @@ public_venue='PublicExposeTabHeader3'
 public_time_format = 'PublicExposeTabTime0'
 public_cum_date = 'PublicExposeTabDate0'
 ipo_tab = 'EventsPageHeaderTab9'
+public_Expose_tab = 'EventsPageHeaderTab8'
 ipo_date ='IPOTabHeader3'
 ipo_cum_date ='IPOTabOffStart0 '
 class EventPage(StockDetailPage):
@@ -233,9 +234,16 @@ class EventPage(StockDetailPage):
 
     @allure.step("validate IPO Tab")
     def validate_IPO_tab(self):
+        self.click(public_Expose_tab)
+        self.sleep(1)
         self.click(ipo_tab)
         self.sleep(3)
-        self.assert_equal(self.is_element_visible('IPOTabHeaderCompName'), True)
+        page_no_event= self.is_element_visible(empty_page)
+        if page_no_event == True:
+           self.assert_equal(self.is_element_visible(empty_page), True)
+           self.sleep(2)
+        else:
+            self.assert_equal(self.is_element_visible('IPOTabHeaderCompName'), True)
 
     @allure.step("Api data validation for event page")
     def api_data_validation_for_event_page(self):

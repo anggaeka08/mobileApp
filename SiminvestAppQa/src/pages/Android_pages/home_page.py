@@ -1136,6 +1136,15 @@ class HomePage(LoginPage):
     def Validate_kill_app(self):
       self.launch_app_again()
       self.login_and_verify_homepage_for_reg_user(user_data['reg_no_6'])
+      
+    @allure.step("login and verify homepage for rg user shield tracker")
+    def login_and_verify_homepage_for_reg_user_shield_tracker(self, phone_number):
+        self.sleep(4)
+        self.click_mulai_sekarang()
+        self.type_mobile_no(phone_number)
+        self.click_selanjutnya()
+        self.enter_otp('1234')
+        self.enter_pin() 
 
 
 

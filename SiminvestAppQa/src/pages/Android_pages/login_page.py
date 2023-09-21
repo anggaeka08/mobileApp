@@ -70,7 +70,7 @@ wrong_otp_msg = "//android.widget.TextView[@text='OTP Salah. Silahkan ulangi lag
 wrong_otp_msg_text ='OTP Salah. Silahkan ulangi lagi'
 ignore_btn = "//android.widget.Button[@text= 'IGNORE']"
 kirim_otp = "//android.widget.TextView[contains(@text, 'Kirim OTP via')]"
-selanjutnya_otp_sel = '//android.widget.TextView[@text="SELANJUTNYA"]'
+selanjutnya_otp_sel = '//android.widget.TextView[@text="Lanjut"]'
 back_btn = "//android.view.ViewGroup/android.widget.ImageView[@index ='0']"
 navigate_up = 'Navigate up'
 bio_on_off = "//android.widget.TextView[@text = 'Nanti Saja']"
@@ -366,7 +366,7 @@ class LoginPage(BaseCase):
     @allure.step("verify home page reg user back from watchlist")
     def verify_home_page_reg_user_after_back_from_watchlist(self):
         Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
-        self.assert_equal(Home_page_locator_text, "Saldo RDN")
+        self.assert_equal(Home_page_locator_text, "Saldo")
 
     @allure.step("verify error message after enter dots and sign")
     def verify_error_message_after_enter_dots_and_sign(self):
@@ -494,7 +494,7 @@ class LoginPage(BaseCase):
     def verify_otp_page_with_whatsapp_phone_no(self, phone_no):
         self.sleep(2)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
-        self.assert_equal(otp_page_text, f"Kami mengirimkan kode melalui Whatsapp ke nomor +62{phone_no}")
+        self.assert_equal(otp_page_text, f"4 digit OTP telah dikirim melalui SMS ke nomor +62{phone_no}")
 
     @allure.step("Verify phone number autofilled after back")
     def verify_phone_nubmer_autofilled_after_back(self, number):
