@@ -7,8 +7,8 @@ cp = [
     "build": "Testing 1.88.3 (547)",
     "name": "Testing Test Cases",
     "isRealMobile": True,
-    "user": "djoko.utomo@sinarmassekuritas.co.id",
-    "accessKey": "q5QNqu2BGiYl7ncqTxKMFZTTPFVHxElYIgRbhtvZHqTTgOxQSi"
+    "user": "pawan@binmile.com",
+    "accessKey": "nrVDKFpgRayhZV7Y9KGQh6J7MuJ4M4rWbNZV4Y0eYZzmJ3sTlj"
     },
 {
     #"app":"lt://APP1016046941680173474501548",
@@ -30,8 +30,8 @@ cp = [
     "build": "Testing 1.90.3 (578)",
     "name": "Testing Test Cases",
     "isRealMobile": True,
-    "user": "djoko.utomo@sinarmassekuritas.co.id",
-    "accessKey": "q5QNqu2BGiYl7ncqTxKMFZTTPFVHxElYIgRbhtvZHqTTgOxQSi"
+    "user": "pawan@binmile.com",
+    "accessKey": "nrVDKFpgRayhZV7Y9KGQh6J7MuJ4M4rWbNZV4Y0eYZzmJ3sTlj"
     }
 
 ]
