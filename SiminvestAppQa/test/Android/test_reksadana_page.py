@@ -130,4 +130,24 @@ class Reksadana_Feature(ReksadanaPage):
             self.save_screenshot('test_functional_feature_of_reksadana_rdp_for_non_kyc_user', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
-                   
+
+    @pytest.mark.functional_feature_of_reksadana_portfolio
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Feature")
+    def test_functional_feature_of_reksadana_portfolio(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_reksadana_portfolio')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_7'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+            self.validate_redirection_and_functional_flow_for_reksadana_tab_on_portoflio()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_reksadana_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_reksadana_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
