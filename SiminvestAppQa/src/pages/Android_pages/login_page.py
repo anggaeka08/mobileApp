@@ -70,7 +70,7 @@ wrong_otp_msg = "//android.widget.TextView[@text='OTP Salah. Silahkan ulangi lag
 wrong_otp_msg_text ='OTP Salah. Silahkan ulangi lagi'
 ignore_btn = "//android.widget.Button[@text= 'IGNORE']"
 kirim_otp = "//android.widget.TextView[contains(@text, 'Kirim OTP via')]"
-selanjutnya_otp_sel = '//android.widget.TextView[@text="SELANJUTNYA"]'
+selanjutnya_otp_sel = '//android.widget.TextView[@text="Lanjut"]'
 back_btn = "//android.view.ViewGroup/android.widget.ImageView[@index ='0']"
 navigate_up = 'Navigate up'
 bio_on_off = "//android.widget.TextView[@text = 'Nanti Saja']"
@@ -154,36 +154,29 @@ class LoginPage(BaseCase):
     def click_agresif_profile(self):
         self.click(agresif)
     
+    # @allure.step("verify home page")
+    # def verify_home_page(self):
+    #     self.sleep(3)
+    #     self.click(Saya_Setuju)
+    #     self.sleep(2)
+    #     self.click(Lewati)
+    #     self.sleep(1)
+
     @allure.step("verify home page")
     def verify_home_page(self):
         self.sleep(3)
         self.click(Saya_Setuju)
-        self.sleep(2)
-        self.click(Lewati)
-        self.sleep(1)
-
-    # @allure.step("verify home page")
-    # def verify_home_page(self):
-    #     self.sleep(3)
-    #     if self.is_element_visible(close_banner) == True:
-    #         self.click(Saya_Setuju)
-    #         #self.click(close_banner)
-    #         self.sleep(2)
-    #         self.click(Lewati)
-    #         #self.click('//*[@text="Lewati"]')
-    #         if self.is_element_visible('//*[@text="Lewati"]') == True :
-    #             self.click(Lewati)
-    #             #self.click('//*[@text="Lewati"]')
-    #         # Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
-    #         # self.assert_equal(Home_page_locator_text, Home_page_text)
-    #     else :
-    #         self.sleep(2)
-    #         if self.is_element_visible('//*[@text="Saya Setuju"]') == True :
-    #             self.click('//*[@text="Saya Setuju"]')
-    #         # Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
-    #         # self.assert_equal(Home_page_locator_text, Home_page_text)
-
-    @allure.step("verify home page reg user")
+        self.sleep(3)
+        if self.is_element_visible(close_banner) == True:
+            self.click(Lewati)
+            self.sleep(2)
+            Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_text)
+        else :
+            self.sleep(2)
+            Home_page_locator_text = self.get_attribute(Home_page_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_text)
+            
     def verify_home_page_reg_user(self):
         self.sleep(3)
         if self.is_element_visible(Saya_Setuju) == True:
@@ -308,6 +301,17 @@ class LoginPage(BaseCase):
         pass
         #self.click(banner_close)
         #self.sleep(2)
+        self.sleep(3)
+        if self.is_element_visible(Saya_Setuju) == True:
+            self.click(Saya_Setuju)
+            self.sleep(3)
+            self.click(tampilkan)
+            Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
+        else:
+            self.sleep(3)
+            Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
+            self.assert_equal(Home_page_locator_text, Home_page_reg_user_locator_text)
 
     @allure.step("click on enter pin on logout btn")
     def click_on_enterPin_logout_button(self):
@@ -362,7 +366,7 @@ class LoginPage(BaseCase):
     @allure.step("verify home page reg user back from watchlist")
     def verify_home_page_reg_user_after_back_from_watchlist(self):
         Home_page_locator_text = self.get_attribute(Home_page_reg_user_locator, "text")
-        self.assert_equal(Home_page_locator_text, "Saldo RDN")
+        self.assert_equal(Home_page_locator_text, "Saldo")
 
     @allure.step("verify error message after enter dots and sign")
     def verify_error_message_after_enter_dots_and_sign(self):
@@ -490,7 +494,7 @@ class LoginPage(BaseCase):
     def verify_otp_page_with_whatsapp_phone_no(self, phone_no):
         self.sleep(2)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
-        self.assert_equal(otp_page_text, f"Kami mengirimkan kode melalui Whatsapp ke nomor +62{phone_no}")
+        self.assert_equal(otp_page_text, f"4 digit OTP telah dikirim melalui SMS ke nomor +62{phone_no}")
 
     @allure.step("Verify phone number autofilled after back")
     def verify_phone_nubmer_autofilled_after_back(self, number):

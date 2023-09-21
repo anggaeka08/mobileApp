@@ -193,7 +193,7 @@ class Login_test(LoginPage):
             self.enter_confirm_pin(user_data['setup_pin_value'])
             #LoginPage.verify_risk_profile_page()
             #LoginPage.click_agresif_profile()
-            self.close_home_page_banner()
+            #self.close_home_page_banner()
             self.verify_home_page()
             #launch again and use same no
             self.launch_app_again()
@@ -202,7 +202,7 @@ class Login_test(LoginPage):
             self.click_selanjutnya()
             self.enter_otp(user_data['valid_otp'])
             self.enter_pin()
-            self.close_home_page_banner()
+            #self.close_home_page_banner()
             self.verify_home_page()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
@@ -312,7 +312,7 @@ class Login_test(LoginPage):
             time.sleep(10)
             self.verify_redirect_to_pin_page()
             self.enter_pin()
-            self.close_home_page_banner()
+            #self.close_home_page_banner()
             self.verify_home_page()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:

@@ -197,7 +197,7 @@ class homePage_test(HomePage,LoginPage):
     def test_hideRDN_homepage(self):
         try:
             self.execute_script('lambda-name=test_hideRDN_homepage')
-            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_6'])
+            self.login_and_verify_homepage_for_reg_user_shield_tracker(user_data['reg_no_6'])
             self.verify_sheild_tracker_tidak()
             self.scroll_up_on_sheild()
             self.scroll_down_on_sheild()

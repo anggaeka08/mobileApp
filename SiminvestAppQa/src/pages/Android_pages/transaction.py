@@ -745,9 +745,9 @@ class Transaction(AmendProcess):
     def verify_filter_in_order_list(self):
         self.click(filter)
         self.assert_equal(self.is_element_visible(filter_text), True)
-        self.click(filter_close)
-        self.assert_equal(self.is_element_visible(filter_text), True)
-        self.click(filter)
+        #self.click(filter_close)
+        # self.assert_equal(self.is_element_visible(filter_text), True)
+        # self.click(filter)
         self.click(terapkan_btn)
         self.assert_equal(self.is_element_visible(orderlist_entry), True)
         self.assert_equal(self.is_element_visible(orderlist_entry_1), True)

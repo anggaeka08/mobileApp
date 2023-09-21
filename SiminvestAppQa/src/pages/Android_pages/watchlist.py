@@ -82,9 +82,9 @@ class Watchlist(HomePage):
         self.enter_pin()
         self.close_home_page_banner()
         self.sleep(5)
-        if self.is_element_visible(close_banner) == True:
-            self.click(close_banner)
-            self.sleep(2)
+        # if self.is_element_visible(close_banner) == True:
+        #     self.click(close_banner)
+        #     self.sleep(2)
         self.scroll_up()
 
     @allure.step("Click on plus btn")
@@ -399,7 +399,7 @@ class Watchlist(HomePage):
 
     @allure.step("Add stock in watchlist")
     def add_stock_in_watchlist(self):
-        self.sleep(1)
+        self.sleep(3)
         self.go_back()
         for i in range(0,6):
             self.click(f'StockAddPageEntryToAdd{i}Image')

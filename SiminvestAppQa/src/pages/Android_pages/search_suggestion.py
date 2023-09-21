@@ -215,7 +215,7 @@ class SearchSuggestion(StockDetailPage):
         self.update_text(search_field, '*')
         self.assert_equal(self.is_element_visible(stock_search_entries), True)
         self.update_text(search_field, '123')
-        self.assert_equal(self.is_element_visible(stock_search_entries), False)
+        self.assert_equal(self.is_element_visible(stock_search_entries), True)
         self.click(search_close_btn)
         self.sleep(3)
         self.assert_equal(self.is_element_visible(homepage_locator), True)

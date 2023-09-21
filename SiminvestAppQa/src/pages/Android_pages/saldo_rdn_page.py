@@ -3,6 +3,7 @@ from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
 import time
 from SiminvestAppQa.src.data.userData import user_data
 import allure
+import logging as logger
 
 request_utilities = RequestsUtilities()
 #locators
@@ -236,6 +237,8 @@ class SaldoRdn(HomePage):
         self.click(tarik_dana_btn)
         rdn_tarik = self.get_attribute(tarik_dana_rdn, 'text')
         rdn_tarik_without_rp = int((rdn_tarik[3:]).replace(',', ''))
+        logger.info(rdn_tarik_without_rp)
+        logger.info(rdn_balance_without_rp-1)
         self.assert_equal(rdn_tarik_without_rp, rdn_balance_without_rp-1)
         limit_msg = self.get_attribute(TarikPageNominal_text, 'text')
         self.assert_equal(limit_msg , 'Nominal Penarikan (Min. Rp 100.000)')
@@ -248,7 +251,7 @@ class SaldoRdn(HomePage):
         self.click(tariK_msg_text)
         self.click(tarik_dana_page_btn)
         self.verify_tarik_dana_page()
-        self.clear_text(TarikPageNominal_text)
+        #self.clear_text(TarikPageNominal_text)
         self.assert_equal(self.get_attribute(nominal_msg_after_click, 'text') , 'Nominal Penarikan (Min. Rp 100.000)')
         self.set_text(TarikPageNominal_text, '100000')
         self.click(tariK_msg_text)
