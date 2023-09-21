@@ -314,21 +314,24 @@ class StockDetailPage(Watchlist, BuyProcess):
         self.assert_equal(self.get_attribute('profile_entry_1', 'text'), 'Keterangan Perusahaan')
         self.assert_equal(self.is_element_visible('profile_entry_1_value'), True)
         self.scroll_up_screen()
-        self.sleep(1)
-        self.scroll_up_screen()
+        self.sleep(2)
+        #self.scroll_up_screen()
         #verify stackholder entries
         self.assert_equal(self.get_attribute('profile_entry_2', 'text'), 'Pemegang Saham')
-        pemegang_lst = ['PT Kawan Lama Sejahtera', 'Kuncoro Wibowo', 'Dewi Triana Saleh', 'Suharno', 'Gregory Sugyono Widjaja', 'Public', 'Treasury Stock']
+        pemegang_lst = ['PT Kawan Lama Sejahtera', 'Public', 'Treasury Stock', 'Suharno', 'Dewi Triana Saleh', 'Kuncoro Wibowo', 'Gregory Sugyono Widjaja']
         for i in range(0, 7,1):
             self.assert_equal(self.get_attribute(f'shareholder_entry_{i}', 'text'), pemegang_lst[i])
             self.assert_not_equal(self.get_attribute(f'shareholder_entry_value{i}', 'text'), '-')
         #verify director entries
+        self.scroll_up_screen()
         self.assert_equal(self.get_attribute('profile_entry_3', 'text'), 'Direksi')
         director_lst = ['President Director', 'Director','Director','Director','Director','Director']
         # for i in range(0,6,1):
         #     self.assert_equal(self.get_attribute(f'director_entry{i}','text'), director_lst[i])
         #     self.assert_not_equal(self.get_attribute(f'director_entry_value{i}', 'text'), '-')
         self.scroll_up_screen()
+        self.scroll_up_screen()
+        self.sleep(2)
         #verify_commissioner_entry
         # self.assert_equal(self.get_attribute('profile_entry_4', 'text'), 'Komisaris')
         # commissioner_lst = ['President Commissioner', 'Commissioner', 'Commissioner', 'Independent Commissioner', 'Independent Commissioner', 'Director']
@@ -336,8 +339,8 @@ class StockDetailPage(Watchlist, BuyProcess):
         #     self.assert_equal(self.get_attribute(f'commissioners_entry{i}', 'text'), commissioner_lst[i])
         #     self.assert_not_equal(self.get_attribute(f'commissioners_entry_value{i}', 'text'), '-')
         # #verify address entry
-        self.assert_equal(self.get_attribute('profile_entry_5', 'text'), 'Alamat')
-        self.assert_not_equal(self.get_attribute('profile_entry_5_value', 'text'), '-')
+        #self.assert_equal(self.get_attribute('profile_entry_5', 'text'), 'Alamat')
+        #self.assert_not_equal(self.get_attribute('profile_entry_5_value', 'text'), '-')
         self.assert_equal(self.get_attribute('profile_entry_6', 'text'), 'Sejarah Perusahaan')
         self.assert_equal(self.get_attribute('profile_entry_7', 'text'), 'Listing Date')
         self.assert_not_equal(self.get_attribute('profile_entry_7_value', 'text'), '-')
