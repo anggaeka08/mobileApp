@@ -144,7 +144,18 @@ saham_port_tab = '//android.widget.ScrollView/android.view.ViewGroup/android.wid
 pendapatan_tab = '//android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[4]'
 campuran_tab = '//android.widget.ScrollView/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[4]'
 aperd_type='//android.view.ViewGroup[2]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[2]'
-
+saham_tab_rek='(//android.view.ViewGroup[@content-desc="PortPageReksadanaTab"])[1]'
+three_dots = '//android.view.ViewGroup[3]/android.view.ViewGroup[2]/android.widget.ImageView'
+three_dot_pop = '//android.widget.TextView[1][@text="Simas Satu Prima"]'
+three_dot_pop_jual = '//android.view.ViewGroup[2]/android.widget.TextView[@text="Jual"]'
+three_dot_pop_tukar = '//android.view.ViewGroup[3]/android.widget.TextView[1][@text="Tukar"]'
+three_pop_close = '(//android.view.ViewGroup[1]/android.widget.ImageView)[2]'
+jual_pop = 'tittle_unit_Jual'
+jual_pop_close = 'Button_close'
+tukar_page_header = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[1]'
+port_down_arrow = '//android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[4]/android.widget.ImageView'
+port_up_arrow = '//android.view.ViewGroup[3]/android.view.ViewGroup[5]/android.widget.ImageView'
+port_topup = '//android.widget.TextView[@text="Top Up"]'
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
     def open_reksadana_page(self,phone_number):
@@ -658,6 +669,51 @@ class ReksadanaPage(HomePage):
         self.click(campuran_tab)
         self.sleep(1)
         self.validate_mf_type('Campuran')
+        self.click(saham_tab_rek)
+        self.sleep(2)
+        self.click(reksadana_btn_portfolio)
+        self.sleep(1)
+        self.click(three_dots)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(three_dot_pop), True)
+        self.assert_equal(self.is_element_visible(three_dot_pop_jual), True)
+        self.assert_equal(self.is_element_visible(three_dot_pop_tukar), True)
+        self.click(three_pop_close)
+        self.sleep(1)
+        #self.assert_equal(self.is_element_visible(three_dot_pop), True)
+        self.click(three_dots)
+        self.sleep(1)
+        self.click(three_dot_pop_jual)
+        self.assert_equal(self.is_element_visible(jual_pop), True)
+        self.click(jual_pop_close)
+        self.click(three_dots)
+        self.click(three_dot_pop_tukar)
+        self.assert_equal(self.is_element_visible(tukar_page_header), True)
+        self.go_back()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(semua_tab), True)
+        self.click(port_down_arrow)
+        for i in range(7,14,2):
+            self.assert_equal(self.is_element_visible(f'//android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[{i}]'), True)
+        self.click(port_up_arrow)
+        self.assert_equal(self.is_element_visible('//android.widget.TextView[@text="NAV"]'), False)
+        self.click(port_topup)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(title_rdp_psr_uang), True)
+        self.go_back()
+        self.sleep(2)
+        self.small_scroll_down()
+        self.assert_equal(self.is_element_visible(pasar_uang), True)
+
+
+
+
+
+
+
+
+
+
 
 
 
