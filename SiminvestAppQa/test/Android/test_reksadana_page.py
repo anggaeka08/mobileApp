@@ -151,3 +151,107 @@ class Reksadana_Feature(ReksadanaPage):
             self.save_screenshot('test_functional_feature_of_reksadana_portfolio','SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.functional_feature_of_topup_and_tukar_jual_for_semua_type
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Feature")
+    def test_functional_feature_of_topup_and_tukar_jual_on_reksadana_portfolio(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_topup_and_tukar_jual_on_reksadana_portfolio')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_7'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+            self.top_up_process()
+            self.click_on_portfolio_btn()
+            self.jual_process()
+            self.tukar_process()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_topup_and_tukar_jual_on_reksadana_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_topup_and_tukar_jual_on_reksadana_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.functional_feature_of_topup_and_tukar_jual_for_pasar_unag_type
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Feature")
+    def test_functional_feature_of_topup_and_tukar_jual_for_pasar_unag_type(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_topup_and_tukar_jual_for_pasar_unag_type')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_7'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+            self.click_on_pasar_uang()
+            self.top_up_process()
+            self.click_on_portfolio_btn()
+            self.jual_process()
+            self.tukar_process()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_topup_and_tukar_jual_for_pasar_unag_type','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_topup_and_tukar_jual_for_pasar_unag_type','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.functional_feature_of_topup_and_tukar_jual_for_saham_type
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Feature")
+    def test_functional_feature_of_topup_and_tukar_jual_for_saham_type(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_topup_and_tukar_jual_for_saham_type')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_7'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+            self.click_on_saham()
+            self.top_up_process()
+            self.click_on_portfolio_btn()
+            self.jual_process()
+            self.tukar_process()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_topup_and_tukar_jual_for_saham_type','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_topup_and_tukar_jual_for_saham_type','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.functional_feature_of_topup_and_tukar_jual_for_Pendapatan_Tetap_type
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Feature")
+    def test_functional_feature_of_topup_and_tukar_jual_for_Pendapatan_Tetap_type(self):
+        try:
+            self.execute_script('lambda-name=test_functional_feature_of_topup_and_tukar_jual_for_Pendapatan_Tetap_type')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_7'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+            self.click_on_Pendapatan_Tetap()
+            self.top_up_process()
+            self.click_on_portfolio_btn()
+            self.jual_process()
+            self.tukar_process()
+            self.launch_app_again()
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+            self.validate_non_transaction_user_ui_for_port()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_feature_of_topup_and_tukar_jual_for_Pendapatan_Tetap_type','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_feature_of_topup_and_tukar_jual_for_Pendapatan_Tetap_type','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)

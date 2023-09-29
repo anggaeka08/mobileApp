@@ -1,5 +1,6 @@
 import json
 
+import elftools.elf.segments
 from appiumbase import BaseCase
 from selenium.common.exceptions import NoSuchElementException
 
@@ -156,6 +157,28 @@ tukar_page_header = '//android.view.ViewGroup/android.widget.ScrollView/android.
 port_down_arrow = '//android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[4]/android.widget.ImageView'
 port_up_arrow = '//android.view.ViewGroup[3]/android.view.ViewGroup[5]/android.widget.ImageView'
 port_topup = '//android.widget.TextView[@text="Top Up"]'
+b_25_juta_btn = 'Bottomsheet_pilih_denom_25 juta'
+topup_on_kamu = 'Bottomsheet_btn_beli'
+saya_mengerti='ketentuan_unit_button_saya_mengerti'
+konfirmasi_pemesanan_pilih='knfirmasi_pmesnan_text_2'
+pilih_metode_transfer_bank='bottomsheet_name_bank'
+knfirmasi_pmesnan_cek_box = 'knfirmasi_pmesnan_cek_box'
+knfirmasi_pmesnan_button_bayar='knfirmasi_pmesnan_button_bayar'
+knfirmasi_pmesnan_btn_close = 'knfirmasi_pmesnan_btn_close'
+transaction_page = 'ReksadanaEnrty0Name'
+port_mf_name = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[1]'
+sell_all_btn = 'Button_sell_all'
+sell_btn = 'Button_jual2'
+sell_conf_checkbox ='//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ImageView'
+sell_conf_btn = 'button_Confirm_sell'
+warning_ok_btn = '//android.widget.TextView[@text="OK"]'
+order_details_header = 'MFOderDetailsHeader'
+pilih_produk ='//android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView'
+pilih_select = '//android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]'
+tukar_semua = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]'
+investasi_sekarang = '//android.view.ViewGroup[4]/android.widget.TextView'
+
+
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
     def open_reksadana_page(self,phone_number):
@@ -704,6 +727,94 @@ class ReksadanaPage(HomePage):
         self.sleep(2)
         self.small_scroll_down()
         self.assert_equal(self.is_element_visible(pasar_uang), True)
+
+    @allure.step("Top up process")
+    def top_up_process(self):
+        port_mf_name_text = self.get_attribute(port_mf_name, 'text')
+        self.click(port_topup)
+        self.sleep(3)
+        self.click(btn_beli)
+        self.sleep(2)
+        if self.is_element_visible('//android.widget.TextView[@text="Lanjutkan"]') == True:
+            self.click('//android.widget.TextView[@text="Lanjutkan"]')
+            self.sleep(1)
+            self.click(b_25_juta_btn)
+            self.click(topup_on_kamu)
+            self.click(saya_mengerti)
+            self.click(konfirmasi_pemesanan_pilih)
+            self.click(pilih_metode_transfer_bank)
+            self.click(knfirmasi_pmesnan_cek_box)
+            self.click(knfirmasi_pmesnan_button_bayar)
+            self.click(knfirmasi_pmesnan_btn_close)
+            self.assert_equal(self.get_attribute(transaction_page,'text'), port_mf_name_text.upper())
+        else:
+            self.click(b_25_juta_btn)
+            self.click(topup_on_kamu)
+            self.click(saya_mengerti)
+            self.click(konfirmasi_pemesanan_pilih)
+            self.click(pilih_metode_transfer_bank)
+            self.click(knfirmasi_pmesnan_cek_box)
+            self.click(knfirmasi_pmesnan_button_bayar)
+            self.click(knfirmasi_pmesnan_btn_close)
+            self.assert_equal(self.get_attribute(transaction_page, 'text'), port_mf_name_text.upper())
+
+    @allure.step("Jual Process")
+    def jual_process(self):
+        self.click(three_dots)
+        self.click(three_dot_pop_jual)
+        self.click(sell_all_btn)
+        self.click(sell_btn)
+        self.click(sell_conf_checkbox)
+        self.click(sell_btn)
+        self.click(sell_conf_btn)
+        self.click(warning_ok_btn)
+        self.assert_equal(self.is_element_visible(order_details_header), True)
+        self.go_back()
+        self.sleep(1)
+        self.go_back()
+
+    @allure.step("Tukar process")
+    def tukar_process(self):
+        self.click(three_dots)
+        self.click(three_dot_pop_tukar)
+        self.click(pilih_produk)
+        self.click(pilih_select)
+        self.click(tukar_semua)
+        self.go_back()
+    @allure.step("click on pasar uang")
+    def click_on_pasar_uang(self):
+        self.click(pasar_uang)
+        self.sleep(2)
+
+    @allure.step("click on saham")
+    def click_on_saham(self):
+        self.click(saham_port_tab)
+
+    @allure.step("click on Pendapatan Tetap")
+    def click_on_Pendapatan_Tetap(self):
+        self.click(pendapatan_tab)
+
+    @allure.step("validate non transaction user ui for port")
+    def validate_non_transaction_user_ui_for_port(self):
+        self.assert_equal(self.is_element_visible(investasi_sekarang), True)
+        self.click(investasi_sekarang)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(Pasar_uang), True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
