@@ -186,10 +186,20 @@ class Research(HomePage):
         respon_date=date_in_entry[:11]
         logger.info( respon_date)
 
-    @allure.step("click_on_article")
-    def click_on_article(self):
+    @allure.step("verify_header_of_all_tab")
+    def verify_header_of_all_tab(self):
         self.click(article)
-        self.assert_equal(self.is_element_visible(article), True)
+        self.assert_equal(self.is_element_visible(research_header), True)
+        self.sleep(1)
+        self.click(lastreport)
+        self.assert_equal(self.is_element_visible(research_header), True)
+        self.sleep(1)
+        self.click(news)
+        self.assert_equal(self.is_element_visible(research_header), True)
+        self.sleep(1)
+        self.click(stock_signal)
+        self.assert_equal(self.is_element_visible(research_header), True)
+    
 
 
 

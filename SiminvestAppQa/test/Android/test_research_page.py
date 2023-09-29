@@ -113,7 +113,7 @@ class Research_test(Research):
             self.verify_header_of_research_page()
             self.verify_tabs_on_research_page()
             self.verify_title_date_card()
-            self.click_on_article()
+            self.verify_header_of_all_tab()
     
 
             self.execute_script("lambda-status=passed")
