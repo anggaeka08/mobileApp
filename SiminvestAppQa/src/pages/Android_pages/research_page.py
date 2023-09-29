@@ -1,6 +1,9 @@
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
 from SiminvestAppQa.src.data.userData import user_data
 import allure
+from datetime import datetime,date,timedelta
+import time
+import logging as logger
 
 #LOCATORS
 reseach_tab = '//android.widget.TextView[@text="Research"]'
@@ -12,9 +15,9 @@ news_search = '//android.widget.TextView[@text="News"]'
 news_entry = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView'
 last_reports_entry = 'ResearchPageReportEntry0'
 stock_signal = 'ResearchPageTabHeader0'
-last_report='ResearchPageTabHeader1'
-news='ResearchPageTabHeader2'
-media = 'ResearchPageTabHeader3'
+article='ResearchPageTabHeader1'
+lastreport='ResearchPageTabHeader2'
+news = 'ResearchPageTabHeader3'
 news_entry_research = 'ResearchPageNewsEnrty0'
 media_entry_title='ResearchPageMediaTitle0'
 search_entry = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView'
@@ -24,6 +27,10 @@ red_dont0_SS = 'ResearchPageSignalEntry0UnreadMark'
 red_dont1_SS = 'ResearchPageSignalEntry1UnreadMark'
 SS_entry0 = 'ResearchPageSignalEntry0'
 signal_tandai = 'ResearchPageSignalTandaiText'
+list_title_1 = 'ResearchPageSignalEntry0Name'
+list_date_1 = 'ResearchPageSignalEntry0Date'
+reseach_tab_icon = '//android.view.View[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup'
+
 
 class Research(HomePage):
 
@@ -34,11 +41,12 @@ class Research(HomePage):
     @allure.step("Click on research btn")
     def click_on_research_btn(self):
         self.click(reseach_tab)
-
+          
     @allure.step("Verify header of research page")
     def verify_header_of_research_page(self):
         self.sleep(2)
         self.assert_equal(self.is_element_visible(research_header), True)
+        self.assert_equal(self.is_element_visible( signal_tandai), True)
 
     @allure.step("Verify search btn on research page")
     def Verify_search_btn_on_research_page(self):
@@ -83,9 +91,9 @@ class Research(HomePage):
     def verify_tabs_on_research_page(self):
         self.sleep(2)
         self.assert_equal(self.is_element_visible(stock_signal), True)
-        self.assert_equal(self.is_element_visible(last_report), True)
+        self.assert_equal(self.is_element_visible(article), True)
+        self.assert_equal(self.is_element_visible(lastreport), True)
         self.assert_equal(self.is_element_visible(news), True)
-        self.assert_equal(self.is_element_visible(media), True)
 
     @allure.step("Click on news research tab and verify entry")
     def click_on_news_research_tab_and_verify_entry(self):
@@ -167,8 +175,21 @@ class Research(HomePage):
         self.enter_otp(user_data['valid_otp'])
         self.enter_pin()
         self.verify_home_page()
+    
+    @allure.step("verify_title_date_card")
+    def verify_title_date_card(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(list_title_1), True)
+        self.assert_equal(self.is_element_visible(list_date_1), True)
+        
+        date_in_entry = self.get_attribute(list_date_1, "text")
+        respon_date=date_in_entry[:11]
+        logger.info( respon_date)
 
-
+    @allure.step("click_on_article")
+    def click_on_article(self):
+        self.click(article)
+        self.assert_equal(self.is_element_visible(article), True)
 
 
 
