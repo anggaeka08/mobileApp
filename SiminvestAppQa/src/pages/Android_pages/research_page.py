@@ -188,17 +188,18 @@ class Research(HomePage):
 
     @allure.step("verify_header_of_all_tab")
     def verify_header_of_all_tab(self):
+        header_value = self.get_attribute(research_header, 'text')
         self.click(article)
-        self.assert_equal(self.is_element_visible(research_header), True)
+        self.assert_equal(self.get_attribute(research_header, 'text'), header_value)
         self.sleep(1)
         self.click(lastreport)
-        self.assert_equal(self.is_element_visible(research_header), True)
+        self.assert_equal(self.get_attribute(research_header, 'text'), header_value)
         self.sleep(1)
         self.click(news)
-        self.assert_equal(self.is_element_visible(research_header), True)
+        self.assert_equal(self.get_attribute(research_header, 'text'), header_value)
         self.sleep(1)
         self.click(stock_signal)
-        self.assert_equal(self.is_element_visible(research_header), True)
+        self.assert_equal(self.get_attribute(research_header, 'text'), header_value)
     
 
 
