@@ -494,7 +494,7 @@ class LoginPage(BaseCase):
     def verify_otp_page_with_whatsapp_phone_no(self, phone_no):
         self.sleep(2)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
-        self.assert_equal(otp_page_text, f"4 Digit OTP telah dikirim melalui Whatsapp ke nomor +62{phone_no}")
+        self.assert_equal(otp_page_text, f"4 Digit OTP telah dikirim melalui Whatsapp ke nomor  +62{phone_no}")
 
     @allure.step("Verify phone number autofilled after back")
     def verify_phone_nubmer_autofilled_after_back(self, number):
