@@ -99,6 +99,56 @@ class Research_test(Research):
             pytest.fail(E.msg, pytrace=True)
 
 
+    @pytest.mark.functional_validation_stock_signal_research_page
+    @pytest.mark.Android
+    @pytest.mark.Research
+    @pytest.mark.Revamp
+    @allure.story("F-4:Research Feature")
+    def test_functional_validation_stock_signal_research_page(self):
+        try:
+            self.execute_script('lambda-name=test_functional_validation_stock_signal_research_page')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.verify_research_tab_on_homepage()
+            self.click_on_research_btn()
+            self.verify_header_of_research_page()
+            self.verify_tabs_on_research_page()
+            self.verify_title_date_card()
+            self.verify_header_after_click_on_all_tab()
+    
 
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_validation_stock_signal_research_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_validation_stock_signal_research_page', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.functional_validation_stock_signal_research_page_non_kyc
+    @pytest.mark.Android
+    @pytest.mark.Research
+    @pytest.mark.Revamp
+    @allure.story("F-4:Research Feature")
+    def test_validate_stock_signal_research_page_non_kyc(self):
+        try:
+            self.execute_script('lambda-name=test_validate_stock_signal_research_page_non_kyc')
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_3'])
+            self.verify_research_tab_on_homepage()
+            self.click_on_research_btn()
+            self.verify_header_of_research_page()
+            self.verify_tabs_on_research_page()
+            self.verify_title_date_card()
+            self.click_on_article()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_stock_signal_research_page_non_kyc', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_stock_signal_research_page_non_kyc', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
 
 
