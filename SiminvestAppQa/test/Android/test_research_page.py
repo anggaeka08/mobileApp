@@ -113,9 +113,8 @@ class Research_test(Research):
             self.verify_header_of_research_page()
             self.verify_tabs_on_research_page()
             self.verify_title_date_card()
-            self.verify_header_after_click_on_all_tab()
-    
-
+            self.verify_header_of_all_tab()
+            self.validate_refresh_functionality_for_level_page()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_functional_validation_stock_signal_research_page', 'SiminvestAppQa/src/data/ScreenShots')
@@ -140,7 +139,7 @@ class Research_test(Research):
             self.verify_header_of_research_page()
             self.verify_tabs_on_research_page()
             self.verify_title_date_card()
-            self.click_on_article()
+            self.verify_header_of_all_tab()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_validate_stock_signal_research_page_non_kyc', 'SiminvestAppQa/src/data/ScreenShots')

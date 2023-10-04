@@ -1,6 +1,5 @@
 import json
 
-import elftools.elf.segments
 from appiumbase import BaseCase
 from selenium.common.exceptions import NoSuchElementException
 

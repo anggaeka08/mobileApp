@@ -30,6 +30,7 @@ signal_tandai = 'ResearchPageSignalTandaiText'
 list_title_1 = 'ResearchPageSignalEntry0Name'
 list_date_1 = 'ResearchPageSignalEntry0Date'
 reseach_tab_icon = '//android.view.View[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup'
+list_title_8 = 'ResearchPageSignalEntry7Name'
 
 
 class Research(HomePage):
@@ -185,7 +186,17 @@ class Research(HomePage):
         date_in_entry = self.get_attribute(list_date_1, "text")
         respon_date=date_in_entry[:11]
         logger.info( respon_date)
-
+        
+    @allure.step("validate_refresh_functionality_for_level_page")
+    def validate_refresh_functionality_for_level_page(self):
+        self.scroll_up()
+        self.assert_equal(self.is_element_visible(list_title_8), True)
+        self.sleep(1)
+        self.scroll_down()
+        self.assert_equal(self.is_element_visible(list_title_1), True)
+        self.sleep(1)
+        self.assert_equal(self.get_attribute(research_header, 'text'), "Research")
+        
     @allure.step("verify_header_of_all_tab")
     def verify_header_of_all_tab(self):
         header_value = self.get_attribute(research_header, 'text')
@@ -200,25 +211,3 @@ class Research(HomePage):
         self.sleep(1)
         self.click(stock_signal)
         self.assert_equal(self.get_attribute(research_header, 'text'), header_value)
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
