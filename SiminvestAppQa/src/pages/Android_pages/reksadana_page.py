@@ -1,16 +1,10 @@
-import json
-
-import elftools.elf.segments
-from appiumbase import BaseCase
 from selenium.common.exceptions import NoSuchElementException
-
-from SiminvestAppQa.src.pages.Android_pages.login_page import LoginPage
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
 import logging as logger
 import allure
 from SiminvestAppQa.src.data.userData import user_data
 from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
-from datetime import datetime,date,timedelta
+
 
 request_utilities = RequestsUtilities()
 # reksadana homepage Locator'
@@ -177,7 +171,10 @@ pilih_produk ='//android.view.ViewGroup[3]/android.view.ViewGroup/android.view.V
 pilih_select = '//android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]'
 tukar_semua = '//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]'
 investasi_sekarang = '//android.view.ViewGroup[4]/android.widget.TextView'
-
+Rp_value_with_non_kyc = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[1]'
+belum_ada_text = '//android.widget.TextView[@text="Belum Ada Portofolio"]'
+lewati_btn_reffral = '//android.widget.TextView[@text="Lewati"]'
+verifikasi_header = '(//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1])[1]'
 
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
@@ -801,30 +798,22 @@ class ReksadanaPage(HomePage):
         self.sleep(2)
         self.assert_equal(self.is_element_visible(Pasar_uang), True)
 
+    @allure.step("Validate portfolio page for non kyc user")
+    def validate_portfolio_page_for_non_kyc_user(self):
+        self.assert_equal(self.is_element_visible(investasi_sekarang), True)
+        self.assert_equal(self.get_attribute(Rp_value_with_non_kyc, 'text'), 'Rp  0')
+        self.assert_equal(self.is_element_visible(belum_ada_text), True)
+        self.click(investasi_sekarang)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(lewati_btn_reffral), True)
+        self.click(lewati_btn_reffral)
+        self.assert_equal(self.is_element_visible(verifikasi_header), True)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @allure.step("Validate portfolio page for kyc user non ifua")
+    def validate_portfolio_page_for_non_kyc_user_non_ifua(self):
+        self.assert_equal(self.is_element_visible(investasi_sekarang), True)
+        self.assert_equal(self.get_attribute(Rp_value_with_non_kyc, 'text'), 'Rp  0')
+        self.assert_equal(self.is_element_visible(belum_ada_text), True)
+        self.click(investasi_sekarang)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(Pasar_uang), True)

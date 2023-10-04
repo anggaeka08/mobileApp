@@ -2,10 +2,7 @@ import allure
 import pytest
 from selenium.common.exceptions import NoSuchElementException
 from SiminvestAppQa.src.pages.Android_pages.reksadana_page import ReksadanaPage
-from SiminvestAppQa.src.utilities.genericUtilities import generate_random_integer
 from SiminvestAppQa.src.data.userData import user_data
-import time
-import logging as logger
 
 
 class Reksadana_Feature(ReksadanaPage):
@@ -253,5 +250,33 @@ class Reksadana_Feature(ReksadanaPage):
             pytest.fail(E.__str__(), pytrace=True)
         except NoSuchElementException as E:
             self.save_screenshot('test_functional_feature_of_topup_and_tukar_jual_for_Pendapatan_Tetap_type','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.portfolio_page_validation_with_non_kyc_user_and_non_ifua_account
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Feature")
+    def test_portfolio_page_validation_with_non_kyc_user_and_non_ifua_account(self):
+        try:
+            self.execute_script('lambda-name=test_portfolio_page_validation_with_non_kyc_user_and_non_ifua_account')
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+            self.validate_portfolio_page_for_non_kyc_user()
+            self.launch_app_again()
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_2'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+            self.validate_portfolio_page_for_non_kyc_user_non_ifua()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_portfolio_page_validation_with_non_kyc_user_and_non_ifua_account',
+                                 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_portfolio_page_validation_with_non_kyc_user_and_non_ifua_account',
+                                 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
