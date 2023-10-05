@@ -175,7 +175,10 @@ Rp_value_with_non_kyc = '//android.widget.ScrollView/android.view.ViewGroup/andr
 belum_ada_text = '//android.widget.TextView[@text="Belum Ada Portofolio"]'
 lewati_btn_reffral = '//android.widget.TextView[@text="Lewati"]'
 verifikasi_header = '(//android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1])[1]'
-
+value = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[5]'
+earning_value = '//android.view.ViewGroup/android.widget.TextView[6]'
+total_earning = '//android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[4]'
+return_loc = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[5]'
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
     def open_reksadana_page(self,phone_number):
@@ -817,3 +820,99 @@ class ReksadanaPage(HomePage):
         self.click(investasi_sekarang)
         self.sleep(2)
         self.assert_equal(self.is_element_visible(Pasar_uang), True)
+
+    @allure.step("validate mathematical calculation on page")
+    def validate_mathematical_calculation_on_page(self):
+        portfolio_value = self.get_attribute(Rp_value_with_non_kyc, 'text')
+        element_text = self.find_elements(value)
+        value_list = []
+        for ele in element_text:
+            value_list.append(ele.text)
+        logger.info(value_list)
+        self.scroll_up()
+        element_text = self.find_elements(value)
+        for ele in element_text:
+            if ele.text not in value_list:
+                value_list.append(ele.text)
+        logger.info(value_list)
+        self.scroll_up()
+        element_text = self.find_elements(value)
+        for ele in element_text:
+            if ele.text not in value_list:
+                value_list.append(ele.text)
+        logger.info(value_list)
+        self.scroll_up()
+        element_text = self.find_elements(value)
+        for ele in element_text:
+            if ele.text not in value_list:
+                value_list.append(ele.text)
+        logger.info(value_list)
+        self.scroll_up()
+        element_text = self.find_elements(value)
+        for ele in element_text:
+            if ele.text not in value_list:
+                value_list.append(ele.text)
+        # for i in range(1,len(value_list)):
+        #     value_list[i] = float((value_list[i][3:]).replace(',',''))
+        sum_of_all_value = 0
+        for i in range(1, len(value_list)):
+            value_list[i] = float((value_list[i][3:]).replace(',', ''))
+            sum_of_all_value += value_list[i]
+        digit_value_PR = int((portfolio_value[3:]).replace(',',''))
+        self.assert_equal(digit_value_PR, int(sum_of_all_value))
+
+    @allure.step("validate other mathematical calculation")
+    def validate_other_mathematical_calculation(self):
+        total_earning_value = self.get_attribute(total_earning, 'text')
+        earning_text = self.find_elements(earning_value)
+        value_list = []
+        for ele in earning_text:
+            value_list.append(ele.text)
+        logger.info(value_list)
+        self.scroll_up()
+        earning_text = self.find_elements(earning_value)
+        for ele in earning_text:
+            if ele.text not in value_list:
+                value_list.append(ele.text)
+        logger.info(value_list)
+        self.scroll_up()
+        earning_text = self.find_elements(earning_value)
+        for ele in earning_text:
+            if ele.text not in value_list:
+                value_list.append(ele.text)
+        logger.info(value_list)
+        self.scroll_up()
+        earning_text = self.find_elements(earning_value)
+        for ele in earning_text:
+            if ele.text not in value_list:
+                value_list.append(ele.text)
+        logger.info(value_list)
+        self.scroll_up()
+        earning_text = self.find_elements(earning_value)
+        for ele in earning_text:
+            if ele.text not in value_list:
+                value_list.append(ele.text)
+        logger.info(value_list)
+        sum_of_earning_value = 0
+        for i in range(1, len(value_list)):
+            index = value_list[i].find('Rp')
+            value_list[i] = float((value_list[i][index + 3:]).replace(',', ''))
+            sum_of_earning_value += value_list[i]
+        digit_value_earning = int((total_earning_value[3:]).replace(',', ''))
+        self.assert_equal(int(sum_of_earning_value), digit_value_earning)
+        self.click(saham_tab_rek)
+        self.sleep(2)
+        self.click(reksadana_btn_portfolio)
+        rp_value_text = self.get_attribute(Rp_value_with_non_kyc, 'text')
+        rp_value = int((rp_value_text[3:]).replace(',',''))
+        return_cal = (str((digit_value_earning/rp_value)*100))[:4]
+        return_ui_text = self.get_attribute(return_loc, 'text')
+        index = return_ui_text.find("%")
+        return_value = return_ui_text[1:index]
+        self.assert_equal(return_value,return_cal)
+
+
+
+
+
+
