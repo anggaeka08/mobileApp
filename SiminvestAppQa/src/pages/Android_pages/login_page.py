@@ -16,8 +16,8 @@ set_pin ="//android.widget.TextView[@text='Buat PIN Kamu']"
 risk_profile_page="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView"
 risk_profile = "Pilih tipe portfolio yang sesuai dengan Kamu."
 agresif = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView"
-Home_page_locator = "//android.widget.TextView[@text='Buka Akun Investasi']"
-Home_page_text = "Buka Akun Investasi"
+Home_page_locator = "//android.widget.TextView[@text='Selesaikan proses pendaftaran']"
+Home_page_text = "Selesaikan proses pendaftaran"
 #Home_page_reg_user_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
 Home_page_reg_user_locator = "HomePageRDN"
 Home_page_reg_user_locator_text ="Saldo"
@@ -494,7 +494,7 @@ class LoginPage(BaseCase):
     def verify_otp_page_with_whatsapp_phone_no(self, phone_no):
         self.sleep(2)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
-        self.assert_equal(otp_page_text, f"4 digit OTP telah dikirim melalui SMS ke nomor +62{phone_no}")
+        self.assert_equal(otp_page_text, f"4 Digit OTP telah dikirim melalui Whatsapp ke nomor  +62{phone_no}")
 
     @allure.step("Verify phone number autofilled after back")
     def verify_phone_nubmer_autofilled_after_back(self, number):

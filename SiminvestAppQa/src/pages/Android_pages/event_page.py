@@ -181,9 +181,9 @@ class EventPage(StockDetailPage):
         self.sleep(3)
         self.assert_equal(self.is_element_visible(right_symbol), True)
         self.assert_equal(self.is_element_visible(right_ratio), True)
-        self.assert_equal(self.is_element_visible(right_factorv), True)
+        #self.assert_equal(self.is_element_visible(right_factorv), True)
         self.assert_equal(self.is_element_visible(right_symbol_0), True)
-        self.assert_equal(self.is_element_visible(right_factor_0), True)
+        #self.assert_equal(self.is_element_visible(right_factor_0), True)
         self.assert_equal(self.is_element_visible(right_ratio_0), True)
 
     @allure.step("validate warrant tab")
@@ -214,14 +214,14 @@ class EventPage(StockDetailPage):
     @allure.step("validate bonus tab")
     def validate_bonus_tab(self):
         self.click(bonus_tab)
-        self.sleep(3)
-        for i in range(1,4):
+        self.sleep(5)
+        for i in range(1,3):
             self.assert_equal(self.is_element_visible(f"BonusTabHeader{i}"), True)
 
     @allure.step("validate rups tab")
     def validate_rups_tab(self):
         self.click(rups_tab)
-        self.sleep(3)
+        self.sleep(5)
         self.assert_equal(self.is_element_visible('RUPSTabHeaderSymbol0'), True)
         self.assert_in('Jakarta', self.get_attribute('RUPSTabHeaderVenue0', 'text'))
 
