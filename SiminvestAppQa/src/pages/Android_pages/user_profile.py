@@ -148,8 +148,8 @@ hubungi_whatsapp = '//android.widget.TextView[@text="Whatsapp"]'
 FAQs_tab = '(//android.view.ViewGroup[@content-desc="ProfilePageEntry2"])[2]'
 FAQ_header = '//android.widget.TextView[@text="FAQs"]'
 logout_btn ='ProfilePageLogoutButton'
-Home_page_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
-Home_page_text = "Mulai Investasi Yuk…"
+Home_page_locator = "//android.widget.TextView[@text='Selesaikan proses pendaftaran']"
+Home_page_text = "Selesaikan proses pendaftaran"
 
 class UserProfile(HomePage):
 
