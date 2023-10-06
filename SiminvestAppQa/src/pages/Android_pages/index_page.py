@@ -42,7 +42,7 @@ class IndexPage(StockDetailPage):
 
     @allure.step("verify redirection for search option")
     def verify_redirection_for_search_option(self):
-        self.assert_equal(self.get_attribute(search_field, 'text'), 'Cari saham atau reksadana')
+        self.assert_equal(self.get_attribute(search_field, 'text'), 'Cari Saham')
         self.verify_keyboard_on_off(True)
         self.tap_by_coordinates(x=744, y=901)
         self.verify_keyboard_on_off(False)

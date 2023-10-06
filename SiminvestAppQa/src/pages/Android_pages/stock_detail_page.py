@@ -515,7 +515,7 @@ class StockDetailPage(Watchlist, BuyProcess):
 
     @allure.step("Validate grammar of title")
     def validate_grammar_of_title(self):
-        all_value_lst = ['ACES', 'Ace Hardware Indonesia Tbk', 'Open','','High','','Vol','', 'Close', '','Low','', 'Val', '','Avg','', 'F.Buy', '','F.Sell' ]
+        all_value_lst = ['ACES', 'Ace Hardware Indonesia Tbk', 'Open','','High','','Vol','', 'Close', '','Low','', 'Val', '','Avg','', 'IEP', '','IEV' ]
         self.assert_equal(self.get_attribute(sdp_header, 'text'), all_value_lst[0])
         self.assert_equal(self.get_attribute(stock_name, 'text'), all_value_lst[1])
         for i in range(1, 18, 2):
