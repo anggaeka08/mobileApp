@@ -452,7 +452,7 @@ class AmendProcess(StockDetailPage,SellProcess ):
         self.assert_equal(self.get_attribute(buying_power_text, 'text'), 'Buying Power')
         self.assert_equal(self.get_attribute(total_beli_text, 'text'), 'Total Beli')
         self.assert_equal(self.get_attribute(click_your_text, 'text'), 'Click your buying price below')
-        all_value_lst = ['','Open','','High','','Vol','','Close','','Low','','Val','','Avg','','F.Buy','','F.Sell']
+        all_value_lst = ['','Open','','High','','Vol','','Close','','Low','','Val','','Avg','','IEP','','IEV']
         for i in range(1, 19,2):
             self.assert_equal(all_value_lst[i], self.get_attribute(f'SDPPageText{i}', 'text'))
 
