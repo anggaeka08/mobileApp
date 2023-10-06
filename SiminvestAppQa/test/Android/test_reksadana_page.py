@@ -280,3 +280,46 @@ class Reksadana_Feature(ReksadanaPage):
                                  'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.mathematical_validaion_on_MF_portfolio
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Feature")
+    def test_mathematical_validaion_on_MF_portfolio(self):
+        try:
+            self.execute_script('lambda-name=test_mathematical_validaion_on_MF_portfolio')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_7'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+           # self.validate_mathematical_calculation_on_page()
+            self.validate_other_mathematical_calculation()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_mathematical_validaion_on_MF_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_mathematical_validaion_on_MF_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.other_mathematical_validation_on_MF_portfolio
+    @pytest.mark.Reksadana
+    @pytest.mark.Android
+    @allure.story("F-21 :Reksadana Feature")
+    def test_other_mathematical_validation_on_MF_portfolio(self):
+        try:
+            self.execute_script('lambda-name=test_other_mathematical_validation_on_MF_portfolio')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_6'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+            self.validate_other_mathematical_calculation()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_other_mathematical_validation_on_MF_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_other_mathematical_validation_on_MF_portfolio','SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
