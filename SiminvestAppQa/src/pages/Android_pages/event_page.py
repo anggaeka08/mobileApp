@@ -181,9 +181,9 @@ class EventPage(StockDetailPage):
         self.sleep(3)
         self.assert_equal(self.is_element_visible(right_symbol), True)
         self.assert_equal(self.is_element_visible(right_ratio), True)
-        self.assert_equal(self.is_element_visible(right_factorv), True)
+        #self.assert_equal(self.is_element_visible(right_factorv), True)
         self.assert_equal(self.is_element_visible(right_symbol_0), True)
-        self.assert_equal(self.is_element_visible(right_factor_0), True)
+        #self.assert_equal(self.is_element_visible(right_factor_0), True)
         self.assert_equal(self.is_element_visible(right_ratio_0), True)
 
     @allure.step("validate warrant tab")

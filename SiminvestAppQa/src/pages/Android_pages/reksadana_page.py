@@ -1,5 +1,6 @@
 import json
 
+#import elftools.elf.segments
 from appiumbase import BaseCase
 from selenium.common.exceptions import NoSuchElementException
 from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
