@@ -133,7 +133,7 @@ class Research_test(Research):
     def test_validate_stock_signal_research_page_non_kyc(self):
         try:
             self.execute_script('lambda-name=test_validate_stock_signal_research_page_non_kyc')
-            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_3'])
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
             self.verify_research_tab_on_homepage()
             self.click_on_research_btn()
             self.verify_header_of_research_page()
@@ -150,4 +150,51 @@ class Research_test(Research):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.functional_validation_stock_signal_stock_breakdown 
+    @pytest.mark.Android
+    @pytest.mark.Research
+    @pytest.mark.Revamp
+    @allure.story("F-4:Research Feature")
+    def test_functional_validation_stock_signal_stock_breakdown(self):
+        try:
+            self.execute_script('lambda-name=test_functional_validation_stock_signal_stock_breakdown')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no'])
+            self.click_on_research_btn()
+            self.verify_header_of_research_page()
+            self.verify_stock_breakdown_page()
+            self.click_on_lihat_stock_btn()
+            self.verify_on_sdp_page()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_validation_stock_signal_stock_breakdown', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_validation_stock_signal_stock_breakdown', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.functional_validation_stock_signal_stock_breakdown_non_kyc
+    @pytest.mark.Android
+    @pytest.mark.Research
+    @pytest.mark.Revamp
+    @allure.story("F-4:Research Feature")
+    def test_functional_validation_stock_signal_stock_breakdown_non_kyc(self):
+        try:
+            self.execute_script('lambda-name=test_functional_validation_stock_signal_stock_breakdown_non_kyc')
+            self.login_and_verify_homepage_for_non_kyc_user(user_data['unkyc_reg_no_2'])
+            self.click_on_research_btn()
+            self.verify_header_of_research_page()
+            self.verify_stock_breakdown_page()
+            self.click_on_lihat_stock_btn()
+            self.verify_on_sdp_page()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_functional_validation_stock_signal_stock_breakdown_non_kyc', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_functional_validation_stock_signal_stock_breakdown_non_kyc', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
 

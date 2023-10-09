@@ -31,6 +31,12 @@ list_title_1 = 'ResearchPageSignalEntry0Name'
 list_date_1 = 'ResearchPageSignalEntry0Date'
 reseach_tab_icon = '//android.view.View[2]/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup'
 list_title_8 = 'ResearchPageSignalEntry7Name'
+title_breakdown = "//*[@text='stock breakdown']"
+title_page = '//android.widget.TextView[@text="stock breakdown"]'
+date_stock_breakdown = '//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[2]'
+price_stock_breakdwon = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[2]'
+button_lihat_stock = '//android.widget.TextView[@text="Lihat Stock"]'
+sdp_header = 'SDPStockCode'
 
 
 class Research(HomePage):
@@ -211,3 +217,24 @@ class Research(HomePage):
         self.sleep(1)
         self.click(stock_signal)
         self.assert_equal(self.get_attribute(research_header, 'text'), header_value)
+
+    @allure.step("verify_stock_breakdown_page")
+    def verify_stock_breakdown_page(self):
+        self.click(title_breakdown)
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(title_page, 'text'), "stock breakdown")
+        self.assert_equal(self.is_element_visible(date_stock_breakdown), True)
+        self.assert_equal(self.is_element_visible(price_stock_breakdwon), True)
+        self.assert_equal(self.get_attribute(button_lihat_stock, 'text'), "Lihat Stock")
+       
+    @allure.step("click_on_lihat_stock_btn")
+    def click_on_lihat_stock_btn(self):
+        self.click(button_lihat_stock)
+
+    @allure.step("verify_on_sdp_page")
+    def verify_on_sdp_page(self):
+        self.sleep(3)
+        self.assert_equal(self.is_element_visible(sdp_header), True)
+        self.go_back()
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(button_lihat_stock, 'text'), "Lihat Stock")
