@@ -164,6 +164,7 @@ class Research_test(Research):
             self.verify_stock_breakdown_page()
             self.click_on_lihat_stock_btn()
             self.verify_on_sdp_page()
+            self.verify_on_image()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_functional_validation_stock_signal_stock_breakdown', 'SiminvestAppQa/src/data/ScreenShots')
