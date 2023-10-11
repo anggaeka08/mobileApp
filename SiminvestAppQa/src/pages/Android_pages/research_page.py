@@ -37,6 +37,9 @@ date_stock_breakdown = '//android.widget.ScrollView/android.view.ViewGroup/andro
 price_stock_breakdwon = '//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[2]'
 button_lihat_stock = '//android.widget.TextView[@text="Lihat Stock"]'
 sdp_header = 'SDPStockCode'
+button_perbesar = '//android.widget.TextView[@text="Perbesar"]'
+button_close = '//android.view.ViewGroup/android.widget.ImageView'
+image_banner = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.ImageView'
 
 
 class Research(HomePage):
@@ -238,3 +241,18 @@ class Research(HomePage):
         self.go_back()
         self.sleep(2)
         self.assert_equal(self.get_attribute(button_lihat_stock, 'text'), "Lihat Stock")
+    
+    @allure.step("verify_on_image")
+    def verify_on_image(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(button_perbesar), True) 
+        self.click(button_perbesar)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(button_close), True)
+        self.click(button_close)
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(button_lihat_stock, 'text'), "Lihat Stock")
+        self.go_back()
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(research_header, 'text'), "Research")
+        
