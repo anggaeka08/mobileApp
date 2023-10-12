@@ -531,7 +531,7 @@ class LoginPage(BaseCase):
     def verify_otp_page_with_whatsapp_phone_no(self, phone_no):
         self.sleep(2)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
-        self.assert_equal(otp_page_text, f"4 Digit OTP telah dikirim melalui Whatsapp ke nomor  +62{phone_no}")
+        self.assert_equal(otp_page_text, f"4 digit OTP telah dikirim melalui SMS ke nomor +62{phone_no}")
 
     @allure.step("Verify phone number autofilled after back")
     def verify_phone_nubmer_autofilled_after_back(self, number):
@@ -609,7 +609,13 @@ class LoginPage(BaseCase):
     @allure.step("Click back when change pin in profile menu")
     def click_back_finshPIN(self):
         self.click(btn_back_confirm_pin)
-  
+    
+    @allure.step("kill apss")
+    def Validate_kill_app(self):
+      self.launch_app_again()
+      self.login_and_verify_homepage_for_reg_user(user_data['reg_no_5'])
+      self.sleep(2)
+
 
 
 

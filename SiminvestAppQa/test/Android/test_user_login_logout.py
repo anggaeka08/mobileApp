@@ -789,6 +789,12 @@ class Login_test(LoginPage):
             self.Click_to_Ganti_pin_siminvest()
             self.verify_Change_pin_page()
             self.enter_pin_without_bio()
+            self.verify_redirect_to_set_pin_page()
+            self.enter_pin_without_bio()
+            self.verify_redirect_to_Konfirmasi_pin_page()
+            self.enter_pin_without_bio()
+            self.click_back_finshPIN()
+            self.Validate_kill_app()
             self.execute_script("lambda-status=passed")
         except AssertionError as E:
             self.save_screenshot('test_Validate_newFeature_pin_biometric', 'SiminvestAppQa/src/data/ScreenShots')
