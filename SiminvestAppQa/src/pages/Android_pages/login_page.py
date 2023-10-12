@@ -78,6 +78,23 @@ close_banner = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayou
 Saya_Setuju ='//android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
 tampilkan ="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.ImageView"
 Lewati = "//android.widget.TextView[@text ='Lewati']"
+konfirmasi_pin = 'SetUpPinText1'
+konfirmasi_pintxt = 'SetUpPinText2'
+buat_pin_kamu = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]'
+buat_pin_txt= '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+aktifkan_fitur_keamanan = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]'
+aktifkan_fitur_keamanantxt = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+btn_nanti = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]'
+btn_pengaturan ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]'
+lanjut_btn ='//android.view.ViewGroup[@content-desc="selanjutana_btn"]/android.view.View'
+set_pin_dir = 'Buat PIN Kamu'
+confirm_pin_dir = 'Konfirmasi PIN'
+makmimum_pin = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]'
+maksimum_Txt = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+maksimum_btn_ok = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
+change_pin_dir = 'Masukkan PIN Lama'
+btn_back_confirm_pin ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
+
 
 class LoginPage(BaseCase):
 
@@ -118,6 +135,10 @@ class LoginPage(BaseCase):
     @allure.step("click selanjutnya")
     def click_selanjutnya(self):
         self.click(selanjutnya)
+    
+    @allure.step("click lanjut")
+    def click_lanjut(self):
+        self.click(lanjut_btn)
 
     @allure.step("click_on_bio_off")
     def click_on_bio_off(self):
@@ -286,6 +307,22 @@ class LoginPage(BaseCase):
     def verify_redirect_to_pin_page(self):
         pin_page_text = self.get_attribute(pin_page_locator, "text")
         self.assert_equal(pin_page_text_dir , pin_page_text)
+
+
+    @allure.step("verify redirect to pin page")
+    def verify_redirect_to_set_pin_page(self):
+        set_pin_txt = self.get_attribute(buat_pin_kamu, "text")
+        self.assert_equal(set_pin_dir , set_pin_txt)
+
+    @allure.step("verify redirect to pin page")
+    def verify_redirect_to_Konfirmasi_pin_page(self):
+        set_pin_txt = self.get_attribute(konfirmasi_pin, "text")
+        self.assert_equal(confirm_pin_dir , set_pin_txt)
+    
+    @allure.step("verify change PIN in profile page")
+    def verify_Change_pin_page(self):
+        set_pin_txt = self.get_attribute(konfirmasi_pin, "text")
+        self.assert_equal(change_pin_dir , set_pin_txt)
 
     @allure.step("confirm pin reset")
     def confirm_pin_reset(self):
@@ -494,7 +531,7 @@ class LoginPage(BaseCase):
     def verify_otp_page_with_whatsapp_phone_no(self, phone_no):
         self.sleep(2)
         otp_page_text = self.get_attribute(otp_page_locator, "text")
-        self.assert_equal(otp_page_text, f"4 Digit OTP telah dikirim melalui Whatsapp ke nomor  +62{phone_no}")
+        self.assert_equal(otp_page_text, f"4 digit OTP telah dikirim melalui SMS ke nomor +62{phone_no}")
 
     @allure.step("Verify phone number autofilled after back")
     def verify_phone_nubmer_autofilled_after_back(self, number):
@@ -557,7 +594,27 @@ class LoginPage(BaseCase):
     @allure.step("Click on cancel")
     def click_on_cancel(self):
         self.click(navigate_up)
+  
+    @allure.step("message 10 minute")
+    def Validate_message_10minute(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(makmimum_pin), True)
+        self.assert_equal(self.is_element_visible(maksimum_Txt), True)
+        self.assert_equal(self.is_element_visible(maksimum_btn_ok), True)
+        maksimum_10menit_txt = self.get_attribute(maksimum_Txt, "text")
+        self.assert_equal(maksimum_10menit_txt, "Kamu sudah melampaui batas input PIN. Silahkan coba login 10 menit lagi.")
+        self.sleep(2)
+        self.click(maksimum_btn_ok)
 
+    @allure.step("Click back when change pin in profile menu")
+    def click_back_finshPIN(self):
+        self.click(btn_back_confirm_pin)
+    
+    @allure.step("kill apss")
+    def Validate_kill_app(self):
+      self.launch_app_again()
+      self.login_and_verify_homepage_for_reg_user(user_data['reg_no_5'])
+      self.sleep(2)
 
 
 
