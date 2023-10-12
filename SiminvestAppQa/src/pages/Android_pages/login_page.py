@@ -89,6 +89,13 @@ btn_pengaturan ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayo
 lanjut_btn ='//android.view.ViewGroup[@content-desc="selanjutana_btn"]/android.view.View'
 set_pin_dir = 'Buat PIN Kamu'
 confirm_pin_dir = 'Konfirmasi PIN'
+makmimum_pin = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]'
+maksimum_Txt = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+maksimum_btn_ok = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView'
+change_pin_dir = 'Masukkan PIN Lama'
+btn_back_confirm_pin ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
+
+
 class LoginPage(BaseCase):
 
     @allure.step("luanch app again")
@@ -311,6 +318,11 @@ class LoginPage(BaseCase):
     def verify_redirect_to_Konfirmasi_pin_page(self):
         set_pin_txt = self.get_attribute(konfirmasi_pin, "text")
         self.assert_equal(confirm_pin_dir , set_pin_txt)
+    
+    @allure.step("verify change PIN in profile page")
+    def verify_Change_pin_page(self):
+        set_pin_txt = self.get_attribute(konfirmasi_pin, "text")
+        self.assert_equal(change_pin_dir , set_pin_txt)
 
     @allure.step("confirm pin reset")
     def confirm_pin_reset(self):
@@ -582,8 +594,22 @@ class LoginPage(BaseCase):
     @allure.step("Click on cancel")
     def click_on_cancel(self):
         self.click(navigate_up)
+  
+    @allure.step("message 10 minute")
+    def Validate_message_10minute(self):
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(makmimum_pin), True)
+        self.assert_equal(self.is_element_visible(maksimum_Txt), True)
+        self.assert_equal(self.is_element_visible(maksimum_btn_ok), True)
+        maksimum_10menit_txt = self.get_attribute(maksimum_Txt, "text")
+        self.assert_equal(maksimum_10menit_txt, "Kamu sudah melampaui batas input PIN. Silahkan coba login 10 menit lagi.")
+        self.sleep(2)
+        self.click(maksimum_btn_ok)
 
-
+    @allure.step("Click back when change pin in profile menu")
+    def click_back_finshPIN(self):
+        self.click(btn_back_confirm_pin)
+  
 
 
 
