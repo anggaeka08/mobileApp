@@ -16,8 +16,8 @@ set_pin ="//android.widget.TextView[@text='Buat PIN Kamu']"
 risk_profile_page="/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView"
 risk_profile = "Pilih tipe portfolio yang sesuai dengan Kamu."
 agresif = "/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup[1]/android.view.ViewGroup/android.view.ViewGroup/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView"
-Home_page_locator = "//android.widget.TextView[@text='Selesaikan proses pendaftaran']"
-Home_page_text = "Selesaikan proses pendaftaran"
+Home_page_locator = "//android.widget.TextView[@text='Buka Akun Investasi']"
+Home_page_text = "Buka Akun Investasi"
 #Home_page_reg_user_locator = "//android.widget.TextView[@text='Mulai Investasi Yuk…']"
 Home_page_reg_user_locator = "HomePageRDN"
 Home_page_reg_user_locator_text ="Saldo"
@@ -78,7 +78,17 @@ close_banner = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayou
 Saya_Setuju ='//android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.view.ViewGroup[2]/android.view.ViewGroup/android.widget.TextView'
 tampilkan ="//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.ImageView"
 Lewati = "//android.widget.TextView[@text ='Lewati']"
-
+konfirmasi_pin = 'SetUpPinText1'
+konfirmasi_pintxt = 'SetUpPinText2'
+buat_pin_kamu = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]'
+buat_pin_txt= '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+aktifkan_fitur_keamanan = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[1]'
+aktifkan_fitur_keamanantxt = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
+btn_nanti = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]'
+btn_pengaturan ='/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]'
+lanjut_btn ='//android.view.ViewGroup[@content-desc="selanjutana_btn"]/android.view.View'
+set_pin_dir = 'Buat PIN Kamu'
+confirm_pin_dir = 'Konfirmasi PIN'
 class LoginPage(BaseCase):
 
     @allure.step("luanch app again")
@@ -118,6 +128,10 @@ class LoginPage(BaseCase):
     @allure.step("click selanjutnya")
     def click_selanjutnya(self):
         self.click(selanjutnya)
+    
+    @allure.step("click lanjut")
+    def click_lanjut(self):
+        self.click(lanjut_btn)
 
     @allure.step("click_on_bio_off")
     def click_on_bio_off(self):
@@ -286,6 +300,17 @@ class LoginPage(BaseCase):
     def verify_redirect_to_pin_page(self):
         pin_page_text = self.get_attribute(pin_page_locator, "text")
         self.assert_equal(pin_page_text_dir , pin_page_text)
+
+
+    @allure.step("verify redirect to pin page")
+    def verify_redirect_to_set_pin_page(self):
+        set_pin_txt = self.get_attribute(buat_pin_kamu, "text")
+        self.assert_equal(set_pin_dir , set_pin_txt)
+
+    @allure.step("verify redirect to pin page")
+    def verify_redirect_to_Konfirmasi_pin_page(self):
+        set_pin_txt = self.get_attribute(konfirmasi_pin, "text")
+        self.assert_equal(confirm_pin_dir , set_pin_txt)
 
     @allure.step("confirm pin reset")
     def confirm_pin_reset(self):
