@@ -284,11 +284,13 @@ class LoginPage(BaseCase):
     def verify_redirect_to_pin_page(self):
         pin_page_text = self.get_attribute(pin_page_locator, "text")
         self.assert_equal(pin_page_text_dir , pin_page_text)
-    @allure.step("verify redirect to pin page")
+
+    @allure.step("verify redirect set to pin page")
     def verify_redirect_to_set_pin_page(self):
         set_pin_txt = self.get_attribute(buat_pin_kamu, "text")
         self.assert_equal(set_pin_dir , set_pin_txt)
-    @allure.step("verify redirect to pin page")
+
+    @allure.step("verify redirect konfirmasi to pin page")
     def verify_redirect_to_Konfirmasi_pin_page(self):
         set_pin_txt = self.get_attribute(konfirmasi_pin, "text")
         self.assert_equal(confirm_pin_dir , set_pin_txt)
