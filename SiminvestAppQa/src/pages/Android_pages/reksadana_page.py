@@ -13,7 +13,7 @@ from SiminvestAppQa.src.utilities.requestUtilities import RequestsUtilities
 request_utilities = RequestsUtilities()
 # reksadana homepage Locator'
 reksadana ="//android.view.ViewGroup[@content-desc='Homepage_reksadana_btn']/android.widget.TextView"
-Portfolio_reksadana ='(//android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[1])[1]'
+Portfolio_reksadana ='//android.widget.TextView[@text="Portfolio reksadana"]'
 total_amount='//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[2]'
 percentage_today ='//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[3]'
 transaction ="//android.widget.TextView[@text='Transaction']"
