@@ -1,6 +1,7 @@
 import allure
 import pytest
 from SiminvestAppQa.src.pages.Android_pages.login_page import LoginPage
+from SiminvestAppQa.src.pages.Android_pages.home_page import HomePage
 from SiminvestAppQa.src.utilities.genericUtilities import generate_random_integer
 from SiminvestAppQa.src.data.userData import user_data
 import time
@@ -766,6 +767,72 @@ class Login_test(LoginPage):
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
 
+    @pytest.mark.Newtest_loginLogout
+    @pytest.mark.Android
+    @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
+    @allure.story("F-2:Login/logout Feature")
+    def test_Validate_newFeature_pin_biometric(self):
+        try:
+            self.execute_script('lambda-name=test_Validate_newFeature_pin_biometric')
+            self.click_mulai_sekarang()
+            self.type_mobile_no(user_data['unkyc_reg_no_4'])
+            self.click_lanjut()
+            self.enter_otp('1234')
+            self.verify_redirect_to_set_pin_page()
+            self.enter_pin_without_bio()
+            self.verify_redirect_to_Konfirmasi_pin_page()
+            self.enter_pin()
+            self.verify_home_page()
+            self.click_on_profile_btn()
+            self.click_on_pengaturan_btn()
+            self.Click_to_Ganti_pin_siminvest()
+            self.verify_Change_pin_page()
+            self.enter_pin_without_bio()
+            self.verify_redirect_to_set_pin_page()
+            self.enter_pin_without_bio()
+            self.verify_redirect_to_Konfirmasi_pin_page()
+            self.enter_pin_without_bio()
+            self.click_back_finshPIN()
+            self.Validate_kill_app()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_Validate_newFeature_pin_biometric', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_Validate_newFeature_pin_biometric', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
+
+
+    @pytest.mark.Newtest_loginLogout_2
+    @pytest.mark.Android
+    @pytest.mark.Login_Logout
+    @pytest.mark.Revamp
+    @allure.story("F-2:Login/logout Feature")
+    def test_Validate_after3_invalid(self):
+        try:
+            self.execute_script('lambda-name=test_Validate_after3_invalid')
+            self.click_mulai_sekarang()
+            self.type_mobile_no(user_data['reg_no'])
+            self.click_selanjutnya()
+            self.enter_otp(user_data['valid_otp'])
+            self.enter_wrong_pin()
+            self.sleep(2)
+            self.enter_wrong_pin()
+            self.sleep(2)
+            self.enter_wrong_pin()
+            self.Validate_message_10minute()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_Validate_after3_invalid', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_Validate_after3_invalid', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
 
 
 
