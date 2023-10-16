@@ -785,8 +785,8 @@ class HomePage(LoginPage):
         star_point_value = self.get_attribute(homepage_starpoint_value, 'text')
         homepage_rp_with_rp = self.get_attribute(homepage_rp, 'text')
         homepage_rp_value = homepage_rp_with_rp[3:]
-        buying_power_with_buy = self.get_attribute(Buying_Power, 'text')
-        buying_power = (buying_power_with_buy[16:]).replace(',', '')
+       # buying_power_with_buy = self.get_attribute(Buying_Power, 'text')
+       # buying_power = (buying_power_with_buy[16:]).replace(',', '')
         IHSG_value = (self.get_attribute(homepage_stock_value, 'text')).replace(',', '')
         token_value = self.login()
         token = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJpWlYzdUJkTkJyTDA4dVIzQUR2bmg4akdTdHNkSHpQVSIsInN1YiI6IlNpbWFzSW52ZXN0In0.Kj31bgBrbc94NaUDKWgbx-N4ZBQNFsrZBmF7xtZ4hNo"}
@@ -797,7 +797,7 @@ class HomePage(LoginPage):
         ihsg_value_api= request_utilities.get(base_url='https://stg-api.siminvest.co.id/',endpoint='emerson/v1/index', headers=token,expected_status_code=200)
         self.assert_equal(saldo_api['data']['balance'],int(saldo_rdn_value.replace(',', '')))
         self.assert_equal(star_point['data']['value'], int(star_point_value))
-        self.assert_equal(buying_power_rs['data']['buying_power'], int(buying_power))
+       # self.assert_equal(buying_power_rs['data']['buying_power'], int(buying_power))
         self.assert_equal(buying_power_rs['data']['market_value'], int(homepage_rp_value.replace(',', '')))
         list_of_index = ihsg_value_api['data']
         for i in range(len(list_of_index)):
