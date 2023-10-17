@@ -49,3 +49,28 @@ class MF_Transaction_test(MF_Transaction):
             self.save_screenshot('test_mf_transaction_riwayat_filter', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.mf_transaction_awaiting_order_buy
+    @pytest.mark.Android
+    @pytest.mark.MF_Transaction
+    @allure.story("F-21(A):MF Transaction Page")
+    def test_mf_transaction_awaiting_order_buy(self):
+        try:
+            self.execute_script('lambda-name=test_mf_transaction_awaiting_order_buy')
+            self.open_reksadana_page(user_data['reg_no_7'])
+            self.Validate_text_reksadana()
+            self.open_mf_from_homepage()
+            p_value , nav_value = self.topup_process_from_homepage()
+            self.validate_payment_status_on_transaction_page()
+            trans_unit , trans_value = self.sorting_validation_by_date()
+           # self.assertAlmostEqual(int(p_value.replace(',','')), int(trans_value.replace(',','')))
+            self.assert_equal(nav_value, trans_unit)
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_mf_transaction_awaiting_order_buy', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_mf_transaction_awaiting_order_buy', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
