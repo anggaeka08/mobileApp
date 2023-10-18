@@ -215,7 +215,8 @@ class EventPage(StockDetailPage):
     def validate_bonus_tab(self):
         self.click(bonus_tab)
         self.sleep(3)
-        for i in range(1,4):
+        self.assert_equal(self.is_element_visible('BonusTabHeader1'), True)
+        for i in range(3,4):
             self.assert_equal(self.is_element_visible(f"BonusTabHeader{i}"), True)
 
     @allure.step("validate rups tab")
@@ -230,7 +231,7 @@ class EventPage(StockDetailPage):
         self.click(public_expose_tab)
         self.sleep(3)
         self.assert_equal(self.is_element_visible('PublicExposeTabSymbol0'), True)
-        self.assert_in('Passcode', self.get_attribute('PublicExposeTabVenue0', 'text'))
+        self.assert_in('Jakarta Selatan', self.get_attribute('PublicExposeTabVenue0', 'text'))
 
     @allure.step("validate IPO Tab")
     def validate_IPO_tab(self):
