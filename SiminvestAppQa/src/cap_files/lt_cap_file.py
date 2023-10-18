@@ -8,7 +8,8 @@ cp = [
     "name": "Testing Test Cases",
     "isRealMobile": True,
     "user": "angga.eka@sinarmassekuritas.co.id",
-    "accessKey": "No1vLLZ93JHnPP8W0afVSEeGLIbd2tRezkX2aWJEYLjZDfvWQK"
+    "accessKey": "No1vLLZ93JHnPP8W0afVSEeGLIbd2tRezkX2aWJEYLjZDfvWQK",
+    "autoGrantPermissions": True,
     },
 {
     #"app":"lt://APP1016046941680173474501548",
@@ -33,7 +34,8 @@ cp = [
     "name": "Regression 1.92.2 (603)",
     "isRealMobile": True,
     "user": "angga.eka@sinarmassekuritas.co.id",
-    "accessKey": "No1vLLZ93JHnPP8W0afVSEeGLIbd2tRezkX2aWJEYLjZDfvWQK"
+    "accessKey": "No1vLLZ93JHnPP8W0afVSEeGLIbd2tRezkX2aWJEYLjZDfvWQK",
+    "autoGrantPermissions": True,
     }
 
 ]

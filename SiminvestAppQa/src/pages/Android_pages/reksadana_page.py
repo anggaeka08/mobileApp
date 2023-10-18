@@ -155,6 +155,7 @@ tukar_page_header = '//android.view.ViewGroup/android.widget.ScrollView/android.
 port_down_arrow = '//android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[4]/android.widget.ImageView'
 port_up_arrow = '//android.view.ViewGroup[3]/android.view.ViewGroup[5]/android.widget.ImageView'
 port_topup = '//android.widget.TextView[@text="Top Up"]'
+port_topup_homepage = '//android.widget.TextView[@text="TOP UP"]'
 b_25_juta_btn = 'Bottomsheet_pilih_denom_25 juta'
 topup_on_kamu = 'Bottomsheet_btn_beli'
 saya_mengerti='ketentuan_unit_button_saya_mengerti'
@@ -183,6 +184,8 @@ value = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGro
 earning_value = '//android.view.ViewGroup/android.widget.TextView[6]'
 total_earning = '//android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[4]'
 return_loc = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[5]'
+kamu_amount = 'Bottomsheet_input_amount'
+nav_value ='Bottomsheet_nominal'
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
     def open_reksadana_page(self,phone_number):
@@ -915,7 +918,37 @@ class ReksadanaPage(HomePage):
         return_value = return_ui_text[1:index]
         self.assert_equal(return_value,return_cal)
 
+    @allure.step("top up process from home page")
+    def topup_process_from_homepage(self):
+        port_mf_name_text = self.get_attribute(port_mf_name, 'text')
+        self.click(button_top_up_rdp)
+        self.sleep(3)
+        if self.is_element_visible('//android.widget.TextView[@text="Lanjutkan"]') == True:
+            self.click('//android.widget.TextView[@text="Lanjutkan"]')
+            self.sleep(1)
+            self.click(b_25_juta_btn)
+            value = self.get_attribute(kamu_amount, 'text')
+            nav_count = self.get_attribute(nav_value, 'text')
+            self.click(topup_on_kamu)
+            self.click(saya_mengerti)
+            self.click(konfirmasi_pemesanan_pilih)
+            self.click(pilih_metode_transfer_bank)
+            self.click(knfirmasi_pmesnan_cek_box)
+            self.click(knfirmasi_pmesnan_button_bayar)
+            self.click(knfirmasi_pmesnan_btn_close)
 
+        else:
+            self.click(b_25_juta_btn)
+            value = self.get_attribute(kamu_amount, 'text')
+            nav_count = self.get_attribute(nav_value, 'text')
+            self.click(topup_on_kamu)
+            self.click(saya_mengerti)
+            self.click(konfirmasi_pemesanan_pilih)
+            self.click(pilih_metode_transfer_bank)
+            self.click(knfirmasi_pmesnan_cek_box)
+            self.click(knfirmasi_pmesnan_button_bayar)
+            self.click(knfirmasi_pmesnan_btn_close)
+        return value, nav_count
 
 
 
