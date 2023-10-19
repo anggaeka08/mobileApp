@@ -74,3 +74,25 @@ class MF_Transaction_test(MF_Transaction):
             self.save_screenshot('test_mf_transaction_awaiting_order_buy', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.order_details_page_validation_for_jual
+    @pytest.mark.Android
+    @pytest.mark.MF_Transaction
+    @allure.story("F-21(A):MF Transaction Page")
+    def test_order_details_page_validation_for_jual(self):
+        try:
+            self.execute_script('lambda-name=test_order_details_page_validation_for_jual')
+            self.login_and_verify_homepage_for_reg_user(user_data['reg_no_7'])
+            self.click_on_portfolio_btn()
+            self.click_on_reksadana_tab_on_portfolio_page()
+            self.jual_process_for_transaction_page()
+            self.validate_redirection_for_jual_entry()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_order_details_page_validation_for_jual', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_order_details_page_validation_for_jual', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)

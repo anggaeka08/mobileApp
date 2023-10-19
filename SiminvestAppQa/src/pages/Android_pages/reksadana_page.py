@@ -170,7 +170,8 @@ sell_all_btn = 'Button_sell_all'
 sell_btn = 'Button_jual2'
 sell_conf_checkbox ='//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]/android.widget.ImageView'
 sell_conf_btn = 'button_Confirm_sell'
-warning_ok_btn = '//android.widget.TextView[@text="OK"]'
+warning_ok_btn = '//android.widget.TextView[@text="Ok"]'
+msg_riwayat_btn = '//android.widget.TextView[@text="Riwayat"]'
 order_details_header = 'MFOderDetailsHeader'
 pilih_produk ='//android.view.ViewGroup[3]/android.view.ViewGroup/android.view.ViewGroup/android.widget.ImageView'
 pilih_select = '//android.view.ViewGroup[3]/android.view.ViewGroup[1]/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]'
@@ -186,6 +187,7 @@ total_earning = '//android.view.ViewGroup/android.view.ViewGroup[1]/android.widg
 return_loc = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[5]'
 kamu_amount = 'Bottomsheet_input_amount'
 nav_value ='Bottomsheet_nominal'
+transaction_status = 'ReksadanaEnrty0BeliJual'
 class ReksadanaPage(HomePage):
     @allure.step("open reksadana page")
     def open_reksadana_page(self,phone_number):
@@ -949,6 +951,19 @@ class ReksadanaPage(HomePage):
             self.click(knfirmasi_pmesnan_button_bayar)
             self.click(knfirmasi_pmesnan_btn_close)
         return value, nav_count
+
+    @allure.step(" general Jual Process")
+    def jual_process_for_transaction_page(self):
+        self.click(three_dots)
+        self.click(three_dot_pop_jual)
+        self.click(sell_all_btn)
+        self.click(sell_btn)
+        self.click(sell_conf_checkbox)
+        self.click(sell_btn)
+        self.click(sell_conf_btn)
+        self.click(msg_riwayat_btn)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(transaction_status), True)
 
 
 
