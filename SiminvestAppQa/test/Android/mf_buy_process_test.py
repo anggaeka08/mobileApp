@@ -54,3 +54,24 @@ class MfBuyProcess(buy_process,ReksadanaPage):
             self.save_screenshot('test_non_functional_mf_buy_process_part2', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+
+    @pytest.mark.test_non_functional_mf_buy_process_part_3
+    @pytest.mark.MfBuyProcess
+    @pytest.mark.Android
+    @allure.story("F-21(B):MF Buy Process")
+    def test_non_functional_mf_buy_process_part3(self):
+        try:
+            self.execute_script('lambda-name=test_non_functional_mf_buy_process_part3')
+            self.open_reksadana_page(user_data['reg_no_7'])
+            self.Validate_text_reksadana()
+            self.Validate_konfirmasi_page()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_non_functional_mf_buy_process_part3', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_non_functional_mf_buy_process_part3', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)

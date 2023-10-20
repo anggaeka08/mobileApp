@@ -40,8 +40,17 @@ bottomsheet_pilih_denom_5jt = 'Bottomsheet_pilih_denom_5 juta'
 bottomsheet_pilih_denom_10jt = 'Bottomsheet_pilih_denom_10 juta'
 bottomsheet_pilih_denom_25jt = 'Bottomsheet_pilih_denom_25 juta'
 btn_bottomsheet_beli = 'Bottomsheet_btn_beli'
-	
 denom_text = '//android.view.ViewGroup[@content-desc="Bottomsheet_pilih_denom_100000"]/android.widget.TextView'
+date_nav = '//android.view.ViewGroup[@content-desc="nav_chart_details"]/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[2]'
+btn_saya_mengerti = 'ketentuan_unit_button_saya_mengerti'
+btn_back_saya_mengerti = '//android.view.ViewGroup[@content-desc="ketentuan_unit_back_button"]/android.widget.ImageView'
+ketentuan_unit_title1 = 'ketentuan_unit_title_1'
+ketentuan_unit_sub_title1 = 'ketentuan_unit_sub_title_1'
+ketentuan_unit_title2 = 'ketentuan_unit_title_2'
+ketentuan_unit_sub_title3 = 'ketentuan_unit_sub_title_3'
+title_konfirmasi_pesanan = 'knfirmasi_pmesnan_header'
+back_btn_konfirmasi = '//android.view.ViewGroup[@content-desc="knfirmasi_pmesnan_back_btn"]/android.widget.ImageView'
+
 
 class buy_process(ReksadanaPage):
 
@@ -135,7 +144,53 @@ class buy_process(ReksadanaPage):
         logger.info(bottomsheet_rp_value)
         
         self.assert_equal(self.is_element_visible(btn_bottomsheet_beli), True)
+
+
+    @allure.step("Validate_konfirmasi_page")
+    def Validate_konfirmasi_page(self):
+        self.click(campuran)
+        self.sleep(2)
+        self.click(product_satu_campuran)
+        self.sleep(2)
+        self.click(btn_beli)
+        self.sleep(2)
+        
+        input_amount = '20400'
+        self.update_text(bottomsheet_input_amount, input_amount)
+        self.assert_equal(self.is_element_visible(btn_bottomsheet_beli), True)
+        self.click(btn_close)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(btn_beli), True)
+        
+        self.click(btn_beli)
+        self.sleep(1)
+        max_number = '123456789012'
+        self.update_text(bottomsheet_input_amount, max_number)
+        amount_max_value= (self.get_attribute(bottomsheet_input_amount, 'text'),  max_number[:12])
+        logger.info(amount_max_value)
+        self.sleep(1)
+        
+        self.click(bottomsheet_pilih_denom_100rb)
+        self.click(btn_bottomsheet_beli)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(btn_saya_mengerti), True)
+        self.assert_equal(self.is_element_visible(btn_back_saya_mengerti), True)
+        self.assert_equal(self.get_attribute(ketentuan_unit_title1, 'text'), 'Transaksi pukul 00.00 WIB - 12.00 WIB')
+        self.assert_equal(self.get_attribute(ketentuan_unit_sub_title1, 'text'), 'Mendapatkan harga unit/hari ini.')
+        self.assert_equal(self.get_attribute(ketentuan_unit_title2, 'text'), 'Transaksi pukul 12.01 WIB - 23.59 WIB')
+        self.assert_equal(self.get_attribute(ketentuan_unit_sub_title3, 'text'), 'Mendapatkan harga unit/hari bursa berikutnya.')
+
+        self.click(btn_back_saya_mengerti)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(btn_beli), True)
+        self.click(btn_beli)
+        self.click(bottomsheet_pilih_denom_100rb)
+        self.click(btn_bottomsheet_beli)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(btn_saya_mengerti), True)
+        self.click(btn_saya_mengerti)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(title_konfirmasi_pesanan), True)
+        self.assert_equal(self.is_element_visible(back_btn_konfirmasi), True)
         
         
-        
-             
