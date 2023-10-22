@@ -15,6 +15,7 @@ stock_entry_code = '(//android.widget.TextView[@content-desc="StockSearchCode"])
 stock_code_btn ='StockSearchCode'
 stock_search_name = 'StockSearchName'
 search_header = 'StockSearchType'
+search_headers = 'StockSearch'
 stock_name ='SDPStockName'
 chart_element ='SDPChartArea'
 stock_buy_bttton ='SDPBeliBtn'
@@ -187,7 +188,7 @@ reksadana_header ='(//android.view.ViewGroup/android.view.ViewGroup[7]/android.w
 reksadana_value = '/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[2]'
 reksadana_today = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[3]'
 tampilkan ="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@text = 'Sembunyikan']"
-
+Tittle_saham = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView'
 class HomePage(LoginPage):
 
     @allure.step("click global search btn and search stock")
@@ -228,6 +229,7 @@ class HomePage(LoginPage):
         self.assert_equal(self.get_attribute(search_header, 'text'),'SAHAM')
         self.assert_equal(self.is_element_visible(stock_code_btn),True)
         self.assert_equal(self.is_element_visible(stock_search_name),True)
+   
 
     @allure.step("click on stock code")
     def click_on_stock_code(self):
@@ -1146,6 +1148,14 @@ class HomePage(LoginPage):
         self.click_selanjutnya()
         self.enter_otp('1234')
         self.enter_pin() 
+
+    @allure.step("Validate saham header and stock code and stock name")
+    def validate_header_saham_and_stock_code_and_name(self, name):
+        self.assert_equal(self.get_attribute(cari_btn_after_click, 'text'), name)
+        self.assert_equal(self.is_element_visible(search_headers),True)
+        self.assert_equal(self.get_attribute(Tittle_saham, 'text'),'Saham')
+        self.assert_equal(self.is_element_visible(stock_code_btn),True)
+        self.assert_equal(self.is_element_visible(stock_search_name),True)
 
 
 

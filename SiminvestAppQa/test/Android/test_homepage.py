@@ -31,7 +31,7 @@ class homePage_test(HomePage,LoginPage):
             #self.click_global_search_btn()
             self.click_global_search_btn_and_saerch_stock('ACES')
             self.sleep(2)
-            # self.validate_saham_header_and_stock_code_and_stock_name('ACES')
+            self.validate_header_saham_and_stock_code_and_name('ACES')
             # self.click_on_stock_code()
             # self.verify_sdp_page()
             # self.go_back()
