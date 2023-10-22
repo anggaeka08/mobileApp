@@ -189,6 +189,8 @@ reksadana_value = '/android.widget.ScrollView/android.view.ViewGroup/android.vie
 reksadana_today = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[3]'
 tampilkan ="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@text = 'Sembunyikan']"
 Tittle_saham = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView'
+Tittle_mf = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
+
 class HomePage(LoginPage):
 
     @allure.step("click global search btn and search stock")
@@ -239,10 +241,10 @@ class HomePage(LoginPage):
     @allure.step("verify stock page")
     def verify_sdp_page(self):
         self.assert_equal(self.is_element_visible(stock_name), True)
-        #stock_name_text = self.get_attribute(stock_name, "text")
-        #self.assert_equal(stock_name_text, "Ace Hardware Indonesia Tbk.")
-        #self.is_element_visible(chart_element)
-        #self.is_element_visible(stock_buy_bttton)
+        stock_name_text = self.get_attribute(stock_name, "text")
+        self.assert_equal(stock_name_text, "Ace Hardware Indonesia Tbk")
+        self.is_element_visible(chart_element)
+        self.is_element_visible(stock_buy_bttton)
         beli_with_sell = self.is_element_visible(buy_btn_with_sell)
         if beli_with_sell == True:
             buy_btn_with_sell_present = self.is_element_visible(buy_btn_with_sell)
@@ -270,16 +272,16 @@ class HomePage(LoginPage):
 
     @allure.step("Validate MF search in global search and redirection after click")
     def validate_MF_search_in_global_search_and_Redirection_after_click(self):
-        self.assert_equal(self.is_element_visible(search_header), True)
-        self.assert_equal(self.get_attribute(search_header, 'text'), 'REKSADANA')
+        self.assert_equal(self.is_element_visible(search_headers), True)
+        self.assert_equal(self.get_attribute(Tittle_mf, 'text'), 'Reksadana')
         self.assert_equal(self.is_element_visible(mf_saerched_entry), True)
         self.click(mf_saerched_entry)
         self.sleep(5)
         self.assert_equal(self.is_element_visible(mf_header), True)
         self.go_back()
         self.sleep(3)
-        self.assert_equal(self.is_element_visible(search_header), True)
-        self.assert_equal(self.get_attribute(search_header, 'text'), 'REKSADANA')
+        self.assert_equal(self.is_element_visible(search_headers), True)
+        self.assert_equal(self.get_attribute(Tittle_mf, 'text'), 'Reksadana')
         self.assert_equal(self.is_element_visible(mf_saerched_entry), True)
 
     @allure.step("Click to soldo rdn btn")
@@ -1156,6 +1158,11 @@ class HomePage(LoginPage):
         self.assert_equal(self.get_attribute(Tittle_saham, 'text'),'Saham')
         self.assert_equal(self.is_element_visible(stock_code_btn),True)
         self.assert_equal(self.is_element_visible(stock_search_name),True)
+    
+    @allure.step("click global search btn and search stock MF")
+    def global_search_stock_mf(self, stock_code):
+        self.click(Tittle_mf)
+        self.update_text(cari_btn_after_click, stock_code)
 
 
 
