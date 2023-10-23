@@ -35,7 +35,31 @@ upload_bukti_bayar = 'knfirmasi_pmesnan_btn_upload'
 mf_entry_1_status = 'ReksadanaEnrty0Status0'
 mf_entry_1_unit_value = 'ReksadanaEnrty0UnitValue'
 mf_entry_1_total_value = 'ReksadanaEnrty0TotalValue'
-
+mf_entry_1_date = 'ReksadanaEnrty0Date'
+mf_entry_1 = 'ReksadanaEnrty0'
+mf_entry_2 = 'ReksadanaEnrty1'
+mf_order_details_header = 'MFOderDetailsHeader'
+back_btn_order_details_page = '//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.ImageView'
+order_details_status = 'ReksadanaEnrtyundefinedStatus0'
+order_id_order_details = 'MFOderDetailsOderIDValue'
+date_order_d = 'MFOderDetailsTanggalValue'
+od_product_details = 'MFOderDetailsProdukValue'
+od_unit_value = 'MFOderDetailsUnitValue'
+od_total_value = 'android.view.ViewGroup/android.widget.TextView[20]'
+trans_od_header = '(//android.view.ViewGroup[1]/android.view.ViewGroup/android.widget.TextView)[1]'
+value_of_mf_confirm = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView[3]'
+bank_account_confirm = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[2]'
+bank_name_confirm = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[3]'
+jumlah_yang_value_confirm = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[3]/android.widget.TextView[2]'
+mf_value_confirm = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView[3]'
+mf_nav_value_confirm = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView[5]'
+mf_buy_date_confirm = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView[6]'
+mf_processing_fee_confirm = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView[8]'
+mf_total_value_confirm = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.TextView[12]'
+arrow_on_confirm = '//android.view.ViewGroup[4]/android.view.ViewGroup[1]/android.widget.ImageView'
+confirm_permission_reminder =  'knfirmasi_pmesnan_text_reminder'
+confirm_check_status = 'knfirmasi_pmesnan_btn_status_bayar'
+confirm_kembali = 'knfirmasi_pmesnan_btn_back_beranda'
 
 class MF_Transaction(AmendProcess, ReksadanaPage):
 
@@ -197,9 +221,68 @@ class MF_Transaction(AmendProcess, ReksadanaPage):
         self.assertGreater(date_list[0], date_list[1])
         return unit, total_value[3:]
 
+    @allure.step("validate redirection for jual entry")
+    def validate_redirection_for_jual_entry(self):
+        order_status = self.get_attribute(mf_entry_1_status, 'text')
+        unit_tran = self.get_attribute(mf_entry_1_unit_value,'text')
+        value_tran = self.get_attribute(mf_entry_1_total_value,'text')
+        date_tran = self.get_attribute(mf_entry_1_date,'text')
+        self.click(mf_entry_1)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(mf_order_details_header), True)
+        self.assert_equal(self.get_attribute(order_details_status,'text'), order_status)
+        date_order_details = self.get_attribute(date_order_d, 'text')
+        unit_order_details = self.get_attribute(od_unit_value, 'text')
+        value_order_details = self.get_attribute(od_total_value, 'text')
+        for i in range(14,21,2):
+            self.assert_not_equal(self.get_attribute(f'//android.view.ViewGroup/android.widget.TextView[{i}]','text'),'-')
+        order_id_1 = self.get_attribute(order_id_order_details,'text')
+        self.assert_equal(date_order_details, date_tran)
+        self.assert_equal(unit_tran, unit_order_details)
+        self.assert_equal(value_tran, value_order_details)
+        self.click(back_btn_order_details_page)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(mf_entry_1), True)
+        self.click(mf_entry_1)
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(mf_order_details_header), True)
+        self.go_back()
+        self.sleep(1)
+        self.assert_equal(self.is_element_visible(mf_entry_1), True)
+        self.click(mf_entry_2)
+        self.sleep(1)
+        order_id_2 = self.get_attribute(order_id_order_details, 'text')
+        self.assert_not_equal(order_id_2, order_id_1)
+        self.go_back()
+        self.sleep(1)
 
-
-
-
-
-
+    @allure.step("Validate orderDetails for without payment proof transaction")
+    def validate_orderDetails_for_without_payment_proof_transaction(self):
+        self.click(mf_entry_1)
+        self.assert_equal(self.is_element_visible(all_Status), True)
+        self.click(process_btn)
+        self.assert_equal(self.is_element_visible(trans_od_header),True)
+        self.assert_equal(self.is_element_visible(value_of_mf_confirm), True)
+        self.assert_equal(self.is_element_visible(bank_account_confirm), True)
+        self.assert_equal(self.is_element_visible(bank_name_confirm), True)
+        self.assert_equal(self.is_element_visible(jumlah_yang_value_confirm), True)
+        self.assert_equal(self.is_element_visible(mf_value_confirm), True)
+        self.assert_equal(self.is_element_visible(mf_nav_value_confirm), True)
+        self.assert_equal(self.is_element_visible(mf_buy_date_confirm), True)
+        self.assert_equal(self.is_element_visible(mf_processing_fee_confirm), True)
+        self.assert_equal(self.is_element_visible(mf_total_value_confirm), True)
+        self.assert_equal(self.is_element_visible(confirm_permission_reminder), True)
+        self.click(arrow_on_confirm)
+        self.assert_equal(self.is_element_visible(value_of_mf_confirm), False)
+        self.click(arrow_on_confirm)
+        self.assert_equal(self.is_element_visible(value_of_mf_confirm), True)
+        self.click(confirm_check_status)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(all_Status), True)
+        self.click(process_btn)
+        self.assert_equal(self.is_element_visible(trans_od_header),True)
+        self.scroll_up()
+        self.sleep(1)
+        self.click(confirm_kembali)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(reksadana_list_1), True)
