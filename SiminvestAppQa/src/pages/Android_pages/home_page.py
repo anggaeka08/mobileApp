@@ -538,9 +538,9 @@ class HomePage(LoginPage):
     def verify_stock_presence_in_top_frequency(self):
         self.scroll_up()
         self.sleep(5)
-        top_frequency_stock_1_present = self.is_element_visible(top_frequency_stock1)
+        top_frequency_stock_1_present = self.is_element_visible(top_frequency_stock_1)
         assert top_frequency_stock_1_present == True, f"top_frequency_stock_1 Should be present"
-        top_frequency_stock_2_present = self.is_element_visible(top_frequency_stock2)
+        top_frequency_stock_2_present = self.is_element_visible(top_frequency_stock_2)
         assert top_frequency_stock_2_present == True, f"top_frequency_stock_2 Should be present"
 
     @allure.step("click on TF down arrow")
