@@ -50,7 +50,22 @@ ketentuan_unit_title2 = 'ketentuan_unit_title_2'
 ketentuan_unit_sub_title3 = 'ketentuan_unit_sub_title_3'
 title_konfirmasi_pesanan = 'knfirmasi_pmesnan_header'
 back_btn_konfirmasi = '//android.view.ViewGroup[@content-desc="knfirmasi_pmesnan_back_btn"]/android.widget.ImageView'
-
+product_tiga_campuran = '//android.widget.TextView[@text="Simas Satu Prima"]'
+btn_top_up = '//android.view.ViewGroup[@content-desc="Button_topup"]/android.widget.TextView'
+title_order_detail = 'knfirmasi_pmesnan_text_3'
+text_product = 'knfirmasi_pmesnan_text_4'
+text_jenis_product = 'knfirmasi_pmesnan_text_5'
+text_biaya = 'knfirmasi_pmesnan_text_6'
+text_total_tagihan = 'knfirmasi_pmesnan_text_7'
+btn_pilih = '//android.view.ViewGroup[@content-desc="knfirmasi_pmesnan_text_2"]/android.widget.TextView'
+halfcard_title = 'bottomsheet_header'
+close_btn = '//android.view.ViewGroup[@content-desc="bottomsheet_btn_close"]/android.widget.ImageView'
+text_bank = 'bottomsheet_name_bank'
+name_bank_konfirmasi_page = '//android.widget.TextView[@text="BANK SINARMAS"]'
+text_ganti_konfirmasi_page = '//android.widget.TextView[@text="ganti"]'
+cek_box = '//android.view.ViewGroup[@content-desc="knfirmasi_pmesnan_cek_box"]/android.widget.ImageView'
+text_aggrement = 'knfirmasi_pmesnan_agreement_text'
+title_rdp = 'text_title'
 
 class buy_process(ReksadanaPage):
 
@@ -192,5 +207,63 @@ class buy_process(ReksadanaPage):
         self.sleep(2)
         self.assert_equal(self.is_element_visible(title_konfirmasi_pesanan), True)
         self.assert_equal(self.is_element_visible(back_btn_konfirmasi), True)
-        
+
+
+    @allure.step("verify_top_up_page")
+    def verify_top_up_page(self):
+        self.click(campuran)
+        self.sleep(2)
+        self.click(product_tiga_campuran)
+        self.sleep(2)
+        self.click(btn_top_up)
+        self.sleep(2)
+        self.click(bottomsheet_pilih_denom_100rb)
+        self.click(btn_bottomsheet_beli)
+        self.sleep(2)
+        self.click(btn_saya_mengerti)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(title_konfirmasi_pesanan), True)
+        self.click(back_btn_konfirmasi)
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(title_rdp, 'text'), 'Simas Satu Prima')
+        self.click(back_btn_product_sdp)
+        self.sleep(2)
+    
+    @allure.step("Validate_konfirmasi_pesanan")
+    def Validate_konfirmasi_pesanan(self):
+        self.click(product_satu_campuran)
+        self.sleep(2)
+        self.click(btn_beli)
+        self.sleep(2)
+        self.click(bottomsheet_pilih_denom_100rb)
+        self.click(btn_bottomsheet_beli)
+        self.sleep(2)
+        self.click(btn_saya_mengerti)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(title_konfirmasi_pesanan), True)
+        self.click(back_btn_konfirmasi)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(btn_beli), True)
+        self.click(btn_beli)
+        self.sleep(2)
+        self.click(bottomsheet_pilih_denom_100rb)
+        self.click(btn_bottomsheet_beli)
+        self.sleep(2)
+        self.click(btn_saya_mengerti)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(title_konfirmasi_pesanan), True)
+        self.assert_equal(self.is_element_visible(title_order_detail), True)
+        self.assert_equal(self.is_element_visible(text_product), True)
+        self.assert_equal(self.is_element_visible(text_jenis_product), True)
+        self.assert_equal(self.is_element_visible(text_biaya), True)
+        self.assert_equal(self.is_element_visible(text_total_tagihan), True)
+        self.click(btn_pilih)
+        self.sleep(2)
+        self.assert_equal(self.get_attribute(halfcard_title, 'text'), 'Pilih Metode Pembayaran')
+        self.assert_equal(self.get_attribute(text_bank, 'text'), 'BANK SINARMAS')
+        self.click(text_bank)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(name_bank_konfirmasi_page), True)
+        self.assert_equal(self.is_element_visible(cek_box), True)
+        self.assert_equal(self.is_element_visible(text_aggrement), True)
         
