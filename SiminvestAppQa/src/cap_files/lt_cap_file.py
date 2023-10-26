@@ -1,6 +1,6 @@
 cp = [
 {
-    "app":"lt://APP1016026831697105794019553", 
+    "app":"lt://APP10160361451698318669470238",
     "platformName": "Android",
     "deviceName": "Pixel 4",
     "platformVersion": "10",
@@ -26,12 +26,13 @@ cp = [
     #"app":"lt://APP10160382471695034558311691", #1.90.2 (576)
     #"app":"lt://APP101605731695187656017366", #1.90.3 (578)
     #"app":"lt://APP10160401861696328201854769", #1.91.5 (593)
-    "app":"lt://APP1016026831697105794019553", #1.92.2 (603)
+    #"app":"lt://APP1016026831697105794019553", #1.92.2 (603)
+    "app":"lt://APP10160361451698318669470238", #1.93.2 (624)
     "platformName": "Android",
     "deviceName": "Pixel 4",
     "platformVersion": "10",
-    "build": "Regression 1.92.2 (603)",
-    "name": "Regression 1.92.2 (603)",
+    "build": "Regression 1.93.2 (624)",
+    "name": "Regression 1.93.2 (624)",
     "isRealMobile": True,
     "user": "angga.eka@sinarmassekuritas.co.id",
     "accessKey": "No1vLLZ93JHnPP8W0afVSEeGLIbd2tRezkX2aWJEYLjZDfvWQK",
