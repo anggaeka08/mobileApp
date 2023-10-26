@@ -66,6 +66,18 @@ text_ganti_konfirmasi_page = '//android.widget.TextView[@text="ganti"]'
 cek_box = '//android.view.ViewGroup[@content-desc="knfirmasi_pmesnan_cek_box"]/android.widget.ImageView'
 text_aggrement = 'knfirmasi_pmesnan_agreement_text'
 title_rdp = 'text_title'
+text_warning = 'knfirmasi_pmesnan_text_warning'
+btn_bayar_konfirmasi_pesanan = '//android.view.ViewGroup[@content-desc="knfirmasi_pmesnan_button_bayar"]/android.widget.TextView'
+title_detail_order = 'knfirmasi_pmesnan_header'
+order_id = 'knfirmasi_pmesnan_order_id'
+btn_close_detail_order = '//android.view.ViewGroup[@content-desc="knfirmasi_pmesnan_btn_close"]/android.widget.ImageView'
+default_orderlist_selected = '(//android.view.ViewGroup[@content-desc="ReksadanaOrderlist"])[1]'
+default_orderlist_riwayat = '(//android.view.ViewGroup[@content-desc="ReksadanaOrderlist"])[2]'
+riwayat_selected_orderlist = '(//android.view.ViewGroup[@content-desc="ReksadanaRiwayat"])[1]'
+riwayat_selected_riwayat = '(//android.view.ViewGroup[@content-desc="ReksadanaRiwayat"])[2]'
+all_types = '//android.widget.TextView[@text="All Types"]'
+all_Status = '//android.widget.TextView[@text="All Status"]'
+
 
 class buy_process(ReksadanaPage):
 
@@ -267,3 +279,40 @@ class buy_process(ReksadanaPage):
         self.assert_equal(self.is_element_visible(cek_box), True)
         self.assert_equal(self.is_element_visible(text_aggrement), True)
         
+        
+    @allure.step("Verify_order_detail")
+    def Verify_order_detail(self):
+        self.click(campuran)
+        self.sleep(2)
+        self.click(product_satu_campuran)
+        self.sleep(2)
+        self.click(btn_beli)
+        self.sleep(2)
+        self.click(bottomsheet_pilih_denom_100rb)
+        self.click(btn_bottomsheet_beli)
+        self.sleep(2)
+        self.click(btn_saya_mengerti)
+        self.sleep(2)
+        self.assert_equal(self.is_element_visible(title_konfirmasi_pesanan), True) 
+        self.click(btn_pilih)
+        self.sleep(1)
+        self.click(text_bank)
+        self.sleep(2)
+        self.click(cek_box)
+        self.sleep(1)
+        self.click(cek_box)
+        self.sleep(1)
+        self.click(cek_box)
+        self.assert_equal(self.is_element_visible(text_warning), True)
+        self.click(btn_bayar_konfirmasi_pesanan)
+        self.sleep(2) 
+        self.assert_equal(self.is_element_visible(title_detail_order), True)
+        self.assert_equal(self.is_element_visible(order_id), True)
+        self.assert_equal(self.is_element_visible(btn_close_detail_order), True)
+        self.click(btn_close_detail_order)
+        self.sleep(2) 
+        self.assert_equal(self.is_element_visible(default_orderlist_selected), True)
+        self.assert_equal(self.is_element_visible(default_orderlist_riwayat), True)
+        self.assert_equal(self.is_element_visible(all_types), True)
+        self.assert_equal(self.is_element_visible(all_Status), True)
+   
