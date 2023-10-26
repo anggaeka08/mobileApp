@@ -118,3 +118,25 @@ class MF_Transaction_test(MF_Transaction):
             self.save_screenshot('test_order_details_page_validation_buy_without_payment_proof', 'SiminvestAppQa/src/data/ScreenShots')
             self.execute_script("lambda-status=failed")
             pytest.fail(E.msg, pytrace=True)
+
+    @pytest.mark.validate_payment_proof_upload_pop_for_mf
+    @pytest.mark.Android
+    @pytest.mark.MF_Transaction
+    @allure.story("F-21(A):MF Transaction Page")
+    def test_validate_payment_proof_upload_pop_for_mf(self):
+        try:
+            self.execute_script('lambda-name=test_validate_payment_proof_upload_pop_for_mf')
+            self.open_reksadana_page(user_data['reg_no_6'])
+            self.Validate_text_reksadana()
+            self.open_mf_from_homepage()
+            self.topup_process_from_homepage()
+            self.validate_payment_proof_upload_option_validation()
+            self.execute_script("lambda-status=passed")
+        except AssertionError as E:
+            self.save_screenshot('test_validate_payment_proof_upload_pop_for_mf', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.__str__(), pytrace=True)
+        except NoSuchElementException as E:
+            self.save_screenshot('test_validate_payment_proof_upload_pop_for_mf', 'SiminvestAppQa/src/data/ScreenShots')
+            self.execute_script("lambda-status=failed")
+            pytest.fail(E.msg, pytrace=True)
