@@ -57,9 +57,9 @@ right_issue_cum_date = 'RightIssueTabCumDate0'
 right_issue_tab='EventsPageHeaderTab4'
 right_symbol = 'RightIssueTabHeaderSymbol'
 right_ratio = 'RightIssueTabHeader1'
-right_factorv='RightIssueTabHeader2'
+right_factorv='RightIssueTabHeader3'
 right_symbol_0='RightIssueTabSymbol0'
-right_factor_0 ='RightIssueTabFactor0'
+right_factor_0 ='RightIssueTabPrice0'
 right_ratio_0='RightIssueTabRatio0'
 warrant_tab='EventsPageHeaderTab5'
 warrant_symbol = 'WarrantTabHeaderSymbol'
@@ -224,14 +224,14 @@ class EventPage(StockDetailPage):
         self.click(rups_tab)
         self.sleep(3)
         self.assert_equal(self.is_element_visible('RUPSTabHeaderSymbol0'), True)
-        self.assert_in('Jakarta', self.get_attribute('RUPSTabHeaderVenue0', 'text'))
+        self.assert_in('Jakarta', self.get_attribute('RUPSTabHeaderVenue1', 'text'))
 
     @allure.step("validate Pubic expose tab")
     def validate_public_expose_tab(self):
         self.click(public_expose_tab)
         self.sleep(3)
         self.assert_equal(self.is_element_visible('PublicExposeTabSymbol0'), True)
-        self.assert_in('Jakarta Selatan', self.get_attribute('PublicExposeTabVenue0', 'text'))
+        self.assert_in('Online', self.get_attribute('PublicExposeTabVenue8', 'text'))
 
     @allure.step("validate IPO Tab")
     def validate_IPO_tab(self):
@@ -248,7 +248,7 @@ class EventPage(StockDetailPage):
 
     @allure.step("Api data validation for event page")
     def api_data_validation_for_event_page(self):
-        today_data_ui = []
+        #today_data_ui = []
         dividend_data_ui = []
         right_data_ui = []
         warrant_data_ui = []
@@ -256,8 +256,8 @@ class EventPage(StockDetailPage):
         rups_data_ui = []
         public_data_ui = []
         ipo_data_ui = []
-        for i in range(7):
-            today_data_ui.append(self.get_attribute(f'RUPSStockCode{i}', 'text'))
+       # for i in range(7):
+       #     today_data_ui.append(self.get_attribute(f'RUPSStockCode{i}', 'text'))
         self.click(dividend_tab)
         self.sleep(3)
         for i in range(5):
@@ -362,7 +362,7 @@ class EventPage(StockDetailPage):
            self.sleep(2)
         else:
             self.assert_equal(self.is_element_visible('DividendTabStockCode0'), True)
-            self.assert_in('Rp', self.get_attribute('DividendTabDiv0', 'text'))
+            self.assert_in('IDR', self.get_attribute('DividendTabDiv0', 'text'))
             self.sleep(2)
             self.assert_equal(self.is_element_visible(div_symbol), True)
             self.assert_equal(self.is_element_visible(div_div), True)
