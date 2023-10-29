@@ -185,13 +185,13 @@ Tidak_Setuju = "//android.view.ViewGroup[2]/android.view.ViewGroup/android.widge
 Syarat_dan_ketentuan = "//android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.TextView[1][@text = 'Syarat dan ketentuan']"
 btn_reksadana = 'Homepage_reksadana_btn'
 reksadana_header ='(//android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[1])[1]'
-reksadana_value = '/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[2]'
-reksadana_today = '//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[7]/android.widget.TextView[3]'
-tampilkan ="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@text = 'Sembunyikan']"
+reksadana_value = '//android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[8]/android.widget.TextView[2]'
+reksadana_today = '//android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[8]/android.widget.TextView[3]'
+tampilkan ="//android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@text = 'sembunyikan']"
 Tittle_saham = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView'
 Tittle_mf = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.HorizontalScrollView/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView'
 empty_wacthlist = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[2]'
-top_frequency_stock1 = 'HomepageTFStock0'
+icon_Hide = '/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[4]/android.widget.ImageView'
 top_frequency_stock2 = 'HomepageTFStock1'
 top_frequency_stock5 = 'HomepageTFStock3'
 
@@ -1109,11 +1109,12 @@ class HomePage(LoginPage):
     @allure.step("verify eye button is default close mode and visible when click")
     def verify_eye_defaultmode(self):
         self.sleep(1)
+        self.click(icon_Hide)
         self.assert_equal(self.is_element_visible(home_rdn_value), True)
         self.assert_equal(self.is_element_visible(homepage_starpoint_value), True)
         self.assert_equal(self.is_element_visible(today), True)
         self.assert_equal(self.is_element_visible(homepage_rp), True)
-       # self.assert_equal(self.is_element_visible(Buying_Power), True)
+        self.assert_equal(self.is_element_visible(Buying_Power), True)
         eye_home_rdn_value = self.get_attribute(home_rdn_value, "text")
         self.assert_equal(eye_home_rdn_value, "******")
         eye_homepage_starpoint_value = self.get_attribute(homepage_starpoint_value, "text")
@@ -1122,8 +1123,8 @@ class HomePage(LoginPage):
         self.assert_equal(eye_homepage_rp, "******")
         eye_today = self.get_attribute(today, "text")
         self.assert_equal(eye_today, "****** (**%) Today")
-       # eye_Buying_Power = self.get_attribute(Buying_Power, "text")
-        #self.assert_equal(eye_Buying_Power, "Buying power ******")
+        eye_Buying_Power = self.get_attribute(Buying_Power, "text")
+        self.assert_equal(eye_Buying_Power, "Buying power ******")
         self.sleep(2)
         self.click(btn_reksadana)
         self.assert_equal(self.is_element_visible(reksadana_header), True)
@@ -1134,7 +1135,7 @@ class HomePage(LoginPage):
         eye_reksadana_value = self.get_attribute(reksadana_value, "text")
         self.assert_equal(eye_reksadana_value, "******")
         self.sleep(2)
-        self.click(tampilkan)
+        self.click(icon_Hide)
         self.sleep(2)
         self.assert_equal(self.is_element_visible(home_rdn_value), True)
         home_rdn_rp = self.get_attribute(home_rdn_value, 'text')
